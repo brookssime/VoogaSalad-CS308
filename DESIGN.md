@@ -86,11 +86,13 @@ Through all of these menus, tabs, and, finally, the "scenes," the user will have
 
 As for error reporting, users will be presented with pop-up menus if something doesn't work. If a bad "game design" choice is made by a designer, a warning will also be displayed. For example, if no path is created, the user will be warned. A basic example of how the designer will work is included here.
 
-[IMAGE HERE]
+![Game Authoring Environemt UI Design](/design_images/GAEGUI.png)
 
 The Game Player will let player to check which games are available and display each game’s name, image, and description. Then, Game Player can load selected game by reading the game data and pass to Game Engine. 
 
-[IMAGES HERE]
+![Game Player UI Design 1](/design_images/GPGUI.png)
+
+![Game Player UI Design 2](/design_images/LoadSavesGUI.png)
 
 When the Game Engine finishes load the selected game, Game Player will display the following screen to let player start game by choosing “new game” or “load local saves”. “Back” button is for user to go back game chooser to load new games. There is also a button “Preference” to set up current game preference. 
 
