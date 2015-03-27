@@ -145,6 +145,8 @@
 					>
 					<port>1</port>
 				</wave>
+				<on_end>play sound,next level</on_end>
+				
 			</level>
 			<level
 				id="2"
@@ -162,8 +164,8 @@
 		</towerlist>
 		<playerinfo>
 			<money>10</money>
-			
 		</playerinfo>
+		<sound>sounds/gameWin.mp3</sound>
 	</scene>
 	<towerlist>
 		<tower
@@ -174,6 +176,7 @@
 			<cost>10</cost>
 			<shot
 				image="images/level/projectile.png"
+				sound="sounds/gunshot.mp3"
 				type="damage"
 				>
 				<power>1</power>
