@@ -8,6 +8,8 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
+import GameEngine.MethodAnnoation;
+
 
 /**
  * This class provides a variety of convenience methods for dynamically calling
@@ -122,11 +124,12 @@ public class Reflection {
      * @param target object
      * @return a list of editor methods
      */
-    public static List<Method> getEditableMethods(Object target){
+    public static List<Method> getEditorMethods(Object target){
     	Method[] allMethods = target.getClass().getMethods();
     	List<Method> targetMethods = new ArrayList<>();
     	 for(Method method : allMethods){
-    		 if(method.getName().startsWith("ed")) {
+    		 MethodAnnoation methodAnnotation = method.getAnnotation(GameEngine.MethodAnnoation.class);
+    		 if(methodAnnotation != null && methodAnnotation.editor()) {
     			 targetMethods.add(method);
     		 }
     	 }

@@ -55,10 +55,8 @@ public class FieldEditor extends Group {
 			for(int index=0; index<parametersLength; index++){
 				String argStr = textFields[index].getText();
 				Object arg = Reflection.createInstance(parameterType[index].getName(), argStr);
-				System.out.println(": "+parameterType[index].getName()+"  "+ argStr);
 				paramObjects[index] = arg;
 			}
-			System.out.println(paramObjects.toString());
 			Reflection.callMethod(obj, method.getName(), paramObjects);
 		});
 		myBox.getChildren().add(setButton);

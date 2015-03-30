@@ -11,8 +11,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 
-
-
 public class ExampleEditor extends Group{
 	private HBox myLayout;
 	private Group myView;
@@ -23,7 +21,7 @@ public class ExampleEditor extends Group{
 	public ExampleEditor(String className){
 
 		myObject = Reflection.createInstance(className);
-		ArrayList<Method> objMethods = new ArrayList<Method>(Reflection.getEditableMethods(myObject));
+		ArrayList<Method> objMethods = new ArrayList<Method>(Reflection.getEditorMethods(myObject));
 		
 		myLayout = new HBox();
 		myView = new Group();
@@ -44,6 +42,10 @@ public class ExampleEditor extends Group{
 		
 	}
 	
+	/**
+	 * This method should be able to return/export the object made/edited
+	 * for now it prints its info for testing purposes.
+	 */
 	public void printInfo(){
 		myObject.toString();
 	}

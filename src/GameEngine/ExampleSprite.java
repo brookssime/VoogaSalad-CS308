@@ -14,22 +14,25 @@ public class ExampleSprite {
 		myImage = new ImageView();
 	}
 
-	public void edSetSize(@ParameterAnnotation(name="Width") Double width, @ParameterAnnotation(name="Height") Double height){
+	@MethodAnnoation(editor=true)
+	public void SetSize(@ParameterAnnotation(name="Width") Double width, @ParameterAnnotation(name="Height") Double height){
 		myImage.setFitWidth(width);
 		myImage.setFitHeight(height);
 	}
 	
-	public void edSetPosition(@ParameterAnnotation(name="X Location") Double x, @ParameterAnnotation(name="Y Location")Double y){
+	@MethodAnnoation(editor=true)
+	public void SetPosition(@ParameterAnnotation(name="X Location") Double x, @ParameterAnnotation(name="Y Location")Double y){
 		myImage.setTranslateX(x);
 		myImage.setTranslateY(y);
 	}
 	
-	public void changeImage(Image img) {
-		myImage.setImage(img);
+	@MethodAnnoation(editor=true)
+	public void ChangeImage() {
+		selectImage();
 	}
 	
-	public void edChangeImage() {
-		selectImage();
+	public void changeImage(Image img) {
+		myImage.setImage(img);
 	}
 	
 	public void changeImage(File file) {
@@ -49,7 +52,7 @@ public class ExampleSprite {
 	}
 	
 	public String toString(){
-		System.out.println("Object created: ");
+		System.out.println("Object created: ExampleSprite");
 		System.out.println("Size: "+myImage.getFitWidth()+" "+myImage.getFitHeight());
 		System.out.println("Image File: "+myImage.getImage().toString());
 		System.out.println("Position: "+myImage.getTranslateX()+" "+myImage.getTranslateY());
