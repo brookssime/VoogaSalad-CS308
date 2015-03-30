@@ -12,7 +12,7 @@ public class View {
 	
 	public View(Stage stage) {
 		myGroup = new Group();
-		myScene = new Scene(myGroup);
+		myScene = new Scene(myGroup, 800, 600);
 
 		myStage = stage;
 		myStage.setTitle("Testing GAE elements");
@@ -27,8 +27,8 @@ public class View {
 	}
 	
 	private void addTestElement(){
-		ExampleEditor exampleEditor = new ExampleEditor("GameEngine.ExampleSprite");
-		myGroup.getChildren().add(exampleEditor);
+		EditSelector editSelector = new EditSelector();
+		myGroup.getChildren().add(editSelector);
 	}
 
 }
