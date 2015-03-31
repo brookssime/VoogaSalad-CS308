@@ -19,7 +19,7 @@ public abstract class GameData {
 	}
 
 	public Image getImage() {
-		Image image = null;
+		Image image = new Image(gameImagePath);
 		return image;
 	}
 

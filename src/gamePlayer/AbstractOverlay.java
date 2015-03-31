@@ -15,20 +15,15 @@ public abstract class AbstractOverlay extends Region {
 	protected double overlayHeight;
 	protected ResourceBundle resources;
 	
-	public AbstractOverlay(double overlayWidth, double overlayHeight, ResourceBundle rb){
+	public AbstractOverlay(double overlayWidth, double overlayHeight){
 		
-		//In case a resource bundle is used, if not it can be removed
-		this.resources = rb;
 		this.overlayWidth = overlayWidth;
 		this.overlayHeight = overlayHeight;
 		this.setMinSize(overlayWidth, overlayHeight);
 		this.setMaxSize(overlayWidth, overlayHeight);
-		createGameButtons(rb);
 		this.getStyleClass().add("overlay-color");
 		
 	}
 	
 			
-	abstract void createGameButtons(ResourceBundle rb); 
-		
 }

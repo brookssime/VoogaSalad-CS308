@@ -7,22 +7,20 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
-public class GameChoiceBoxOverlay extends AbstractOverlay {
-	
+public class GameChoiceBox extends AbstractOverlay {
+
 	protected static int numButtons;
 
-	public GameChoiceBoxOverlay(double overlayWidth, double overlayHeight,
-			ResourceBundle rb) {
-		super(overlayWidth, overlayHeight, rb);
-		
+	public GameChoiceBox(double overlayWidth, double overlayHeight, GameInfoBox gameInfoBox) {
+		super(overlayWidth, overlayHeight);
+
 	}
 
-	@Override
 	void createGameButtons(ResourceBundle rb) {
 		// TODO Auto-generated method stub
-		
+
 		configureNumButtonsUsingExistingResourceBundle();
-		
+
 		// Managing where to place the button
 		double fractionWidth = overlayWidth / numButtons;
 		double middleFraction = fractionWidth / 2;
@@ -51,15 +49,15 @@ public class GameChoiceBoxOverlay extends AbstractOverlay {
 
 		}
 
-		
 	}
-	
+
 	public void configureNumButtonsUsingExistingResourceBundle() {
 
-		GameChoiceBoxOverlay.numButtons = Integer.parseInt(resources.getString("numberAlgorithms"));
-		
+		GameChoiceBox.numButtons = Integer.parseInt(resources
+				.getString("numberAlgorithms"));
+
 	}
-	
+
 	private void createButtonWithLabelWithCenterXWithWidth(String label,
 			double centerX, double buttonWidth) {
 
@@ -81,15 +79,15 @@ public class GameChoiceBoxOverlay extends AbstractOverlay {
 
 	private void setRespectiveButtonActionWithAlgorithmName(Button b,
 			String label) {
-		
+
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				
-				// Set the button actions for each game (Likely setting an active game for the gameInformation Box)
+
+				// Set the button actions for each game (Likely setting an
+				// active game for the gameInformation Box)
 				System.out.println("Set Respective Button Actions");
 			}
 		});
 	}
-	
 
 }

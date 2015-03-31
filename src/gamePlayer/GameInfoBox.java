@@ -2,15 +2,14 @@ package gamePlayer;
 
 import java.util.ResourceBundle;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 
-public abstract class GameInfoBox extends AbstractOverlay{
+public class GameInfoBox extends AbstractOverlay{
 
-	public GameInfoBox(double overlayWidth, double overlayHeight,
-			ResourceBundle rb, GameData gameData) {
-		super(overlayWidth, overlayHeight, rb);
-		// TODO Auto-generated constructor stub
+	public GameInfoBox(double overlayWidth, double overlayHeight, GameData gameData) {
+		super(overlayWidth, overlayHeight);
 		
 		//create a textArea for the description
 		//GameData class, will be replaced by calls to an API from data class, exists now for testing/appearance
@@ -23,12 +22,17 @@ public abstract class GameInfoBox extends AbstractOverlay{
 		
 		// imageView for the image
 		ImageView gameImage = new ImageView();
-		gameImage.getImage(gameData.getImage());
+		gameImage.setImage(gameData.getImage());
+		
 	}
+	
 
-	@Override
-	void createGameButtons(ResourceBundle rb) {
-		// TODO Auto-generated method stub
+	
+
+
+	public void addPlayButton(){
+		Button playButton = new Button("Play Game");
+		this.getChildren().add(playButton);
 	}
 
 }
