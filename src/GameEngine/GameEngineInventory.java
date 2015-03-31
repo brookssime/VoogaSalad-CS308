@@ -3,6 +3,11 @@ package GameEngine;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * List of names of all instantiable classes. 
+ * @author Negatu
+ *
+ */
 public class GameEngineInventory {
 	private static List<String> myInventory = new ArrayList<String>();
 	

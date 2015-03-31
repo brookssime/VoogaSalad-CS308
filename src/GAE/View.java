@@ -1,9 +1,15 @@
 package GAE;
 
 import javafx.scene.Group;
+
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * A top level view window where GUI elements can be placed. 
+ * @author Negatu
+ *
+ */
 public class View {
 	
 	private Stage myStage;

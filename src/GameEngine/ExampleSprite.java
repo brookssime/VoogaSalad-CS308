@@ -7,6 +7,11 @@ import javax.swing.JFileChooser;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * An example editable Sprite
+ * @author Negatu
+ *
+ */
 public class ExampleSprite {
 	private ImageView myImage;
 	

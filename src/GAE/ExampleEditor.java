@@ -10,6 +10,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * An example editor window that takes a class name, and creates an editor window to outsource a custom instantiation. 
+ * @author Negatu
+ *
+ */
 
 public class ExampleEditor extends Group{
 	private HBox myLayout;

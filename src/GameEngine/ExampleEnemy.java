@@ -7,6 +7,11 @@ import javafx.scene.image.ImageView;
 
 import javax.swing.JFileChooser;
 
+/**
+ * An example editable Sprite
+ * @author Negatu
+ *
+ */
 public class ExampleEnemy {
 	private ImageView myImage;
 	private Double myHealthCapacity = 0.0;
