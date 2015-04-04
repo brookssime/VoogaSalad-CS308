@@ -30,4 +30,10 @@ public class Tower extends Sprite implements Collidable, Movable{
 		
 	}
 
+	@Override
+	public boolean isDead() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -25,5 +25,10 @@ public class Enemy extends Sprite implements Collidable, Movable{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public boolean isDead() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

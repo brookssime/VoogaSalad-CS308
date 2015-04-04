@@ -17,6 +17,12 @@ public class Base extends Sprite implements Collidable{
 		
 	}
 
+	@Override
+	public boolean isDead() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	
 	
 }
