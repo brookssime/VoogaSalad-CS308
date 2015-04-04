@@ -1,11 +1,11 @@
 package GameEngine;
 
-import java.util.List;
-
 import interfaces.Collidable;
 import interfaces.Movable;
 
-public class Enemy implements Collidable, Movable{
+import java.util.List;
+
+public class Enemy extends Sprite implements Collidable, Movable{
 
 	private Integer mySpeed;
 	private Integer myDamage;
@@ -14,14 +14,14 @@ public class Enemy implements Collidable, Movable{
 	//State?
 	//Path?
 	
-	@Override
-	public void evaluateCollision(Object o) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void evaluateCollision(Object o) {
 		// TODO Auto-generated method stub
 		
 	}

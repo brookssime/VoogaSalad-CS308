@@ -1,9 +1,15 @@
 package GameEngine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Controller {
 
+	List<Sprite> mySprites;
+	
+	
 	public Controller(){
-		
+		mySprites = new ArrayList<Sprite>();
 	}
 	
 	public void update(){
