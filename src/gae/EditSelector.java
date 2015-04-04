@@ -9,6 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * A sample window that selects what kind of object to edit and outsource. 
+ * 
+ * @author Negatu
+ */
 public class EditSelector extends Group{
 	private HBox myLayout;
 	private VBox myEditablesWindow;

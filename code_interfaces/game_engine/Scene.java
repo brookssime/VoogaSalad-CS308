@@ -9,7 +9,7 @@ package game_engine;
  *
  */
 
-public abstract interface Scene {
+public interface Scene {
 	
 	/*
 	 * The isComplete() method will check if the Scene has finished

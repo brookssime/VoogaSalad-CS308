@@ -15,6 +15,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
+/**
+ * An editor that can set values of a field for an object. 
+ * @author Negatu
+ *
+ */
 public class FieldEditor extends Group {
 	private HBox myBox;
 	private Label fieldLabel;
@@ -25,7 +30,6 @@ public class FieldEditor extends Group {
 	public FieldEditor(Method method, Object obj){
 		myBox = new HBox();
 		fieldLabel = new Label();
-		fieldLabel.setText(method.getName().replace("ed", "")+"    ");
 		myBox.getChildren().add(fieldLabel);
 
 		

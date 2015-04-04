@@ -49,6 +49,7 @@
                         <exclude>src/**/*Test.java</exclude>
                         <exclude>src/**/Test*.java</exclude>
                         <exclude>src/**/*Test*.java</exclude>
+                        <exclude>code_interfaces/**</exclude>
                     </excludes>
                     <includes>
                         <include>src/**/*.java</include>
