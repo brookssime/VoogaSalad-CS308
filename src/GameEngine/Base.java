@@ -1,5 +1,7 @@
 package GameEngine;
 
+import java.awt.Shape;
+
 import interfaces.Collidable;
 
 public class Base extends Sprite implements Collidable{
@@ -15,6 +17,18 @@ public class Base extends Sprite implements Collidable{
 	public void evaluateCollision(Object o) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void setCollisionBounds() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Shape getCollisionBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

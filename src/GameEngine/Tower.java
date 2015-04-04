@@ -1,5 +1,6 @@
 package GameEngine;
 
+import java.awt.Shape;
 import java.util.List;
 
 import interfaces.Collidable;
@@ -28,6 +29,18 @@ public class Tower extends Sprite implements Collidable, Movable{
 	
 	public void fire(){
 		
+	}
+
+	@Override
+	public void setCollisionBounds() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Shape getCollisionBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
