@@ -6,7 +6,7 @@ import interfaces.Movable;
 import java.awt.Shape;
 import java.util.List;
 
-public class Projectile extends Sprite implements Collidable, Movable{
+public class Projectile implements Collidable, Movable{
 
 	private String myImageString;
 	private List<Integer> myAccessIDs;

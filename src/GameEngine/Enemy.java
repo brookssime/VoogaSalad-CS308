@@ -3,25 +3,26 @@ package GameEngine;
 import interfaces.Collidable;
 import interfaces.Movable;
 
+import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.util.LinkedList;
 import java.util.List;
 
-public class Enemy extends Sprite implements Collidable, Movable{
+public class Enemy implements Collidable, Movable{
 
 	private Integer mySpeed;
 	private Integer myDamage;
 	private List<Integer> myWalkable;
 	private String myImageString;
 	private Shape myCollisionBounds;
-	private int myX;
-	private int myY;
+	private Point myLocation;
+	private LinkedList<Point> myPath;
 	private int myRad;
 	//State?
-	//Path?
 	
-	public Enemy(int x, int y){
-		myX = x; myY = y;
+	public Enemy(Point location, LinkedList<Point> path){
+		myLocation = location; myPath = path;
 		myRad = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
 		setCollisionBounds();
 	}
@@ -29,8 +30,7 @@ public class Enemy extends Sprite implements Collidable, Movable{
 
 	@Override
 	public void move() {
-		// TODO Auto-generated method stub
-		
+		myLocation = myPath.removeFirst();
 	}
 	@Override
 	public void evaluateCollision(Object o) {
@@ -49,7 +49,7 @@ public class Enemy extends Sprite implements Collidable, Movable{
 	}
 	@Override
 	public void setCollisionBounds() {
-		myCollisionBounds = new Ellipse2D.Double(myX, myY, myRad*2, myRad*2);
+		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRad*2, myRad*2);
 		
 	}
 

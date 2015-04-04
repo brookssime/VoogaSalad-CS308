@@ -1,17 +1,19 @@
 package GameEngine;
 
+import java.awt.Point;
 import java.awt.Shape;
 import java.util.List;
 
 import interfaces.Collidable;
 import interfaces.Movable;
 
-public class Tower extends Sprite implements Collidable, Movable{
+public class Tower implements Collidable, Movable{
 
 	private String myImageString;
 	private List<Integer> myAccessList;
 	private Integer myRange;
 	private Integer myFireRate;
+	private Point myLocation;
 	//projectile?
 	//state?
 	

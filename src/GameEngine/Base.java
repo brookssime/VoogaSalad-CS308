@@ -4,7 +4,7 @@ import java.awt.Shape;
 
 import interfaces.Collidable;
 
-public class Base extends Sprite implements Collidable{
+public class Base implements Collidable{
 
 	private String imageString;
 	private Integer baseID;

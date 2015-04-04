@@ -1,33 +1,28 @@
 package GameEngine;
 
-import groovy.swing.factory.CollectionFactory;
 import interfaces.Collidable;
 import interfaces.Movable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-
-import com.thoughtworks.xstream.converters.collections.CollectionConverter;
 
 public class Controller {
 
-	List<Sprite> mySprites;
 	List<Movable> myMovables; 
 	List<Collidable> myCollidables;
 	
 	
 	public Controller(){
-		mySprites = new ArrayList<Sprite>();
 		myMovables = new ArrayList<Movable>();
+		myCollidables = new ArrayList<Collidable>();
 	}
 	
 	public void update(){
 		moveSprites();
 		checkCollisions();
 		clearSprites();
-		dispenseNewEnemies();
+		spawnEnemies();
 		deployTimeBasedEffects();
 		
 	}
@@ -57,14 +52,12 @@ public class Controller {
 		}
 	}
 
-	private void dispenseNewEnemies() {
+	private void spawnEnemies() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	private void deployTimeBasedEffects() {
-		// TODO Auto-generated method stub
-		
-	}
-	
+		//to be implemented later
+	}	
 }
