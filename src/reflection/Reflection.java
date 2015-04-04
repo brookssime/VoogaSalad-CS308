@@ -8,7 +8,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-import GameEngine.MethodAnnoation;
+import engine.MethodAnnoation;
 
 
 /**
@@ -128,7 +128,7 @@ public class Reflection {
     	Method[] allMethods = target.getClass().getMethods();
     	List<Method> targetMethods = new ArrayList<>();
     	 for(Method method : allMethods){
-    		 MethodAnnoation methodAnnotation = method.getAnnotation(GameEngine.MethodAnnoation.class);
+    		 MethodAnnoation methodAnnotation = method.getAnnotation(engine.MethodAnnoation.class);
     		 if(methodAnnotation != null && methodAnnotation.editor()) {
     			 targetMethods.add(method);
     		 }
