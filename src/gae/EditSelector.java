@@ -1,8 +1,8 @@
-package GAE;
+package gae;
 
 import java.util.ArrayList;
 
-import GameEngine.GameEngineInventory;
+import engine.GameEngineInventory;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
