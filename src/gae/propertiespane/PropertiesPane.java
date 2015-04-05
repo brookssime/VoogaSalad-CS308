@@ -9,7 +9,7 @@ import gae.menupane.MenuAdder;
 public class PropertiesPane extends GAEPane {
 
 	public PropertiesPane(MenuAdder adder) {
-		super(PropertiesPane.class.getName(), adder);
+		super(PropertiesPane.class.getSimpleName(), adder);
 		// TODO Auto-generated constructor stub
 	}
 

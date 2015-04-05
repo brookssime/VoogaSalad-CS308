@@ -10,7 +10,7 @@ import javafx.scene.control.MenuBar;
 public class MenuPane extends GAEPane {
 
 	public MenuPane(MenuAdder adder, MenuBar mb) {
-		super(MenuPane.class.getName(), adder);
+		super(MenuPane.class.getSimpleName(), adder);
 		myRoot.getChildren().add(mb);
 	}
 

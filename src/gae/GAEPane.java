@@ -36,7 +36,7 @@ public abstract class GAEPane implements Menuable {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public Pane getPane() {
 		return myRoot;
 	}
