@@ -49,8 +49,8 @@ public class Display {
 	}
 
 	private Node setupResourcePane() {
-		// TODO Auto-generated method stub
-		return null;
+		ResourcePane resourcePane = new ResourcePane(myMenuAdder);
+		return resourcePane.getPane();
 	}
 
 	private Node setupTimelinePane() {
