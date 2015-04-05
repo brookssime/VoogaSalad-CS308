@@ -3,12 +3,14 @@ package gae;
 import gae.menupane.MenuAdder;
 import gae.menupane.MenuManager;
 import gae.menupane.MenuPane;
+import gae.propertiespane.PropertiesPane;
+import gae.resourcepane.ResourcePane;
 
 import java.util.ResourceBundle;
 
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 public class Display {
 
@@ -31,29 +33,35 @@ public class Display {
 		myRoot.setTop(setupMenuPane());
 		myRoot.setCenter(setupEditorPane());
 		myRoot.setLeft(setupResourcePane());
+		myRoot.setRight(setupPropertiesPane());
 		myRoot.setBottom(setupTimelinePane());
 		myScene = new Scene(myRoot, myWidth, myHeight);
 		return myScene;
 	}
 
-	private Node setupMenuPane() {
+	private Pane setupMenuPane() {
 		MenuManager menuManager = new MenuManager();
 		myMenuAdder = (MenuAdder) menuManager;
 		MenuPane menuPane = new MenuPane(myMenuAdder, menuManager.getMenuBar());
 		return menuPane.getPane();
 	}
 
-	private Node setupEditorPane() {
+	private Pane setupEditorPane() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private Node setupResourcePane() {
+	private Pane setupResourcePane() {
 		ResourcePane resourcePane = new ResourcePane(myMenuAdder);
 		return resourcePane.getPane();
 	}
+	
+	private Pane setupPropertiesPane() {
+		PropertiesPane propertiesPane = new PropertiesPane(myMenuAdder);
+		return propertiesPane.getPane();
+	}
 
-	private Node setupTimelinePane() {
+	private Pane setupTimelinePane() {
 		// TODO Auto-generated method stub
 		return null;
 	}

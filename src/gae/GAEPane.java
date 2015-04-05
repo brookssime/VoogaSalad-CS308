@@ -4,6 +4,7 @@ import gae.menupane.MenuAdder;
 import gae.menupane.Menuable;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
 
 import javafx.scene.layout.Pane;
 
@@ -11,12 +12,14 @@ public abstract class GAEPane implements Menuable {
 
 	protected Pane myRoot;
 	protected MenuAdder myMenuAdder;
+	private final ResourceBundle myConfigs;
 
-	public GAEPane(String nodeType, MenuAdder adder) {
+
+	public GAEPane(String className, MenuAdder adder) {
 		myMenuAdder = adder;
-
+		myConfigs = BundleGrabber.grabBundle("configs", className);
 		try {
-			setRoot(Class.forName(nodeType));
+			setRoot(Class.forName(myConfigs.getString("Root_Type")));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
