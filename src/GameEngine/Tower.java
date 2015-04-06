@@ -24,8 +24,8 @@ public class Tower implements Collidable, Movable{
 	}
 
 	@Override
-	public void evaluateCollision(Object o) {
-		// TODO Auto-generated method stub
+	public boolean evaluateCollision(Collidable collider) {
+		return false;
 		
 	}
 	

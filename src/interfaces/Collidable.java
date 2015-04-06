@@ -4,7 +4,7 @@ import java.awt.Shape;
 
 public interface Collidable {
 
-	void evaluateCollision(Object o);
+	boolean evaluateCollision(Collidable collidable);
 	boolean isDead();
 	void setCollisionBounds();
 	Shape getCollisionBounds();

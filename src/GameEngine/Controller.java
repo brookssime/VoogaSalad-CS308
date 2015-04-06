@@ -4,7 +4,9 @@ import interfaces.Collidable;
 import interfaces.Movable;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Controller {
@@ -34,10 +36,13 @@ public class Controller {
 	}
 
 	private void checkCollisions() {
+		Set<Collidable> toRemove = new HashSet<Collidable>();
 		for(Collidable sprite: myCollidables){
 			for(Collidable collider: myCollidables){
 				if(!(sprite.equals(collider))){
-					sprite.evaluateCollision(collider);
+					if(sprite.evaluateCollision(collider) && collider.getClass().isAssignableFrom(Projectile.class)){
+						toRemove.add(collider);
+					}	
 				}
 			}
 		}

@@ -33,8 +33,11 @@ public class Enemy implements Collidable, Movable{
 		myLocation = myPath.removeFirst();
 	}
 	@Override
-	public void evaluateCollision(Object o) {
-		// TODO Auto-generated method stub
+	public boolean evaluateCollision(Collidable collider) {
+		if(isCollision(collider)){
+			//TODO: COLLIDEEEEEE
+		}
+		return false;
 		
 	}
 	@Override

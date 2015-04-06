@@ -14,9 +14,8 @@ public class Base implements Collidable{
 	}
 
 	@Override
-	public void evaluateCollision(Object o) {
-		// TODO Auto-generated method stub
-		
+	public boolean evaluateCollision(Collidable collidable){
+		return false; 
 	}
 
 	@Override
@@ -35,5 +34,4 @@ public class Base implements Collidable{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
