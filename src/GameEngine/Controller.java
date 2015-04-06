@@ -13,11 +13,12 @@ public class Controller {
 
 	List<Movable> myMovables; 
 	List<Collidable> myCollidables;
-	
+	Set<Collidable> toRemove;
 	
 	public Controller(){
 		myMovables = new ArrayList<Movable>();
 		myCollidables = new ArrayList<Collidable>();
+		toRemove = new HashSet<Collidable>();
 	}
 	
 	public void update(){
@@ -36,7 +37,6 @@ public class Controller {
 	}
 
 	private void checkCollisions() {
-		Set<Collidable> toRemove = new HashSet<Collidable>();
 		for(Collidable sprite: myCollidables){
 			for(Collidable collider: myCollidables){
 				if(!(sprite.equals(collider))){
@@ -49,12 +49,13 @@ public class Controller {
 	}
 
 	private void clearSprites() {
-		List<Collidable> spritesToRemove = myCollidables.stream()
-				.filter(s -> s.isDead()).collect(Collectors.toList());
-		for(Collidable sprite: spritesToRemove){
+		toRemove.addAll(myCollidables.stream()
+				.filter(s -> s.isDead()).collect(Collectors.toSet())); //filter to find dead objects
+		for(Collidable sprite: toRemove){
 			myCollidables.remove(sprite);
 			//remove from view possibly?
 		}
+		toRemove.clear();
 	}
 
 	private void spawnEnemies() {

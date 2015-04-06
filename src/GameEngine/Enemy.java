@@ -13,6 +13,7 @@ public class Enemy implements Collidable, Movable{
 
 	private Integer mySpeed;
 	private Integer myDamage;
+	private Integer myHealth;
 	private List<Integer> myWalkable;
 	private String myImageString;
 	private Shape myCollisionBounds;
@@ -43,7 +44,9 @@ public class Enemy implements Collidable, Movable{
 	@Override
 
 	public boolean isDead() {
-		// TODO Auto-generated method stub
+		if(myHealth <= 0){
+			return true;
+		}
 		return false;
 	}
 	

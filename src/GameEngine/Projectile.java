@@ -34,9 +34,9 @@ public class Projectile implements Collidable, Movable{
 	}
 
 	@Override
-	public boolean evaluateCollision(Collidable collidable) {
+	public boolean evaluateCollision(Collidable collider) {
 		//no method body because projectile's effect evaluated by enemy
-		return true;
+		return isCollision(collider);
 		
 	}
 
