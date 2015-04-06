@@ -9,19 +9,23 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Controller {
+
+public class LevelScene extends GameScene{
 
 	List<Movable> myMovables; 
 	List<Collidable> myCollidables;
 	Set<Collidable> toRemove;
 	
-	public Controller(){
+	public LevelScene(){
 		myMovables = new ArrayList<Movable>();
 		myCollidables = new ArrayList<Collidable>();
 		toRemove = new HashSet<Collidable>();
 	}
 	
+	
+	
 	public void update(){
+		
 		moveSprites();
 		checkCollisions();
 		clearSprites();
@@ -65,5 +69,11 @@ public class Controller {
 
 	private void deployTimeBasedEffects() {
 		//to be implemented later
+	}
+
+	@Override
+	public void checkComplete() {
+		// TODO Auto-generated method stub
+		
 	}	
 }
