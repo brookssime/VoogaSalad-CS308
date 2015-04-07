@@ -6,22 +6,28 @@ import interfaces.Collidable;
 
 public class Base implements Collidable{
 
-	private String imageString;
-	private Integer baseID;
+	private String myImageString;
+	private Integer myHealth;
+	private Integer myBaseID; //not sure when/if this will be used yet
 	
-	public Base(){
-		
+	public Base(String imageString, Integer health, Integer baseID){
+		myImageString = imageString;
+		myHealth = health;
+		myBaseID = baseID;
 	}
 
 	@Override
-	public boolean evaluateCollision(Collidable collidable){
+	public boolean evaluateCollision(Collidable collider){
+		if(isCollision(collider)){
+			//TODO: COLLIDE
+			return true;
+		}
 		return false; 
 	}
 
 	@Override
 	public boolean isDead() {
-		// TODO Auto-generated method stub
-		return false;
+		return (myHealth<=0);
 	}
 	
 	public void setCollisionBounds() {

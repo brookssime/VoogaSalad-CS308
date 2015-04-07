@@ -14,6 +14,7 @@ public class Tower implements Collidable, Movable{
 	private Integer myRange;
 	private Integer myFireRate;
 	private Point myLocation;
+	private Integer myHealth;
 	//projectile?
 	//state?
 	
@@ -34,10 +35,8 @@ public class Tower implements Collidable, Movable{
 	}
 
 	@Override
-
 	public boolean isDead() {
-		// TODO Auto-generated method stub
-		return false;
+		return (myHealth <= 0);
 	}
 	
 	public void setCollisionBounds() {
@@ -50,5 +49,4 @@ public class Tower implements Collidable, Movable{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

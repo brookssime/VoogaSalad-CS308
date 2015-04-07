@@ -19,7 +19,4 @@ public class DialogueScene extends GameScene{
 	public String getNextDialogue(){
 		return myDialogue.poll();
 	}
-	
-	
-
 }

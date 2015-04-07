@@ -33,13 +33,18 @@ public class Projectile implements Collidable, Movable{
 		myLocation.y += mySpeed * Math.sin(myDirection);		
 	}
 
+	/**
+	 * no method body because projectile's effect evaluated by enemy
+	 */
 	@Override
 	public boolean evaluateCollision(Collidable collider) {
-		//no method body because projectile's effect evaluated by enemy
 		return isCollision(collider);
-		
 	}
 
+	/**
+	 * Maybe find a way to make it so projectiles are marked as dead upon collision?
+	 * Instead of manually removing them like we do currently
+	 */
 	@Override
 	public boolean isDead(){
 		return false;
@@ -55,5 +60,4 @@ public class Projectile implements Collidable, Movable{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

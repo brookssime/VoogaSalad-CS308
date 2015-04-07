@@ -10,7 +10,7 @@ public abstract class GameScene {
 	private KeyFrame myScene;
 	
 	public GameScene(){
-		
+
 	}
 
 	public KeyFrame start(double frameRate) {
@@ -34,7 +34,8 @@ public abstract class GameScene {
 		checkComplete();
 		return hasCompleted;
 	}
-	public void setNextScene(GameScene g){
-		myNext = g;
+	
+	public void setNextScene(GameScene gameScene){
+		myNext = gameScene;
 	}
 }

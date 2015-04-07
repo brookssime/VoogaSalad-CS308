@@ -12,9 +12,10 @@ import java.util.stream.Collectors;
 
 public class LevelScene extends GameScene{
 
-	List<Movable> myMovables; 
-	List<Collidable> myCollidables;
-	Set<Collidable> toRemove;
+	private List<Movable> myMovables; 
+	private List<Collidable> myCollidables;
+	private Base myBase;
+	private Set<Collidable> toRemove;
 	
 	public LevelScene(){
 		myMovables = new ArrayList<Movable>();
@@ -22,16 +23,13 @@ public class LevelScene extends GameScene{
 		toRemove = new HashSet<Collidable>();
 	}
 	
-	
-	
-	public void update(){
-		
+	public void update(){	
 		moveSprites();
 		checkCollisions();
 		clearSprites();
 		spawnEnemies();
 		deployTimeBasedEffects();
-		
+		checkComplete();
 	}
 
 	private void moveSprites() {
@@ -40,6 +38,10 @@ public class LevelScene extends GameScene{
 		}
 	}
 
+	/**
+	 * TODO: Clean this up?
+	 * Make it less indented
+	 */
 	private void checkCollisions() {
 		for(Collidable sprite: myCollidables){
 			for(Collidable collider: myCollidables){
@@ -57,23 +59,38 @@ public class LevelScene extends GameScene{
 				.filter(s -> s.isDead()).collect(Collectors.toSet())); //filter to find dead objects
 		for(Collidable sprite: toRemove){
 			myCollidables.remove(sprite);
-			//remove from view possibly?
 		}
 		toRemove.clear();
 	}
 
+	/**
+	 * TODO: Figure out timing and how to space out enemies within wave
+	 * What data structure do we use for waves?
+	 */
 	private void spawnEnemies() {
 		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * To be implemented later
+	 */
+	private void deployTimeBasedEffects() {
 		
 	}
 
-	private void deployTimeBasedEffects() {
-		//to be implemented later
-	}
-
+	/**
+	 * TODO: How do we determine if level is won?
+	 */
 	@Override
 	public void checkComplete() {
-		// TODO Auto-generated method stub
-		
+		if(myBase.isDead()){
+			//myNext = gameOverScene;
+			hasCompleted = true;
+		}
+		//else if level is won
+		//change hasCompleted to true
+		else{
+			hasCompleted = false;
+		}
 	}	
 }

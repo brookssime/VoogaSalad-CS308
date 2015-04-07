@@ -4,8 +4,8 @@ import java.awt.Shape;
 
 public interface Collidable {
 
-	boolean evaluateCollision(Collidable collidable);
-	boolean isDead();
+	boolean evaluateCollision(Collidable collider);
+	boolean isDead(); //TODO: maybe make this a default method?
 	void setCollisionBounds();
 	Shape getCollisionBounds();
 	

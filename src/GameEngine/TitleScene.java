@@ -23,5 +23,4 @@ public class TitleScene extends GameScene{
 	public String getLogoPath(){
 		return myLogoPath;
 	}
-
 }

@@ -1,14 +1,12 @@
 package GameEngine;
 
-import java.util.ArrayList;
-
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
 public class Game {
 	
 	private final int FRAME_RATE = 10;
-	GameScene myHead;
+	private GameScene myHead;
 	
 	public Game(GameScene head){
 		myHead = head;
@@ -19,13 +17,14 @@ public class Game {
 	}
 
 	public KeyFrame update(){
-		if(sceneComplete())
-			return myHead.getNextScene().start(FRAME_RATE);
+		if(sceneComplete()){
+			myHead = myHead.getNextScene();
+			return myHead.start(FRAME_RATE);
+		}
 		return myHead.getCurScene();
 	}
 	
 	public boolean sceneComplete(){
 		return myHead.isComplete();
 	}
-
 }
