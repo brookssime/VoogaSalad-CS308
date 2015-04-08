@@ -1,26 +1,39 @@
 package GameEngine;
 
+/**
+ * Currently a static title screen
+ * Animation can be added later
+ * @author Sid and Brooks and Rob and Patrick, oh my!
+ *
+ */
 public class TitleScene extends GameScene{
-
-	private boolean buttonClicked = false;
-	private String myLogoPath;
+	
+	private String myTitlePicturePath;
+	private Boolean myButtonClicked;
 	
 	@Override
 	public void update() {
-		// animation? anything moving? 
-		// maybe later
+		myButtonClicked = false;
+		myHasCompleted = false;
 	}
 
 	@Override
 	public void checkComplete() {
-		myHasCompleted = buttonClicked;
+		if(myButtonClicked){
+			myHasCompleted = true;
+		}
 	}
 	
-	public void clickStart(){
-		buttonClicked = true;
+	/**
+	 * Theoretically, this could apply to any button
+	 * All buttons will lead away from this TitleScene to another scene
+	 * It will just be a matter of setting the myNext of this scene after it is completed
+	 */
+	public void buttonClicked(){
+		myButtonClicked = true;
 	}
 	
-	public String getLogoPath(){
-		return myLogoPath;
+	public String getTitlePicturePath(){
+		return myTitlePicturePath;
 	}
 }

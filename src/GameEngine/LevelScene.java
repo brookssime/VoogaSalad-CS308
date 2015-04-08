@@ -9,14 +9,20 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
+/*
+ * 
+ */
 public class LevelScene extends GameScene{
 
 	private List<Movable> myMovables; 
 	private List<Collidable> myCollidables;
 	private Base myBase;
 	private Set<Collidable> mySpritesToRemove;
+	private String myLevelTitle;
 	
+	/**
+	 * TODO: How are all of these lists being populated?
+	 */
 	public LevelScene(){
 		myMovables = new ArrayList<Movable>();
 		myCollidables = new ArrayList<Collidable>();
@@ -92,4 +98,6 @@ public class LevelScene extends GameScene{
 			myHasCompleted = false;
 		}
 	}	
+	
+	
 }
