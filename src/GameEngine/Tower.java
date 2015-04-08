@@ -15,13 +15,12 @@ public class Tower implements Collidable, Movable{
 	private Integer myFireRate;
 	private Point myLocation;
 	private Integer myHealth;
-	//projectile?
+	private Projectile myProjectile;
 	//state?
 	
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -30,8 +29,14 @@ public class Tower implements Collidable, Movable{
 		
 	}
 	
-	public void fire(){
-		
+	/**
+	 * Thoughts on how this would work?
+	 * Could be accessed by the view somehow?
+	 * This would return a projectile which could be used elsewhere
+	 * TODO: Help idk how to fully implement this
+	 */
+	public Projectile spawnProjectile(){
+		return myProjectile;
 	}
 
 	@Override

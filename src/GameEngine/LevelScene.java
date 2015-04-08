@@ -15,12 +15,12 @@ public class LevelScene extends GameScene{
 	private List<Movable> myMovables; 
 	private List<Collidable> myCollidables;
 	private Base myBase;
-	private Set<Collidable> toRemove;
+	private Set<Collidable> mySpritesToRemove;
 	
 	public LevelScene(){
 		myMovables = new ArrayList<Movable>();
 		myCollidables = new ArrayList<Collidable>();
-		toRemove = new HashSet<Collidable>();
+		mySpritesToRemove = new HashSet<Collidable>();
 	}
 	
 	public void update(){	
@@ -39,28 +39,29 @@ public class LevelScene extends GameScene{
 	}
 
 	/**
-	 * TODO: Clean this up?
-	 * Make it less indented
+	 * Clean this up if time?
 	 */
 	private void checkCollisions() {
 		for(Collidable sprite: myCollidables){
-			for(Collidable collider: myCollidables){
-				if(!(sprite.equals(collider))){
-					if(sprite.evaluateCollision(collider) && collider.getClass().isAssignableFrom(Projectile.class)){
-						toRemove.add(collider);
-					}	
+			for (Collidable collider : myCollidables) {
+				if (!(sprite.equals(collider))
+						&& mySpritesToRemove.contains(collider)
+						&& sprite.evaluateCollision(collider)
+						&& collider.getClass().isAssignableFrom(
+								Projectile.class)) {
+					mySpritesToRemove.add(collider);
 				}
 			}
 		}
 	}
 
 	private void clearSprites() {
-		toRemove.addAll(myCollidables.stream()
+		mySpritesToRemove.addAll(myCollidables.stream()
 				.filter(s -> s.isDead()).collect(Collectors.toSet())); //filter to find dead objects
-		for(Collidable sprite: toRemove){
+		for(Collidable sprite: mySpritesToRemove){
 			myCollidables.remove(sprite);
 		}
-		toRemove.clear();
+		mySpritesToRemove.clear();
 	}
 
 	/**
@@ -78,19 +79,17 @@ public class LevelScene extends GameScene{
 		
 	}
 
-	/**
-	 * TODO: How do we determine if level is won?
-	 */
 	@Override
 	public void checkComplete() {
 		if(myBase.isDead()){
-			//myNext = gameOverScene;
-			hasCompleted = true;
+			myGameLost = true;
+			myHasCompleted = true;
 		}
-		//else if level is won
-		//change hasCompleted to true
+		else if (myGameWon == true){
+			myHasCompleted = true;
+		}
 		else{
-			hasCompleted = false;
+			myHasCompleted = false;
 		}
 	}	
 }

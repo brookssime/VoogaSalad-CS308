@@ -6,11 +6,13 @@ import javafx.util.Duration;
 public abstract class GameScene {
 	
 	private GameScene myNext;
-	protected boolean hasCompleted;
+	protected boolean myHasCompleted;
 	private KeyFrame myScene;
+	protected boolean myGameLost;
+	protected boolean myGameWon;
 	
 	public GameScene(){
-
+		myGameLost = false;
 	}
 
 	public KeyFrame start(double frameRate) {
@@ -32,7 +34,7 @@ public abstract class GameScene {
 	
 	public boolean isComplete(){
 		checkComplete();
-		return hasCompleted;
+		return myHasCompleted;
 	}
 	
 	public void setNextScene(GameScene gameScene){
