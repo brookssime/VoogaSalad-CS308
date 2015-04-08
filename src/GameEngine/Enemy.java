@@ -20,6 +20,7 @@ public class Enemy implements Collidable, Movable{
 	private Point myLocation;
 	private LinkedList<Point> myPath;
 	private int myRad;
+	//orientation??
 	//State?
 	
 	public Enemy(Point location, LinkedList<Point> path){

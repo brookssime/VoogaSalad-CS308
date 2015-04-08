@@ -5,6 +5,7 @@ import interfaces.Movable;
 
 import java.awt.Point;
 import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 import java.util.List;
 
 public class Projectile implements Collidable, Movable{
@@ -15,15 +16,16 @@ public class Projectile implements Collidable, Movable{
 	private Integer myDamage;
 	private Integer myEffectDuration;
 	private Point myLocation;
-	private int myRadius;
+	private int myRad;
 	private double myDirection;
+	private Shape myCollisionBounds;
 	
 	public Projectile(Point location, Integer speed, Integer damage, Integer duration){
 		myLocation = location; 
 		mySpeed = speed; 
 		myDamage = damage; 
 		myEffectDuration = duration;
-		myRadius = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
+		myRad = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
 		setCollisionBounds();
 	}
 	
@@ -51,13 +53,12 @@ public class Projectile implements Collidable, Movable{
 	}
 	
 	public void setCollisionBounds() {
-		// TODO Auto-generated method stub
+		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRad*2, myRad*2);
 		
 	}
 
 	@Override
 	public Shape getCollisionBounds() {
-		// TODO Auto-generated method stub
-		return null;
+		return myCollisionBounds;
 	}
 }
