@@ -18,9 +18,25 @@ public class Tower implements Collidable, Movable{
 	private Projectile myProjectile;
 	//state?
 	
+	
+	/**
+	 * detectEnemy().getLocation();
+	 * cos(theta) = (u*v) / (||u|| ||v||)
+	 * u and v are vectors originating from the tower
+	 */
 	@Override
 	public void move() {
-		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * Check if enemy is in range
+	 * Maybe make this return an Enemy at which to shoot?
+	 * TODO: Brooks yay
+	 * @return
+	 */
+	public boolean detectEnemy(){
+		 return false;
 	}
 
 	@Override

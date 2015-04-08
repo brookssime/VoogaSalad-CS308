@@ -34,6 +34,10 @@ public class Enemy implements Collidable, Movable{
 		myLocation = myPath.removeFirst();
 	}
 	
+	public Point getLocation(){
+		return myLocation;
+	}
+	
 	@Override
 	public boolean evaluateCollision(Collidable collider) {
 		if(isCollision(collider)){
