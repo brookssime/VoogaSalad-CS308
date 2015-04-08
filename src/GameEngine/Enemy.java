@@ -33,10 +33,12 @@ public class Enemy implements Collidable, Movable{
 	public void move() {
 		myLocation = myPath.removeFirst();
 	}
+	
 	@Override
 	public boolean evaluateCollision(Collidable collider) {
 		if(isCollision(collider)){
 			//TODO: COLLIDEEEEEE
+			return true;
 		}
 		return false;
 		

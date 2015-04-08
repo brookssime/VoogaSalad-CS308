@@ -13,7 +13,7 @@ public class TitleScene extends GameScene{
 
 	@Override
 	public void checkComplete() {
-		hasCompleted = buttonClicked;
+		myHasCompleted = buttonClicked;
 	}
 	
 	public void clickStart(){
@@ -23,5 +23,4 @@ public class TitleScene extends GameScene{
 	public String getLogoPath(){
 		return myLogoPath;
 	}
-
 }

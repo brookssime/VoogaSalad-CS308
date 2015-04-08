@@ -13,13 +13,10 @@ public class DialogueScene extends GameScene{
 
 	@Override
 	public void checkComplete() {
-		hasCompleted = (myDialogue.size() <= 0);
+		myHasCompleted = (myDialogue.size() <= 0);
 	}
 	
 	public String getNextDialogue(){
 		return myDialogue.poll();
 	}
-	
-	
-
 }

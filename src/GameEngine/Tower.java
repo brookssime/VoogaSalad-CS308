@@ -14,13 +14,13 @@ public class Tower implements Collidable, Movable{
 	private Integer myRange;
 	private Integer myFireRate;
 	private Point myLocation;
-	//projectile?
+	private Integer myHealth;
+	private Projectile myProjectile;
 	//state?
 	
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -29,15 +29,19 @@ public class Tower implements Collidable, Movable{
 		
 	}
 	
-	public void fire(){
-		
+	/**
+	 * Thoughts on how this would work?
+	 * Could be accessed by the view somehow?
+	 * This would return a projectile which could be used elsewhere
+	 * TODO: Help idk how to fully implement this
+	 */
+	public Projectile spawnProjectile(){
+		return myProjectile;
 	}
 
 	@Override
-
 	public boolean isDead() {
-		// TODO Auto-generated method stub
-		return false;
+		return (myHealth <= 0);
 	}
 	
 	public void setCollisionBounds() {
@@ -50,5 +54,4 @@ public class Tower implements Collidable, Movable{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

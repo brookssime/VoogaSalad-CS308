@@ -12,26 +12,24 @@ import java.util.stream.Collectors;
 
 public class LevelScene extends GameScene{
 
-	List<Movable> myMovables; 
-	List<Collidable> myCollidables;
-	Set<Collidable> toRemove;
+	private List<Movable> myMovables; 
+	private List<Collidable> myCollidables;
+	private Base myBase;
+	private Set<Collidable> mySpritesToRemove;
 	
 	public LevelScene(){
 		myMovables = new ArrayList<Movable>();
 		myCollidables = new ArrayList<Collidable>();
-		toRemove = new HashSet<Collidable>();
+		mySpritesToRemove = new HashSet<Collidable>();
 	}
 	
-	
-	
-	public void update(){
-		
+	public void update(){	
 		moveSprites();
 		checkCollisions();
 		clearSprites();
 		spawnEnemies();
 		deployTimeBasedEffects();
-		
+		checkComplete();
 	}
 
 	private void moveSprites() {
@@ -40,40 +38,58 @@ public class LevelScene extends GameScene{
 		}
 	}
 
+	/**
+	 * Clean this up if time?
+	 */
 	private void checkCollisions() {
 		for(Collidable sprite: myCollidables){
-			for(Collidable collider: myCollidables){
-				if(!(sprite.equals(collider))){
-					if(sprite.evaluateCollision(collider) && collider.getClass().isAssignableFrom(Projectile.class)){
-						toRemove.add(collider);
-					}	
+			for (Collidable collider : myCollidables) {
+				if (!(sprite.equals(collider))
+						&& mySpritesToRemove.contains(collider)
+						&& sprite.evaluateCollision(collider)
+						&& collider.getClass().isAssignableFrom(
+								Projectile.class)) {
+					mySpritesToRemove.add(collider);
 				}
 			}
 		}
 	}
 
 	private void clearSprites() {
-		toRemove.addAll(myCollidables.stream()
+		mySpritesToRemove.addAll(myCollidables.stream()
 				.filter(s -> s.isDead()).collect(Collectors.toSet())); //filter to find dead objects
-		for(Collidable sprite: toRemove){
+		for(Collidable sprite: mySpritesToRemove){
 			myCollidables.remove(sprite);
-			//remove from view possibly?
 		}
-		toRemove.clear();
+		mySpritesToRemove.clear();
 	}
 
+	/**
+	 * TODO: Figure out timing and how to space out enemies within wave
+	 * What data structure do we use for waves?
+	 */
 	private void spawnEnemies() {
 		// TODO Auto-generated method stub
-		
 	}
 
+	/**
+	 * To be implemented later
+	 */
 	private void deployTimeBasedEffects() {
-		//to be implemented later
+		
 	}
 
 	@Override
 	public void checkComplete() {
-		// TODO Auto-generated method stub
-		
+		if(myBase.isDead()){
+			myGameLost = true;
+			myHasCompleted = true;
+		}
+		else if (myGameWon == true){
+			myHasCompleted = true;
+		}
+		else{
+			myHasCompleted = false;
+		}
 	}	
 }
