@@ -20,6 +20,7 @@ public class Enemy implements Collidable, Movable{
 	private Point myLocation;
 	private LinkedList<Point> myPath;
 	private int myRad;
+	//orientation??
 	//State?
 	
 	public Enemy(Point location, LinkedList<Point> path){
@@ -32,6 +33,10 @@ public class Enemy implements Collidable, Movable{
 	@Override
 	public void move() {
 		myLocation = myPath.removeFirst();
+	}
+	
+	public Point getLocation(){
+		return myLocation;
 	}
 	
 	@Override

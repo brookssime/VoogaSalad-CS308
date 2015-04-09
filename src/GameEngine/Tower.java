@@ -2,6 +2,7 @@ package GameEngine;
 
 import java.awt.Point;
 import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 import java.util.List;
 
 import interfaces.Collidable;
@@ -16,11 +17,29 @@ public class Tower implements Collidable, Movable{
 	private Point myLocation;
 	private Integer myHealth;
 	private Projectile myProjectile;
+	private int myRad;
+	private Shape myCollisionBounds;
 	//state?
 	
+	
+	/**
+	 * detectEnemy().getLocation();
+	 * cos(theta) = (u*v) / (||u|| ||v||)
+	 * u and v are vectors originating from the tower
+	 */
 	@Override
 	public void move() {
-		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * Check if enemy is in range
+	 * Maybe make this return an Enemy at which to shoot?
+	 * TODO: Brooks yay
+	 * @return
+	 */
+	public boolean detectEnemy(){
+		 return false;
 	}
 
 	@Override
@@ -45,13 +64,12 @@ public class Tower implements Collidable, Movable{
 	}
 	
 	public void setCollisionBounds() {
-		// TODO Auto-generated method stub
+		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRad*2, myRad*2);
 		
 	}
 
 	@Override
 	public Shape getCollisionBounds() {
-		// TODO Auto-generated method stub
-		return null;
+		return myCollisionBounds;
 	}
 }
