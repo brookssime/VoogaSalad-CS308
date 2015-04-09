@@ -2,10 +2,6 @@ package gamePlayer;
 
 
 import java.util.ResourceBundle;
-
-import javafx.animation.Animation;
-import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.layout.Region;
 
 

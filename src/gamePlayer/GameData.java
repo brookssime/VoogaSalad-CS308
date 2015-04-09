@@ -2,7 +2,7 @@ package gamePlayer;
 
 import javafx.scene.image.Image;
 
-public abstract class GameData {
+public class GameData {
 	
 	protected String gameName;
 	protected String gameDescription;
@@ -19,7 +19,8 @@ public abstract class GameData {
 	}
 
 	public Image getImage() {
-		Image image = new Image(gameImagePath);
+		Image image = new Image((getClass().getResourceAsStream("../resources/sea_turtle.png")));
+		//Image image = new Image(gameImagePath);
 		return image;
 	}
 

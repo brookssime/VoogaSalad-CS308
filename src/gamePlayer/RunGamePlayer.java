@@ -1,8 +1,11 @@
 package gamePlayer;
 
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -24,9 +27,30 @@ public class RunGamePlayer extends Application{
 		
 		// Just for now, fake scene. Will change soon
 		// primaryStage.setScene(menuScreen.getScene());
-		Scene initScene = new Scene(null, 0, 0);
+		MainMenu mainMenu = new MainMenu(stage,screenWidth,screenHeight);
+		createMainMenuButtons(mainMenu);
+		Scene initScene = mainMenu.getScene();
+		
 		primaryStage.setScene(initScene);
 		primaryStage.show();
+		
+	}
+	
+	private void createMainMenuButtons(MainMenu mainMenu) {
+		Button playGame = mainMenu.getPlayButton();
+		playGame.setOnAction((event) -> {
+			GameChoiceScreen gameChoiceScreen = new GameChoiceScreen(stage, screenWidth, screenHeight);
+			Scene gameChoiceScene = gameChoiceScreen.getScene();
+			stage.setScene(gameChoiceScene);
+			stage.show();
+			
+
+		});
+		
+		
+	}
+
+	public void runGameChooser(){
 		
 	}
 
@@ -45,4 +69,8 @@ public class RunGamePlayer extends Application{
 		    stage.setHeight(screenHeight);
 	
 		}
+	
+	public static void main(String[] args){
+		launch(args);
+	}
 }
