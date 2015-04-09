@@ -18,10 +18,18 @@ public abstract class GAEPane implements Menuable {
 	public GAEPane(String className, MenuAdder adder) {
 		myMenuAdder = adder;
 		myConfigs = BundleGrabber.grabBundle("configs", className);
-		try {
-			setRoot(Class.forName(myConfigs.getString("Root_Type")));
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		if (myConfigs.containsKey("Root_Type")) {
+			try {
+				setRoot(Class.forName(myConfigs.getString("Root_Type")));
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				setRoot(Class.forName("javafx.scene.layout.Pane"));
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 		myMenuAdder.addMenus(getMenus());
 	}

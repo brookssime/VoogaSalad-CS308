@@ -1,9 +1,9 @@
 package gae;
 
+import gae.inventory.Inventory;
 import gae.menupane.MenuAdder;
 import gae.menupane.MenuManager;
 import gae.menupane.MenuPane;
-import gae.propertiespane.PropertiesPane;
 import gae.resourcepane.ResourcePane;
 
 import java.util.ResourceBundle;
@@ -33,7 +33,6 @@ public class Display {
 		myRoot.setTop(setupMenuPane());
 		myRoot.setCenter(setupEditorPane());
 		myRoot.setLeft(setupResourcePane());
-		myRoot.setRight(setupPropertiesPane());
 		myRoot.setBottom(setupTimelinePane());
 		myScene = new Scene(myRoot, myWidth, myHeight);
 		return myScene;
@@ -52,15 +51,10 @@ public class Display {
 	}
 
 	private Pane setupResourcePane() {
-		ResourcePane resourcePane = new ResourcePane(myMenuAdder);
+		ResourcePane resourcePane = new ResourcePane(myMenuAdder, new Inventory());
 		return resourcePane.getPane();
 	}
 	
-	private Pane setupPropertiesPane() {
-		PropertiesPane propertiesPane = new PropertiesPane(myMenuAdder);
-		return propertiesPane.getPane();
-	}
-
 	private Pane setupTimelinePane() {
 		// TODO Auto-generated method stub
 		return null;
