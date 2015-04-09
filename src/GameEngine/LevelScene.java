@@ -2,7 +2,6 @@ package GameEngine;
 
 import interfaces.Collidable;
 import interfaces.Movable;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -17,7 +16,8 @@ public class LevelScene extends GameScene {
 	private LinkedList<Wave> myWaves;
 	private Base myBase;
 	private Set<Collidable> mySpritesToRemove;
-	private String myLevelTitle;
+	private String myLevelTitle; 
+	private Store myCurrentStore;
 
 	/**
 	 * TODO: How are all of these lists being populated?
@@ -29,7 +29,11 @@ public class LevelScene extends GameScene {
 		mySpritesToRemove = new HashSet<Collidable>();
 	}
 
-	public void update() {
+	public void setStore(Store store){
+		myCurrentStore = store;
+	}
+	
+	public void update(){	
 		moveSprites();
 		checkCollisions();
 		clearSprites();

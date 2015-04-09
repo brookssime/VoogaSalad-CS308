@@ -19,7 +19,7 @@ public class Tower implements Collidable, Movable{
 	private Projectile myProjectile;
 	private int myRad;
 	private Shape myCollisionBounds;
-	//state?
+	private int myRotationSpeed;
 	
 	
 	/**
@@ -35,7 +35,7 @@ public class Tower implements Collidable, Movable{
 	/**
 	 * Check if enemy is in range
 	 * Maybe make this return an Enemy at which to shoot?
-	 * TODO: Brooks yay
+	 * TODO
 	 * @return
 	 */
 	public boolean detectEnemy(){
