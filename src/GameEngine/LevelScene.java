@@ -17,6 +17,7 @@ public class LevelScene extends GameScene{
 	private Base myBase;
 	private Set<Collidable> mySpritesToRemove;
 	private String myLevelTitle; 
+	private Store myCurrentStore;
 	
 	/**
 	 * TODO: How are all of these lists being populated?
@@ -25,6 +26,10 @@ public class LevelScene extends GameScene{
 		myMovables = new ArrayList<Movable>();
 		myCollidables = new ArrayList<Collidable>();
 		mySpritesToRemove = new HashSet<Collidable>();
+	}
+	
+	public void setStore(Store store){
+		myCurrentStore = store;
 	}
 	
 	public void update(){	
