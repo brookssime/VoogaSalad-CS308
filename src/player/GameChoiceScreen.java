@@ -31,7 +31,7 @@ public class GameChoiceScreen {
 		
 		GameData gameData = new GameData("Name", "Description", "../resources/tower-defense-games.png");
 		
-		GameInfoBox gameInfoBox = new GameInfoBox(infoBoxWidth, infoBoxHeight, gameData);
+		GameInfoBox gameInfoBox = new GameInfoBox(stage, infoBoxWidth, infoBoxHeight, gameData);
 		gameInfoBox.setLayoutX(.35 * screenWidth);
 		gameInfoBox.setLayoutY(.15 * screenHeight);
 		

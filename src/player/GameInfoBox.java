@@ -5,10 +5,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class GameInfoBox extends AbstractOverlay{
 
-	public GameInfoBox(double overlayWidth, double overlayHeight, GameData gameData) {
+	public GameInfoBox(Stage stage, double overlayWidth, double overlayHeight, GameData gameData) {
 		super(overlayWidth, overlayHeight);
 		
 		//create a textArea for the description
@@ -52,6 +53,7 @@ public class GameInfoBox extends AbstractOverlay{
 		this.getChildren().add(gameImage);
 		this.getChildren().add(description);
 		this.getChildren().add(title);
+		addPlayButton();
 		
 		
 	}
@@ -62,7 +64,8 @@ public class GameInfoBox extends AbstractOverlay{
 
 	public void addPlayButton(){
 		Button playButton = new Button("Play Game");
-		//playButton.setLayoutX();
+		playButton.setLayoutX(overlayWidth * .4);
+		playButton.setLayoutY(overlayHeight * .6);
 		this.getChildren().add(playButton);
 	}
 
