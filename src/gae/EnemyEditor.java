@@ -1,5 +1,12 @@
 package gae;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,6 +24,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -27,6 +35,7 @@ import javafx.stage.Stage;
 
 public class EnemyEditor extends Application{
 	
+	private Desktop desktop = Desktop.getDesktop();
 	
     @Override
     public void start(Stage primaryStage) {
@@ -45,11 +54,9 @@ public class EnemyEditor extends Application{
         title.setFont(Font.font("Times New Roman", FontWeight.BOLD, 25));
         myPane.add(title, 0, 1, 2, 1);
         
-        Label image = new Label("Set Image"); //TODO: Change this to browse
+        Label image = new Label("Set Image");
         image.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
         myPane.add(image, 0, 2);
-        TextField imageField = new TextField();
-        myPane.add(imageField, 1, 2);
         
         Label name = new Label("Set Name"); 
         name.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
@@ -75,18 +82,18 @@ public class EnemyEditor extends Application{
         TextField damageField = new TextField();
         myPane.add(damageField, 1, 10);
         
-        //Code for the button
+        //Code for the save button
         Button finishBtn = new Button("Save");
         HBox finishHB = new HBox(10);
         finishHB.setAlignment(Pos.BOTTOM_CENTER);
         finishHB.getChildren().add(finishBtn);
         myPane.add(finishHB, 1, 12);
         
-        //Displaying messages
+        //Displaying messages for save button
         final Text action = new Text();
         myPane.add(action, 1, 13);
         
-        //Event Handling
+        //Event Handling of save button
         finishBtn.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
             public void handle(ActionEvent e) {
@@ -95,6 +102,28 @@ public class EnemyEditor extends Application{
                 //TODO: Make this close the editor instead
             }
         });
+        
+        //Choosing a file button
+        Button fileBtn = new Button("Choose Image");
+        HBox fileHB = new HBox(10);
+        fileHB.setAlignment(Pos.CENTER);
+        fileHB.getChildren().add(fileBtn);
+        myPane.add(fileHB, 1, 2);
+        
+        //File Chooser event
+        //TODO: Output the file path
+        //TODO: Make sure it chooses image files
+        final FileChooser chooser = new FileChooser();
+        fileBtn.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(final ActionEvent e) {
+                        File file = chooser.showOpenDialog(primaryStage);
+                        if (file != null) {
+                            openFile(file);
+                        }
+                    }
+                });
         
         Scene scene = new Scene(myPane, 800, 800); //this will depend on the GAE's main interface
         BorderPane borderPane = new BorderPane();
@@ -107,6 +136,17 @@ public class EnemyEditor extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    
+    private void openFile(java.io.File file) {
+    	 try {
+             desktop.open(file);
+         } catch (IOException ex) {
+             Logger.getLogger(
+                 EnemyEditor.class.getName()).log(
+                     Level.SEVERE, null, ex
+                 );
+         }
+     }
     
     public static void main(String[] args) {
         Application.launch(args);
