@@ -7,14 +7,14 @@ import com.sun.javafx.geom.Point2D;
 
 public interface EditableEnemy {
 	
-	void getSpeed();
-	void getDamage();
-	void getHealth();
-	void getWalkable();
-	void getImageString();
-	void getLocation();
-	void getPath();
-	void getRad();
+	void setSpeed();
+	void setDamage();
+	void setHealth();
+	void setWalkable();
+	void setImageString();
+	void setLocation();
+	void setPath();
+	void setRad();
 	
 
 }

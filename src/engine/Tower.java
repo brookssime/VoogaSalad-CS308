@@ -14,7 +14,7 @@ import interfaces.EditableTower;
 import interfaces.Movable;
 
 
-public class Tower implements Movable, EditableTower{
+public class Tower implements Movable {
 
 
 	private String myImageString;
@@ -60,11 +60,6 @@ public class Tower implements Movable, EditableTower{
 
 
 	
-	/**
-	 * detectEnemy().getLocation();
-	 * cos(theta) = (u*v) / (||u|| ||v||)
-	 * u and v are vectors originating from the tower
-	 */
 	
 	@Override
 	public void move() {
@@ -179,45 +174,5 @@ public class Tower implements Movable, EditableTower{
 	}
 
 
-
-	@Override
-	public String setName() {
-		return myName;
-	}
-
-	@Override
-	public String setImageString() {
-		return myImageString;
-	}
-
-	@Override
-	public List<Integer> setAccessList() {
-		return myAccessList;
-	}
-
-	@Override
-	public Integer setRange() {
-		return myRange;
-	}
-
-	@Override
-	public Integer setFireRate() {
-		return myFireRate;
-	}
-
-	@Override
-	public Point2D setLocation() {
-		return myLocation;
-	}
-
-	@Override
-	public Integer setHealth() {
-		return myHealth;
-	}
-
-	@Override
-	public Integer setRad() {
-		return myRad;
-	}
 
 }
