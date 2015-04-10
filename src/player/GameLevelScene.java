@@ -24,11 +24,11 @@ public class GameLevelScene implements GraphicGameScene{
 	// spaces out the bottom menu
 	private static final int MENU_SPACING = 50;
 	private static final int SLIDER_SPACING = 10;
-	private double infoBoxWidthPct = .6;
-	private double infoBoxHeightPct = .7;
+	//private double infoBoxWidthPct = .6;
+	//private double infoBoxHeightPct = .7;
 	private Slider animationSpeedSlider;
-	private double choiceBoxWidthPct = .2;
-	private double choiceBoxHeightPct = 7;
+	//private double choiceBoxWidthPct = .2;
+	//private double choiceBoxHeightPct = 7;
 	
 	
 	//Group root;
@@ -39,7 +39,7 @@ public class GameLevelScene implements GraphicGameScene{
 	private Button pausePlayButton;
 	private static final String PAUSE_PLAY = "Pause";
 	private Label levelLabel;
-	private double levelNum;
+	private int levelNum;
 	private Label moneyLabel;
 	private double moneyNum;
 	private Label scoreLabel;
@@ -89,14 +89,39 @@ public class GameLevelScene implements GraphicGameScene{
 
 	private Node makeGridDisplay() {
 		myGrid = new GridPane();
-		for (int row = 0; row < 10; row++)
+		int grid[][] = {
+				{1,1,2,1,1,1,1,1,1,1,1,1,1,1,1},
+				{1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
+				{1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
+				{1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
+				{1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
+				{1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
+				{1,1,0,0,0,0,0,0,0,0,0,0,1,1,1},
+				{1,1,1,1,1,1,1,1,1,1,1,0,1,1,1},
+				{1,1,1,1,1,1,1,1,1,1,1,0,1,1,1},
+				{1,1,1,1,1,1,1,1,1,1,1,3,1,1,1},
+
+				
+				
+				
+				
+				
+		};
+		for (int row = 0; row < grid.length; row++)
 		{
-			for (int column = 0; column < 15; column++)
+			for (int column = 0; column < grid[0].length; column++)
 			{
 				ImageView myImage = new ImageView();
 				myImage.setFitHeight(80);
 				myImage.setFitWidth(80);
-				myImage.setImage(new Image(getClass().getResourceAsStream("../images/wall.png")));
+				String filename = "";
+				if(grid[row][column]==1) filename = "../images/wall.png";
+				if(grid[row][column]==2) filename = "../images/port.png";
+				if(grid[row][column]==3) filename = "../images/home.png";
+				if(grid[row][column]==0) filename = "../images/path.png";
+				
+				myImage.setImage(new  Image(getClass().getResourceAsStream(filename)));
+				
 				myGrid.add(myImage, column, row);
 			}
 		}
