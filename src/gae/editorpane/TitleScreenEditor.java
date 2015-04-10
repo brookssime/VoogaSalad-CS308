@@ -1,10 +1,15 @@
-package gae;
+package gae.editorpane;
+
+import gae.GAEPane;
+import gae.menupane.MenuAdder;
 
 import java.io.File;
+import java.util.List;
 
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
@@ -17,29 +22,16 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class TitleScreenEditor{
+public class TitleScreenEditor extends GAEPane{
 
-	private TabPane myTabPane;
-	
-	public TitleScreenEditor() {
-		createTabPane();
-	}
-
-	private void createTabPane() {
-		myTabPane = new TabPane();
-		myTabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-		addSettingsTab();
-		addAdvancedSettingsTab();
+	public TitleScreenEditor(MenuAdder adder) {
+		super(TitleScreenEditor.class.getSimpleName(), adder);
+		myRoot.getChildren().add(setRootProperties());
 	}
 	
-	private void addSettingsTab(){
-		Tab titleScreen = addNewTab("Settings");
-		titleScreen.setContent(addSettingsContent());
-		myTabPane.getTabs().add(titleScreen);
-	}
 
-	private VBox addSettingsContent(){
-		VBox group = new VBox();
+	private VBox setRootProperties(){
+		VBox group = new VBox(10);
 		
 		//For setting title name
 		HBox titleSet = new HBox(5);
@@ -48,7 +40,7 @@ public class TitleScreenEditor{
 		group.getChildren().add(addField("Set Title of Game: ", "Set X Position: ", "Set Y Position: "));
 		group.getChildren().add(addField("Set Play Button Name: ", "Set X Position: ", "Set Y Positoin: "));
 		
-		HBox fileButtonBox = new HBox();
+		HBox fileButtonBox = new HBox(10);
 		group.getChildren().add(fileButtonBox);
 		Button openFileButton = new Button("Open File");
 		fileButtonBox.getChildren().add(openFileButton);
@@ -60,6 +52,12 @@ public class TitleScreenEditor{
 			File imageFile = fileChooser.showOpenDialog(new Stage());
 			Text imagePath = new Text(imageFile.getAbsolutePath());
 			fileButtonBox.getChildren().add(imagePath);
+		});
+		
+		Button applyButton = new Button("Apply");
+		group.getChildren().add(applyButton);
+		applyButton.setOnAction(e -> {
+			//TODO: backend call
 		});
 		return group;
 	}
@@ -81,21 +79,11 @@ public class TitleScreenEditor{
 		hBox.getChildren().add(textField);
 		return hBox;
 	}
-	
-	private void addAdvancedSettingsTab() {
-		Tab titleScreen = addNewTab("Advanced Settings");
-		titleScreen.setContent(new Rectangle(200,200, Color.LIGHTSTEELBLUE));
-		myTabPane.getTabs().add(titleScreen);
-	}
-	
-	private Tab addNewTab(String name){
-		Tab tab = new Tab();
-		tab.setText(name);
-		return tab;
-	}
-	
-	public TabPane getPane(){
-		return myTabPane;
+
+	@Override
+	public List<Menu> getMenus() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

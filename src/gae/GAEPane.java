@@ -16,7 +16,6 @@ public abstract class GAEPane implements Menuable {
 
 
 	public GAEPane(String className, MenuAdder adder) {
-		System.out.println(className);
 		myMenuAdder = adder;
 		myConfigs = BundleGrabber.grabBundle("configs", className);
 		if (myConfigs.containsKey("Root_Type")) {
