@@ -3,11 +3,14 @@ package engine;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.util.List;
 
+import interfaces.Authorable;
 import interfaces.Collidable;
 
-public class Base implements Collidable{
+public class Base implements Collidable, Authorable{
 
+	private String myName;
 	private String myImageString;
 	private Integer myHealth;
 	private Integer myBaseID; //not sure when/if this will be used yet
@@ -15,6 +18,10 @@ public class Base implements Collidable{
 	private Shape myCollisionBounds;
 	private Point myLocation;
 	
+	
+	public Base(){
+		
+	}
 	
 	public Base(String imageString, Integer health, Integer baseID){
 		myImageString = imageString;
@@ -25,7 +32,9 @@ public class Base implements Collidable{
 	@Override
 	public boolean evaluateCollision(Collidable collider){
 		if(isCollision(collider)){
-			//TODO: COLLIDE
+			if (collider.getClass().isAssignableFrom(Enemy.class)) { 
+				myHealth -= ((Enemy) collider).getEnemyDamage(); 
+			}
 			return true;
 		}
 		return false; 
@@ -44,5 +53,23 @@ public class Base implements Collidable{
 	@Override
 	public Shape getCollisionBounds() {
 		return myCollisionBounds;
+	}
+
+	@Override
+	public void setName(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateParams(List<Object> params) {
+		// TODO Auto-generated method stub
+		
 	}
 }

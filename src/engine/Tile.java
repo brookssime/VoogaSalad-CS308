@@ -1,9 +1,13 @@
 package engine;
 
-import java.awt.Shape;
+import interfaces.Authorable;
 
-public class Tile {
+import java.awt.Shape;
+import java.util.List;
+
+public class Tile implements Authorable{
 	
+	private String myName;
 	private String myImagePath;
 	private Shape myShape;
 	private int myAccessID;
@@ -13,6 +17,24 @@ public class Tile {
 	}
 	
 	public Tile(){
+		
+	}
+
+	@Override
+	public void setName(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateParams(List<Object> params) {
+		// TODO Auto-generated method stub
 		
 	}
 }
