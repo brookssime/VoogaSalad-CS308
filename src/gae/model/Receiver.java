@@ -18,4 +18,7 @@ public interface Receiver {
 	public void setBind(String type, ObjectProperty<ObservableList<String>> prop);
 	public ArrayList<String> getElements(String type);
 
+	//type is the name of the editor like the class name
+	//obj is the name of the string key
+	//params
 }
