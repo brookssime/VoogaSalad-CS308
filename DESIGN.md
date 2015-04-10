@@ -113,10 +113,10 @@ The GAE is capable of taking the different GameObject components that are create
 
 The GAE will currently not provide any API to the other modules. The GAE will, however, use different APIs from the other modules. 
 
-APIs from GameEngine: The GAE will APIs from the GameEngine module to create and modify specific classes. This will be a set of APIs that is an aggregate of APIs of individual classes. For example, the GameScene class will provide APIs to GAE that will modify its different properties.
+APIs from engine: The GAE will APIs from the engine module to create and modify specific classes. This will be a set of APIs that is an aggregate of APIs of individual classes. For example, the GameScene class will provide APIs to GAE that will modify its different properties.
     eg.    public void setGameName(String name);
         public void addNewScene(Scene scene);
-Another example can be SpriteManager, which is one of the classes in the GameEngine module. Here is example APIs from the SpriteManger.
+Another example can be SpriteManager, which is one of the classes in the engine module. Here is example APIs from the SpriteManger.
     eg.    public void addNewRule(Rule rule, Action...actions);
 
 APIs from the GamePlayer: the GAE will use APIs from the GamePlayer to launch live game editing console. 
