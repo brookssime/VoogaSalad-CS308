@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -27,15 +28,15 @@ import javafx.stage.Stage;
 public class EditorTab extends Application{
 	private List<String> tabNames = new ArrayList<String>(); 
 	private EnemyEditor myEditor = new EnemyEditor();
-	private EditableEnemy myEdit = new EditableEnemy();
-	private Method[] myMethods = new Method[];
+	//private EditableEnemy myEdit = new EditableEnemy();
+	//private Method[] myMethods = new Method[];
 
 	//private VBox myForm;
 	
     @Override
     public void start(Stage primaryStage) {
     	tabNames = myEditor.getTabNames();
-    	myMethods = getMethods(myEdit);
+    	//myMethods = getMethods(myEdit);
     	
         primaryStage.setTitle("Editor Tabs");
         Group root = new Group();
@@ -49,9 +50,12 @@ public class EditorTab extends Application{
             Tab tab = new Tab();
             tab.setText(tabNames.get(i));
             HBox hbox = new HBox();
-            VBox form = makeForm();
-            hbox.getChildren().add(form); //what goes inside the tab
+           // VBox form = makeForm();
+            hbox.getChildren().add(new Label("Tab" + i)); //what goes inside the tab
+            TextField userTextField = new TextField();
+            hbox.getChildren().add(userTextField);
             hbox.setAlignment(Pos.CENTER);
+            hbox.setSpacing(20);
             tab.setContent(hbox);
             tabPane.getTabs().add(tab);
         }
@@ -69,14 +73,14 @@ public class EditorTab extends Application{
     	return o.getClass().getMethods();
     } 
     
-    private VBox makeForm(){
+   /* private VBox makeForm(){
     	VBox myForm = new VBox();
     	for (Method method : myMethods) {
 			FieldEditor aFieldEditor = new FieldEditor(method, myEdit);
 			myForm.getChildren().add(aFieldEditor);
 		}
     	return myForm;
-    }
+    }*/
     
     public static void main(String[] args) {
         Application.launch(args);
