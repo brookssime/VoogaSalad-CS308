@@ -24,6 +24,8 @@ public class TowerInfo{
 	private Label priceLabel;
 	private Label rangeLabel;
 	private Label damageLabel;
+	private static final int LABELSPACING = 5;
+	private static final int IMAGESIZE = 80;
 	
 	public TowerInfo(Tower t){
 		
@@ -31,14 +33,15 @@ public class TowerInfo{
 	
 	public TowerInfo(String imageFile, String name,int price,  int range, int damage ){
 		image = new ImageView(new Image((getClass().getResourceAsStream(imageFile))));
-		image.setFitHeight(100);
-		image.setFitWidth(100);
+		image.setFitHeight(IMAGESIZE);
+		image.setFitWidth(IMAGESIZE);
 		this.name = name;
 		this.price = price;
 		this.range = range;
 		this.damage = damage;
 		display = new HBox();
 		info = new VBox();
+		info.setSpacing(LABELSPACING);
 		nameLabel = new Label("name: "+name);
 		priceLabel = new Label("price: "+price);
 		rangeLabel = new Label("range: "+range);

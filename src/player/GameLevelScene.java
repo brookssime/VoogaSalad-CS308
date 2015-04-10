@@ -24,11 +24,11 @@ public class GameLevelScene implements GraphicGameScene{
 	// spaces out the bottom menu
 	private static final int MENU_SPACING = 50;
 	private static final int SLIDER_SPACING = 10;
-	private double infoBoxWidthPct = .6;
-	private double infoBoxHeightPct = .7;
+	//private double infoBoxWidthPct = .6;
+	//private double infoBoxHeightPct = .7;
 	private Slider animationSpeedSlider;
-	private double choiceBoxWidthPct = .2;
-	private double choiceBoxHeightPct = 7;
+	//private double choiceBoxWidthPct = .2;
+	//private double choiceBoxHeightPct = 7;
 	
 	
 	//Group root;
