@@ -1,5 +1,6 @@
 package gae.resourcepane;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.value.ChangeListener;
@@ -9,6 +10,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -54,6 +56,7 @@ public class ResourcePane extends GAEPane {
 		TitledPane towerPane = new TitledPane();
 		ListView<String> towerList = new ListView<String>();
 		towerList.setItems(myInventory.getTowers());
+		
 
 		towerList
 				.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
@@ -106,8 +109,14 @@ public class ResourcePane extends GAEPane {
 
 	@Override
 	public List<Menu> getMenus() {
+		List<Menu> menus = new ArrayList<Menu>();
 
-		return null;
+		Menu menuInventory = new Menu("Inventory");
+		MenuItem newTowerMenuItem = new MenuItem("New Tower");
+		
+		menus.add(menuInventory);
+		
+		return menus;
 	}
 
 	static class SpriteCell extends ListCell<String> {
