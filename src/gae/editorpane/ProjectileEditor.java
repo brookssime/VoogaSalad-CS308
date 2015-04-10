@@ -1,4 +1,4 @@
-package gae;
+package gae.editorpane;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 public class ProjectileEditor {
 	private Stage myStage;
 	private Desktop desktop = Desktop.getDesktop();
+	//TODO: Make sure what goes in the fields is saved
 	
 	public void ProjectileEditor(Stage s){
 		myStage = new Stage();
