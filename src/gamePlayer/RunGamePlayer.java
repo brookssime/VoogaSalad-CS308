@@ -39,8 +39,9 @@ public class RunGamePlayer extends Application{
 	private void createMainMenuButtons(MainMenu mainMenu) {
 		Button playGame = mainMenu.getPlayButton();
 		playGame.setOnAction((event) -> {
-			GameChoiceScreen gameChoiceScreen = new GameChoiceScreen(stage, screenWidth, screenHeight);
-			Scene gameChoiceScene = gameChoiceScreen.getScene();
+			//GameChoiceScreen gameChoiceScreen = new GameChoiceScreen(stage, screenWidth, screenHeight);
+			GameLevelScene g = new GameLevelScene(stage, screenWidth, screenHeight);
+			Scene gameChoiceScene = g.getScene();
 			stage.setScene(gameChoiceScene);
 			stage.show();
 			

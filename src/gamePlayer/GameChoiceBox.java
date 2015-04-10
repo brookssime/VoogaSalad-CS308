@@ -1,4 +1,4 @@
-package gamePlayer;
+package GamePlayer;
 
 
 public class GameChoiceBox extends AbstractOverlay {

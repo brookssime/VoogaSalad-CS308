@@ -5,5 +5,5 @@ public interface GamePlay {
 	public int getScore();
 	public void updateMoney();
 	public void updateScore();
-	public Level loadLevel(int level);
+	//public Level loadLevel(int level);
 }

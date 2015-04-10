@@ -15,6 +15,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		GameChoiceScreen v = new GameChoiceScreen(stage, SCREENWIDTH, SCREENHEIGHT );
+		
 		stage.setTitle("Game Chooser");
 		stage.setScene(v.getScene());
 		stage.setResizable(false);
