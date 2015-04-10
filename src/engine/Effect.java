@@ -6,5 +6,4 @@ public class Effect {
 	private boolean isPermanent;
 	private long myDuration;
 	
-
 }
