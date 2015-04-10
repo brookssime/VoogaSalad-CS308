@@ -25,7 +25,9 @@ public class Base implements Collidable{
 	@Override
 	public boolean evaluateCollision(Collidable collider){
 		if(isCollision(collider)){
-			//TODO: COLLIDE
+			if (collider.getClass().isAssignableFrom(Enemy.class)) { 
+				myHealth -= ((Enemy) collider).getEnemyDamage(); 
+			}
 			return true;
 		}
 		return false; 
