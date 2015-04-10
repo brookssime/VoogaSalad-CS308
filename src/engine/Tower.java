@@ -31,6 +31,10 @@ public class Tower implements Movable, EditableTower{
 
 	// state?
 	
+	public Tower() {
+		
+	}
+	
 	public Tower (String name, String imagePath,  List<Integer> accessList, int range, int health, int radius, int fireRate, Point2D location) {
 		init(name, imagePath, accessList, range, health, radius, fireRate, location);
 	}
