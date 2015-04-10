@@ -25,20 +25,19 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class TowerEditor {
-
+public class TileEditor {
 	private Stage myStage;
 	private Desktop desktop = Desktop.getDesktop();
 	//TODO: Make sure what goes in the fields is saved
 	
-	public void TowerEditor(Stage s){
+	public void TileEditor(Stage s){
 		myStage = new Stage();
 		myStage = s;
 	}
 	
 	public void edit(){
     	
-        myStage.setTitle("Tower Editor");
+        myStage.setTitle("Tile Editor");
         Group root = new Group();
         GridPane myPane = new GridPane();
         myPane.setAlignment(Pos.CENTER);
@@ -48,7 +47,7 @@ public class TowerEditor {
         //myPane.setGridLinesVisible(true);
         
         //Code for the fields
-        Text title = new Text("Edit your tower here");
+        Text title = new Text("Edit your tile here");
         title.setFont(Font.font("Times New Roman", FontWeight.BOLD, 25));
         myPane.add(title, 0, 1, 2, 1);
         
@@ -56,31 +55,12 @@ public class TowerEditor {
         image.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
         myPane.add(image, 0, 2);
       
-        
         Label name = new Label("Set Name"); 
         name.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
         myPane.add(name, 0, 4);
         TextField nameField = new TextField();
         myPane.add(nameField, 1, 4);
-        
-        Label fire = new Label("Set Fire Rate");
-        fire.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(fire, 0, 6);
-        TextField fireField = new TextField();
-        myPane.add(fireField, 1, 6);
-        
-        Label health = new Label("Set Health"); 
-        health.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(health, 0, 8);
-        TextField healthField = new TextField();
-        myPane.add(healthField, 1, 8);
-        
-        Label range = new Label("Set Range");
-        range.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(range, 0, 10);
-        TextField rangeField = new TextField();
-        myPane.add(rangeField, 1, 10);
-        
+       
         //Code for the button
         Button finishBtn = new Button("Save");
         HBox finishHB = new HBox(10);
@@ -97,7 +77,7 @@ public class TowerEditor {
         	@Override
             public void handle(ActionEvent e) {
                 action.setFill(Color.GREEN);
-                action.setText("You saved your tower!");
+                action.setText("You saved your tile!");
                 //TODO: Make this close the editor instead
             }
         });
@@ -148,3 +128,4 @@ public class TowerEditor {
     }
     
 }
+
