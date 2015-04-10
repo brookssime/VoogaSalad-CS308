@@ -48,7 +48,7 @@ public class Display {
 
 	private Pane setupEditorPane() {
 		// TODO Auto-generated method stub
-		return null;
+		return (new EditSelector());
 	}
 
 	private Pane setupResourcePane() {
