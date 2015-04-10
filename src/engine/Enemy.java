@@ -1,5 +1,6 @@
 package engine;
 
+import interfaces.Authorable;
 import interfaces.Collidable;
 import interfaces.Movable;
 
@@ -12,9 +13,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class Enemy implements Collidable, Movable {
+public class Enemy implements Collidable, Movable, Authorable {
 
-	private final int DEFAULT = 5;
+
 	private String myName;
 	private Integer mySpeed;
 	private Integer myDamage;
@@ -28,17 +29,22 @@ public class Enemy implements Collidable, Movable {
 	private int myRad;
 	private int tilesWalked;
 	private Integer myID; // IMPLEMENT CREATING THIS
+	private Timer timer;
 	//orientation??
 	//State?
-	private Timer timer;
 
-	public Enemy(Point location, LinkedList<Point> path) {
-		myLocation = location;
-		myPath = path;
-		myRad = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
-		setCollisionBounds();
-		tilesWalked = 0;
+	
+	public Enemy(){
+		
 	}
+	
+	public Enemy(Point location, LinkedList<Point> path){
+		myLocation = location; 
+		myPath = path;
+		
+	}
+	
+
 
 	
 
@@ -146,5 +152,23 @@ public class Enemy implements Collidable, Movable {
 //setCollisionBounds();
 //	
 //}
+
+	@Override
+	public void setName(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateParams(List<Object> params) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
