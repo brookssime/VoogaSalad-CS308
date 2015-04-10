@@ -14,7 +14,12 @@ import interfaces.Collidable;
 import interfaces.EditableTower;
 import interfaces.Movable;
 
+
+
+
 public class Tower implements Movable, EditableTower, Authorable{
+
+
 
 	private String myName;
 	private String myImageString;
@@ -30,11 +35,11 @@ public class Tower implements Movable, EditableTower, Authorable{
 	private Double myRotationSpeed;
 	private Integer myRad;
 
-	// state ?
 
 	public Tower(){
 		
 	}
+
 	public Tower (String name, String imagePath,  List<Integer> accessList, int range, int health, int radius, int fireRate, Point2D location) {
 		init(name, imagePath, accessList, range, health, radius, fireRate, location);
 	}
@@ -58,6 +63,7 @@ public class Tower implements Movable, EditableTower, Authorable{
 	public String getName() {
 		return myName;
 	}
+
 
 	@Override
 	public void move() {
