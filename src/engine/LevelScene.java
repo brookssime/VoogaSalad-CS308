@@ -18,9 +18,12 @@ public class LevelScene extends GameScene {
 	private Set<Collidable> mySpritesToRemove;
 	private String myLevelTitle; 
 	private Store myCurrentStore;
+	private Grid myGrid;
+	
 
 	/**
 	 * TODO: How are all of these lists being populated?
+	 * TODO: Where do we initialize Grid? XStream?
 	 */
 	public LevelScene() {
 		super();
@@ -33,9 +36,14 @@ public class LevelScene extends GameScene {
 		myCurrentStore = store;
 	}
 	
+	private void setGrid(Grid newGrid){
+		myGrid = newGrid;
+		//myGridManager = new GridManager(newGrid);
+	}
+	
 	public void update(){	
-		moveSprites();
 		checkCollisions();
+		moveSprites();
 		clearSprites();
 		spawnEnemies();
 		deployTimeBasedEffects();

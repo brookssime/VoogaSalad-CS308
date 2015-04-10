@@ -19,8 +19,10 @@ public class Enemy implements Collidable, Movable{
 	private Shape myCollisionBounds;
 	private Point myLocation;
 	private LinkedList<Point> myPath;
+	private LinkedList<Tile> mySteps;
 	private int myRad;
 	private int tilesWalked;
+	private Integer myID; // IMPLEMENT CREATING THIS
 	//orientation??
 	//State?
 	
@@ -29,6 +31,14 @@ public class Enemy implements Collidable, Movable{
 		myRad = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
 		setCollisionBounds();
 		tilesWalked = 0;
+	}
+	
+	public void setSteps(LinkedList<Tile> steps){
+		mySteps = steps;
+	}
+	
+	public Integer getID(){
+		return myID;
 	}
 	
 
