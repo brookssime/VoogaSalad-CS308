@@ -13,9 +13,7 @@ import interfaces.Collidable;
 import interfaces.EditableTower;
 import interfaces.Movable;
 
-
 public class Tower implements Movable, EditableTower{
-
 
 	private String myImageString;
 	private String myName;
@@ -31,9 +29,8 @@ public class Tower implements Movable, EditableTower{
 	private Double myRotationSpeed;
 	private Integer myRad;
 
-	//state?
-
-
+	// state?
+	
 	public Tower (String name, String imagePath,  List<Integer> accessList, int range, int health, int radius, int fireRate, Point2D location) {
 		init(name, imagePath, accessList, range, health, radius, fireRate, location);
 	}
@@ -57,7 +54,6 @@ public class Tower implements Movable, EditableTower{
 	public String getName() {
 		return myName;
 	}
-
 
 	/**
 	 * detectEnemy().getLocation();
@@ -161,70 +157,78 @@ public class Tower implements Movable, EditableTower{
 		 return false;
 	}
 
-	
 	/**
 	 * Thoughts on how this would work?
 	 * Could be accessed by the view somehow?
 	 * This would return a projectile which could be used elsewhere
 	 * TODO: Help idk how to fully implement this
 	 */
-	public Projectile spawnProjectile(){
+public Projectile spawnProjectile(){
 		return myProjectile;
 	}
-
 
 	public boolean isDead() {
 		return (myHealth <= 0);
 	}
 
-
-
 	@Override
-	public String setName() {
+	public void setName(String name) {
 		// TODO Auto-generated method stub
-		return myName;
+		myName = name;
 	}
 
 	@Override
-	public String setImageString() {
+	public void setImageString(String imageString) {
+		// TODO Auto-generated method stub
+		myImageString = imageString;
+	}
+
+	@Override
+	public void setAccessList(List<Integer> accessList) {
+		// TODO Auto-generated method stub
+		myAccessList = accessList;
+	}
+
+	@Override
+	public void setRange(Integer range) {
+		// TODO Auto-generated method stub
+		myRange = range;
+	}
+
+	@Override
+	public void setFireRate(Integer fireRate) {
+		// TODO Auto-generated method stub
+		myFireRate = fireRate;
+	}
+
+	@Override
+	public void setLocation(Point2D location) {
+		// TODO Auto-generated method stub
+		myLocation = location;
+	}
+
+	@Override
+	public void setHealth(Integer health) {
+		// TODO Auto-generated method stub
+		myHealth = health;
+	}
+
+	@Override
+	public void setRadius(Integer radius) {
+		// TODO Auto-generated method stub
+		myRad = radius;
+	}
+
+	@Override
+	public void setProjectile(Projectile projectile) {
+		// TODO Auto-generated method stub
+		myProjectile = projectile;
+	}
+
+	@Override
+	public String getImageString() {
 		// TODO Auto-generated method stub
 		return myImageString;
-	}
-
-	@Override
-	public List<Integer> setAccessList() {
-		// TODO Auto-generated method stub
-		return myAccessList;
-	}
-
-	@Override
-	public Integer setRange() {
-		// TODO Auto-generated method stub
-		return myRange;
-	}
-
-	@Override
-	public Integer setFireRate() {
-		// TODO Auto-generated method stub
-		return myFireRate;
-	}
-
-	@Override
-	public Point2D setLocation() {
-		// TODO Auto-generated method stub
-		return myLocation;
-	}
-
-	@Override
-	public Integer setHealth() {
-		// TODO Auto-generated method stub
-		return myHealth;
-	}
-
-	@Override
-	public Integer setRad() {
-		// TODO Auto-generated method stub
-		return myRad;
 	}
 
 }
