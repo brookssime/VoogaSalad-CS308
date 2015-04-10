@@ -9,6 +9,7 @@ import gae.resourcepane.ResourcePane;
 import java.util.ResourceBundle;
 
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
@@ -45,9 +46,9 @@ public class Display {
 		return menuPane.getPane();
 	}
 
-	private Pane setupEditorPane() {
-		// TODO Auto-generated method stub
-		return null;
+	private TabPane setupEditorPane() {
+		TitleScreenEditor tsE = new TitleScreenEditor();
+		return tsE.getPane();
 	}
 
 	private Pane setupResourcePane() {

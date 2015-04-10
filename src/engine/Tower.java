@@ -110,4 +110,10 @@ public class Tower implements Collidable, Movable, EditableTower {
 		myRad = radius;
 		setCollisionBounds();
 	}
+
+	@Override
+	public void setName() {
+		// TODO Auto-generated method stub
+		
+	}
 }
