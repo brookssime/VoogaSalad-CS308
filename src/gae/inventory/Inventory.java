@@ -1,5 +1,7 @@
 package gae.inventory;
 
+import interfaces.Authorable;
+
 import java.util.List;
 import java.util.Map;
 
@@ -100,7 +102,7 @@ public class Inventory {
 		String mapString = "my" + type + "s";
 		Authorable oldE = ((ObservableMap<String, Authorable>) Reflection
 				.getFieldValue(this, mapString)).get(obj);
-		oldE.update(params);
+		oldE.updateParams(params);
 		((ObservableMap<String, Authorable>) Reflection.getFieldValue(this,
 				mapString)).put(oldE.getName(), oldE);
 	}
