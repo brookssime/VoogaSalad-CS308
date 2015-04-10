@@ -1,12 +1,9 @@
 package gae;
 
-import gae.inventorypane.InventoryPane;
-
-import gae.editorpane.WaveEditor;
-
+import gae.editorpane.DialogueSceneEditor;
 import gae.editorpane.GameEditor;
 import gae.editorpane.TitleScreenEditor;
-
+import gae.inventorypane.InventoryPane;
 import gae.menupane.MenuAdder;
 import gae.menupane.MenuManager;
 import gae.menupane.MenuPane;
@@ -55,11 +52,10 @@ public class Display {
 	}
 
 	private Pane setupEditorPane() {
-		// TODO Auto-generated method stub
-		TitleScreenEditor tsE = new TitleScreenEditor(myMenuAdder);
-//		GameEditor gE = new GameEditor(myMenuAdder);
-//		return (new WaveEditor("Sample Editor");
-		return tsE.getPane();
+		DialogueSceneEditor e = new DialogueSceneEditor(myMenuAdder);
+//		TitleScreenEditor e = new TitleScreenEditor(myMenuAdder);
+//		GameEditor e = new GameEditor(myMenuAdder);
+		return e.getPane();
 	}
 
 	private Pane setupInventoryPane() {
