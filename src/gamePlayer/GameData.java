@@ -1,4 +1,4 @@
-package gamePlayer;
+package GamePlayer;
 
 import javafx.scene.image.Image;
 

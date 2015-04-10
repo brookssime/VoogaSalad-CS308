@@ -5,4 +5,4 @@
  * @author Sajal
  *
  */
-package gamePlayer;
+package GamePlayer;
