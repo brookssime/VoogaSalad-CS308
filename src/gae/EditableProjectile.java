@@ -11,7 +11,7 @@ package gae;
 
 public interface EditableProjectile {
 	
-	void setShape(); //the shape of the projectile
+	void setShape(String shape); //the shape of the projectile (circle, rectangle)
 	
 	void setSpeed(double speed); //the speed of the projectile
 	
