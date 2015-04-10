@@ -2,6 +2,7 @@ package player;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -11,8 +12,11 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class GameLevelScene implements GraphicGameScene{
@@ -25,6 +29,7 @@ public class GameLevelScene implements GraphicGameScene{
 	private Slider animationSpeedSlider;
 	private double choiceBoxWidthPct = .2;
 	private double choiceBoxHeightPct = 7;
+	
 	
 	//Group root;
 	private Scene myScene;
@@ -42,6 +47,7 @@ public class GameLevelScene implements GraphicGameScene{
 	private Label healthLabel;
 	private double healthNum;
 	private VBox towerInfo;
+	private GridPane myGrid;
 	public GameLevelScene(Stage stage, double screenWidth, double screenHeight){
 		//this.root = new Group();
 		this.screenWidth = screenWidth;
@@ -70,8 +76,9 @@ public class GameLevelScene implements GraphicGameScene{
 	private Node makeTowerInfo() {
 		// TODO Auto-generated method stub
 		towerInfo = new VBox();
-		TowerInfo t = new TowerInfo("../resources/sea_turtle.png", "bacis", 100, 300, 10);
-		towerInfo.getChildren().add(t.getDisplay());
+		Label myLabel = new Label("Towers: ");
+		TowerInfo t = new TowerInfo("../images/tower.jpg", "bacis", 100, 300, 10);
+		towerInfo.getChildren().addAll(myLabel,t.getDisplay());
 		return towerInfo;
 	}
 
@@ -81,8 +88,19 @@ public class GameLevelScene implements GraphicGameScene{
 	}
 
 	private Node makeGridDisplay() {
-		// TODO Auto-generated method stub
-		return null;
+		myGrid = new GridPane();
+		for (int row = 0; row < 10; row++)
+		{
+			for (int column = 0; column < 10; column++)
+			{
+				ImageView myImage = new ImageView();
+				myImage.setFitHeight(100);
+				myImage.setFitWidth(100);
+				myImage.setImage(new Image(getClass().getResourceAsStream("../images/wall.png")));
+				myGrid.add(myImage, column, row);
+			}
+		}
+		return myGrid;
 	}
 
 	private Node makeControlPanel()
@@ -91,6 +109,8 @@ public class GameLevelScene implements GraphicGameScene{
 		result.setSpacing(MENU_SPACING);
 		pausePlayButton = makeButton(PAUSE_PLAY);
 		pausePlayButton.setOnAction((e)->pause());
+		result.setSpacing(100);
+		result.setPadding(new Insets(30,30,30,30));
 		levelLabel = new Label("Level: " + levelNum);
 		moneyLabel = new Label("Money: " + moneyNum);
 		scoreLabel = new Label("score: " + scoreNum);
