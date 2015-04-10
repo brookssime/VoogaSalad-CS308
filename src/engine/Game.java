@@ -1,4 +1,4 @@
-package GameEngine;
+package engine;
 
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
