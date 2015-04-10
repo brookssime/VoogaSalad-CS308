@@ -38,11 +38,11 @@ public class GameChoiceBox extends AbstractOverlay {
 
 		// Managing where to place the button
 		numButtons = games.size();
-		double fractionWidth = overlayWidth / numButtons;
-		double middleFraction = fractionWidth / 2;
+		double fractionHeight = overlayHeight / numButtons;
+		double middleFraction = fractionHeight / 2;
 		double nextButtonCenter = 1 * middleFraction;
-
-		double buttonWidth = fractionWidth * .8;
+ 
+		double buttonWidth = overlayWidth * .75;
 
 		for (int i = 0; i < numButtons; i++) {
 
@@ -61,7 +61,7 @@ public class GameChoiceBox extends AbstractOverlay {
 
 			createButtonWithLabelWithCenterXWithWidth(nextButtonLabel,
 					nextButtonCenter, buttonWidth);
-			nextButtonCenter += fractionWidth;
+			nextButtonCenter += fractionHeight;
 
 		}
 
@@ -75,20 +75,22 @@ public class GameChoiceBox extends AbstractOverlay {
 //	}
 
 	private void createButtonWithLabelWithCenterXWithWidth(String label,
-			double centerX, double buttonWidth) {
+			double centerX, double buttonHeight) {
 
 		VBox v = new VBox();
-		v.setTranslateX(centerX - buttonWidth / 2);
-		v.setTranslateY(overlayHeight / 3);
+		v.setLayoutX(overlayWidth / 3);
+		v.setLayoutY(centerX - buttonHeight / 2);
 
 		Button b = new Button(label);
-		b.setPrefWidth(buttonWidth);
-		b.setPrefHeight(overlayHeight / 4);
-		//b.getStyleClass().add("button-settings");
+		b.setPrefWidth(overlayWidth * .75);
+		b.setPrefHeight(buttonHeight);
+		b.getStyleClass().add("button-settings");
 
 		setRespectiveButtonActionWithAlgorithmName(b, label);
 
 		v.getChildren().add(b);
+		//v.setLayoutX(100);
+		//v.setLayoutY(100);
 		this.getChildren().add(v);
 
 	}
