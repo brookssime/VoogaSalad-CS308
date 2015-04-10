@@ -38,7 +38,6 @@ public class LevelScene extends GameScene {
 		checkCollisions();
 		clearSprites();
 		spawnEnemies();
-		deployTimeBasedEffects();
 		checkComplete();
 	}
 
@@ -90,12 +89,6 @@ public class LevelScene extends GameScene {
 
 	}
 
-	/**
-	 * To be implemented later
-	 */
-	private void deployTimeBasedEffects() {
-
-	}
 
 	@Override
 	public void checkComplete() {
