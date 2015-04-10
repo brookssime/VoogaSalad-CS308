@@ -13,7 +13,7 @@ public class Projectile implements Collidable, Movable{
 	private String myImageString;
 	private List<Integer> myAccessIDs;
 	private Integer mySpeed; 
-	private Effect myEffect;
+	public Effect myEffect;
 	private Point myLocation;
 	private int myRad;
 	private double myDirection;
@@ -59,4 +59,5 @@ public class Projectile implements Collidable, Movable{
 	public Shape getCollisionBounds() {
 		return myCollisionBounds;
 	}
+
 }
