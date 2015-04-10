@@ -1,10 +1,12 @@
 package gae.editorpane;
 
+import gae.BundleGrabber;
 import gae.GAEPane;
 import gae.menupane.MenuAdder;
 
 import java.io.File;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -23,10 +25,14 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class TitleScreenEditor extends GAEPane{
+	
+	private final ResourceBundle myConfigs;
 
 	public TitleScreenEditor(MenuAdder adder) {
 		super(TitleScreenEditor.class.getSimpleName(), adder);
+		myConfigs = BundleGrabber.grabBundle("configs", TitleScreenEditor.class.getSimpleName());
 		myRoot.getChildren().add(setRootProperties());
+		
 	}
 	
 
@@ -37,24 +43,26 @@ public class TitleScreenEditor extends GAEPane{
 		HBox titleSet = new HBox(5);
 		titleSet.setPadding(new Insets(25));
 		
-		group.getChildren().add(addField("Set Title of Game: ", "Set X Position: ", "Set Y Position: "));
-		group.getChildren().add(addField("Set Play Button Name: ", "Set X Position: ", "Set Y Positoin: "));
+		group.getChildren().add(addField(myConfigs.getString("set_title"), 
+				myConfigs.getString("set_x"), myConfigs.getString("set_y")));
+		group.getChildren().add(addField(myConfigs.getString("set_play"), 
+				myConfigs.getString("set_x"), myConfigs.getString("set_y")));
 		
 		HBox fileButtonBox = new HBox(10);
 		group.getChildren().add(fileButtonBox);
-		Button openFileButton = new Button("Open File");
+		Button openFileButton = new Button(myConfigs.getString("open_file"));
 		fileButtonBox.getChildren().add(openFileButton);
 		group.getChildren().add(openFileButton);
 		
 		openFileButton.setOnAction(e -> {
 			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Open Resource File");
+			fileChooser.setTitle(myConfigs.getString("open_resource"));
 			File imageFile = fileChooser.showOpenDialog(new Stage());
 			Text imagePath = new Text(imageFile.getAbsolutePath());
 			fileButtonBox.getChildren().add(imagePath);
 		});
 		
-		Button applyButton = new Button("Apply");
+		Button applyButton = new Button(myConfigs.getString("update"));
 		group.getChildren().add(applyButton);
 		applyButton.setOnAction(e -> {
 			//TODO: backend call

@@ -49,8 +49,9 @@ public class Display {
 	}
 
 	private Pane setupEditorPane() {
-		GameEditor gE = new GameEditor(myMenuAdder);
-		return gE.getPane();
+		TitleScreenEditor tsE = new TitleScreenEditor(myMenuAdder);
+//		GameEditor gE = new GameEditor(myMenuAdder);
+		return tsE.getPane();
 	}
 
 	private Pane setupResourcePane() {
