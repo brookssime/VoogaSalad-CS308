@@ -2,6 +2,7 @@ package gae;
 
 import gae.editorpane.DialogueSceneEditor;
 import gae.editorpane.GameEditor;
+import gae.editorpane.GridEditor;
 import gae.editorpane.TitleScreenEditor;
 import gae.inventorypane.InventoryPane;
 import gae.menupane.MenuAdder;
@@ -55,7 +56,8 @@ public class Display {
 		DialogueSceneEditor e = new DialogueSceneEditor(myMenuAdder);
 //		TitleScreenEditor e = new TitleScreenEditor(myMenuAdder);
 //		GameEditor e = new GameEditor(myMenuAdder);
-		return e.getPane();
+		//return e.getPane();
+		return (new GridEditor());
 	}
 
 	private Pane setupInventoryPane() {
