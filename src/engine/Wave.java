@@ -18,7 +18,6 @@ public class Wave {
 				break;
 			}
 		}
-
 		return toSpawn;
 	}
 
