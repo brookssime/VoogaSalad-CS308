@@ -1,5 +1,6 @@
 package gae;
 
+import gae.editorpane.WaveEditor;
 import gae.inventory.Inventory;
 import gae.menupane.MenuAdder;
 import gae.menupane.MenuManager;
@@ -47,7 +48,7 @@ public class Display {
 
 	private Pane setupEditorPane() {
 		// TODO Auto-generated method stub
-		return null;
+		return (new WaveEditor("Sample Wave"));
 	}
 
 	private Pane setupResourcePane() {

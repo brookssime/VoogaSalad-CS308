@@ -1,5 +1,7 @@
 package gae.model;
 
+import java.util.ArrayList;
+
 import engine.Game;
 
 public interface Receiver {
@@ -9,5 +11,6 @@ public interface Receiver {
 	public void editObject(String type, Object obj);
 	public void saveFile();
 	public void exportFile(Game game);
+	public ArrayList<String> getElements(String type);
 
 }
