@@ -1,4 +1,4 @@
-package gae;
+package gae.editorpane;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -34,7 +34,7 @@ import javafx.stage.Stage;
  */
 
 public class EnemyEditor extends Application{
-	
+	//TODO: Make sure what goes in the fields is saved
 	private Desktop desktop = Desktop.getDesktop();
 	
     @Override
