@@ -1,4 +1,4 @@
-package GameEngine;
+package engine;
 
 import interfaces.Collidable;
 import interfaces.Movable;
