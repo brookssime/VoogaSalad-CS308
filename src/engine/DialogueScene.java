@@ -1,9 +1,12 @@
 package engine;
 
+import interfaces.Authorable;
+
 import java.util.List;
 import java.util.Queue;
 
 /**
+ * 
  * DialogueScenes will consist of a background image, several "heads" on top of that, and then a center pane with dialogue
  * The background image will be passed in alone
  * The heads will be passed in as a list, which will be read by the view
@@ -12,14 +15,19 @@ import java.util.Queue;
  * @author Sid and Brooks and Patrick
  *
  */
-public class DialogueScene extends GameScene{
+public class DialogueScene extends GameScene implements Authorable{
 
+	private String myName;
 	private Queue<String> myDialogue;
 	private String myBackgroundImagePath;
 	private List<String> myImagePathList; // contains all image paths of talking
 											// heads. gamePlayer can read these
 											// and determine how many spaces to
 											// make in dialogueScene for heads
+	
+	public DialogueScene(){
+		
+	}
 	
 	public DialogueScene(String backroundImagePath, List<String> imagePathList) {
 		myBackgroundImagePath = backroundImagePath;
@@ -49,5 +57,23 @@ public class DialogueScene extends GameScene{
 	 */
 	public List<String> getImagePathList(){
 		return myImagePathList;
+	}
+
+	@Override
+	public void setName(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateParams(List<Object> params) {
+		// TODO Auto-generated method stub
+		
 	}
 }

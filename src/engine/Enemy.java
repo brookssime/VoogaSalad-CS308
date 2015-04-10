@@ -1,5 +1,6 @@
 package engine;
 
+import interfaces.Authorable;
 import interfaces.Collidable;
 import interfaces.Movable;
 
@@ -11,8 +12,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Enemy implements Collidable, Movable {
+public class Enemy implements Collidable, Movable, Authorable {
 
+	private String myName;
 	private Integer mySpeed;
 	private Integer myDamage;
 	private Integer myHealth;
@@ -26,24 +28,21 @@ public class Enemy implements Collidable, Movable {
 	private int tilesWalked;
 
 	private Integer myID; // IMPLEMENT CREATING THIS
+	private Timer timer;
 	//orientation??
 	//State?
 	
-	public Enemy(Point location, LinkedList<Point> path){
-		myLocation = location; myPath = path;
-
-	private Timer timer;
-
-	// orientation??
-	// State?
-
-	public Enemy(Point location, LinkedList<Point> path) {
-		myLocation = location;
-		myPath = path;
-		myRad = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
-		setCollisionBounds();
-		tilesWalked = 0;
+	public Enemy(){
+		
 	}
+	
+	public Enemy(Point location, LinkedList<Point> path){
+		myLocation = location; 
+		myPath = path;
+		
+	}
+	
+
 
 	
 	public void setSteps(LinkedList<Tile> steps){
@@ -128,6 +127,24 @@ public class Enemy implements Collidable, Movable {
 		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y,
 				myRad * 2, myRad * 2);
 
+	}
+
+	@Override
+	public void setName(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateParams(List<Object> params) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

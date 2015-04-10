@@ -1,5 +1,6 @@
 package engine;
 
+import interfaces.Authorable;
 import interfaces.Collidable;
 import interfaces.Movable;
 
@@ -8,8 +9,9 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.util.List;
 
-public class Projectile implements Collidable, Movable{
+public class Projectile implements Collidable, Movable, Authorable{
 
+	private String myName;
 	private String myImageString;
 	private List<Integer> myAccessIDs;
 	private Integer mySpeed; 
@@ -18,6 +20,10 @@ public class Projectile implements Collidable, Movable{
 	private int myRad;
 	private double myDirection;
 	private Shape myCollisionBounds;
+	
+	public Projectile(){
+		
+	}
 	
 	public Projectile(Point location, Integer speed, Integer damage, Integer duration, Effect effect){
 		myLocation = location; 
@@ -58,6 +64,24 @@ public class Projectile implements Collidable, Movable{
 	@Override
 	public Shape getCollisionBounds() {
 		return myCollisionBounds;
+	}
+
+	@Override
+	public void setName(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateParams(List<Object> params) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
