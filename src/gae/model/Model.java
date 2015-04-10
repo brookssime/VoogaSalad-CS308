@@ -2,6 +2,7 @@ package gae.model;
 
 import gae.inventory.Inventory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.property.ObjectProperty;
@@ -51,6 +52,12 @@ public class Model implements Receiver {
 	public void setBind(String type, ObjectProperty<ObservableList<String>> prop) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public ArrayList<String> getElements(String type) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
