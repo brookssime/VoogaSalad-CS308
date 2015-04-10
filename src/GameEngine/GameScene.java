@@ -10,12 +10,14 @@ public abstract class GameScene {
 	private KeyFrame myScene;
 	protected boolean myGameLost;
 	protected boolean myGameWon;
+	public long myStartTime;
 	
 	public GameScene(){
 		myGameLost = false;
 	}
 
 	public KeyFrame start(double frameRate) {
+		myStartTime = System.nanoTime();
 		myScene = new KeyFrame(Duration.millis(frameRate * 10), e -> update());
 		return myScene;
 	}

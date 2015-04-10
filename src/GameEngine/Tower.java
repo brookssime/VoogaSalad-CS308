@@ -25,6 +25,8 @@ public class Tower implements Collidable, Movable, EditableTower{
 	private Point2D myHeading;
 	private int myRad;
 	private Shape myCollisionBounds;
+	private int myRotationSpeed;
+
 	//state?
 
 
@@ -55,7 +57,7 @@ public class Tower implements Collidable, Movable, EditableTower{
 	/**
 	 * Check if enemy is in range
 	 * Maybe make this return an Enemy at which to shoot?
-	 * TODO: Brooks yay
+	 * TODO
 	 * @return
 	 */
 	public boolean detectEnemy(){
