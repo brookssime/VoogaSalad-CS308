@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -14,7 +15,7 @@ import javafx.scene.layout.VBox;
  * 
  * @author Negatu
  */
-public class EditSelector extends Group {
+public class EditSelector extends Pane {
 	private HBox myLayout;
 	private VBox myEditablesWindow;
 	private Group myEditorWindow;

@@ -35,7 +35,6 @@ public class Tower implements Movable, EditableTower, Authorable{
 	private Double myRotationSpeed;
 	private Integer myRad;
 
-
 	public Tower(){
 		
 	}
@@ -192,6 +191,7 @@ public class Tower implements Movable, EditableTower, Authorable{
 	}
 
 	@Override
+
 	public void setProjectile(Projectile projectile) {
 		// TODO Auto-generated method stub
 		myProjectile = projectile;
