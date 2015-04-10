@@ -1,4 +1,4 @@
-package GameEngine;
+package engine;
 
 import interfaces.Collidable;
 import interfaces.Movable;
@@ -21,31 +21,31 @@ public class Enemy implements Collidable, Movable{
 	private List<Integer> myWalkable;
 	private String myImageString;
 	private Shape myCollisionBounds;
-	private Point2D myLocation;
-	private LinkedList<Point2D> myPath;
-	private Integer myRad;
+	private Point myLocation;
+	private LinkedList<Point> myPath;
+	private int myRad;
+	private int tilesWalked;
 	//orientation??
 	//State?
 	
+	
 	public Enemy(String name, int speed, int damage, int health, List<Integer> walkable, String imageString, 
-			Point2D location, LinkedList<Point2D>path, int rad){
+			Point location, LinkedList<Point>path, int rad){
 		init(name, speed, damage, health, walkable, imageString, location, path, rad);
 		
 	}
-	/**
-	 * Constructor overloading so that enemy can be implemented with a default
-	 */
-	public Enemy (String name, List<Integer> walkable, String imageString, Point2D location, LinkedList<Point2D>path){
-		mySpeed = DEFAULT;
-		myDamage = DEFAULT;
-		myHealth = DEFAULT;
-		myRad = DEFAULT;
-		init(name, mySpeed, myDamage, myHealth, walkable, imageString, location, path, myRad);
-		
+
+	
+	public Enemy(Point location, LinkedList<Point> path){
+		myLocation = location; myPath = path;
+		myRad = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
+		setCollisionBounds();
+		tilesWalked = 0;
 	}
+
 	
 	public void init (String name, int speed, int damage, int health, List<Integer> walkable, String imageString, 
-			Point2D location, LinkedList<Point2D>path, int rad){
+			Point location, LinkedList<Point>path, int rad){
 		myName = name;
 		mySpeed = speed;
 		myDamage = damage;
@@ -62,16 +62,21 @@ public class Enemy implements Collidable, Movable{
 	@Override
 	public void move() {
 		myLocation = myPath.removeFirst();
+		tilesWalked++;
 	}
 	
-	public Point2D getLocation(){
+	public int getTilesWalked(){
+		return tilesWalked;
+	}
+	
+	public Point getLocation(){
 		return myLocation;
 	}
 	
 	@Override
 	public boolean evaluateCollision(Collidable collider) {
 		if(isCollision(collider)){
-			//TODO: COLLIDEEEEEE
+			//
 			return true;
 		}
 		return false;
