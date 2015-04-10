@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class GameLevelScene implements GraphicGameScene{
@@ -40,6 +41,7 @@ public class GameLevelScene implements GraphicGameScene{
 	private double scoreNum;
 	private Label healthLabel;
 	private double healthNum;
+	private VBox towerInfo;
 	public GameLevelScene(Stage stage, double screenWidth, double screenHeight){
 		//this.root = new Group();
 		this.screenWidth = screenWidth;
@@ -54,7 +56,7 @@ public class GameLevelScene implements GraphicGameScene{
         // must be first since other panels may refer to page
         root.setCenter(makeGridDisplay());
         root.setTop(makeControlPanel());
-        root.setLeft(makeTowerOption());
+        root.setRight(makeTowerInfo());
         root.setBottom(makeInformationPanel());
         // control the navigation
        // enableButtons();
@@ -65,9 +67,12 @@ public class GameLevelScene implements GraphicGameScene{
 		
 	}
 	
-	private Node makeTowerOption() {
+	private Node makeTowerInfo() {
 		// TODO Auto-generated method stub
-		return null;
+		towerInfo = new VBox();
+		TowerInfo t = new TowerInfo("../resources/sea_turtle.png", "bacis", 100, 300, 10);
+		towerInfo.getChildren().add(t.getDisplay());
+		return towerInfo;
 	}
 
 	private Node makeInformationPanel() {

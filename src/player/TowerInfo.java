@@ -1,6 +1,6 @@
 package player;
 
-import util.ImageUtil;
+
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -29,17 +29,17 @@ public class TowerInfo{
 	}
 	
 	public TowerInfo(String imageFile, String name,int price,  int range, int damage ){
-		image = ImageUtil.getImage(imageFile);
+		image = new Image((getClass().getResourceAsStream(imageFile)));
 		this.name = name;
 		this.price = price;
 		this.range = range;
 		this.damage = damage;
 		display = new HBox();
 		info = new VBox();
-		nameLabel = new Label(name);
-		priceLabel = new Label(""+price);
-		rangeLabel = new Label(""+range);
-		damageLabel = new Label(""+damage);
+		nameLabel = new Label("name: "+name);
+		priceLabel = new Label("price: "+price);
+		rangeLabel = new Label("range: "+range);
+		damageLabel = new Label("damage: "+damage);
 		info.getChildren().addAll(nameLabel,priceLabel,rangeLabel,damageLabel);
 		display.getChildren().addAll(new ImageView(image),info);
 		
