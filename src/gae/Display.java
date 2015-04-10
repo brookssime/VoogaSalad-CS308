@@ -1,5 +1,6 @@
 package gae;
 
+import gae.editorpane.GameEditor;
 import gae.editorpane.TitleScreenEditor;
 import gae.inventory.Inventory;
 import gae.menupane.MenuAdder;
@@ -48,8 +49,8 @@ public class Display {
 	}
 
 	private Pane setupEditorPane() {
-		TitleScreenEditor tsE = new TitleScreenEditor(myMenuAdder);
-		return tsE.getPane();
+		GameEditor gE = new GameEditor(myMenuAdder);
+		return gE.getPane();
 	}
 
 	private Pane setupResourcePane() {
