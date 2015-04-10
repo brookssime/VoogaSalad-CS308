@@ -14,5 +14,4 @@ public class View {
 		myStage.setScene(myDisplay.init());
 		myStage.show();
 	}
-
 }
