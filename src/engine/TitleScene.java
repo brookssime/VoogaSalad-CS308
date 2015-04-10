@@ -1,4 +1,4 @@
-package GameEngine;
+package engine;
 
 /**
  * Currently a static title screen

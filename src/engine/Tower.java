@@ -1,4 +1,4 @@
-package GameEngine;
+package engine;
 
 import java.awt.Point;
 import java.awt.Shape;
@@ -31,7 +31,7 @@ public class Tower implements Movable, EditableTower{
 	private Double myRotationSpeed;
 	private Integer myRad;
 
-	//state?
+	// state ?
 
 
 	public Tower (String name, String imagePath,  List<Integer> accessList, int range, int health, int radius, int fireRate, Point2D location) {
@@ -48,6 +48,7 @@ public class Tower implements Movable, EditableTower{
 	}
 
 
+	
 	/**
 	 * detectEnemy().getLocation();
 	 * cos(theta) = (u*v) / (||u|| ||v||)
