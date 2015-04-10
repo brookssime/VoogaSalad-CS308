@@ -3,11 +3,11 @@ package gae;
 import gae.editorpane.DialogueSceneEditor;
 import gae.editorpane.GameEditor;
 import gae.editorpane.TitleScreenEditor;
-import gae.inventory.Inventory;
+import gae.inventorypane.InventoryPane;
 import gae.menupane.MenuAdder;
 import gae.menupane.MenuManager;
 import gae.menupane.MenuPane;
-import gae.resourcepane.ResourcePane;
+import gae.model.Receiver;
 
 import java.util.ResourceBundle;
 
@@ -19,6 +19,7 @@ import javafx.scene.layout.Pane;
 public class Display {
 
 	private BorderPane myRoot;
+	private Receiver myReceiver;
 	private Scene myScene;
 	private MenuAdder myMenuAdder;
 	private static ResourceBundle myConfigs = BundleGrabber.grabBundle(
@@ -29,14 +30,15 @@ public class Display {
 	private static final int myHeight = Integer.parseInt(myConfigs
 			.getString("Height"));
 
-	public Display() {
+	public Display(Receiver rec) {
 		myRoot = new BorderPane();
+		myReceiver = rec;
 	}
 
 	public Scene init() {
 		myRoot.setTop(setupMenuPane());
 		myRoot.setCenter(setupEditorPane());
-		myRoot.setLeft(setupResourcePane());
+		myRoot.setLeft(setupInventoryPane());
 		myRoot.setBottom(setupTimelinePane());
 		myScene = new Scene(myRoot, myWidth, myHeight);
 		return myScene;
@@ -51,15 +53,14 @@ public class Display {
 
 	private Pane setupEditorPane() {
 		DialogueSceneEditor e = new DialogueSceneEditor(myMenuAdder);
-		
 //		TitleScreenEditor e = new TitleScreenEditor(myMenuAdder);
 //		GameEditor e = new GameEditor(myMenuAdder);
 		return e.getPane();
 	}
 
-	private Pane setupResourcePane() {
-		ResourcePane resourcePane = new ResourcePane(myMenuAdder, new Inventory());
-		return resourcePane.getPane();
+	private Pane setupInventoryPane() {
+		InventoryPane inventoryPane = new InventoryPane(myMenuAdder, myReceiver);
+		return inventoryPane.getPane();
 	}
 	
 	private Pane setupTimelinePane() {

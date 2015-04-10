@@ -1,9 +1,11 @@
 package engine;
 
+import java.util.TimerTask;
+
 public class Effect {
 	private Integer mySpeedDamage;
 	private Integer myHealthDamage;
-	private boolean isPermanent;
+	private boolean isFinal;
 	private long myDuration;
 	
 	public Integer getSpeedDamage(){
@@ -14,10 +16,13 @@ public class Effect {
 		return myHealthDamage;
 		
 	}
-	public Boolean isPermanent(){
-		return isPermanent;
-	}
+	
 	public long getDuration(){
 		return myDuration;
 	}
+	public boolean isFinal() {
+		return isFinal;
+	}
+	
+	
 }
