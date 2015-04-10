@@ -1,4 +1,4 @@
-package GameEngine;
+package engine;
 
 import java.util.List;
 import java.util.Queue;

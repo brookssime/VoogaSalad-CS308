@@ -1,4 +1,4 @@
-package GameEngine;
+package engine;
 
 import interfaces.Collidable;
 import interfaces.Movable;
@@ -42,7 +42,7 @@ public class Enemy implements Collidable, Movable{
 	@Override
 	public boolean evaluateCollision(Collidable collider) {
 		if(isCollision(collider)){
-			//TODO: COLLIDEEEEEE
+			//
 			return true;
 		}
 		return false;

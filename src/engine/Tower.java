@@ -1,4 +1,4 @@
-package GameEngine;
+package engine;
 
 import java.awt.Point;
 import java.awt.Shape;
@@ -37,6 +37,18 @@ public class Tower implements Collidable, Movable, EditableTower{
 	public Tower (XStream serializer, String data, Point2D location) {
 		Tower incomplete = (Tower)serializer.fromXML(data);
 		init(incomplete.myName, incomplete.myImageString, incomplete.myAccessList, incomplete.myRange, incomplete.myHealth, incomplete.myRad, incomplete.myFireRate, location);
+	}
+
+	public void init(String name, String imagePath,  List<Integer> accessList, int range, int health, int radius, int fireRate, Point2D location){
+		myImageString = imagePath;
+		myName = name;
+		myAccessList = accessList;
+		myRange = range;
+		myFireRate = fireRate;
+		myLocation = location;
+		myHealth = health;
+		myRad = radius;
+		setCollisionBounds();
 	}
 
 	public String getName() {
@@ -94,18 +106,6 @@ public class Tower implements Collidable, Movable, EditableTower{
 	public Shape getCollisionBounds() {
 		return myCollisionBounds;
 	}
-	public void init(String name, String imagePath,  List<Integer> accessList, int range, int health, int radius, int fireRate, Point2D location){
-		myImageString = imagePath;
-		myName = name;
-		myAccessList = accessList;
-		myRange = range;
-		myFireRate = fireRate;
-		myLocation = location;
-		myHealth = health;
-		myRad = radius;
-		setCollisionBounds();
-	}
-
 	@Override
 	public String setName() {
 		// TODO Auto-generated method stub
