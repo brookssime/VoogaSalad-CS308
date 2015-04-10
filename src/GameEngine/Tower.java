@@ -108,49 +108,41 @@ public class Tower implements Collidable, Movable, EditableTower{
 
 	@Override
 	public String setName() {
-		// TODO Auto-generated method stub
 		return myName;
 	}
 
 	@Override
 	public String setImageString() {
-		// TODO Auto-generated method stub
 		return myImageString;
 	}
 
 	@Override
 	public List<Integer> setAccessList() {
-		// TODO Auto-generated method stub
 		return myAccessList;
 	}
 
 	@Override
 	public Integer setRange() {
-		// TODO Auto-generated method stub
 		return myRange;
 	}
 
 	@Override
 	public Integer setFireRate() {
-		// TODO Auto-generated method stub
 		return myFireRate;
 	}
 
 	@Override
 	public Point2D setLocation() {
-		// TODO Auto-generated method stub
 		return myLocation;
 	}
 
 	@Override
 	public Integer setHealth() {
-		// TODO Auto-generated method stub
 		return myHealth;
 	}
 
 	@Override
 	public Integer setRad() {
-		// TODO Auto-generated method stub
 		return myRad;
 	}
 }
