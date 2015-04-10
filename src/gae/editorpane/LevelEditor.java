@@ -1,5 +1,7 @@
 package gae.editorpane;
 
-public class LevelEditor {
+import javafx.scene.layout.Pane;
+
+public class LevelEditor extends Pane{
 
 }
