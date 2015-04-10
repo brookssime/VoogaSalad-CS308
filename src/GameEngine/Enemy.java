@@ -20,6 +20,7 @@ public class Enemy implements Collidable, Movable{
 	private Point myLocation;
 	private LinkedList<Point> myPath;
 	private int myRad;
+	private int tilesWalked;
 	//orientation??
 	//State?
 	
@@ -27,12 +28,18 @@ public class Enemy implements Collidable, Movable{
 		myLocation = location; myPath = path;
 		myRad = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
 		setCollisionBounds();
+		tilesWalked = 0;
 	}
 	
 
 	@Override
 	public void move() {
 		myLocation = myPath.removeFirst();
+		tilesWalked++;
+	}
+	
+	public int getTilesWalked(){
+		return tilesWalked;
 	}
 	
 	public Point getLocation(){
