@@ -24,12 +24,13 @@ public class Enemy implements Collidable, Movable {
 	private Shape myCollisionBounds;
 	private Point myLocation;
 	private LinkedList<Point> myPath;
+	private LinkedList<Tile> mySteps;
 	private int myRad;
 	private int tilesWalked;
+	private Integer myID; // IMPLEMENT CREATING THIS
+	//orientation??
+	//State?
 	private Timer timer;
-
-	// orientation??
-	// State?
 
 	public Enemy(Point location, LinkedList<Point> path) {
 		myLocation = location;
@@ -41,6 +42,14 @@ public class Enemy implements Collidable, Movable {
 
 	
 
+	public void setSteps(LinkedList<Tile> steps){
+		mySteps = steps;
+	}
+	
+	public Integer getID(){
+		return myID;
+	}
+	
 
 
 	@Override
