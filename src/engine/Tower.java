@@ -9,14 +9,20 @@ import java.util.List;
 import com.sun.javafx.geom.Point2D;
 import com.thoughtworks.xstream.XStream;
 
+import interfaces.Authorable;
 import interfaces.Collidable;
 import interfaces.EditableTower;
 import interfaces.Movable;
 
-public class Tower implements Movable, EditableTower{
 
-	private String myImageString;
+
+
+public class Tower implements Movable, EditableTower, Authorable{
+
+
+
 	private String myName;
+	private String myImageString;
 	private List<Integer> myAccessList;
 	private Integer myFireRate;
 	private Point2D myLocation;
@@ -29,8 +35,11 @@ public class Tower implements Movable, EditableTower{
 	private Double myRotationSpeed;
 	private Integer myRad;
 
-	// state?
-	
+
+	public Tower(){
+		
+	}
+
 	public Tower (String name, String imagePath,  List<Integer> accessList, int range, int health, int radius, int fireRate, Point2D location) {
 		init(name, imagePath, accessList, range, health, radius, fireRate, location);
 	}
@@ -55,12 +64,7 @@ public class Tower implements Movable, EditableTower{
 		return myName;
 	}
 
-	/**
-	 * detectEnemy().getLocation();
-	 * cos(theta) = (u*v) / (||u|| ||v||)
-	 * u and v are vectors originating from the tower
-	 */
-	
+
 	@Override
 	public void move() {
 		rotate();
@@ -139,42 +143,10 @@ public class Tower implements Movable, EditableTower{
 		
 		return true;
 	}
-	
-	
-	
-	/**
-	 * Check if enemy is in range
-	 * Maybe make this return an Enemy at which to shoot?
-	 * TODO
-	 * @return
-	 */
-	public boolean detectEnemy(){
-		//1. Determine a list of possible enemies to target, instead of checking every possible enemy
-		//2. Determine which of these should be selected--furthest along the path? closest?u
-		//3. Determine the location to target, based on enemy's speed, location, projected path, etc.
-		//4. Support targeting multiple enemies, for towers that might shoot multiple projectiles simultaneously
-		
-		 return false;
-	}
 
-	/**
-	 * Thoughts on how this would work?
-	 * Could be accessed by the view somehow?
-	 * This would return a projectile which could be used elsewhere
-	 * TODO: Help idk how to fully implement this
-	 */
-public Projectile spawnProjectile(){
-		return myProjectile;
-	}
 
 	public boolean isDead() {
 		return (myHealth <= 0);
-	}
-
-	@Override
-	public void setName(String name) {
-		// TODO Auto-generated method stub
-		myName = name;
 	}
 
 	@Override
@@ -229,6 +201,18 @@ public Projectile spawnProjectile(){
 	public String getImageString() {
 		// TODO Auto-generated method stub
 		return myImageString;
+	}
+
+	@Override
+	public void setName(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateParams(List<Object> params) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

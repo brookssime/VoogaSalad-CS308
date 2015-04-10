@@ -5,11 +5,14 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.List;
 
+import interfaces.Authorable;
 import interfaces.Collidable;
 
-public class Range implements Collidable{
+public class Range implements Collidable, Authorable{
 	
+	private String myName;
 	private ArrayList<Enemy> enemiesInRange = new ArrayList<Enemy>();
 	private Shape myCollisionBounds;
 	private Point myLocation;
@@ -50,5 +53,23 @@ public class Range implements Collidable{
 	@Override
 	public Shape getCollisionBounds() {
 		return myCollisionBounds;
+	}
+
+	@Override
+	public void setName(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateParams(List<Object> params) {
+		// TODO Auto-generated method stub
+		
 	}
 }
