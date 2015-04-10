@@ -61,6 +61,10 @@ public class Enemy implements Collidable, Movable {
 		return false;
 
 	}
+	
+	public Integer getEnemyDamage(){
+		return myDamage;
+	}
 
 	public void executeEffect(Projectile projectile) {
 		// change stuff
