@@ -91,11 +91,11 @@ public class GameLevelScene implements GraphicGameScene{
 		myGrid = new GridPane();
 		for (int row = 0; row < 10; row++)
 		{
-			for (int column = 0; column < 10; column++)
+			for (int column = 0; column < 15; column++)
 			{
 				ImageView myImage = new ImageView();
-				myImage.setFitHeight(100);
-				myImage.setFitWidth(100);
+				myImage.setFitHeight(80);
+				myImage.setFitWidth(80);
 				myImage.setImage(new Image(getClass().getResourceAsStream("../images/wall.png")));
 				myGrid.add(myImage, column, row);
 			}
@@ -110,7 +110,7 @@ public class GameLevelScene implements GraphicGameScene{
 		pausePlayButton = makeButton(PAUSE_PLAY);
 		pausePlayButton.setOnAction((e)->pause());
 		result.setSpacing(100);
-		result.setPadding(new Insets(30,30,30,30));
+		result.setPadding(new Insets(10,30,10,30));
 		levelLabel = new Label("Level: " + levelNum);
 		moneyLabel = new Label("Money: " + moneyNum);
 		scoreLabel = new Label("score: " + scoreNum);
