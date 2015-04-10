@@ -206,7 +206,7 @@ public class Tower implements Movable, EditableTower, Authorable{
 	@Override
 	public void setName(String s) {
 		// TODO Auto-generated method stub
-		
+		myName = s;
 	}
 
 	@Override
