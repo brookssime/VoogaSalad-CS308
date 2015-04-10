@@ -1,6 +1,12 @@
 package gae;
 
 import gae.inventorypane.InventoryPane;
+
+import gae.editorpane.WaveEditor;
+
+import gae.editorpane.GameEditor;
+import gae.editorpane.TitleScreenEditor;
+
 import gae.menupane.MenuAdder;
 import gae.menupane.MenuManager;
 import gae.menupane.MenuPane;
@@ -9,6 +15,7 @@ import gae.model.Receiver;
 import java.util.ResourceBundle;
 
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
@@ -49,7 +56,10 @@ public class Display {
 
 	private Pane setupEditorPane() {
 		// TODO Auto-generated method stub
-		return null;
+		TitleScreenEditor tsE = new TitleScreenEditor(myMenuAdder);
+//		GameEditor gE = new GameEditor(myMenuAdder);
+//		return (new WaveEditor("Sample Editor");
+		return tsE.getPane();
 	}
 
 	private Pane setupInventoryPane() {

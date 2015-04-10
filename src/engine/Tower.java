@@ -224,6 +224,7 @@ public Projectile spawnProjectile(){
 	}
 
 	@Override
+
 	public void setProjectile(Projectile projectile) {
 		// TODO Auto-generated method stub
 		myProjectile = projectile;
@@ -234,5 +235,4 @@ public Projectile spawnProjectile(){
 		// TODO Auto-generated method stub
 		return myImageString;
 	}
-
 }

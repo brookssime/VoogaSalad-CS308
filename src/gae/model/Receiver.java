@@ -4,6 +4,8 @@ import java.util.List;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
+import java.util.ArrayList;
+
 import engine.Game;
 
 public interface Receiver {
@@ -14,5 +16,6 @@ public interface Receiver {
 	public void saveFile();
 	public void exportFile(String game);
 	public void setBind(String type, ObjectProperty<ObservableList<String>> prop);
+	public ArrayList<String> getElements(String type);
 
 }
