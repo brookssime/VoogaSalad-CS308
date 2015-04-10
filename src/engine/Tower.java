@@ -43,6 +43,17 @@ public class Tower implements Movable, EditableTower{
 		init(incomplete.myName, incomplete.myImageString, incomplete.myAccessList, incomplete.myRange, incomplete.myHealth, incomplete.myRad, incomplete.myFireRate, location);
 	}
 
+	public void init(String name, String imagePath,  List<Integer> accessList, int range, int health, int radius, int fireRate, Point2D location){
+		myImageString = imagePath;
+		myName = name;
+		myAccessList = accessList;
+		myRange = range;
+		myFireRate = fireRate;
+		myLocation = location;
+		myHealth = health;
+		myRad = radius;
+	}
+
 	public String getName() {
 		return myName;
 	}
@@ -168,21 +179,6 @@ public class Tower implements Movable, EditableTower{
 	}
 
 
-	public void init(String name, String imagePath,  List<Integer> accessList, int range, int health, int radius, int fireRate, Point2D location){
-		myImageString = imagePath;
-		myName = name;
-		myAccessList = accessList;
-		myRange = range;
-		myFireRate = fireRate;
-		myLocation = location;
-		myHealth = health;
-		myRad = radius;
-		setCollisionBounds();
-	}
-	
-	private void setCollisionBounds(){
-		// ONLY exists for Xstreme init call to setCollisionBounds
-	}
 
 	@Override
 	public String setName() {
