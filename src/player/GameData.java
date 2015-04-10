@@ -21,7 +21,7 @@ public class GameData {
 	}
 
 	public Image getImage() {
-		Image image = new Image((getClass().getResourceAsStream("../resources/sea_turtle.png")));
+		Image image = new Image((getClass().getResourceAsStream("../resources/tower-defense-games.png")));
 		//Image image = new Image(gameImagePath);
 		return image;
 	}
