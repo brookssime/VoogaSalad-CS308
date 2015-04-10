@@ -1,5 +1,9 @@
 package gae;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -9,6 +13,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -20,57 +25,61 @@ import javafx.stage.Stage;
 
 
 public class EditorTab extends Application{
+	private List<String> tabNames = new ArrayList<String>(); 
+	private EnemyEditor myEditor = new EnemyEditor();
+	private EditableEnemy myEdit = new EditableEnemy();
+	private Method[] myMethods = new Method[];
 
-	/*private Stage myStage;
-	//private Display myDisplay;
+	//private VBox myForm;
 	
-	public void start(Stage stage) {
-		this.inits(stage);
-	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		launch(args);
-	}
-	
-	public void inits(Stage stage) {
-		myStage = stage;
-		myStage.setTitle("Tab tester");
-		//myDisplay = new Display();
-		//myStage.setScene(myDisplay.init());
-		myStage.show();
-	}*/
-	
-	public static void main(String[] args) {
-        Application.launch(args);
-    }
-
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Tabs");
+    	tabNames = myEditor.getTabNames();
+    	myMethods = getMethods(myEdit);
+    	
+        primaryStage.setTitle("Editor Tabs");
         Group root = new Group();
-        Scene scene = new Scene(root, 400, 250);
+        Scene scene = new Scene(root, 800, 800); //this will depend on the GAE's main interface
 
         TabPane tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-
         BorderPane borderPane = new BorderPane();
-        for (int i = 0; i < 5; i++) {
+        
+        for (int i=0; i<tabNames.size(); i++) {//TODO: Use lambda expressions (foreach)
             Tab tab = new Tab();
-            tab.setText("Tab" + i);
+            tab.setText(tabNames.get(i));
             HBox hbox = new HBox();
-            hbox.getChildren().add(new Label("Tab" + i));
+            VBox form = makeForm();
+            hbox.getChildren().add(form); //what goes inside the tab
             hbox.setAlignment(Pos.CENTER);
             tab.setContent(hbox);
             tabPane.getTabs().add(tab);
         }
+        
         // bind to take available space
         borderPane.prefHeightProperty().bind(scene.heightProperty());
         borderPane.prefWidthProperty().bind(scene.widthProperty());
-        
         borderPane.setCenter(tabPane);
         root.getChildren().add(borderPane);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    
+    private Method[] getMethods(Object o){
+    	return o.getClass().getMethods();
+    } 
+    
+    private VBox makeForm(){
+    	VBox myForm = new VBox();
+    	for (Method method : myMethods) {
+			FieldEditor aFieldEditor = new FieldEditor(method, myEdit);
+			myForm.getChildren().add(aFieldEditor);
+		}
+    	return myForm;
+    }
+    
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
+
 }
