@@ -29,7 +29,7 @@ public class GameChoiceScreen {
 		double infoBoxWidth = infoBoxWidthPct * screenWidth;
 		double infoBoxHeight = infoBoxHeightPct * screenHeight;
 		
-		GameData gameData = new GameData("Name", "Description", "../resources/sea_turtle.png");
+		GameData gameData = new GameData("Name", "Description", "../resources/tower-defense-games.png");
 		
 		GameInfoBox gameInfoBox = new GameInfoBox(infoBoxWidth, infoBoxHeight, gameData);
 		gameInfoBox.setLayoutX(.35 * screenWidth);
