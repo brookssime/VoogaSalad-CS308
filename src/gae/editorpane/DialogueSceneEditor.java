@@ -5,9 +5,11 @@ import java.util.List;
 
 import javafx.geometry.Insets;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -26,6 +28,8 @@ public class DialogueSceneEditor extends GAEPane{
 	public DialogueSceneEditor(MenuAdder adder) {
 		super(DialogueSceneEditor.class.getSimpleName(), adder);
 		myScrollPane = new ScrollPane();
+		myScrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		myScrollPane.setMaxHeight(700);
 		myRoot.getChildren().add(myScrollPane);
 		myScrollPane.setContent(addContent());
 	}
@@ -42,6 +46,7 @@ public class DialogueSceneEditor extends GAEPane{
 		
 		//Background Image select
 		group.getChildren().add(addImageButton("Set Background Image: "));
+		group.getChildren().add(updateButton());
 		
 		Button newDialogue = new Button("Add Frame");
 		group.getChildren().add(newDialogue);
@@ -54,6 +59,14 @@ public class DialogueSceneEditor extends GAEPane{
 		
 		return group;
 		
+	}
+
+	private Button updateButton() {
+		Button update = new Button("Update");
+		update.setOnAction(e -> {
+			System.out.println("backend call");
+		});
+		return update;
 	}
 
 	private VBox addDialogueScene() {
