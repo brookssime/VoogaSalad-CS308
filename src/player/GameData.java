@@ -1,5 +1,7 @@
 package player;
 
+import java.util.Objects;
+
 import javafx.scene.image.Image;
 
 public class GameData {
