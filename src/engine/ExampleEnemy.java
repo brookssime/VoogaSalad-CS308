@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package engine;
 
 import java.io.File;
@@ -7,50 +10,93 @@ import javafx.scene.image.ImageView;
 
 import javax.swing.JFileChooser;
 
+// TODO: Auto-generated Javadoc
 /**
- * An example editable Sprite
- * @author Negatu
- *
+ * An example editable Sprite.
+ * 
+ * @author Brooks, Patrick, Robert, and Sid.
+ * 
+ * 
  */
 public class ExampleEnemy {
+	
+	/** The my image. */
 	private ImageView myImage;
+	
+	/** The my health capacity. */
 	private Double myHealthCapacity = 0.0;
 	
+	/**
+	 * Instantiates a new example enemy.
+	 */
 	public ExampleEnemy(){
 		myImage = new ImageView();
 		
 	}
 
+	/**
+	 * Sets the size.
+	 *
+	 * @param width the width
+	 * @param height the height
+	 */
 	@MethodAnnoation(editor=true)
 	public void SetSize(@ParameterAnnotation(name="Width") Double width, @ParameterAnnotation(name="Height") Double height){
 		myImage.setFitWidth(width);
 		myImage.setFitHeight(height);
 	}
 	
+	/**
+	 * Sets the position.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	@MethodAnnoation(editor=true)
 	public void SetPosition(@ParameterAnnotation(name="X Location") Double x, @ParameterAnnotation(name="Y Location")Double y){
 		myImage.setTranslateX(x);
 		myImage.setTranslateY(y);
 	}
 	
+	/**
+	 * Sets the health capacity.
+	 *
+	 * @param health the health
+	 */
 	@MethodAnnoation(editor=true)
 	public void SetHealthCapacity(@ParameterAnnotation(name="Health Capacity") Double health){
 		this.setMyHealthCapacity(health);
 	}
 	
+	/**
+	 * Change image.
+	 */
 	@MethodAnnoation(editor=true)
 	public void ChangeImage() {
 		selectImage();
 	}
 	
+	/**
+	 * Change image.
+	 *
+	 * @param img the img
+	 */
 	public void changeImage(Image img) {
 		myImage.setImage(img);
 	}
 	
+	/**
+	 * Change image.
+	 *
+	 * @param file the file
+	 */
 	public void changeImage(File file) {
 		this.changeImage(new Image(file.toURI().toString()));
 	}
 	
+	/**
+	 * Select image.
+	 */
 	public void selectImage(){
 		JFileChooser imageChooser = new JFileChooser(System.getProperties()
 				.getProperty("user.dir") + "/src/images");
@@ -63,6 +109,9 @@ public class ExampleEnemy {
 		return;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString(){
 		System.out.println("Object created: ExampleSprite");
 		System.out.println("Image File: "+myImage.getImage().toString());
@@ -72,10 +121,20 @@ public class ExampleEnemy {
 		return null;
 	}
 
+	/**
+	 * Gets the my health capacity.
+	 *
+	 * @return the my health capacity
+	 */
 	public Double getMyHealthCapacity() {
 		return myHealthCapacity;
 	}
 
+	/**
+	 * Sets the my health capacity.
+	 *
+	 * @param myHealthCapacity the new my health capacity
+	 */
 	public void setMyHealthCapacity(Double myHealthCapacity) {
 		this.myHealthCapacity = myHealthCapacity;
 	}

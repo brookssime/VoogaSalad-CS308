@@ -11,27 +11,54 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GridManager.
+ * 
+ * @author Brooks, Patrick, Robert, and Sid.
+ * 
+ */
 public class GridManager {
 	
+	/** The my grid. */
 	private Grid myGrid;
+	
+	/** The my enemy paths. */
 	private HashMap<Integer, LinkedList<Tile>> myEnemyPaths;
+	
+	/** The my movables. */
 	private List<Movable> myMovables;
+	
+	/** The my collidables. */
 	private List<Collidable> myCollidables;
+	
+	/** The my sprites to remove. */
 	private Set<Collidable> mySpritesToRemove;
+	
+	/** The my waves. */
 	private LinkedList<Wave> myWaves;
+	
+	/** The my start time. */
 	private long myStartTime;
+	
+	/** The my base. */
 	private Base myBase;
 	
 
 	/**
 	 * TODO: How are all of these lists being populated?
-	 * TODO: Where do we initialize Grid? XStream?
+	 * TODO: Where do we initialize Grid? XStream?.
+	 *
+	 * @param g the g
 	 */
 	
 	public GridManager(Grid g){
 		myGrid = g;
 	}
 	
+	/**
+	 * Update.
+	 */
 	public void update(){
 		checkCollisions();
 		moveSprites();
@@ -39,16 +66,24 @@ public class GridManager {
 		spawnEnemies();
 	}
 	
+	/**
+	 * Start.
+	 */
 	public void start(){
 		myStartTime = System.nanoTime();
 	}
 	
+	/**
+	 * Gets the base.
+	 *
+	 * @return the base
+	 */
 	public Base getBase(){
 		return myBase;
 	}
 	
 	/**
-	 * Clean this up if time?
+	 * Clean this up if time?.
 	 */
 	private void checkCollisions() {
 		for (Collidable sprite : myCollidables) {
@@ -64,12 +99,18 @@ public class GridManager {
 		}
 	}
 	
+	/**
+	 * Move sprites.
+	 */
 	private void moveSprites() {
 		for (Movable sprite : myMovables) {
 			sprite.move();
 		}
 	}
 	
+	/**
+	 * Clear sprites.
+	 */
 	private void clearSprites() {
 		mySpritesToRemove.addAll(myCollidables.stream().filter(s -> s.isDead())
 				.collect(Collectors.toSet())); // filter to find dead objects
@@ -82,7 +123,7 @@ public class GridManager {
 
 	/**
 	 * TODO: Figure out timing and how to space out enemies within wave What
-	 * data structure do we use for waves?
+	 * data structure do we use for waves?.
 	 */
 	private void spawnEnemies() {
 		while (!myWaves.peek().isComplete()) {
@@ -96,6 +137,11 @@ public class GridManager {
 
 	}
 
+	/**
+	 * Sets the enemy path.
+	 *
+	 * @param enemy the new enemy path
+	 */
 	private void setEnemyPath(Enemy enemy){
 		if(myEnemyPaths.containsKey(enemy.getID()))
 			enemy.setSteps(myEnemyPaths.get(enemy.getID()));
@@ -104,6 +150,12 @@ public class GridManager {
 	}
 
 	
+	/**
+	 * Find path.
+	 *
+	 * @param enemy the enemy
+	 * @return the list
+	 */
 	public List<Tile> findPath(Enemy enemy){
 		Tile current = myGrid.getPort();
 		List<Tile> path = new LinkedList<Tile>();
@@ -119,6 +171,13 @@ public class GridManager {
 		return path;
 	}
 	
+	/**
+	 * Find next tile.
+	 *
+	 * @param current the current
+	 * @param enemy the enemy
+	 * @return the tile
+	 */
 	private Tile findNextTile(Tile current, Enemy enemy){
 		
 		// TODO

@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package gae.editorpane;
 
 import java.awt.Desktop;
@@ -25,17 +28,32 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TowerEditor.
+ */
 public class TowerEditor {
 
+	/** The my stage. */
 	private Stage myStage;
+	
+	/** The desktop. */
 	private Desktop desktop = Desktop.getDesktop();
 	//TODO: Make sure what goes in the fields is saved
 	
+	/**
+	 * Tower editor.
+	 *
+	 * @param s the s
+	 */
 	public void TowerEditor(Stage s){
 		myStage = new Stage();
 		myStage = s;
 	}
 	
+	/**
+	 * Edits the.
+	 */
 	public void edit(){
     	
         myStage.setTitle("Tower Editor");
@@ -136,6 +154,11 @@ public class TowerEditor {
         myStage.show();
     }
     
+    /**
+     * Open file.
+     *
+     * @param file the file
+     */
     private void openFile(java.io.File file) {
    	 try {
             desktop.open(file);
