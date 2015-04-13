@@ -7,6 +7,11 @@ import javafx.scene.control.TabPane;
 import gae.GAEPane;
 import gae.menupane.MenuAdder;
 
+/**
+ * @author Peter
+ * EditorPane superclass for other editors to extend. This class was not used yet. 
+ *
+ */
 public class EditorPane extends GAEPane {
 	
 	private TabPane myTabs;

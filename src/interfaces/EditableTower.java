@@ -7,6 +7,7 @@ import com.sun.javafx.geom.Point2D;
 import engine.Projectile;
 
 public interface EditableTower {
+
 	void setName(String name);
 	String getName();
 	void setImageString(String imageString);

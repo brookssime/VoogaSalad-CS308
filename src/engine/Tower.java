@@ -17,6 +17,7 @@ import interfaces.Movable;
 
 
 
+
 public class Tower implements Movable, EditableTower, Authorable{
 
 
@@ -62,6 +63,7 @@ public class Tower implements Movable, EditableTower, Authorable{
 	public String getName() {
 		return myName;
 	}
+
 
 
 	@Override
@@ -160,6 +162,7 @@ public class Tower implements Movable, EditableTower, Authorable{
 		myAccessList = accessList;
 	}
 
+
 	@Override
 	public void setRange(Integer range) {
 		// TODO Auto-generated method stub
@@ -206,7 +209,7 @@ public class Tower implements Movable, EditableTower, Authorable{
 	@Override
 	public void setName(String s) {
 		// TODO Auto-generated method stub
-		
+		myName = s;
 	}
 
 	@Override

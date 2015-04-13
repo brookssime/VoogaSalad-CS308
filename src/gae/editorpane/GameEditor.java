@@ -14,6 +14,12 @@ import gae.BundleGrabber;
 import gae.GAEPane;
 import gae.menupane.MenuAdder;
 
+/**
+ * 
+ * @author sunjeevdevulapalli
+ *This is a temporary implementation of the Game Editor. It allows the user to set a name and initial scene
+ *for the Game Player to begin playing. 
+ */
 public class GameEditor extends GAEPane{
 	
 	private final ResourceBundle myConfigs;

@@ -26,6 +26,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
+/**
+ * 
+ * @author Peter
+ * This class holds the inventory. It allows the the frontend to addObjects, Update Objects, and remove Objects
+ * from the inventory. The inventory contains all the game objects.
+ *
+ */
 public class Inventory {
 
 	private ObservableMap<String, Game> myGames;
@@ -85,14 +92,7 @@ public class Inventory {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		Authorable newThing;
-		try {
-			newThing = (Authorable) Class.forName("engine." + type).newInstance();
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException e) {
-			e.printStackTrace();
-			newThing = null;
-		}
+		Authorable newThing = (Authorable) Reflection.createInstance("engine."+type);
 		newThing.setName("New"+type);
 		map.put(newThing.getName(), newThing);
 		System.out.println(newThing.getName());
@@ -119,7 +119,7 @@ public class Inventory {
 		String mapString = "my" + type + "s";
 		ObservableMap<String, Authorable> map = (ObservableMap<String, Authorable>) Reflection
 				.getFieldValue(this, mapString);
-		property.set((ObservableList<String>) map.keySet());
+		property.set(FXCollections.observableArrayList(map.keySet()));
 	}
 
 }

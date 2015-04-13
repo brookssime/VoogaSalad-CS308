@@ -8,6 +8,10 @@ import java.util.List;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 
+/**
+ * Not yet implemented
+ * @author Peter
+ */
 public class Model implements Receiver {
 	
 	Inventory myInventory;

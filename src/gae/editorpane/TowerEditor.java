@@ -25,6 +25,12 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Reyina
+ * Allows the game designer to edit a tower object and save it.
+ *
+ */
 public class TowerEditor {
 
 	private Stage myStage;

@@ -12,7 +12,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 public class Enemy implements Collidable, Movable, Authorable {
+
 
 	private String myName;
 	private Integer mySpeed;
@@ -26,11 +28,11 @@ public class Enemy implements Collidable, Movable, Authorable {
 	private LinkedList<Tile> mySteps;
 	private int myRad;
 	private int tilesWalked;
-
 	private Integer myID; // IMPLEMENT CREATING THIS
 	private Timer timer;
 	//orientation??
 	//State?
+
 	
 	public Enemy(){
 		
@@ -45,6 +47,7 @@ public class Enemy implements Collidable, Movable, Authorable {
 
 
 	
+
 	public void setSteps(LinkedList<Tile> steps){
 		mySteps = steps;
 	}
@@ -128,6 +131,27 @@ public class Enemy implements Collidable, Movable, Authorable {
 				myRad * 2, myRad * 2);
 
 	}
+	
+//	public Enemy(String name, int speed, int damage, int health, List<Integer> walkable, String imageString, 
+//			Point location, LinkedList<Point>path, int rad){
+//		init(name, speed, damage, health, walkable, imageString, location, path, rad);
+//		
+//	}
+	
+//	public void init (String name, int speed, int damage, int health, List<Integer> walkable, String imageString, 
+//	Point location, LinkedList<Point>path, int rad){
+//myName = name;
+//mySpeed = speed;
+//myDamage = damage;
+//myHealth = health;
+//myWalkable = walkable;
+//myImageString = imageString;
+//myLocation = location;
+//myPath = path;
+//myRad = rad;
+//setCollisionBounds();
+//	
+//}
 
 	@Override
 	public void setName(String s) {

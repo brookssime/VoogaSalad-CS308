@@ -1,7 +1,9 @@
 package gae;
 
+import gae.editorpane.BaseEditor;
 import gae.editorpane.DialogueSceneEditor;
 import gae.editorpane.GameEditor;
+import gae.editorpane.GridEditor;
 import gae.editorpane.TitleScreenEditor;
 import gae.inventorypane.InventoryPane;
 import gae.menupane.MenuAdder;
@@ -16,6 +18,11 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
+/**
+ * @author Peter
+ * This class is our main display class, it contains the borderpane which contains all the different
+ * components, including the editorpanes, timelinepane, inventorypane, and menupane.
+ */
 public class Display {
 
 	private BorderPane myRoot;
@@ -52,10 +59,12 @@ public class Display {
 	}
 
 	private Pane setupEditorPane() {
-		DialogueSceneEditor e = new DialogueSceneEditor(myMenuAdder);
+		BaseEditor e = new BaseEditor(myMenuAdder);
+//		DialogueSceneEditor e = new DialogueSceneEditor(myMenuAdder);
 //		TitleScreenEditor e = new TitleScreenEditor(myMenuAdder);
 //		GameEditor e = new GameEditor(myMenuAdder);
-		return e.getPane();
+		//return e.getPane();
+		return (new GridEditor());
 	}
 
 	private Pane setupInventoryPane() {

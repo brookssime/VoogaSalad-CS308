@@ -8,6 +8,12 @@ import java.util.ArrayList;
 
 import engine.Game;
 
+/**
+ * 
+ * @author sunjeevdevulapalli
+ * A simple interface for the view to talk to the model.
+ *
+ */
 public interface Receiver {
 	
 	public void addObject(String type);
@@ -18,4 +24,7 @@ public interface Receiver {
 	public void setBind(String type, ObjectProperty<ObservableList<String>> prop);
 	public ArrayList<String> getElements(String type);
 
+	//type is the name of the editor like the class name
+	//obj is the name of the string key
+	//params
 }
