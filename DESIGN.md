@@ -209,6 +209,18 @@ One of the features we are planning to implement in the authoring environment is
  
 To allow the author to create a game, we decided that the designer would be able to drag and drop the different components of his game (i.e: the towers, the path, etc...) in the base. We then considered cases where a user could decide to not have a path, for example, and how the game engine would handle that. We decided that the environment could be empty and simply allow the enemies to travel freely within it. The author will also have access to other elements, such as trees, that will allow them to add to the overall aesthetic of the game area.
 
+The game enginge is the main framework or structure for the game so we had to make a number of decisions about how to represent a tower defense game in java. 
+
+Modeling different sprites. 
+A typical tower defense game consists of enemies, towers, projectiles and a base. One of the first design decisions forced us to  consider how to implement the hierarchy of classes for these sprites. We decided to use a composition of interfaces, namely collidable and movable, that define the principal behaviors of these classes and how they interact. An alternative approach would to use an inheritance hierarchy based on a sprite super class. We decided however that with so many types of sprites this would result in to deep a hierarchy, making it hard to alter our design later without lots of changes. We also thought that 
+
+Advancing between levels.
+Another design consideration was how to manage the different levels. In our game, we needed to be able to transition between levels while also allowing for other dialogues and inter-level scenes. In our game class, we decided to implement a link list of GameScenes where GameScene is an abstract class that contains general methods for setting up the scene. The LevelScene class is a subclass of GameScene that contains the level loop (updating sprites and spawning them) and other logic for deciding when a level is finished. This design allows us flexibility in deciding the progression of levels and scenes, it also makes advancing levels easy in the game class.
+
+
+Interaction design.
+The last and most important design consideration was how the game engine would communicate with the game authoring environment and the game player. For interaction between the game authoring enviornemnt and the engine, we rely primarily on XML and XStream to handle the instantiation of classes in the game engine. For interaction with the game player, the issue is how to accurately represent and generate JavaFX object.
+
 
 #Team Responsibilities
 Team Tuff Wizard is splitting teams and responsibilities along the lines described in the Design section of the project on the course website. We will be splitting into teams for the Game Engine, Game Authoring Environment, Game Player, and Game Data. 
