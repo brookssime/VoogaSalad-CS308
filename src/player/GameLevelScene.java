@@ -19,6 +19,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+/**
+ * This class is to display the level
+ */
+
+
+
 public class GameLevelScene implements GraphicGameScene{
 
 	// spaces out the bottom menu
@@ -186,35 +192,88 @@ public class GameLevelScene implements GraphicGameScene{
 		return result;
 	}
 	
+	
 	@Override
+	/**
+	 * Return the level game scene for prime stage to display
+	 * @return scene for prime stage to display
+	 */
 	public Scene getScene() {
 		
 		return myScene;
 	}
-	public void loadLevel(){
+	
+	
+	/**
+	 * Load the level based on the level number
+	 * 
+	 * @param int level number
+	 * 
+	 */
+	public void loadLevel(int levelnum){
 		
 	}
+	
+	/**
+	 * pause the game play
+	 * 
+	 */
 	public void pause(){
 		
 	}
+	
+	/**
+	 * resume the game play
+	 * 
+	 */
 	public void resume(){
 		
 	}
+	
+	/**
+	 *speed up the game play
+	 * 
+	 */
 	public void speedUp(){
 		
 	}
+	
+	/**
+	 *slowdown the game play
+	 * 
+	 */
 	public void slowDown(){
 		
 	}
+	
+	/**
+	 *load the win scene
+	 * 
+	 */
 	public void win(){
 		
 	}
+	
+	/**
+	 * load the lose scene
+	 * 
+	 */
 	public void lose(){
 		
 	}
+	
+	/**
+	 *update the whole game
+	 * 
+	 */
 	public void updateLevel(){
 		
 	}
+	
+	/**
+	 *start the next wave
+	 * 
+	 */
 	public void startNextWave(){
 		
 	}

@@ -10,7 +10,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import engine.Tower;
 
-
+/*
+ * display the tower info such as price range damage and name
+ * 
+ */
 
 public class TowerInfo{
 	private ImageView image;
