@@ -162,8 +162,7 @@ public class Tower implements Movable, EditableTower, Authorable{
 		myAccessList = accessList;
 	}
 
-<<<<<<< HEAD
-=======
+
 	@Override
 	public void setRange(Integer range) {
 		// TODO Auto-generated method stub
