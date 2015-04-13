@@ -8,7 +8,9 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
-
+/*
+ * display the available games and let player to choose
+ */
 public class GameChoiceBox extends AbstractOverlay {
 
 	protected static int numButtons;
