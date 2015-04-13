@@ -7,6 +7,7 @@ import interfaces.Movable;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
@@ -23,6 +24,7 @@ public class Enemy implements Collidable, Movable, Authorable {
 	private Shape myCollisionBounds;
 	private Point myLocation;
 	private LinkedList<Point> myPath;
+	private LinkedList<Tile> myTilePath;
 	private LinkedList<Tile> mySteps;
 	private int myRad;
 	private int tilesWalked;
@@ -33,16 +35,20 @@ public class Enemy implements Collidable, Movable, Authorable {
 	//State?
 	
 	public Enemy(){
-		
+		myWalkable = new ArrayList<Integer>();
+		myTilePath = new LinkedList<Tile>();
 	}
 	
 	public Enemy(Point location, LinkedList<Point> path){
 		myLocation = location; 
 		myPath = path;
+		myWalkable = new ArrayList<Integer>();
 		
 	}
 	
-
+	public List<Integer> getWalkables(){
+		return myWalkable;
+	}
 
 	
 	public void setSteps(LinkedList<Tile> steps){
@@ -53,11 +59,19 @@ public class Enemy implements Collidable, Movable, Authorable {
 		return myID;
 	}
 	
-
+	public List<Tile> getTilePath(){
+		return myTilePath;
+	}
+	
+	public void setTilePath(LinkedList<Tile> l){
+		myTilePath = l; 
+	}
+	
 
 	@Override
 	public void move() {
-		myLocation = myPath.removeFirst();
+		myLocation = myTilePath.removeFirst().getLocation();
+		//myLocation.translate();
 		tilesWalked++;
 	}
 

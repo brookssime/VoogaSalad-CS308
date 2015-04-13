@@ -34,8 +34,11 @@ public class Tower implements Movable, EditableTower, Authorable{
 	private Integer myRad;
 
 
-	public Tower(){
-		
+	public Tower(int x, int y, int radius){ //default constructor for circular radius
+		myLocation = new Point2D();
+		myRangeObject = new Range(x, y, radius);
+		myLocation.x = x;
+		myLocation.y = y;
 	}
 
 
@@ -101,7 +104,7 @@ public class Tower implements Movable, EditableTower, Authorable{
 	
 
 	
-	private Double calculateShot(Enemy e){
+	public Double calculateShot(Enemy e){
 		
 		// TODO: implement this
 		// math involving the enemy's path, speed, projectile speed, rotation speed, current angle
@@ -110,7 +113,7 @@ public class Tower implements Movable, EditableTower, Authorable{
 		// perhaps make turret rotation speed variable based on the time at which an enemy can be 
 		// shot (based on fire rate, which will NOT be changing but instead fixed per type of tower)
 		
-		return Math.atan2(myLocation.y-e.getLocation().y, myLocation.x-e.getLocation().x);
+		return Math.toDegrees(Math.atan2(myLocation.y-e.getLocation().y, myLocation.x-e.getLocation().x));
 		
 		
 		

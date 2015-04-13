@@ -18,8 +18,8 @@ public class Range implements Collidable, Authorable{
 	private Point myLocation;
 	private int myRad;
 	
-	public Range(){
-		
+	public Range(int x, int y, int r){
+		myCollisionBounds = new Ellipse2D.Double(x, y, r, r);
 	}
 
 	public ArrayList<Enemy> getEnemiesInRange(){
