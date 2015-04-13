@@ -7,9 +7,15 @@ import gae.model.Model;
 import gae.model.Receiver;
 import javafx.stage.Stage;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class View.
+ * 
+ *
+ * This class creates the scene, stage, and the Model for the view to display.
+ * @author Peter
+ *
  */
 public class View {
 

@@ -2,10 +2,7 @@ package gae;
 
 import java.util.ResourceBundle;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class BundleGrabber.
- */
+
 public final class BundleGrabber {
 
 	/** The instance. */

@@ -17,15 +17,13 @@ import interfaces.Collidable;
 import interfaces.EditableTower;
 import interfaces.Movable;
 
-
-
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class Tower.
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  */
+
 public class Tower implements Movable, EditableTower, Authorable{
 
 
@@ -135,9 +133,11 @@ public class Tower implements Movable, EditableTower, Authorable{
 	}
 
 
+
 	/* (non-Javadoc)
 	 * @see interfaces.Movable#move()
 	 */
+
 	@Override
 	public void move() {
 		rotate();
@@ -277,9 +277,11 @@ public class Tower implements Movable, EditableTower, Authorable{
 		myAccessList = accessList;
 	}
 
+
 	/* (non-Javadoc)
 	 * @see interfaces.EditableTower#setRange(java.lang.Integer)
 	 */
+
 	@Override
 	public void setRange(Integer range) {
 		// TODO Auto-generated method stub

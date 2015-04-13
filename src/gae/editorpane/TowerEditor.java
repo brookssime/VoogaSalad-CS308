@@ -28,10 +28,15 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class TowerEditor.
+ * 
+ * Allows the game designer to edit a tower object and save it.
+ * @author Reyina
  */
+
 public class TowerEditor {
 
 	/** The my stage. */

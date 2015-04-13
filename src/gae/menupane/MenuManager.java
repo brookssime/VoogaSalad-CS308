@@ -13,6 +13,9 @@ import javafx.scene.control.SeparatorMenuItem;
 // TODO: Auto-generated Javadoc
 /**
  * The Class MenuManager.
+ * 
+ * @author Peter
+ * Manages the menu. Allows other classes to add menus to the bar and get menus.
  */
 public class MenuManager implements MenuAdder {
 

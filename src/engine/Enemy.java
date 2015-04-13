@@ -19,13 +19,14 @@ import java.util.TimerTask;
 /**
  * The Class Enemy.
  * 
- * @author Brooks, Patrick, Robert, and Sid.
  * 
+ * @author Brooks, Patrick, Robert, and Sid.
+ *
  * 
  */
+
 public class Enemy implements Collidable, Movable, Authorable {
 
-	/** The my name. */
 	private String myName;
 	
 	/** The my speed. */
@@ -60,14 +61,13 @@ public class Enemy implements Collidable, Movable, Authorable {
 	
 	/** The tiles walked. */
 	private int tilesWalked;
-
-	/** The my id. */
 	private Integer myID; // IMPLEMENT CREATING THIS
 	
 	/** The timer. */
 	private Timer timer;
 	//orientation??
 	//State?
+
 	
 	/**
 	 * Instantiates a new enemy.
@@ -91,11 +91,13 @@ public class Enemy implements Collidable, Movable, Authorable {
 
 
 	
+
 	/**
 	 * Sets the steps.
 	 *
 	 * @param steps the new steps
 	 */
+
 	public void setSteps(LinkedList<Tile> steps){
 		mySteps = steps;
 	}
@@ -232,6 +234,27 @@ public class Enemy implements Collidable, Movable, Authorable {
 				myRad * 2, myRad * 2);
 
 	}
+	
+//	public Enemy(String name, int speed, int damage, int health, List<Integer> walkable, String imageString, 
+//			Point location, LinkedList<Point>path, int rad){
+//		init(name, speed, damage, health, walkable, imageString, location, path, rad);
+//		
+//	}
+	
+//	public void init (String name, int speed, int damage, int health, List<Integer> walkable, String imageString, 
+//	Point location, LinkedList<Point>path, int rad){
+//myName = name;
+//mySpeed = speed;
+//myDamage = damage;
+//myHealth = health;
+//myWalkable = walkable;
+//myImageString = imageString;
+//myLocation = location;
+//myPath = path;
+//myRad = rad;
+//setCollisionBounds();
+//	
+//}
 
 	/* (non-Javadoc)
 	 * @see interfaces.Authorable#setName(java.lang.String)

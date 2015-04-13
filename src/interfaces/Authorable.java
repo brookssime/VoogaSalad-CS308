@@ -5,10 +5,13 @@ package interfaces;
 
 import java.util.List;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * The Interface Authorable.
+ *
  */
+
 public interface Authorable {
 	
 	/**
@@ -30,6 +33,7 @@ public interface Authorable {
 	 *
 	 * @param params the params
 	 */
+
 	void updateParams(List<Object> params);
 
 }

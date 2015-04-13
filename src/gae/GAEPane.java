@@ -11,9 +11,17 @@ import java.util.ResourceBundle;
 
 import javafx.scene.layout.Pane;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class GAEPane.
+=======
+/**
+ * 
+ * @author Peter
+ * The main Pane class that all panes extend. It creates a pane in myRoot and also allows panes to 
+ * add methods to the menu using the Menuable interface.
+ *
  */
 public abstract class GAEPane implements Menuable {
 

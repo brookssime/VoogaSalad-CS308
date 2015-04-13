@@ -14,6 +14,7 @@ import engine.Projectile;
  * The Interface EditableTower.
  */
 public interface EditableTower {
+
 	
 	/**
 	 * Sets the name.

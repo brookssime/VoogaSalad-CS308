@@ -6,6 +6,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 
+/**
+ * 
+ * @author ?
+ * A simple editor that allows the game designer to edit the waves, consisting of enemies.
+ *
+ */
 public class WaveEditor extends Pane{
 	
 	private VBox myFields;
