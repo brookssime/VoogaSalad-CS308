@@ -12,7 +12,7 @@ Sid Gopinath
 Sunjeev Devulapalli
 
 #Introduction
-Through this final project, Team Tuff Wizard is trying to create a final project that is a game engine that allows aspiring game designers to create Tower Defense games. Tower Defense games are games in which the user must defend a base of some sort from "waves" of enemies that enter the playing field and seek to reach and destroy the base. This base is defended by setting up "towers" along the designated path that can then destroy these waves of enemies. As levels progress, the path often doesn't change, but towers can be upgraded, more dangerous enemies appear, and more enemies will attack the base.
+Through this final project, Team Tuff Wizard is trying to create a game engine that allows aspiring game designers to create Tower Defense games. Tower Defense games are games in which the user must defend a base of some sort from "waves" of enemies that enter the playing field and seek to reach and destroy the base. This base is defended by setting up "towers" along the designated path that can then destroy these waves of enemies. As levels progress, the path often doesn't change, but towers can be upgraded, more dangerous enemies appear, and more enemies will attack the base.
 
 This genre is unique because games often don't differ drastically in method of play. Big changes occur when a level's path is set up differently, but, otherwise, much of the gameplay is the same. Some things that our design will have to account for are the possibility of many different enemy types, different towers, the option of a store, and the Game Authoring Environment to handle all of this variety. While gameplay may not be drastically different, there is still a great deal of variety that our design will have to be able to account for, and that is very important to keep in mind moving forward. The game should also be able to support different timing of the waves of enemies, different movement for the enemies, and some kind of overall currency and resource system.
 
@@ -23,51 +23,50 @@ Considering those spots where flexibility is required, the primary architecture 
 #Overview
 Team Tuff Wizard’s design is divided up into four general components. These are each briefly described below, and are followed by a description of their interactions.
 
-Game Authoring Environment: The game authoring environment will serve as the GUI and backend for authoring and editing Tower Defense games. This interface will allow users to graphically arrange various game components (each represented with an instance of a GameScene object) in a slideshow-like layout in order to establish the large-scale flow of the game. Each GameScene will represent a 
-, or other type of key component. Each of these GameScenes will be further designed in specialized editors which will be specific to the type of Scene (i.e. Levels need customizable enemies, but TitleScenes do not). Once the game author chooses to publish the game, the authoring environment will write the game data into a formatted XML file, which can be loaded and run by the Game Player.
+Game Authoring Environment: The game authoring environment will serve as the GUI and backend for authoring and editing Tower Defense games. This interface will allow users to graphically arrange various game components (each represented with an instance of a GameScene object) in a slideshow-like layout in order to establish the large-scale flow of the game. Each GameScene will represent a level, title scene, or other type of key component. Each of these GameScenes will be further designed in specialized editors which will be specific to the type of Scene (i.e. Levels need customizable enemies, but TitleScenes do not). Once the game author chooses to publish the game, the authoring environment will write the game data into a formatted XML file, which can be loaded and run by the Game Player in close coordination with the Game Engine.
 
 Game Engine: The Game Engine is the part of the project that is responsible for running the game, which includes A) interpreting and initializing the Game based on a previously published XML file, and B) Gameplay data specific to one player, such as moving and updating sprites, tracking data (ex. money, enemy, tower information), and handling basic user interaction with the Game Player. This portion of the project will demand the most complex and hierarchical design, and the design decisions made here will dictate the workflow of much of the project as a whole. 
 
 A considerable portion of the engine will be comprised of a class hierarchy for which there is a corresponding hierarchy in the GAE. The Engine will create instances of the appropriate classes using the XML data (ex. Level, Enemy, Tower objects). Additionally, the engine will be required to define behavior that is fundamental to gameplay, such as the rules for collision detection, saving/loading gameplay data, or handling messages from the Game Player. In this sense, the Engine serves as the Model to the Game Player’s View. 
 
-Game Player: This will be the graphical interface with which users can load and play previously-published tower defense games. It will work closely with the Engine to maintain an updated view of the state of the game, and be required to both send and receive data to ensure proper gameplay. The actual display area of the Player is very flexible and dependent on the specifications from the Engine; for example, a mid-level view of the GUI would have a very different layout of JavaFX objects and EventHandlers than a TitleScene would. 
+Game Player: This will be the graphical interface with which users can load and play previously-published tower defense games. It will work closely with the Engine to maintain an updated view of the state of the game, and be required to both send and receive data to ensure proper gameplay. The actual display area of the Player is very flexible and dependent on the specifications from the Engine; for example, a LevelScene view of the GUI would have a very different layout of JavaFX objects and EventHandlers than a TitleScene would. 
 
 In addition to the game window itself, the Game Player will also need to contain the appropriate menus in both a MenuBar and on Right-Click (or potentially for other events as well). These will be the way through which players of a game can choose to load a save file, navigate between gameplay components, or even perform other specialized actions (such as the taking of as screenshot, for example).
 	
-
 Game Data: This portion of our project will be responsible for the generation and interpretation of XML files that will determine both the Games themselves, as well as individual player’s save data. Specifically, this team will need to be able create documents (based on serializable objects) in the GAE that can be reliably interpreted by the Game Player. Furthermore, it will also need to determine how the Game Engine writes out its save data for a specific user.
 
-###Class Hierarchies for Game Component
-GAME_SCENE: This will be the top level component of our game structure. This structure can be saved as a file by the Game Data. It can be loaded and be launched by the Game Player to be played. It will contain a list of scenes and different game play data for different sessions that the game have been played for. GAME_SCENE will contain an API enabling it to be launched, switch between active SCENES and to close itself. 
+Collaboration between these elements is an extremely important factor to consider in designing all of this. The Game Authoring Environment is going to collaborate with the GameEngine through a few ways. To allow for editing while playing the game as well as to make sure that the Authoring Environment and Engine are on the same page, we are currently using "editable interfaces." These interfaces contain update methods that allow the Authoring Environment to access the objects that will be created int he Engine. This streamlines the process. We are considering not making these interfaces to lower the number of classes needed and make the design potentailly more extensible. This decision is one of the first we will make as we move forward into this next sprint and try to initiate the connections between parts of the program.
 
-SCENE: This will be an abstract class from which top level GAME_SCENE elements will extend from.  SCENE structure will have API that will enable it to be launched, to preempt into the next active SCENE, and to close itself. 
+The Game Player will load the XML file that was created by the GAE and pass the relevant information to the Game Engine, which will then create all of the objects in the backend. Because the GAE worked closely with classes that the GameEngine uses, it should be easy to recreate those classes in the GameEngine. The important connection between the Game Player and Game Engine has to do with representing the back-end classes as JavaFX objects in the player. We will do this with image paths, and the Game Player will know how to create the different types of scenes based on the image passed to it and the various information contained in the back-end class.
 
-TITLE_SCREEN: This is a concrete class that will inherit from SCENE. It will be responsible to display a splash page that will wait for the player to input a keyboard or mouse event and modify Game Play Data or switch active SCENE. 
+###Class Hierarchies
+GAME: This will be the top level component of our game structure. This structure can be saved as a file by the Game Data. It can be loaded and be launched by the Game Player to be played. It will contain a list of scenes and different game play data for different sessions that the game have been played for. GAME_SCENE will contain an API enabling it to be launched, switch between active SCENES and to close itself. 
 
-CUTS_SCENE: This will be another concrete class that will inherit from the SCENE class. This page will be designed by the game author to offer the player with different deals for tower acquisition and tower upgrades.
+GAME_SCENE: This will be an abstract class from which top level GAME elements will extend from. GAME_SCENE structure will have API that will enable it to be launched, to preempt into the next active SCENE, and to close itself.
+
+TITLE_SCENE: This is a concrete class that will inherit from GAME_SCENE. It will be responsible to display a splash page that will wait for the player to input a keyboard or mouse event and modify Game Play Data or switch active SCENE. 
+
+CUT_SCENE: This will be another concrete class that will inherit from the GAME_SCENE class. This page will be designed by the game author to offer the player dialogue scenes that could serve as transitions between different levels. 
  
-LEVEL: A level is also a concrete class that will inherit from SCENE. It is an actual manifestation of the user’s game design choices - it will be composed of a grid system which allows for tile placement and each tile is mapped to a map of positions. When we say tile, we mean the spaces that can be used for towers, enemies, and environmental factors that interact with both towers and enemies. 
+LEVEL_SCENE: A level is also a concrete class that will inherit from GAME_SCENE. It is an actual manifestation of the user’s game design choices - it will be composed of a grid system which allows for tile placement and each tile is mapped to a map of positions. When we say tile, we mean the spaces that can be used for towers, enemies, and environmental factors that interact with both towers and enemies. 
 
-SPRITE: The different game level components are going to implement the SPRITE interface. The APIs we want to be inherited from the SPRITE interface will include update() and destroy(). 
+COLLIDABLE, MOVABLE, ETC.: The game will have many high-level, abstract interfaces that multiple classes implement. Some examples of these are collidable and movable. Those two interfaces will contain methods for colliding and moving respectively. Some "colliding" methods could be "isColliding," "isDead," or "getCollisionBounds."
 
-BASE: This class will implement SPRITE. It will be a unique space that is required for every level is the concept of a Base. The base is the driving force behind gameplay and requires protecting to complete a level.
+BASE: A unique space that is required for every level is the concept of a Base. The base is the driving force behind gameplay and requires protecting to complete a level. It implements collidable.
 
-TOWERS/ENEMIES: This will also implement SPRITE. Towers and Enemies are customizable components and are created to inhabit the level. Ascribed traits to these two objects will be defined by the user. 
-
-ENEMY PATTERNS: This class will be a logic class that will use a list of different enemies and entry ports to specify the pattern enemies will start streaming from the enemy port into the base. 
-
-SPRITEMANAGER: This will be a class that is part of a level. It will be able to save all possible different possible interactions of game components through a table, regularly check for these interactions and update the components accordingly. 
+TOWERS/ENEMIES: These both implement collidable and movable as interfaces. Towers and Enemies are customizable components and are created to inhabit the level. Ascribed traits to these two objects will be defined by the user. 
 
 GAME PLAY DATA: This will represent the game progress data for a player. Tracking the Game Play Data in data structure will allow us to save player session. The Game Play data will be transferable between SCENE objects. The Game Play Data will consist of fields like Money, Elapsed Time, Tower Inventory, Elapsed Time and so on. 
 
 STORE: This class will represent the component that will enable the user to deal for available towers using currency. It will update its tower inventory using Game Play Data. 
 
+Many other classes exist, but the design doc will go into further detail on those below.
 
 ----------
 
-
 #User Interface
-The user interface will consist of a few sections. The primary user interface will be in the Game Authoring Environment.  Upon starting up the program, the user will be given the choice to make a new game or edit an existing game.  Upon creating a new game, the user will be given a blank canvas in which to work with no created scenes yet.  
+The user interface will consist of a few sections. The primary user interface will be in the Game Authoring Environment.  Upon starting up the program, the user will be given the choice to make a new game or edit an existing game.  Upon creating a new game, the user will be given a blank canvas in which to work with no created scenes yet.
+
 The Game Authoring Environment will be a tabbed workspace, which will allow users to go through many tabs to customize different aspects of the game. Some of these tabs will include enemies, towers, the "path," the overall aesthetic of the game, the scoring system, the currency system, and rules of a specific game. The tabs will be specific to the certain type of scene that is being edited.  These will be explained in more detail below.
 
 When a new level scene is loaded for the game designer, there will be a blank grid with a customizable size presented to the game designer. These tabs will all have access to this grid to place different types of objects on the grid. The designer can start by placing "environment" objects onto these tiles, such as grass or dirt or water. They can also place objects such as the "path" that enemies will take. This will be done by a drag and drop interface. In each tab, there will be a sidepane of some sort that holds all of the objects that users can drag into the interface. This will make sure that the interface is not too cluttered.
@@ -92,7 +91,7 @@ The Game Player will let player to check which games are available and display e
 
 [IMAGES HERE]
 
-When the Game Engine finishes load the selected game, Game Player will display the following screen to let player start game by choosing “new game” or “load local saves”. “Back” button is for user to go back game chooser to load new games. There is also a button “Preference” to set up current game preference. 
+When the Game Engine finishes loading the selected game, Game Player will display the following screen to let player start game by choosing “new game” or “load local saves”. “Back” button is for user to go back game chooser to load new games. There is also a button “Preference” to set up current game preference. 
 
 
 
@@ -124,14 +123,13 @@ APIs from the GamePlayer: the GAE will use APIs from the GamePlayer to launch li
 **Game Engine**
 Game Engine
     Game
-        Scene
-        SpriteManager    
-        Sprite
-            Tower
-
-    Tower
-        Collision
-        Range
+        Game_Scene
+            Other Scenes
+        Enemy
+        Tower (etc.)
+    Interfaces
+        Collidable
+        Movable (etc.)
     Store
 
 As mentioned above, the game engine can be considered to serve two main purposes: to represent and manage the various game components (the Game hierarchy), and to provide the infrastructure (or “backend”) that allows a Tower Defense game to be run from the Game Player. 
