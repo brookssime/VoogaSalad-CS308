@@ -19,17 +19,24 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+/**
+ * This class is to display the level
+ */
+
+
+
 public class GameLevelScene implements GraphicGameScene{
 
 	// spaces out the bottom menu
 	private static final int MENU_SPACING = 50;
 	private static final int SLIDER_SPACING = 10;
+	
 	//private double infoBoxWidthPct = .6;
 	//private double infoBoxHeightPct = .7;
 	private Slider animationSpeedSlider;
 	//private double choiceBoxWidthPct = .2;
 	//private double choiceBoxHeightPct = 7;
-	
+	private double adjustrate = 0;
 	
 	//Group root;
 	private Scene myScene;
@@ -55,6 +62,7 @@ public class GameLevelScene implements GraphicGameScene{
 		levelNum = 0;
 		moneyNum = 0;
 		scoreNum = 0;
+		adjustrate = screenWidth/1436;
 		//double infoBoxWidth = infoBoxWidthPct * screenWidth;
 		//double infoBoxHeight = infoBoxHeightPct * screenHeight;
 		
@@ -77,7 +85,7 @@ public class GameLevelScene implements GraphicGameScene{
 		// TODO Auto-generated method stub
 		towerInfo = new VBox();
 		Label myLabel = new Label("Towers: ");
-		TowerInfo t = new TowerInfo("../images/tower.jpg", "bacis", 100, 300, 10);
+		TowerInfo t = new TowerInfo("../images/tower.jpg", "bacis", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
 		towerInfo.getChildren().addAll(myLabel,t.getDisplay());
 		return towerInfo;
 	}
@@ -112,8 +120,10 @@ public class GameLevelScene implements GraphicGameScene{
 			for (int column = 0; column < grid[0].length; column++)
 			{
 				ImageView myImage = new ImageView();
-				myImage.setFitHeight(80);
-				myImage.setFitWidth(80);
+				System.out.println(screenWidth);
+				System.out.println(screenHeight);
+				myImage.setFitWidth((80*screenWidth/1436));
+				myImage.setFitHeight((80*(screenHeight/877)));
 				String filename = "";
 				if(grid[row][column]==1) filename = "../images/wall.png";
 				if(grid[row][column]==2) filename = "../images/port.png";
@@ -182,35 +192,88 @@ public class GameLevelScene implements GraphicGameScene{
 		return result;
 	}
 	
+	
 	@Override
+	/**
+	 * Return the level game scene for prime stage to display
+	 * @return scene for prime stage to display
+	 */
 	public Scene getScene() {
 		
 		return myScene;
 	}
-	public void loadLevel(){
+	
+	
+	/**
+	 * Load the level based on the level number
+	 * 
+	 * @param int level number
+	 * 
+	 */
+	public void loadLevel(int levelnum){
 		
 	}
+	
+	/**
+	 * pause the game play
+	 * 
+	 */
 	public void pause(){
 		
 	}
+	
+	/**
+	 * resume the game play
+	 * 
+	 */
 	public void resume(){
 		
 	}
+	
+	/**
+	 *speed up the game play
+	 * 
+	 */
 	public void speedUp(){
 		
 	}
+	
+	/**
+	 *slowdown the game play
+	 * 
+	 */
 	public void slowDown(){
 		
 	}
+	
+	/**
+	 *load the win scene
+	 * 
+	 */
 	public void win(){
 		
 	}
+	
+	/**
+	 * load the lose scene
+	 * 
+	 */
 	public void lose(){
 		
 	}
+	
+	/**
+	 *update the whole game
+	 * 
+	 */
 	public void updateLevel(){
 		
 	}
+	
+	/**
+	 *start the next wave
+	 * 
+	 */
 	public void startNextWave(){
 		
 	}

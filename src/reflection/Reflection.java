@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package reflection;
 
 import java.lang.reflect.Array;
@@ -11,16 +14,22 @@ import java.util.List;
 import engine.MethodAnnoation;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * This class provides a variety of convenience methods for dynamically calling
  * methods and allocating classes. This utility class simplifies some of Java's
  * reflection API and fixes some issues.
  */
 public class Reflection {
+    
     /**
      * Given a String representing the fully qualified name of a class, returns
      * an initialized instance of the corresponding class using default
      * constructor. Returns null if string does not name a valid class.
+     *
+     * @param className the class name
+     * @return the object
+     * @throws ReflectionException the reflection exception
      */
     public static Object createInstance (String className) throws ReflectionException {
         try {
@@ -36,6 +45,11 @@ public class Reflection {
      * Given String representing fully qualified name of a class and the actual
      * parameters, returns initialized instance of the corresponding class using
      * matching constructor.
+     *
+     * @param name the name
+     * @param args the args
+     * @return the object
+     * @throws ReflectionException the reflection exception
      */
     public static Object createInstance (String name, Object... args) throws ReflectionException {
         try {
@@ -57,8 +71,13 @@ public class Reflection {
     /**
      * Given a target object with a no argument method of the given name, call
      * the named method on that object and return the result.
-     *
+     * 
      * If the method's return type is void, null in returned.
+     *
+     * @param target the target
+     * @param name the name
+     * @return the object
+     * @throws ReflectionException the reflection exception
      */
     public static Object callMethod (Object target, String name) throws ReflectionException {
         try {
@@ -73,8 +92,14 @@ public class Reflection {
      * Given a target object with a method of the given name that takes the
      * given actual parameters, call the named method on that object and return
      * the result.
-     *
+     * 
      * If the method's return type is void, null in returned.
+     *
+     * @param target the target
+     * @param name the name
+     * @param args the args
+     * @return the object
+     * @throws ReflectionException the reflection exception
      */
     public static Object callMethod (Object target, String name, Object... args)
             throws ReflectionException {
@@ -99,6 +124,11 @@ public class Reflection {
     /**
      * Given a target object with an instance variable with the given name, get
      * the value of the named variable on that object and return it.
+     *
+     * @param target the target
+     * @param name the name
+     * @return the field value
+     * @throws ReflectionException the reflection exception
      */
     public static Object getFieldValue (Object target, String name) throws ReflectionException {
         try {
@@ -110,6 +140,9 @@ public class Reflection {
 
     /**
      * Given an array of Objects, returns their corresponding Classes.
+     *
+     * @param args the args
+     * @return the class[]
      */
     public static Class<?>[] toClasses (Object[] args) {
         Class<?>[] results = new Class[args.length];
@@ -120,7 +153,8 @@ public class Reflection {
     }
     
     /**
-     * return a list of methods for a given object that can be edited by the editor window
+     * return a list of methods for a given object that can be edited by the editor window.
+     *
      * @param target object
      * @return a list of editor methods
      */
@@ -137,6 +171,14 @@ public class Reflection {
     }
 
     // are parameters of compatible types and in same order?
+    /**
+     * Types match.
+     *
+     * @param function the function
+     * @param formals the formals
+     * @param actuals the actuals
+     * @return true, if successful
+     */
     private static boolean typesMatch (Member function, Class<?>[] formals, Object[] actuals) {
         if ((actuals.length == formals.length)
                 || (actuals.length >= formals.length && isVarArgs(function))) {
@@ -162,6 +204,14 @@ public class Reflection {
     }
 
     // if necessary, convert parameters into varArg array that Java expects
+    /**
+     * Convert args.
+     *
+     * @param function the function
+     * @param formals the formals
+     * @param actuals the actuals
+     * @return the object[]
+     */
     private static Object[] convertArgs (Member function, Class<?>[] formals, Object[] actuals) {
         Object[] results = actuals;
         if (isVarArgs(function)) {
@@ -183,6 +233,13 @@ public class Reflection {
     }
 
     // Java should implement this correctly, but alas ...
+    /**
+     * Checks if is instance.
+     *
+     * @param clss the clss
+     * @param instance the instance
+     * @return true, if is instance
+     */
     private static boolean isInstance (Class<?> clss, Object instance) {
         final String TYPE = "TYPE";
         try {
@@ -207,6 +264,12 @@ public class Reflection {
     // Java should implement this correctly, but alas ...
     // isVarArgs is a method of both constructors and methods,
     // but not to any of their common super-types
+    /**
+     * Checks if is var args.
+     *
+     * @param function the function
+     * @return true, if is var args
+     */
     private static boolean isVarArgs (Member function) {
         // BUGBUG: should call isVarArgs directly
         return Modifier.isTransient(function.getModifiers());
@@ -214,6 +277,13 @@ public class Reflection {
 
     // Java should implement this correctly, but alas ...
     // right now, no added functionality, because of potential ambiguities
+    /**
+     * Checks if is assignable from.
+     *
+     * @param formal the formal
+     * @param arg the arg
+     * @return true, if is assignable from
+     */
     private static boolean isAssignableFrom (Class<?> formal, Class<?> arg) {
         return formal.isAssignableFrom(arg);
     }

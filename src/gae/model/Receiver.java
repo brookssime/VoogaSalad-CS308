@@ -6,6 +6,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.ArrayList;
 
+import engine.Game;
+
+/**
+ * 
+ * @author sunjeevdevulapalli
+ * A simple interface for the view to talk to the model.
+ *
+ */
 public interface Receiver {
 	
 	public void addObject(String type);

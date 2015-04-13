@@ -21,6 +21,12 @@ import javafx.stage.Stage;
 import gae.GAEPane;
 import gae.menupane.MenuAdder;
 
+/**
+ * 
+ * @author sunjeevdevulapalli
+ *This is a temporary editor that sets up the Dialogue Scene Editor in the editor pane. It allows the user
+ *to add text and headshots of two people talking, and then also create new frames.
+ */
 public class DialogueSceneEditor extends GAEPane{
 	
 	ScrollPane myScrollPane;

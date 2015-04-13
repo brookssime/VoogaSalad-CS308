@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Not yet implemented
+ * @author Peter
+ */
 public class Model implements Receiver {
 	
 	Inventory myInventory;

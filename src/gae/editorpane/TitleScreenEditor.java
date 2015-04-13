@@ -24,6 +24,13 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author sunjeevdevulapalli
+ * Allows the user to edit the title screen editor. Extends GAEPane so that the user can also add to the
+ * menu.
+ *
+ */
 public class TitleScreenEditor extends GAEPane{
 	
 	private final ResourceBundle myConfigs;

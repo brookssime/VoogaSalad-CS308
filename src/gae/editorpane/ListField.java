@@ -6,6 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
+/**
+ * 
+ * @author Negatu
+ * 
+ *
+ */
 public class ListField extends HBox{
 	private Button myAdder;
 	private ArrayList<String> myList;

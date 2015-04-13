@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package gae.inventory;
 
 import gae.inventorypane.UpdateListener;
@@ -29,30 +32,73 @@ import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
-import java.awt.event.ActionEvent;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Inventory.
+
+ * 
+ * @author Peter
+ * This class holds the inventory. It allows the the frontend to addObjects, Update Objects, and remove Objects
+ * from the inventory. The inventory contains all the game objects.
+ *
+ */
 public class Inventory {
 
+	/** The my games. */
 	private ObservableMap<String, Game> myGames;
+	
+	/** The my level scenes. */
 	private ObservableMap<String, LevelScene> myLevelScenes;
+	
+	/** The my dialogue scenes. */
 	private ObservableMap<String, DialogueScene> myDialogueScenes;
+	
+	/** The my title scenes. */
 	private ObservableMap<String, TitleScene> myTitleScenes;
+	
+	/** The my bases. */
 	private ObservableMap<String, Base> myBases;
+	
+	/** The my projectiles. */
 	private ObservableMap<String, Projectile> myProjectiles;
+	
+	/** The my grids. */
 	private ObservableMap<String, Grid> myGrids;
+	
+	/** The my waves. */
 	private ObservableMap<String, Wave> myWaves;
+	
+	/** The my ports. */
 	private ObservableMap<String, Port> myPorts;
+	
+	/** The my enemys. */
 	private ObservableMap<String, Enemy> myEnemys;
+	
+	/** The my towers. */
 	private ObservableMap<String, Tower> myTowers;
+	
+	/** The my tiles. */
 	private ObservableMap<String, Tile> myTiles;
+	
+	/** The my effect. */
 	private ObservableMap<String, Effect> myEffects;
+	
+	/** The my range. */
 	private ObservableMap<String, Range> myRanges;
+	
+	/** The my store. */
 	private ObservableMap<String, Store> myStores;
+	
+	/** The Constant TYPES. */
 	private static final String[] TYPES = { "Game", "LevelScene",
 			"DialogueScene", "TitleScene", "Base", "Projectile", "Grid",
 			"Wave", "Port", "Enemy", "Tower", "Tile", "Effect", "Range",
 			"Store" };
 
+	/**
+	 * Instantiates a new inventory.
+	 */
 	public Inventory() {
 		myGames = FXCollections.observableHashMap();
 		myLevelScenes = FXCollections.observableHashMap();
@@ -73,12 +119,20 @@ public class Inventory {
 	}
 
 	// method for testing
+	/**
+	 * Sets the news.
+	 */
 	private void setNews() {
 		for (String type : TYPES) {
 			addObject(type);
 		}
 	}
 
+	/**
+	 * Adds the object.
+	 *
+	 * @param type the type
+	 */
 	public void addObject(String type) {
 		String mapString = "my" + type + "s";
 		ObservableMap<String, Authorable> map = null;
@@ -94,6 +148,13 @@ public class Inventory {
 		map.put(newThing.getName(), newThing);
 	}
 
+	/**
+	 * Update object.
+	 *
+	 * @param type the type
+	 * @param obj the obj
+	 * @param params the params
+	 */
 	public void updateObject(String type, String obj, List<Object> params) {
 		String mapString = "my" + type + "s";
 		ObservableMap<String, Authorable> map = null;
@@ -123,6 +184,12 @@ public class Inventory {
 		return object;
 	}
 
+	/**
+	 * Removes the object.
+	 *
+	 * @param type the type
+	 * @param obj the obj
+	 */
 	public void removeObject(String type, String obj) {
 		String mapString = "my" + type + "s";
 		ObservableMap<String, Authorable> map = null;
@@ -149,6 +216,12 @@ public class Inventory {
 		return map.keySet();
 	}
 
+	/**
+	 * Sets the bind.
+	 *
+	 * @param type the type
+	 * @param property the property
+	 */
 	public void setListener(String type,
 			UpdateListener ul) {
 		String mapString = "my" + type + "s";
