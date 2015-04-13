@@ -4,6 +4,12 @@ import gae.model.Model;
 import gae.model.Receiver;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Peter
+ * This class creates the scene, stage, and the Model for the view to display.
+ *
+ */
 public class View {
 
 	private Model myModel;

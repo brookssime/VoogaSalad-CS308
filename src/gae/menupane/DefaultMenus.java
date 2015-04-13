@@ -9,6 +9,12 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 
+/**
+ * 
+ * @author Peter
+ * Creates the default menus in the menubar.
+ *
+ */
 public class DefaultMenus implements Menuable {
 
 	@Override

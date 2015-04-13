@@ -26,6 +26,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
+/**
+ * 
+ * @author Peter
+ * This class holds the inventory. It allows the the frontend to addObjects, Update Objects, and remove Objects
+ * from the inventory. The inventory contains all the game objects.
+ *
+ */
 public class Inventory {
 
 	private ObservableMap<String, Game> myGames;

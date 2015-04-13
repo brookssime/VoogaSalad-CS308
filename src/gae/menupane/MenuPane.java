@@ -7,6 +7,12 @@ import java.util.List;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 
+/**
+ * 
+ * @author Peter
+ * Adds the MenuBar to the pane.
+ *
+ */
 public class MenuPane extends GAEPane {
 
 	public MenuPane(MenuAdder adder, MenuBar mb) {
