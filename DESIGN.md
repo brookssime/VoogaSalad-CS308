@@ -104,17 +104,21 @@ The GameScene editor will enable the designer to specify universal Game properti
 
 Each Scene editor will be specific to the type of Scene. It will present the designer the options to add Scene components onto the Scene. It will also enable the designer to launch the respective component editors. This represents the order of advancement in which elements will be placed and edited in our GAE. 
 
-The GAE will use a Table Driven Pattern to provide users a table where the can collision detectors for elements and and resulting actions/consequences. There will be a SpriteManager class that will take in this table and implement updates based on specifications from the table. 
+The respective components of scene elements are also going to have their own respective editors. These elements are going to be stored in an inventory class.
+This class will keep track of scene elements created. It is also going to provide access of some of the elements to the other elements. 
 
 The GAE is capable of taking the different GameObject components that are created by the game designer and save them as GameData in a standard XML format. 
+It is going to have two types of save modes. 
+1. Save GAE file
+2. Save Game file
+	Saving GAE file will save the whole inventory of the GAE. This will enable the game designer to come back and make changes to the different components of the game. 
+Saving the Game file will correspond to saving the Game Object. This object is a finished product that can easily be read by the Game player for play. It can also be opened by the GAE for futher editing. 
 
 The GAE will currently not provide any API to the other modules. The GAE will, however, use different APIs from the other modules. 
 
 APIs from GameEngine: The GAE will APIs from the GameEngine module to create and modify specific classes. This will be a set of APIs that is an aggregate of APIs of individual classes. For example, the GameScene class will provide APIs to GAE that will modify its different properties.
     eg.    public void setGameName(String name);
         public void addNewScene(Scene scene);
-Another example can be SpriteManager, which is one of the classes in the GameEngine module. Here is example APIs from the SpriteManger.
-    eg.    public void addNewRule(Rule rule, Action...actions);
 
 APIs from the GamePlayer: the GAE will use APIs from the GamePlayer to launch live game editing console. 
     eg.     public void launchGame(GameScene gameObject);
