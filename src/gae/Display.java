@@ -58,8 +58,8 @@ public class Display {
 //		DialogueSceneEditor e = new DialogueSceneEditor(myMenuAdder);
 //		TitleScreenEditor e = new TitleScreenEditor(myMenuAdder);
 //		GameEditor e = new GameEditor(myMenuAdder);
-		//return e.getPane();
-		return (new GridEditor());
+		return e.getPane();
+//		return (new GridEditor());
 	}
 
 	private Pane setupInventoryPane() {

@@ -13,12 +13,11 @@ public class EditorPane extends GAEPane {
 
 	public EditorPane(MenuAdder adder) {
 		super(EditorPane.class.getName(), adder);
-		myTabs = new TabPane();
-		myRoot.getChildren().add(myTabs);
 	}
 	
-	public void setEditors() {
-		
+	public void setEditors(GAEPane editor) {
+		myRoot.getChildren().add(editor.getPane());
+
 	}
 
 	@Override

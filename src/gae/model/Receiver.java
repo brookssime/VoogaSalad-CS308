@@ -1,21 +1,21 @@
 package gae.model;
 
+import gae.inventorypane.UpdateListener;
+
 import java.util.List;
-
-import javafx.beans.property.ObjectProperty;
-import javafx.collections.ObservableList;
+import java.util.Set;
 import java.util.ArrayList;
-
-import engine.Game;
 
 public interface Receiver {
 	
 	public void addObject(String type);
 	public void updateObject(String type, String obj, List<Object> params);
+	public void removeObject(String type, String obj);
 	public void editObject(String type, String obj);
+	public Set<String> getList(String type);
 	public void saveFile();
 	public void exportFile(String game);
-	public void setBind(String type, ObjectProperty<ObservableList<String>> prop);
+	public void setListener(String type, UpdateListener ul);
 	public ArrayList<String> getElements(String type);
 
 	//type is the name of the editor like the class name

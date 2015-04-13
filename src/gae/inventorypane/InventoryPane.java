@@ -3,42 +3,33 @@ package gae.inventorypane;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-//import javafx.collections.MapChangeListener;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Accordion;
-import javafx.scene.control.ListCell;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TitledPane;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.util.Callback;
 import gae.GAEPane;
-import gae.inventory.Inventory;
 import gae.menupane.MenuAdder;
 import gae.model.Receiver;
-import engine.Tower;
 
 public class InventoryPane extends GAEPane {
 
 	private static final String[] TYPES = { "Game", "LevelScene",
-			"DialogueScene", "TitleScene", "Base", "Projectile", "Grid",
-			"Wave", "Port", "Enemy", "Tower", "Tile", "Effect", "Range",
-			"Store" };
+		"DialogueScene", "TitleScene", "Base", "Projectile", "Grid",
+		"Wave", "Port", "Enemy", "Tower", "Tile", "Effect", "Range",
+	"Store" };
 	private Accordion myAccordion;
 	private Receiver myReceiver;
 
-	// private Map<String, Enemy> myEnemies;
-	// private Map<String, Tower> myTowers;
-
 	public InventoryPane(MenuAdder adder, Receiver rec) {
 		super(InventoryPane.class.getSimpleName(), adder);
-		setListeners();
 		myAccordion = new Accordion();
-//		myAccordion.maxHeightProperty().bind(arg0);
 		myReceiver = rec;
 		for (String type : TYPES) {
 			myAccordion.getPanes().add(makePane(type));
@@ -49,79 +40,54 @@ public class InventoryPane extends GAEPane {
 	private TitledPane makePane(String type) {
 		TitledPane pane = new TitledPane();
 		pane.setText(type);
-		ListView<String> list = new ListView<String>();
-		myReceiver.setBind(type, list.itemsProperty());
-		pane.setContent(list);
+		ObservableList<String> theList= FXCollections.observableArrayList(myReceiver.getList(type));
+		ListView<String> list = new ListView<String>(theList);
+		UpdateListener ul = new UpdateListener(list);
+		myReceiver.setListener(type, ul);
+		VBox mainbox = new VBox();
+		HBox buttonBox = new HBox();
+		Button addButton = makeAdd(type, list);
+		Button editButton = makeEdit(type, list);
+		Button removeButton = makeRemove(type, list);
+		buttonBox.getChildren().addAll(addButton, editButton, removeButton);
+		//		list.setPrefHeight(0);
+		//		VBox.setVgrow(list, Priority.ALWAYS);
+		mainbox.getChildren().addAll(buttonBox, list);
+		pane.setContent(mainbox);
 		return pane;
 	}
 
-	private TitledPane setupTiles() {
-		TitledPane tilePane = new TitledPane();
-		ListView<String> tileList = new ListView<String>();
-		// tileList.setItems(myInventory.getTiles());
-		// tileList.setCellFactory(new Callback<ListView<String>,
-		// ListCell<String>>() {
-		// @Override
-		// public ListCell<String> call(ListView<String> list) {
-		// return new SpriteCell();
-		// }
-		// });
-		return tilePane;
+	private Button makeAdd(String type, ListView<String> list) {
+		Button button = new Button("Add");
+		button.setOnMouseClicked(e -> {
+			myReceiver.addObject(type);
+			list.setItems(FXCollections.observableArrayList(myReceiver.getList(type)));
+		});
+		return button;
 	}
 
-	private TitledPane setupTowers() {
-		TitledPane towerPane = new TitledPane();
-		towerPane.setText("Towers");
-		ListView<String> towerList = new ListView<String>();
-		// towerList.setItems();
-
-		// towerList
-		// .setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-		// @Override
-		// public ListCell<String> call(ListView<String> list) {
-		// return new SpriteCell();
-		// }
-		// });
-		towerList.getSelectionModel().selectedItemProperty()
-				.addListener(new ChangeListener<String>() {
-					public void changed(ObservableValue<? extends String> ov,
-							String old_val, String new_val) {
-						// label.setText(new_val);
-						// label.setTextFill(Color.web(new_val));
-					}
-				});
-
-		// myInventory.addTowerListener(new MapChangeListener<String, Tower>() {
-		//
-		// @Override
-		// public void onChanged(
-		// javafx.collections.MapChangeListener.Change<? extends String, ?
-		// extends Tower> arg0) {
-		// // TODO Auto-generated method stub
-		//
-		// }
-		//
-		// });
-		return towerPane;
+	private Button makeEdit(String type, ListView<String> list) {
+		Button button = new Button("Edit");
+		button.setOnMouseClicked(e -> {
+			if (list.getSelectionModel().getSelectedItem() != null) {
+				myReceiver.editObject(type, list.getSelectionModel().getSelectedItem());
+				System.out.println(list.getSelectionModel().getSelectedItem());
+				list.setItems(FXCollections.observableArrayList(myReceiver.getList(type)));
+			}
+		});
+		return button;
 	}
 
-	private TitledPane setupEnemies() {
-		TitledPane enemyPane = new TitledPane();
-		ListView<String> enemyList = new ListView<String>();
-		// enemyList.setItems(myInventory.getEnemies());
-		// enemyList
-		// .setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-		// @Override
-		// public ListCell<String> call(ListView<String> list) {
-		// return new SpriteCell();
-		// }
-		// });
-		// enemyList.itemsProperty().bind(myInventory.myEnemies);
-		return enemyPane;
-	}
+	private Button makeRemove(String type, ListView<String> list) {
+		Button button = new Button("Remove");
+		button.setOnMouseClicked(e -> {
+			if (list.getSelectionModel().getSelectedItem() != null) {
 
-	private void setListeners() {
-
+				myReceiver.removeObject(type, list.getSelectionModel().getSelectedItem());
+				list.setItems(FXCollections.observableArrayList(myReceiver.getList(type)));
+			}
+		});
+		return button;
 	}
 
 	@Override
@@ -165,19 +131,5 @@ public class InventoryPane extends GAEPane {
 
 		return menus;
 	}
-	// static class SpriteCell extends ListCell<String> {
-	// @Override
-	// public void updateItem(String item, boolean empty) {
-	// super.updateItem(item, empty);
-	//
-	// if (item != null) {
-	// VBox vb = new VBox();
-	// Tower sprite = myInventory.getTower(item);
-	// vb.getChildren().add(new ImageView(sprite.getImageString()));
-	// vb.getChildren().add(new Text(sprite.getName()));
-	// setGraphic(vb);
-	// }
-	// }
-	// }
 
 }

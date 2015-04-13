@@ -1,12 +1,12 @@
 package gae.model;
 
 import gae.inventory.Inventory;
+import gae.inventorypane.UpdateListener;
+import interfaces.Authorable;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javafx.beans.property.ObjectProperty;
-import javafx.collections.ObservableList;
+import java.util.Set;
 
 public class Model implements Receiver {
 	
@@ -27,13 +27,25 @@ public class Model implements Receiver {
 	@Override
 	public void updateObject(String type, String obj, List<Object> params) {
 		// TODO Auto-generated method stub
-		
+		myInventory.updateObject(type, obj, params);
 	}
 
 	@Override
 	public void editObject(String type, String obj) {
 		// TODO Auto-generated method stub
+		Authorable curItem = myInventory.getObject(type, obj);
 		
+		
+	}
+	
+	@Override
+	public void removeObject(String type, String obj) {
+		myInventory.removeObject(type, obj);
+	}
+	
+	@Override
+	public Set<String> getList(String type) {
+		return myInventory.getList(type);
 	}
 
 	@Override
@@ -49,9 +61,9 @@ public class Model implements Receiver {
 	}
 
 	@Override
-	public void setBind(String type, ObjectProperty<ObservableList<String>> prop) {
+	public void setListener(String type, UpdateListener ul) {
 		// TODO Auto-generated method stub
-		
+		myInventory.setListener(type, ul);
 	}
 
 	@Override

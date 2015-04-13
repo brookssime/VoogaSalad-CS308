@@ -1,9 +1,11 @@
 package gae.inventory;
 
+import gae.inventorypane.UpdateListener;
 import interfaces.Authorable;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import reflection.Reflection;
 import engine.Base;
@@ -23,8 +25,11 @@ import engine.Tile;
 import engine.Wave;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+
+import java.awt.event.ActionEvent;
 
 public class Inventory {
 
@@ -40,9 +45,9 @@ public class Inventory {
 	private ObservableMap<String, Enemy> myEnemys;
 	private ObservableMap<String, Tower> myTowers;
 	private ObservableMap<String, Tile> myTiles;
-	private ObservableMap<String, Effect> myEffect;
-	private ObservableMap<String, Range> myRange;
-	private ObservableMap<String, Store> myStore;
+	private ObservableMap<String, Effect> myEffects;
+	private ObservableMap<String, Range> myRanges;
+	private ObservableMap<String, Store> myStores;
 	private static final String[] TYPES = { "Game", "LevelScene",
 			"DialogueScene", "TitleScene", "Base", "Projectile", "Grid",
 			"Wave", "Port", "Enemy", "Tower", "Tile", "Effect", "Range",
@@ -61,9 +66,9 @@ public class Inventory {
 		myEnemys = FXCollections.observableHashMap();
 		myTowers = FXCollections.observableHashMap();
 		myTiles = FXCollections.observableHashMap();
-		myEffect = FXCollections.observableHashMap();
-		myRange = FXCollections.observableHashMap();
-		myStore = FXCollections.observableHashMap();
+		myEffects = FXCollections.observableHashMap();
+		myRanges = FXCollections.observableHashMap();
+		myStores = FXCollections.observableHashMap();
 		// setNews();
 	}
 
@@ -82,37 +87,88 @@ public class Inventory {
 					.getDeclaredField(mapString).get(this);
 		} catch (IllegalArgumentException | IllegalAccessException
 				| NoSuchFieldException | SecurityException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		Authorable newThing = (Authorable) Reflection.createInstance("engine."+type);
 		newThing.setName("New"+type);
 		map.put(newThing.getName(), newThing);
-		System.out.println(newThing.getName());
 	}
 
 	public void updateObject(String type, String obj, List<Object> params) {
 		String mapString = "my" + type + "s";
-		Authorable oldE = ((ObservableMap<String, Authorable>) Reflection
-				.getFieldValue(this, mapString)).get(obj);
+		ObservableMap<String, Authorable> map = null;
+		try {
+			map = (ObservableMap<String, Authorable>) this.getClass()
+					.getDeclaredField(mapString).get(this);
+		} catch (IllegalArgumentException | IllegalAccessException
+				| NoSuchFieldException | SecurityException e1) {
+			e1.printStackTrace();
+		}
+		Authorable oldE = map.get(obj);
 		oldE.updateParams(params);
-		((ObservableMap<String, Authorable>) Reflection.getFieldValue(this,
-				mapString)).put(oldE.getName(), oldE);
+		map.put(oldE.getName(), oldE);
+	}
+	
+	public Authorable getObject(String type, String obj) {
+		String mapString = "my" + type + "s";
+		ObservableMap<String, Authorable> map = null;
+		try {
+			map = (ObservableMap<String, Authorable>) this.getClass()
+					.getDeclaredField(mapString).get(this);
+		} catch (IllegalArgumentException | IllegalAccessException
+				| NoSuchFieldException | SecurityException e1) {
+			e1.printStackTrace();
+		}
+		Authorable object = map.get(obj);
+		return object;
 	}
 
 	public void removeObject(String type, String obj) {
 		String mapString = "my" + type + "s";
-		ObservableMap<String, Authorable> map = (ObservableMap<String, Authorable>) Reflection
-				.getFieldValue(this, mapString);
+		ObservableMap<String, Authorable> map = null;
+		try {
+			map = (ObservableMap<String, Authorable>) this.getClass()
+					.getDeclaredField(mapString).get(this);
+		} catch (IllegalArgumentException | IllegalAccessException
+				| NoSuchFieldException | SecurityException e1) {
+			e1.printStackTrace();
+		}
 		map.remove(obj);
 	}
-
-	public void setBind(String type,
-			ObjectProperty<ObservableList<String>> property) {
+	
+	public Set<String> getList(String type) {
 		String mapString = "my" + type + "s";
-		ObservableMap<String, Authorable> map = (ObservableMap<String, Authorable>) Reflection
-				.getFieldValue(this, mapString);
-		property.set(FXCollections.observableArrayList(map.keySet()));
+		ObservableMap<String, Authorable> map = null;
+		try {
+			map = (ObservableMap<String, Authorable>) this.getClass()
+					.getDeclaredField(mapString).get(this);
+		} catch (IllegalArgumentException | IllegalAccessException
+				| NoSuchFieldException | SecurityException e1) {
+			e1.printStackTrace();
+		}
+		return map.keySet();
+	}
+
+	public void setListener(String type,
+			UpdateListener ul) {
+		String mapString = "my" + type + "s";
+		ObservableMap<String, Authorable> map = null;
+		try {
+			map = (ObservableMap<String, Authorable>) this.getClass()
+					.getDeclaredField(mapString).get(this);
+		} catch (IllegalArgumentException | IllegalAccessException
+				| NoSuchFieldException | SecurityException e1) {
+			e1.printStackTrace();
+		}
+		map.addListener(new MapChangeListener() {
+
+			@Override
+			public void onChanged(Change arg0) {
+//				ul.setUpdate(FXCollections.observableArrayList(map.keySet()));
+				ul.run();
+			}
+			
+		});
 	}
 
 }
