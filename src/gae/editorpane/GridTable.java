@@ -5,6 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * 
+ * @author Negatu
+ * Allows user to add to the grid.
+ *
+ */
 public class GridTable extends Group{
 	private String[][] myTiles;
 	

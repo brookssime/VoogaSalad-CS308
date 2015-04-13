@@ -7,6 +7,11 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.SeparatorMenuItem;
 
+/**
+ * 
+ * @author Peter
+ * Manages the menu. Allows other classes to add menus to the bar and get menus.
+ */
 public class MenuManager implements MenuAdder {
 
 	private final MenuBar myMenuBar;

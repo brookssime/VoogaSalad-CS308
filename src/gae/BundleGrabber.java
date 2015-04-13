@@ -2,6 +2,12 @@ package gae;
 
 import java.util.ResourceBundle;
 
+/**
+ * 
+ * @author Peter
+ * This class is used to get the resource bundle from the resources folder.
+ *
+ */
 public final class BundleGrabber {
 
 	private static BundleGrabber instance;

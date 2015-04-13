@@ -16,6 +16,16 @@ import javafx.stage.Stage;
 import gae.GAEPane;
 import gae.menupane.MenuAdder;
 
+/**
+ * 
+ * @author Sunjeev Devulapalli
+ * This is the temporary editor for editing the base. It allows the user to set properties such as
+ * the name, health, location, radius, and image. The Name is the name of the specific game object. The
+ * Health is the health of a base. The location is wher eit is placed on the map. The radius is where 
+ * enemies can attack it from. And the image is any image the player chooses.
+ * 
+ * To add new content, modify the setContent() method.
+ */
 public class BaseEditor extends GAEPane{
 
 	public BaseEditor(MenuAdder adder) {

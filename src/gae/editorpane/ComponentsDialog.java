@@ -9,6 +9,12 @@ import gae.model.Receiver;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
+/**
+ * 
+ * @author Negatu
+ * Not implemented yet.
+ *
+ */
 public class ComponentsDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<String> myOptions;

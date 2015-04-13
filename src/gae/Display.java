@@ -18,6 +18,11 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
+/**
+ * @author Peter
+ * This class is our main display class, it contains the borderpane which contains all the different
+ * components, including the editorpanes, timelinepane, inventorypane, and menupane.
+ */
 public class Display {
 
 	private BorderPane myRoot;

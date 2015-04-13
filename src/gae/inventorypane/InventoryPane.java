@@ -22,6 +22,12 @@ import gae.menupane.MenuAdder;
 import gae.model.Receiver;
 import engine.Tower;
 
+/**
+ * 
+ * @author Peter
+ * Displays the items in the inventory to the user in an easy-to-read way.
+ *
+ */
 public class InventoryPane extends GAEPane {
 
 	private static final String[] TYPES = { "Game", "LevelScene",

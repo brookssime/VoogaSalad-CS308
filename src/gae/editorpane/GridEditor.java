@@ -7,6 +7,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/**
+ * 
+ * @author Negatu
+ * A temporary Grid Editor for the editor pane. Allows the game designer to edit different tiles in
+ * a grid that will represent our Tower Defense Game.
+ *
+ */
 public class GridEditor extends Pane{
 	private HBox fieldEditor;
 	private VBox myLayout;

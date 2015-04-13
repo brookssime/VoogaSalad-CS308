@@ -25,6 +25,12 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author ?
+ * Allows the game designer to edit the tile in the Editor Pane.
+ *
+ */
 public class TileEditor {
 	private Stage myStage;
 	private Desktop desktop = Desktop.getDesktop();
