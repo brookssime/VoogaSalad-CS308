@@ -3,7 +3,6 @@ package gae.inventorypane;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Accordion;
@@ -67,7 +66,7 @@ public class InventoryPane extends GAEPane {
 		Button button = new Button("Add");
 		button.setOnMouseClicked(e -> {
 			myReceiver.addObject(type);
-			list.setItems(FXCollections.observableArrayList(myReceiver.getList(type)));
+//			list.setItems(FXCollections.observableArrayList(myReceiver.getList(type)));
 		});
 		return button;
 	}
@@ -78,7 +77,7 @@ public class InventoryPane extends GAEPane {
 			if (list.getSelectionModel().getSelectedItem() != null) {
 				myReceiver.editObject(type, list.getSelectionModel().getSelectedItem());
 				System.out.println(list.getSelectionModel().getSelectedItem());
-				list.setItems(FXCollections.observableArrayList(myReceiver.getList(type)));
+//				list.setItems(FXCollections.observableArrayList(myReceiver.getList(type)));
 			}
 		});
 		return button;
@@ -88,9 +87,8 @@ public class InventoryPane extends GAEPane {
 		Button button = new Button("Remove");
 		button.setOnMouseClicked(e -> {
 			if (list.getSelectionModel().getSelectedItem() != null) {
-
 				myReceiver.removeObject(type, list.getSelectionModel().getSelectedItem());
-				list.setItems(FXCollections.observableArrayList(myReceiver.getList(type)));
+//				list.setItems(FXCollections.observableArrayList(myReceiver.getList(type)));
 			}
 		});
 		return button;
@@ -101,37 +99,21 @@ public class InventoryPane extends GAEPane {
 		List<Menu> menus = new ArrayList<Menu>();
 
 		Menu menuInventory = new Menu("Inventory");
-		MenuItem newGameMenuItem = new MenuItem("New Game");
-		newGameMenuItem.setOnAction(e -> myReceiver.addObject("Game"));
-		MenuItem newLevelSceneMenuItem = new MenuItem("New Level Scene");
-		newLevelSceneMenuItem.setOnAction(e -> myReceiver
-				.addObject("LevelScene"));
-		MenuItem newDialogueSceneMenuItem = new MenuItem("New Dialogue Scene");
-		newDialogueSceneMenuItem.setOnAction(e -> myReceiver
-				.addObject("DialogueScene"));
-		MenuItem newTitleSceneMenuItem = new MenuItem("New Title Scene");
-		newTitleSceneMenuItem.setOnAction(e -> myReceiver
-				.addObject("TitleScene"));
-		MenuItem newEnemyMenuItem = new MenuItem("New Enemy");
-		newEnemyMenuItem.setOnAction(e -> myReceiver.addObject("Enemy"));
-		MenuItem newTowerMenuItem = new MenuItem("New Tower");
-		newTowerMenuItem.setOnAction(e -> myReceiver.addObject("Tower"));
-		MenuItem newBaseMenuItem = new MenuItem("New Base");
-		newBaseMenuItem.setOnAction(e -> myReceiver.addObject("Base"));
-		MenuItem newTileMenuItem = new MenuItem("New Tile");
-		newTileMenuItem.setOnAction(e -> myReceiver.addObject("Tile"));
-		MenuItem newProjectileMenuItem = new MenuItem("New Projectile");
-		newProjectileMenuItem.setOnAction(e -> myReceiver
-				.addObject("Projectile"));
-		MenuItem newGridMenuItem = new MenuItem("New Grid");
-		newGridMenuItem.setOnAction(e -> myReceiver.addObject("Grid"));
-		MenuItem newWaveMenuItem = new MenuItem("New Port");
-		newWaveMenuItem.setOnAction(e -> myReceiver.addObject("Port"));
-		menuInventory.getItems().addAll(newGameMenuItem, newLevelSceneMenuItem,
-				newDialogueSceneMenuItem, newTitleSceneMenuItem,
-				newEnemyMenuItem, newTowerMenuItem, newBaseMenuItem,
-				newTileMenuItem, newProjectileMenuItem, newGridMenuItem,
-				newWaveMenuItem);
+		
+		for (String type : TYPES) {
+			MenuItem newMenuItem = new MenuItem("New " + type);
+			newMenuItem.setOnAction(e -> {
+				myReceiver.addObject(type);
+//				for (TitledPane pane : myAccordion.getPanes()){
+//					if (pane.getText().equals(type)) {
+//						VBox box = (VBox) pane.getContent();
+//						ListView<String> list = (ListView<String>) box.getChildren().get(1);
+//						list.setItems(FXCollections.observableArrayList(myReceiver.getList(type)));
+//					}
+//				}
+			});
+			menuInventory.getItems().add(newMenuItem);
+		}
 
 		menus.add(menuInventory);
 

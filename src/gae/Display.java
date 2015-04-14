@@ -4,10 +4,6 @@
 package gae;
 
 import gae.editorpane.BaseEditor;
-import gae.editorpane.DialogueSceneEditor;
-import gae.editorpane.GameEditor;
-import gae.editorpane.GridEditor;
-import gae.editorpane.TitleScreenEditor;
 import gae.inventorypane.InventoryPane;
 import gae.menupane.MenuAdder;
 import gae.menupane.MenuManager;
@@ -17,7 +13,6 @@ import gae.model.Receiver;
 import java.util.ResourceBundle;
 
 import javafx.scene.Scene;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 

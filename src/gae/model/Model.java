@@ -4,7 +4,6 @@ import gae.inventory.Inventory;
 import gae.inventorypane.UpdateListener;
 import interfaces.Authorable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -24,21 +23,18 @@ public class Model implements Receiver {
 
 	@Override
 	public void addObject(String type) {
-		// TODO Auto-generated method stub
 		myInventory.addObject(type);
 	}
 
 	@Override
 	public void updateObject(String type, String obj, List<Object> params) {
-		// TODO Auto-generated method stub
 		myInventory.updateObject(type, obj, params);
 	}
 
 	@Override
 	public void editObject(String type, String obj) {
-		// TODO Auto-generated method stub
 		Authorable curItem = myInventory.getObject(type, obj);
-		
+		//TODO: make correct editor show up
 		
 	}
 	
@@ -64,16 +60,10 @@ public class Model implements Receiver {
 		
 	}
 
+	//might not be used
 	@Override
 	public void setListener(String type, UpdateListener ul) {
-		// TODO Auto-generated method stub
 		myInventory.setListener(type, ul);
-	}
-
-	@Override
-	public ArrayList<String> getElements(String type) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

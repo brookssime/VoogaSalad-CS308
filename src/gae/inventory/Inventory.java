@@ -7,7 +7,6 @@ import gae.inventorypane.UpdateListener;
 import interfaces.Authorable;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import reflection.Reflection;
@@ -26,10 +25,8 @@ import engine.Tower;
 import engine.Enemy;
 import engine.Tile;
 import engine.Wave;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
 
@@ -115,17 +112,6 @@ public class Inventory {
 		myEffects = FXCollections.observableHashMap();
 		myRanges = FXCollections.observableHashMap();
 		myStores = FXCollections.observableHashMap();
-		// setNews();
-	}
-
-	// method for testing
-	/**
-	 * Sets the news.
-	 */
-	private void setNews() {
-		for (String type : TYPES) {
-			addObject(type);
-		}
 	}
 
 	/**
@@ -217,10 +203,10 @@ public class Inventory {
 	}
 
 	/**
-	 * Sets the bind.
+	 * Sets the listener.
 	 *
 	 * @param type the type
-	 * @param property the property
+	 * @param ul the listener
 	 */
 	public void setListener(String type,
 			UpdateListener ul) {
@@ -233,11 +219,12 @@ public class Inventory {
 				| NoSuchFieldException | SecurityException e1) {
 			e1.printStackTrace();
 		}
+		Set<String> update = map.keySet();
 		map.addListener(new MapChangeListener() {
 
 			@Override
 			public void onChanged(Change arg0) {
-//				ul.setUpdate(FXCollections.observableArrayList(map.keySet()));
+				ul.setUpdate(FXCollections.observableArrayList(update));
 				ul.run();
 			}
 			
