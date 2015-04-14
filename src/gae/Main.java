@@ -3,6 +3,7 @@
  */
 package gae;
 
+import gae.view.View;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

@@ -1,7 +1,7 @@
 package gae.model;
 
-import gae.inventory.Inventory;
-import gae.inventorypane.UpdateListener;
+import gae.model.inventory.Inventory;
+import gae.view.inventorypane.UpdateListener;
 import interfaces.Authorable;
 
 import java.util.List;
@@ -43,10 +43,10 @@ public class Model implements Receiver {
 		myInventory.removeObject(type, obj);
 	}
 	
-	@Override
-	public Set<String> getList(String type) {
-		return myInventory.getList(type);
-	}
+//	@Override
+//	public Set<String> getList(String type) {
+//		return myInventory.getList(type);
+//	}
 
 	@Override
 	public void saveFile() {
