@@ -4,6 +4,7 @@
 package gae.view;
 
 import gae.BundleGrabber;
+import gae.editorComponents.Editor;
 import gae.model.Receiver;
 import gae.view.editorpane.EditorPane;
 import gae.view.inventorypane.InventoryPane;
@@ -95,8 +96,8 @@ public class Display {
 	 * @return the pane
 	 */
 	private Pane setupEditorPane() {
-		EditorPane editorPane = new EditorPane(myMenuAdder, myReceiver);
-		return editorPane.getPane();
+		EditorPane editor = new Editor(myMenuAdder, myReceiver, "engine.ExampleEnemy");
+		return editor.getPane();
 	}
 
 	/**
