@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Menu;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import gae.editorComponents.Editor;
 import gae.model.Receiver;
 import gae.view.GAEPane;
 import gae.view.menupane.MenuAdder;
@@ -37,6 +38,12 @@ public class EditorPane extends GAEPane {
 		myTabs = new TabPane();
 		myRoot.getChildren().add(myTabs);
 		myReceiver = receiver;
+		
+		//Testing tabs.
+		Editor editor = new Editor(myMenuAdder, myReceiver, "engine.ExampleEnemy");
+		Tab newTab = new Tab("Peter");
+		newTab.setContent(editor.getPane());
+		myTabs.getTabs().add(newTab);
 	}
 	
 	public void addEditor(Node editor) {

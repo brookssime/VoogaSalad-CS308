@@ -2,18 +2,20 @@ package gae.editorComponents;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 
 import engine.MethodAnnoation;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import reflection.Reflection;
 import gae.model.Receiver;
-import gae.view.editorpane.EditorPane;
+import gae.view.GAEPane;
 import gae.view.menupane.MenuAdder;
 
-public class Editor extends EditorPane{
+public class Editor extends GAEPane{
 	/**
 	 * @author Negatu
 	 * 
@@ -30,11 +32,11 @@ public class Editor extends EditorPane{
 	private Button exportObject;
 	private EditorComponentFactory myFactory;
 
-	public Editor(MenuAdder adder, Receiver receiver, String classname) {
-		super(adder, receiver);
+	public Editor(MenuAdder adder, Receiver receiver, String type) {
+		super(Editor.class.getSimpleName(), adder);
 		
 		//this needs to happen using the receiver instead once everything on our backend is sorted out.
-		myObject = Reflection.createInstance(classname);
+		myObject = Reflection.createInstance(type);
 		ArrayList<Method> objMethods = new ArrayList<Method>(
 				Reflection.getEditorMethods(myObject));
 
@@ -58,6 +60,12 @@ public class Editor extends EditorPane{
 			myObject.toString();
 		});
 		myForm.getChildren().add(exportObject);
+	}
+
+	@Override
+	public List<Menu> getMenus() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
