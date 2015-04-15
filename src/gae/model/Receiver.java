@@ -17,7 +17,7 @@ public interface Receiver {
 	public void updateObject(String type, String obj, List<Object> params);
 	public void removeObject(String type, String obj);
 	public void editObject(String type, String obj);
-//	public Set<String> getList(String type);
+ 	public Set<String> getList(String type);//once peter figures how to do this, we will change it. 
 	public void saveFile();
 	public void exportFile(String game);
 	public void setListener(String type, UpdateListener ul);
