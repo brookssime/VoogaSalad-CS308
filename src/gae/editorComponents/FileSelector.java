@@ -3,17 +3,20 @@ package gae.editorComponents;
 import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
 import reflection.Reflection;
 import engine.ParameterAnnotation;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
+/**
+ * A file selector editor type. 
+ * 
+ * @author Negatu
+ *
+ */
 
 public class FileSelector extends EditorComponent{
 
@@ -28,20 +31,18 @@ public class FileSelector extends EditorComponent{
 
 	@Override
 	public void setUpEditor() {
-		Class<?>[] parameterType = myMethod.getParameterTypes();
-		Annotation[][] parameterAnnotations = myMethod.getParameterAnnotations();
-		ArrayList<String> parameterNames = new ArrayList<>();
-		Integer parametersLength = new Integer(parameterType.length);
-		for (Annotation[] annotation : parameterAnnotations) {
-			if (annotation.length > 0) {
-				ParameterAnnotation param = (ParameterAnnotation) annotation[0];
-				parameterNames.add(param.name());
-			}
-		}
+		//TODO type of file (with error correction and filetering needs to be added
+		//TODO ?multiple select button in case multiple select files
+		
+		Annotation[][] Annotations = myMethod.getParameterAnnotations();
+		Annotation[] annotationList = Annotations[0];
+		ParameterAnnotation parameterAnnotation = (ParameterAnnotation) annotationList[0];
+		String parameterName = parameterAnnotation.name();
+
 		
 		myBox = new HBox();
 		this.getChildren().add(myBox);
-		selectButton = new Button(parameterNames.get(0));
+		selectButton = new Button(parameterName);
 		myBox.getChildren().add(selectButton);
 		selectButton.setOnAction(e->{
 			JFileChooser fileChooser = new JFileChooser(System.getProperties()

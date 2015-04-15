@@ -6,6 +6,12 @@ import engine.MethodAnnoation;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+/**
+ * 
+ * @author Negatu
+ * An super class for all editor component types. 
+ */
+
 public abstract class EditorComponent extends VBox{
 	
 	protected Label fieldLabel;
