@@ -1,4 +1,4 @@
-package gae.editorpane;
+package gae.view.editorpane;
 
 import java.util.List;
 import java.util.ResourceBundle;
@@ -11,8 +11,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import gae.BundleGrabber;
-import gae.GAEPane;
-import gae.menupane.MenuAdder;
+import gae.view.GAEPane;
+import gae.view.menupane.MenuAdder;
 
 /**
  * 

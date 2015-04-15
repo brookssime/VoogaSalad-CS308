@@ -1,7 +1,7 @@
 /*
  * 
  */
-package gae;
+package gae.view;
 
 import gae.model.Model;
 import gae.model.Receiver;

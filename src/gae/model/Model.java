@@ -1,12 +1,11 @@
 package gae.model;
 
-import gae.inventory.Inventory;
+import gae.model.inventory.Inventory;
+import gae.view.inventorypane.UpdateListener;
+import interfaces.Authorable;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javafx.beans.property.ObjectProperty;
-import javafx.collections.ObservableList;
+import java.util.Set;
 
 /**
  * Not yet implemented
@@ -24,21 +23,30 @@ public class Model implements Receiver {
 
 	@Override
 	public void addObject(String type) {
-		// TODO Auto-generated method stub
 		myInventory.addObject(type);
 	}
 
 	@Override
 	public void updateObject(String type, String obj, List<Object> params) {
-		// TODO Auto-generated method stub
-		
+		myInventory.updateObject(type, obj, params);
 	}
 
 	@Override
 	public void editObject(String type, String obj) {
-		// TODO Auto-generated method stub
+		Authorable curItem = myInventory.getObject(type, obj);
+		//TODO: make correct editor show up
 		
 	}
+	
+	@Override
+	public void removeObject(String type, String obj) {
+		myInventory.removeObject(type, obj);
+	}
+	
+//	@Override
+//	public Set<String> getList(String type) {
+//		return myInventory.getList(type);
+//	}
 
 	@Override
 	public void saveFile() {
@@ -52,16 +60,10 @@ public class Model implements Receiver {
 		
 	}
 
+	//might not be used
 	@Override
-	public void setBind(String type, ObjectProperty<ObservableList<String>> prop) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ArrayList<String> getElements(String type) {
-		// TODO Auto-generated method stub
-		return null;
+	public void setListener(String type, UpdateListener ul) {
+		myInventory.setListener(type, ul);
 	}
 
 }

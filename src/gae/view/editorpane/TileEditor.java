@@ -1,13 +1,11 @@
-package gae.editorpane;
+package gae.view.editorpane;
 
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -28,19 +26,24 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- * This class is testing the creation of tabs for the editor window
- * @author ReyinaSenatus
+ * 
+ * @author ?
+ * Allows the game designer to edit the tile in the Editor Pane.
  *
  */
-
-public class EnemyEditor extends Application{
-	//TODO: Make sure what goes in the fields is saved
+public class TileEditor {
+	private Stage myStage;
 	private Desktop desktop = Desktop.getDesktop();
+	//TODO: Make sure what goes in the fields is saved
 	
-    @Override
-    public void start(Stage primaryStage) {
-    
-        primaryStage.setTitle("Enemy Editor");
+	public void TileEditor(Stage s){
+		myStage = new Stage();
+		myStage = s;
+	}
+	
+	public void edit(){
+    	
+        myStage.setTitle("Tile Editor");
         Group root = new Group();
         GridPane myPane = new GridPane();
         myPane.setAlignment(Pos.CENTER);
@@ -50,60 +53,42 @@ public class EnemyEditor extends Application{
         //myPane.setGridLinesVisible(true);
         
         //Code for the fields
-        Text title = new Text("Edit your enemy here");
+        Text title = new Text("Edit your tile here");
         title.setFont(Font.font("Times New Roman", FontWeight.BOLD, 25));
         myPane.add(title, 0, 1, 2, 1);
         
         Label image = new Label("Set Image");
         image.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
         myPane.add(image, 0, 2);
-        
+      
         Label name = new Label("Set Name"); 
         name.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
         myPane.add(name, 0, 4);
         TextField nameField = new TextField();
         myPane.add(nameField, 1, 4);
-        
-        Label health = new Label("Set Health");
-        health.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(health, 0, 6);
-        TextField healthField = new TextField();
-        myPane.add(healthField, 1, 6);
-        
-        Label speed = new Label("Set Speed");
-        speed.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(speed, 0, 8);
-        TextField speedField = new TextField();
-        myPane.add(speedField, 1, 8);
-        
-        Label damage = new Label("Set Damage"); 
-        damage.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(damage, 0, 10);
-        TextField damageField = new TextField();
-        myPane.add(damageField, 1, 10);
-        
-        //Code for the save button
+       
+        //Code for the button
         Button finishBtn = new Button("Save");
         HBox finishHB = new HBox(10);
         finishHB.setAlignment(Pos.BOTTOM_CENTER);
         finishHB.getChildren().add(finishBtn);
         myPane.add(finishHB, 1, 12);
         
-        //Displaying messages for save button
+      //Displaying messages for save button
         final Text action = new Text();
         myPane.add(action, 1, 13);
         
-        //Event Handling of save button
+      //Event Handling of save button
         finishBtn.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
             public void handle(ActionEvent e) {
                 action.setFill(Color.GREEN);
-                action.setText("You saved your enemy!");
+                action.setText("You saved your tile!");
                 //TODO: Make this close the editor instead
             }
         });
         
-        //Choosing a file button
+      //Choosing a file button
         Button fileBtn = new Button("Choose Image");
         HBox fileHB = new HBox(10);
         fileHB.setAlignment(Pos.CENTER);
@@ -118,7 +103,7 @@ public class EnemyEditor extends Application{
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(final ActionEvent e) {
-                        File file = chooser.showOpenDialog(primaryStage);
+                        File file = chooser.showOpenDialog(myStage);
                         if (file != null) {
                             openFile(file);
                         }
@@ -133,23 +118,20 @@ public class EnemyEditor extends Application{
         borderPane.prefWidthProperty().bind(scene.widthProperty());
         //borderPane.setCenter(tabPane);
         root.getChildren().add(borderPane);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        myStage.setScene(scene);
+        myStage.show();
     }
     
     private void openFile(java.io.File file) {
-    	 try {
-             desktop.open(file);
-         } catch (IOException ex) {
-             Logger.getLogger(
-                 EnemyEditor.class.getName()).log(
-                     Level.SEVERE, null, ex
-                 );
-         }
-     }
-    
-    public static void main(String[] args) {
-        Application.launch(args);
+   	 try {
+            desktop.open(file);
+        } catch (IOException ex) {
+            Logger.getLogger(
+                EnemyEditor.class.getName()).log(
+                    Level.SEVERE, null, ex
+                );
+        }
     }
-
+    
 }
+

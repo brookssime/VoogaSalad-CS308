@@ -1,4 +1,4 @@
-package gae.editorpane;
+package gae.view.editorpane;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

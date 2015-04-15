@@ -1,7 +1,7 @@
 /*
  * 
  */
-package gae.editorpane;
+package gae.view.editorpane;
 
 import java.awt.Desktop;
 import java.io.File;

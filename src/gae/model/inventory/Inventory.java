@@ -1,12 +1,13 @@
 /*
  * 
  */
-package gae.inventory;
+package gae.model.inventory;
 
+import gae.view.inventorypane.UpdateListener;
 import interfaces.Authorable;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import reflection.Reflection;
 import engine.Base;
@@ -24,10 +25,10 @@ import engine.Tower;
 import engine.Enemy;
 import engine.Tile;
 import engine.Wave;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -78,13 +79,13 @@ public class Inventory {
 	private ObservableMap<String, Tile> myTiles;
 	
 	/** The my effect. */
-	private ObservableMap<String, Effect> myEffect;
+	private ObservableMap<String, Effect> myEffects;
 	
 	/** The my range. */
-	private ObservableMap<String, Range> myRange;
+	private ObservableMap<String, Range> myRanges;
 	
 	/** The my store. */
-	private ObservableMap<String, Store> myStore;
+	private ObservableMap<String, Store> myStores;
 	
 	/** The Constant TYPES. */
 	private static final String[] TYPES = { "Game", "LevelScene",
@@ -108,20 +109,9 @@ public class Inventory {
 		myEnemys = FXCollections.observableHashMap();
 		myTowers = FXCollections.observableHashMap();
 		myTiles = FXCollections.observableHashMap();
-		myEffect = FXCollections.observableHashMap();
-		myRange = FXCollections.observableHashMap();
-		myStore = FXCollections.observableHashMap();
-		// setNews();
-	}
-
-	// method for testing
-	/**
-	 * Sets the news.
-	 */
-	private void setNews() {
-		for (String type : TYPES) {
-			addObject(type);
-		}
+		myEffects = FXCollections.observableHashMap();
+		myRanges = FXCollections.observableHashMap();
+		myStores = FXCollections.observableHashMap();
 	}
 
 	/**
@@ -129,6 +119,7 @@ public class Inventory {
 	 *
 	 * @param type the type
 	 */
+	@SuppressWarnings("unchecked")
 	public void addObject(String type) {
 		String mapString = "my" + type + "s";
 		ObservableMap<String, Authorable> map = null;
@@ -137,13 +128,17 @@ public class Inventory {
 					.getDeclaredField(mapString).get(this);
 		} catch (IllegalArgumentException | IllegalAccessException
 				| NoSuchFieldException | SecurityException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		Authorable newThing = (Authorable) Reflection.createInstance("engine."+type);
-		newThing.setName("New"+type);
+		String newName = "New"+type;
+		int vrsNum = 0;
+		while (map.containsKey(newName)) {
+			vrsNum++;
+			newName = "New"+type+vrsNum;
+		}
+		newThing.setName(newName);
 		map.put(newThing.getName(), newThing);
-		System.out.println(newThing.getName());
 	}
 
 	/**
@@ -153,13 +148,35 @@ public class Inventory {
 	 * @param obj the obj
 	 * @param params the params
 	 */
+	@SuppressWarnings("unchecked")
 	public void updateObject(String type, String obj, List<Object> params) {
 		String mapString = "my" + type + "s";
-		Authorable oldE = ((ObservableMap<String, Authorable>) Reflection
-				.getFieldValue(this, mapString)).get(obj);
+		ObservableMap<String, Authorable> map = null;
+		try {
+			map = (ObservableMap<String, Authorable>) this.getClass()
+					.getDeclaredField(mapString).get(this);
+		} catch (IllegalArgumentException | IllegalAccessException
+				| NoSuchFieldException | SecurityException e1) {
+			e1.printStackTrace();
+		}
+		Authorable oldE = map.get(obj);
 		oldE.updateParams(params);
-		((ObservableMap<String, Authorable>) Reflection.getFieldValue(this,
-				mapString)).put(oldE.getName(), oldE);
+		map.put(oldE.getName(), oldE);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Authorable getObject(String type, String obj) {
+		String mapString = "my" + type + "s";
+		ObservableMap<String, Authorable> map = null;
+		try {
+			map = (ObservableMap<String, Authorable>) this.getClass()
+					.getDeclaredField(mapString).get(this);
+		} catch (IllegalArgumentException | IllegalAccessException
+				| NoSuchFieldException | SecurityException e1) {
+			e1.printStackTrace();
+		}
+		Authorable object = map.get(obj);
+		return object;
 	}
 
 	/**
@@ -168,25 +185,61 @@ public class Inventory {
 	 * @param type the type
 	 * @param obj the obj
 	 */
+	@SuppressWarnings("unchecked")
 	public void removeObject(String type, String obj) {
 		String mapString = "my" + type + "s";
-		ObservableMap<String, Authorable> map = (ObservableMap<String, Authorable>) Reflection
-				.getFieldValue(this, mapString);
+		ObservableMap<String, Authorable> map = null;
+		try {
+			map = (ObservableMap<String, Authorable>) this.getClass()
+					.getDeclaredField(mapString).get(this);
+		} catch (IllegalArgumentException | IllegalAccessException
+				| NoSuchFieldException | SecurityException e1) {
+			e1.printStackTrace();
+		}
 		map.remove(obj);
 	}
+	
+//	public Set<String> getList(String type) {
+//		String mapString = "my" + type + "s";
+//		ObservableMap<String, Authorable> map = null;
+//		try {
+//			map = (ObservableMap<String, Authorable>) this.getClass()
+//					.getDeclaredField(mapString).get(this);
+//		} catch (IllegalArgumentException | IllegalAccessException
+//				| NoSuchFieldException | SecurityException e1) {
+//			e1.printStackTrace();
+//		}
+//		return map.keySet();
+//	}
 
 	/**
-	 * Sets the bind.
+	 * Sets the listener.
 	 *
 	 * @param type the type
-	 * @param property the property
+	 * @param ul the listener
 	 */
-	public void setBind(String type,
-			ObjectProperty<ObservableList<String>> property) {
+	@SuppressWarnings("unchecked")
+	public void setListener(String type,
+			UpdateListener ul) {
 		String mapString = "my" + type + "s";
-		ObservableMap<String, Authorable> map = (ObservableMap<String, Authorable>) Reflection
-				.getFieldValue(this, mapString);
-		property.set(FXCollections.observableArrayList(map.keySet()));
+		ObservableMap<String, Authorable> map = null;
+		try {
+			map = (ObservableMap<String, Authorable>) this.getClass()
+					.getDeclaredField(mapString).get(this);
+		} catch (IllegalArgumentException | IllegalAccessException
+				| NoSuchFieldException | SecurityException e1) {
+			e1.printStackTrace();
+		}
+		Set<String> update = map.keySet();
+		map.addListener(new MapChangeListener<String, Authorable>() {
+
+			@Override
+			public void onChanged(Change<? extends String, ? extends Authorable> arg0) {
+				ul.setUpdate(FXCollections.observableArrayList(update));
+				ul.run();
+			}
+			
+		});
 	}
 
 }

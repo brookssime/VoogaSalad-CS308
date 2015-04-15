@@ -1,8 +1,8 @@
-package gae.editorpane;
+package gae.view.editorpane;
 
 import gae.BundleGrabber;
-import gae.GAEPane;
-import gae.menupane.MenuAdder;
+import gae.view.GAEPane;
+import gae.view.menupane.MenuAdder;
 
 import java.io.File;
 import java.util.List;

@@ -1,4 +1,4 @@
-package gae.editorpane;
+package gae.view.editorpane;
 
 import java.util.ArrayList;
 

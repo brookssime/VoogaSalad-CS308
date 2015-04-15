@@ -1,4 +1,4 @@
-package gae.editorpane;
+package gae.view.editorpane;
 
 import java.io.File;
 import java.util.List;
@@ -13,8 +13,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import gae.GAEPane;
-import gae.menupane.MenuAdder;
+import gae.view.GAEPane;
+import gae.view.menupane.MenuAdder;
 
 /**
  * 

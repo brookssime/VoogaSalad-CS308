@@ -1,23 +1,19 @@
 /*
  * 
  */
-package gae;
+package gae.view;
 
-import gae.editorpane.BaseEditor;
-import gae.editorpane.DialogueSceneEditor;
-import gae.editorpane.GameEditor;
-import gae.editorpane.GridEditor;
-import gae.editorpane.TitleScreenEditor;
-import gae.inventorypane.InventoryPane;
-import gae.menupane.MenuAdder;
-import gae.menupane.MenuManager;
-import gae.menupane.MenuPane;
+import gae.BundleGrabber;
 import gae.model.Receiver;
+import gae.view.editorpane.EditorPane;
+import gae.view.inventorypane.InventoryPane;
+import gae.view.menupane.MenuAdder;
+import gae.view.menupane.MenuManager;
+import gae.view.menupane.MenuPane;
 
 import java.util.ResourceBundle;
 
 import javafx.scene.Scene;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
@@ -99,12 +95,8 @@ public class Display {
 	 * @return the pane
 	 */
 	private Pane setupEditorPane() {
-		BaseEditor e = new BaseEditor(myMenuAdder);
-//		DialogueSceneEditor e = new DialogueSceneEditor(myMenuAdder);
-//		TitleScreenEditor e = new TitleScreenEditor(myMenuAdder);
-//		GameEditor e = new GameEditor(myMenuAdder);
-		//return e.getPane();
-		return (new GridEditor());
+		EditorPane editorPane = new EditorPane(myMenuAdder, myReceiver);
+		return editorPane.getPane();
 	}
 
 	/**

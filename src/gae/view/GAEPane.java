@@ -1,10 +1,11 @@
 /*
  * 
  */
-package gae;
+package gae.view;
 
-import gae.menupane.MenuAdder;
-import gae.menupane.Menuable;
+import gae.BundleGrabber;
+import gae.view.menupane.MenuAdder;
+import gae.view.menupane.Menuable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;

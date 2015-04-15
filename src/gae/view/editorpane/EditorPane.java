@@ -1,14 +1,17 @@
 /*
  * 
  */
-package gae.editorpane;
+package gae.view.editorpane;
 
 import java.util.List;
 
+import javafx.scene.Node;
 import javafx.scene.control.Menu;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import gae.GAEPane;
-import gae.menupane.MenuAdder;
+import gae.model.Receiver;
+import gae.view.GAEPane;
+import gae.view.menupane.MenuAdder;
 
 
 // TODO: Auto-generated Javadoc
@@ -22,23 +25,23 @@ public class EditorPane extends GAEPane {
 	
 	/** The my tabs. */
 	private TabPane myTabs;
+	private Receiver myReceiver;
 
 	/**
 	 * Instantiates a new editor pane.
 	 *
 	 * @param adder the adder
 	 */
-	public EditorPane(MenuAdder adder) {
-		super(EditorPane.class.getName(), adder);
+	public EditorPane(MenuAdder adder, Receiver receiver) {
+		super(EditorPane.class.getSimpleName(), adder);
 		myTabs = new TabPane();
 		myRoot.getChildren().add(myTabs);
+		myReceiver = receiver;
 	}
 	
-	/**
-	 * Sets the editors.
-	 */
-	public void setEditors() {
-		
+	public void addEditor(Node editor) {
+		Tab newTab = new Tab();
+		newTab.setContent(editor);
 	}
 
 	/* (non-Javadoc)

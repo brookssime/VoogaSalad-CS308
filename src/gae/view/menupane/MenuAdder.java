@@ -1,7 +1,7 @@
 /*
  * 
  */
-package gae.menupane;
+package gae.view.menupane;
 
 import java.util.List;
 
