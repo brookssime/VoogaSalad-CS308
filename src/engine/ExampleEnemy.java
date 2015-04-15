@@ -14,7 +14,7 @@ import javax.swing.JFileChooser;
 /**
  * An example editable Sprite.
  * 
- * @author Brooks, Patrick, Robert, and Sid.
+ * @author Negatu
  * 
  * 
  */
@@ -71,8 +71,8 @@ public class ExampleEnemy {
 	/**
 	 * Change image.
 	 */
-	@MethodAnnoation(editor=true, name = "Select Image File", type = "fileselect")
-	public void ChangeImage(@ParameterAnnotation(name="Image_File") File file) {
+	@MethodAnnoation(editor=true, name = "Image File", type = "fileselect")
+	public void ChangeImage(@ParameterAnnotation(name="Select Image") File file) {
 		this.changeImage(new Image(file.toURI().toString()));
 	}
 	
@@ -103,7 +103,7 @@ public class ExampleEnemy {
 	
 	private void changeImage(File selectedFile) {
 		// TODO Auto-generated method stub
-		
+		this.changeImage(new Image(selectedFile.toURI().toString()));
 	}
 
 	/* (non-Javadoc)
