@@ -49,7 +49,6 @@ public class ExampleEditor extends Group {
 		myObject = Reflection.createInstance(className);
 		ArrayList<Method> objMethods = new ArrayList<Method>(
 				Reflection.getEditorMethods(myObject));
-
 		myLayout = new HBox();
 		myView = new Group();
 		myForm = new VBox();
