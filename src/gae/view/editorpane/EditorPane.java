@@ -7,14 +7,13 @@ import java.util.List;
 
 import javafx.scene.Node;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import gae.model.Receiver;
 import gae.view.GAEPane;
 import gae.view.menupane.MenuAdder;
 
-
-// TODO: Auto-generated Javadoc
 /**
  * The Class EditorPane.
  * @author Peter
@@ -39,9 +38,19 @@ public class EditorPane extends GAEPane {
 		myReceiver = receiver;
 	}
 	
-	public void addEditor(Node editor) {
+	public void addEditor(Editor editor) {
 		Tab newTab = new Tab();
 		newTab.setContent(editor);
+		newTab.setOnClosed(e -> {
+			myReceiver.closeEdit();
+		});
+	}
+	
+	public void onClose() {
+		Tab curTab = new Tab();
+		curTab.setOnClosed(e -> {
+			
+		});
 	}
 
 	/* (non-Javadoc)
@@ -50,6 +59,11 @@ public class EditorPane extends GAEPane {
 	@Override
 	public List<Menu> getMenus() {
 		// TODO Auto-generated method stub
+		Menu menuEditor = new Menu("Editor");
+		MenuItem closeTabMenuItem = new MenuItem("Close Tab");
+		closeTabMenuItem.setOnAction(e -> {
+//			myTabs.getTabs().
+		});
 		return null;
 	}
 

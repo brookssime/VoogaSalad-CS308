@@ -5,7 +5,6 @@ import gae.view.inventorypane.UpdateListener;
 import interfaces.Authorable;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Not yet implemented
@@ -64,6 +63,11 @@ public class Model implements Receiver {
 	@Override
 	public void setListener(String type, UpdateListener ul) {
 		myInventory.setListener(type, ul);
+	}
+	
+	@Override
+	public void closeEdit() {
+		
 	}
 
 }
