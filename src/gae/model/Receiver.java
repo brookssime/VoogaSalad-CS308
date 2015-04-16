@@ -3,6 +3,7 @@ package gae.model;
 import gae.view.inventorypane.UpdateListener;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 
@@ -20,7 +21,6 @@ public interface Receiver {
 	public void saveFile();
 	public void exportFile(String game);
 	public void setListener(String type, UpdateListener ul);
-	public void closeEdit();
 
 	//type is the name of the editor like the class name
 	//obj is the name of the string key

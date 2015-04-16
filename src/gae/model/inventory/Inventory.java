@@ -199,18 +199,19 @@ public class Inventory {
 		map.remove(obj);
 	}
 	
-//	public Set<String> getList(String type) {
-//		String mapString = "my" + type + "s";
-//		ObservableMap<String, Authorable> map = null;
-//		try {
-//			map = (ObservableMap<String, Authorable>) this.getClass()
-//					.getDeclaredField(mapString).get(this);
-//		} catch (IllegalArgumentException | IllegalAccessException
-//				| NoSuchFieldException | SecurityException e1) {
-//			e1.printStackTrace();
-//		}
-//		return map.keySet();
-//	}
+	@SuppressWarnings("unchecked")
+	public Set<String> getList(String type) {
+		String mapString = "my" + type + "s";
+		ObservableMap<String, Authorable> map = null;
+		try {
+			map = (ObservableMap<String, Authorable>) this.getClass()
+					.getDeclaredField(mapString).get(this);
+		} catch (IllegalArgumentException | IllegalAccessException
+				| NoSuchFieldException | SecurityException e1) {
+			e1.printStackTrace();
+		}
+		return map.keySet();
+	}
 
 	/**
 	 * Sets the listener.

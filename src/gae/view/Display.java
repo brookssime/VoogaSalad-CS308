@@ -38,6 +38,8 @@ public class Display {
 	/** The my scene. */
 	private Scene myScene;
 	
+	private EditorPane myEditor;
+	
 	/** The my menu adder. */
 	private MenuAdder myMenuAdder;
 	
@@ -96,16 +98,18 @@ public class Display {
 	 */
 	private Pane setupEditorPane() {
 		EditorPane editorPane = new EditorPane(myMenuAdder, myReceiver);
+		myEditor = editorPane;
 		return editorPane.getPane();
 	}
 
 	/**
 	 * Setup inventory pane.
+	 * @param ep 
 	 *
 	 * @return the pane
 	 */
 	private Pane setupInventoryPane() {
-		InventoryPane inventoryPane = new InventoryPane(myMenuAdder, myReceiver);
+		InventoryPane inventoryPane = new InventoryPane(myMenuAdder, myReceiver, myEditor);
 		return inventoryPane.getPane();
 	}
 	

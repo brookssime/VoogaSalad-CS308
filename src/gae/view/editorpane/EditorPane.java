@@ -3,13 +3,14 @@
  */
 package gae.view.editorpane;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javafx.scene.Node;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.KeyCombination;
 import gae.editorComponents.Editor;
 import gae.model.Receiver;
 import gae.view.GAEPane;
@@ -45,19 +46,10 @@ public class EditorPane extends GAEPane {
 		myTabs.getTabs().add(newTab);
 	}
 	
-	public void addEditor(Editor editor) {
+	public void addEditor(String type, String obj) {
 		Tab newTab = new Tab();
-		newTab.setContent(editor);
-		newTab.setOnClosed(e -> {
-			myReceiver.closeEdit();
-		});
-	}
-	
-	public void onClose() {
-		Tab curTab = new Tab();
-		curTab.setOnClosed(e -> {
-			
-		});
+		Editor newEditor = new Editor(myMenuAdder, myReceiver, type);
+		newTab.setContent(newEditor.getPane());
 	}
 
 	/* (non-Javadoc)
@@ -65,13 +57,23 @@ public class EditorPane extends GAEPane {
 	 */
 	@Override
 	public List<Menu> getMenus() {
-		// TODO Auto-generated method stub
+		List<Menu> menus = new ArrayList<Menu>();
+		
 		Menu menuEditor = new Menu("Editor");
 		MenuItem closeTabMenuItem = new MenuItem("Close Tab");
 		closeTabMenuItem.setOnAction(e -> {
-//			myTabs.getTabs().
+			for (Tab tab : myTabs.getTabs()) {
+				if (tab.isSelected()) {
+					myTabs.getTabs().remove(tab);
+					break;
+				}
+			}
 		});
-		return null;
+		closeTabMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+W"));
+		menuEditor.getItems().add(closeTabMenuItem);
+		
+		menus.add(menuEditor);
+		return menus;
 	}
 
 }
