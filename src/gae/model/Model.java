@@ -70,4 +70,11 @@ public class Model implements Receiver {
 		
 	}
 
+	//We need a way of getting every instances of one kind (all created towers for example)
+	@Override
+	public Set<String> getList(String type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

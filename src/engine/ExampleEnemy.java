@@ -14,7 +14,7 @@ import javax.swing.JFileChooser;
 /**
  * An example editable Sprite.
  * 
- * @author Brooks, Patrick, Robert, and Sid.
+ * @author Negatu
  * 
  * 
  */
@@ -40,7 +40,7 @@ public class ExampleEnemy {
 	 * @param width the width
 	 * @param height the height
 	 */
-	@MethodAnnoation(editor=true)
+	@MethodAnnoation(editor=true, name="Size", type="textfield")
 	public void SetSize(@ParameterAnnotation(name="Width") Double width, @ParameterAnnotation(name="Height") Double height){
 		myImage.setFitWidth(width);
 		myImage.setFitHeight(height);
@@ -52,7 +52,7 @@ public class ExampleEnemy {
 	 * @param x the x
 	 * @param y the y
 	 */
-	@MethodAnnoation(editor=true)
+	@MethodAnnoation(editor=true, name = "Position", type = "textfield")
 	public void SetPosition(@ParameterAnnotation(name="X Location") Double x, @ParameterAnnotation(name="Y Location")Double y){
 		myImage.setTranslateX(x);
 		myImage.setTranslateY(y);
@@ -63,7 +63,7 @@ public class ExampleEnemy {
 	 *
 	 * @param health the health
 	 */
-	@MethodAnnoation(editor=true)
+	@MethodAnnoation(editor=true, name = "Health", type = "textfield")
 	public void SetHealthCapacity(@ParameterAnnotation(name="Health Capacity") Double health){
 		this.setMyHealthCapacity(health);
 	}
@@ -71,9 +71,9 @@ public class ExampleEnemy {
 	/**
 	 * Change image.
 	 */
-	@MethodAnnoation(editor=true)
-	public void ChangeImage() {
-		selectImage();
+	@MethodAnnoation(editor=true, name = "Image File", type = "fileselect")
+	public void ChangeImage(@ParameterAnnotation(name="Select Image") File file) {
+		this.changeImage(new Image(file.toURI().toString()));
 	}
 	
 	/**
@@ -85,14 +85,6 @@ public class ExampleEnemy {
 		myImage.setImage(img);
 	}
 	
-	/**
-	 * Change image.
-	 *
-	 * @param file the file
-	 */
-	public void changeImage(File file) {
-		this.changeImage(new Image(file.toURI().toString()));
-	}
 	
 	/**
 	 * Select image.
@@ -109,6 +101,11 @@ public class ExampleEnemy {
 		return;
 	}
 	
+	private void changeImage(File selectedFile) {
+		// TODO Auto-generated method stub
+		this.changeImage(new Image(selectedFile.toURI().toString()));
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
