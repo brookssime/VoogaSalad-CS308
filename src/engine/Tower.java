@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.sun.javafx.geom.Point2D;
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import interfaces.Authorable;
 import interfaces.Collidable;
@@ -28,20 +29,27 @@ public class Tower implements Movable, EditableTower, Authorable{
 	private Integer myFireRate;
 	private Point2D myLocation;
 	private Integer myHealth;
-	private Projectile myProjectile;
-	private Range myRangeObject;
-	private int myRange; // <<--only for Xstream purposes
-	private Double myCurRotation;
-	private Double myTargetRotation;
-	private Double myRotationSpeed;
+	private int myRange; // <<--only for Xstream purpose
 	private Integer myRad;
-
+	@XStreamOmitField
+	private Range myRangeObject;
+	@XStreamOmitField
+	private Projectile myProjectile;
+	@XStreamOmitField
+	private Double myCurRotation;
+	@XStreamOmitField
+	private Double myTargetRotation;
+	@XStreamOmitField
+	private Double myRotationSpeed;
+	
 	public Tower(){
+		
 		
 	}
 
 	public Tower (String name, String imagePath,  List<Integer> accessList, int range, int health, int radius, int fireRate, Point2D location) {
 		init(name, imagePath, accessList, range, health, radius, fireRate, location);
+		
 	}
 
 	public Tower (XStream serializer, String data, Point2D location) {
@@ -59,6 +67,8 @@ public class Tower implements Movable, EditableTower, Authorable{
 		myHealth = health;
 		myRad = radius;
 	}
+	
+	
 
 	public String getName() {
 		return myName;
