@@ -4,7 +4,6 @@
 package gae.view;
 
 import gae.BundleGrabber;
-import gae.editorComponents.Editor;
 import gae.model.Receiver;
 import gae.view.editorpane.EditorPane;
 import gae.view.inventorypane.InventoryPane;
@@ -38,6 +37,8 @@ public class Display {
 	
 	/** The my scene. */
 	private Scene myScene;
+	
+	private EditorPane myEditor;
 	
 	/** The my menu adder. */
 	private MenuAdder myMenuAdder;
@@ -96,17 +97,19 @@ public class Display {
 	 * @return the pane
 	 */
 	private Pane setupEditorPane() {
-		EditorPane editor = new Editor(myMenuAdder, myReceiver, "engine.ExampleEnemy");
-		return editor.getPane();
+		EditorPane editorPane = new EditorPane(myMenuAdder, myReceiver);
+		myEditor = editorPane;
+		return editorPane.getPane();
 	}
 
 	/**
 	 * Setup inventory pane.
+	 * @param ep 
 	 *
 	 * @return the pane
 	 */
 	private Pane setupInventoryPane() {
-		InventoryPane inventoryPane = new InventoryPane(myMenuAdder, myReceiver);
+		InventoryPane inventoryPane = new InventoryPane(myMenuAdder, myReceiver, myEditor);
 		return inventoryPane.getPane();
 	}
 	

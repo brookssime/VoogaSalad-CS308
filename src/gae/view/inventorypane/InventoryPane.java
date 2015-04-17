@@ -12,9 +12,11 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import gae.model.Receiver;
 import gae.view.GAEPane;
+import gae.view.editorpane.EditorPane;
 import gae.view.menupane.MenuAdder;
 
 /**
@@ -31,11 +33,13 @@ public class InventoryPane extends GAEPane {
 	"Store" };
 	private Accordion myAccordion;
 	private Receiver myReceiver;
+	private EditorPane myEditor;
 
-	public InventoryPane(MenuAdder adder, Receiver rec) {
+	public InventoryPane(MenuAdder adder, Receiver rec, EditorPane ep) {
 		super(InventoryPane.class.getSimpleName(), adder);
 		myAccordion = new Accordion();
 		myReceiver = rec;
+		myEditor =  ep;
 		for (String type : TYPES) {
 			myAccordion.getPanes().add(makePane(type));
 		}
@@ -74,7 +78,7 @@ public class InventoryPane extends GAEPane {
 		Button button = new Button("Edit");
 		button.setOnMouseClicked(e -> {
 			if (list.getSelectionModel().getSelectedItem() != null) {
-				myReceiver.editObject(type, list.getSelectionModel().getSelectedItem());
+				myEditor.addEditor(type, list.getSelectionModel().getSelectedItem());
 			}
 		});
 		return button;

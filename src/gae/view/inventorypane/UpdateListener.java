@@ -1,6 +1,5 @@
 package gae.view.inventorypane;
 
-import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 

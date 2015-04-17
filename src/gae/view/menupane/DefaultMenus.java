@@ -34,7 +34,7 @@ public class DefaultMenus implements Menuable {
 		//setup File menu
 		Menu menuFile = new Menu("File");
 		MenuItem exitMenuItem = new MenuItem("Exit");
-		exitMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+W"));
+		exitMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+Q"));
 		exitMenuItem.setOnAction(e -> exit());
 		menuFile.getItems().addAll(exitMenuItem);
 		menus.add(menuFile);
