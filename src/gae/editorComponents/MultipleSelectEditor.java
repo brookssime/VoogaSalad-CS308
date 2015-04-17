@@ -1,4 +1,6 @@
-package gae.editorcomponents;
+package gae.editorComponents;
+
+import java.lang.reflect.Method;
 
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
@@ -9,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
@@ -19,59 +22,75 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class CheckBoxListCellDemo extends Application {
+/**
+ * 
+ * @author sunjeevdevulapalli
+ * 
+ * Used the following resource as a template, especially for GameObject:
+ * https://code.google.com/p/javafx-demos/source/browse/trunk/javafx-demos/src/main/
+ * java/com/ezest/javafx/demogallery/listview/CheckBoxListCellDemo.java?r=96
+ *
+ */
+public class MultipleSelectEditor extends EditorComponent{
 
-        public static void main(String[] args) {
-                launch(args);
+        public MultipleSelectEditor(Method method, Object object) {
+        	super(method, object);
         }
 
-        @Override
-        public void start(Stage primaryStage) {
-                primaryStage.setTitle("CheckBoxListCell Sample");
+		@Override
+		public void setUpEditor() {
+			Button btn = new Button("Select Access");
+			this.getChildren().add(btn);
+			btn.setOnAction(e -> {
+				Stage stage = new Stage();
+				stage.setScene(new Scene(makeScene()));
+				stage.show();
+			});
+			
+		}
+		
+        private Parent makeScene() {
+        	 ObservableList<GameObject> data = FXCollections.observableArrayList();
+             for (int i = 0; i < 10; i++) {
+                     data.add(new GameObject(i % 2 == 0 ? true : false, "Access ID: " + i));
+             }
 
-                final ObservableList<Employee> data = FXCollections.observableArrayList();
-                for (int i = 0; i < 10; i++) {
-                        data.add(new Employee(i % 2 == 0 ? true : false, "Empl " + i));
-                }
+             final ListView<GameObject> listView = new ListView<GameObject>();
+             listView.setPrefSize(200, 250);
+             listView.setEditable(true);
+             listView.setItems(data);
 
-                final ListView<Employee> listView = new ListView<Employee>();
-                listView.setPrefSize(200, 250);
-                listView.setEditable(true);
-                listView.setItems(data);
+             Callback<GameObject, ObservableValue<Boolean>> getProperty = new Callback<GameObject, ObservableValue<Boolean>>() {
+                     @Override
+                     public BooleanProperty call(GameObject layer) {
+                             return layer.selectedProperty();
 
-                Callback<Employee, ObservableValue<Boolean>> getProperty = new Callback<Employee, ObservableValue<Boolean>>() {
-                        @Override
-                        public BooleanProperty call(Employee layer) {
+                     }
+             };
+             Callback<ListView<GameObject>, ListCell<GameObject>> forListView = CheckBoxListCell.forListView(getProperty);
+             listView.setCellFactory(forListView);
 
-                                return layer.selectedProperty();
+             StackPane root = new StackPane();
+             Button btn = new Button("Accept");
+             
+             btn.setOnAction(e -> {
+            	 for (GameObject employee : data) {
+                     System.out.println(employee.getSelected());
+                     //update backend inventory 
+            	 }
+             });
+             
+             VBox vb = new VBox();
+             vb.getChildren().addAll(listView, btn);
+             root.getChildren().add(vb);
+			return vb;
+		}
 
-                        }
-                };
-                Callback<ListView<Employee>, ListCell<Employee>> forListView = CheckBoxListCell.forListView(getProperty);
-                listView.setCellFactory(forListView);
+		class GameObject {
+                private SimpleBooleanProperty selected;
+                private SimpleStringProperty name;
 
-                StackPane root = new StackPane();
-                Button btn = new Button("Show");
-                btn.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent paramT) {
-                                for (Employee employee : data) {
-                                        System.out.println(employee.getSelected());
-                                }
-                        }
-                });
-                VBox vb = new VBox();
-                vb.getChildren().addAll(listView, btn);
-                root.getChildren().add(vb);
-                primaryStage.setScene(new Scene(root, 200, 250));
-                primaryStage.show();
-        }
-
-        class Employee {
-                private final SimpleBooleanProperty selected;
-                private final SimpleStringProperty name;
-
-                public Employee(boolean id, String name) {
+                public GameObject(boolean id, String name) {
                         this.selected = new SimpleBooleanProperty(id);
                         this.name = new SimpleStringProperty(name);
                 }
