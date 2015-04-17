@@ -7,6 +7,8 @@ import interfaces.Authorable;
 import java.util.List;
 import java.util.Set;
 
+import javafx.collections.ObservableMap;
+
 /**
  * Not yet implemented
  * @author Peter
@@ -43,10 +45,10 @@ public class Model implements Receiver {
 		myInventory.removeObject(type, obj);
 	}
 	
-//	@Override
-//	public Set<String> getList(String type) {
-//		return myInventory.getList(type);
-//	}
+	@Override
+	public Set<String> getList(String type) {
+		return myInventory.getList(type);
+	}
 
 	@Override
 	public void saveFile() {
@@ -65,12 +67,7 @@ public class Model implements Receiver {
 	public void setListener(String type, UpdateListener ul) {
 		myInventory.setListener(type, ul);
 	}
-
+	
 	//We need a way of getting every instances of one kind (all created towers for example)
-	@Override
-	public Set<String> getList(String type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
