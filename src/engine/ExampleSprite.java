@@ -35,7 +35,7 @@ public class ExampleSprite {
 	 * @param width the width
 	 * @param height the height
 	 */
-	@MethodAnnoation(editor=true)
+
 	public void SetSize(@ParameterAnnotation(name="Width") Double width, @ParameterAnnotation(name="Height") Double height){
 		myImage.setFitWidth(width);
 		myImage.setFitHeight(height);
@@ -47,7 +47,7 @@ public class ExampleSprite {
 	 * @param x the x
 	 * @param y the y
 	 */
-	@MethodAnnoation(editor=true)
+
 	public void SetPosition(@ParameterAnnotation(name="X Location") Double x, @ParameterAnnotation(name="Y Location")Double y){
 		myImage.setTranslateX(x);
 		myImage.setTranslateY(y);
@@ -56,7 +56,7 @@ public class ExampleSprite {
 	/**
 	 * Change image.
 	 */
-	@MethodAnnoation(editor=true)
+
 	public void ChangeImage() {
 		selectImage();
 	}

@@ -6,7 +6,7 @@ package engine;
 /**
  * The Interface Param.
  * 
- * @author Brooks, Patrick, Robert, and Sid.
+ * @author Negatu
  */
 public @interface Param {
 

@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Annotation for class methods. 
  * 
- * @author Brooks, Patrick, Robert, and Sid.
+ * @author Negatu
  *
  */
 
@@ -18,9 +18,12 @@ import java.lang.annotation.RetentionPolicy;
 public @interface MethodAnnoation {
 
 	/**
-	 * Editor.
+	 * editor - a boolean specifying whether this method should be used by game authoring
+	 * name - display name for the method. 
+	 * type - type of editor the method is going to use for implementation.
 	 *
-	 * @return true, if successful
 	 */
 	boolean editor();
+	public String name();
+	public String type();
 }
