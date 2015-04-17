@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package gae;
 
 import gae.menupane.MenuAdder;
@@ -8,6 +11,11 @@ import java.util.ResourceBundle;
 
 import javafx.scene.layout.Pane;
 
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GAEPane.
+=======
 /**
  * 
  * @author Peter
@@ -17,11 +25,22 @@ import javafx.scene.layout.Pane;
  */
 public abstract class GAEPane implements Menuable {
 
+	/** The my root. */
 	protected Pane myRoot;
+	
+	/** The my menu adder. */
 	protected MenuAdder myMenuAdder;
+	
+	/** The my configs. */
 	private final ResourceBundle myConfigs;
 
 
+	/**
+	 * Instantiates a new GAE pane.
+	 *
+	 * @param className the class name
+	 * @param adder the adder
+	 */
 	public GAEPane(String className, MenuAdder adder) {
 		myMenuAdder = adder;
 		myConfigs = BundleGrabber.grabBundle("configs", className);
@@ -41,6 +60,11 @@ public abstract class GAEPane implements Menuable {
 		myMenuAdder.addMenus(getMenus());
 	}
 
+	/**
+	 * Sets the root.
+	 *
+	 * @param type the new root
+	 */
 	private void setRoot(Class<?> type) {
 		try {
 			myRoot = (Pane) type.getConstructor((Class<?>[]) null).newInstance(
@@ -52,6 +76,11 @@ public abstract class GAEPane implements Menuable {
 		}
 	}
 	
+	/**
+	 * Gets the pane.
+	 *
+	 * @return the pane
+	 */
 	public Pane getPane() {
 		return myRoot;
 	}

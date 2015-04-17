@@ -11,8 +11,9 @@ import javafx.stage.Stage;
 
 public class RunGamePlayer extends Application{
 	
-	private static double screenWidth;
-	private static double screenHeight;
+	public static double screenWidth;
+	public static double screenHeight;
+	public static double adjustRate;
 	
 	private Screen screen;
 	private Stage stage;
@@ -65,7 +66,7 @@ public class RunGamePlayer extends Application{
 		    
 		    screenHeight = bounds.getHeight();
 		    screenWidth = bounds.getWidth();
-		    
+		    adjustRate = screenHeight/877;
 		    stage.setWidth(screenWidth);
 		    stage.setHeight(screenHeight);
 	

@@ -1,16 +1,39 @@
+/*
+ * 
+ */
 package interfaces;
 
 import java.util.List;
 
-/*
- * Yo Peter, can you comment what this class does, Duvall will probs want explanation
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Authorable.
+ *
  */
 
 public interface Authorable {
 	
+	/**
+	 * Sets the name.
+	 *
+	 * @param s the new name
+	 */
 	void setName(String s);
+	
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	String getName();
 	
+	/**
+	 * Update params.
+	 *
+	 * @param params the params
+	 */
+
 	void updateParams(List<Object> params);
 
 }

@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package gae.menupane;
 
 import java.awt.Desktop;
@@ -9,7 +12,11 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 
+
+// TODO: Auto-generated Javadoc
 /**
+ * The Class DefaultMenus.
+
  * 
  * @author Peter
  * Creates the default menus in the menubar.
@@ -17,6 +24,9 @@ import javafx.scene.input.KeyCombination;
  */
 public class DefaultMenus implements Menuable {
 
+	/* (non-Javadoc)
+	 * @see gae.menupane.Menuable#getMenus()
+	 */
 	@Override
 	public List<Menu> getMenus() {
 		List<Menu> menus = new ArrayList<Menu>();
@@ -54,18 +64,30 @@ public class DefaultMenus implements Menuable {
 		return menus;
 	}
 	
+	/**
+	 * Exit.
+	 */
 	private void exit() {
 		System.exit(0);
 	}
 	
+	/**
+	 * Undo.
+	 */
 	private void undo() {
 		System.out.println("Not Implemented");
 	}
 	
+	/**
+	 * Redo.
+	 */
 	private void redo() {
 		System.out.println("Not Implemented");		
 	}
 	
+	/**
+	 * Show help.
+	 */
 	private void showHelp() {
 		File htmlFile = new File("help.html");
 		try {

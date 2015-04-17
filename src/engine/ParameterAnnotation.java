@@ -2,9 +2,11 @@ package engine;
 
 import java.lang.annotation.*;
 
+// TODO: Auto-generated Javadoc
 /**
  * Annotations for method parameters. 
- * @author Negatu
+ * 
+ * @author Brooks, Patrick, Robert, and Sid.
  *
  */
 
@@ -12,6 +14,11 @@ import java.lang.annotation.*;
 
 public @interface ParameterAnnotation {
 	
+	/**
+	 * Name.
+	 *
+	 * @return the string
+	 */
 	public String name();
 
 }

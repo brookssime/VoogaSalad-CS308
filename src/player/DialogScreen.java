@@ -3,6 +3,10 @@ package player;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
+
+/*
+ * display the dialogs which are designed by GAE
+ */
 public class DialogScreen implements GraphicGameScene{
 	private Scene scene;
 	private Group root;
