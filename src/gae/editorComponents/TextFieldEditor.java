@@ -80,7 +80,7 @@ public class TextFieldEditor extends EditorComponent {
 						parameterType[index].getName(), argStr);
 				paramObjects[index] = arg;
 			}
-			myReceiver.runOnObject(myType, myObj, myMethod, paramObjects);
+			myReceiver.runOnObject(myObj, myMethod, paramObjects);
 		});
 		myBox.getChildren().add(setButton);
 

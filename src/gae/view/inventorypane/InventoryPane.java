@@ -87,7 +87,7 @@ public class InventoryPane extends GAEPane {
 		Button button = new Button("Remove");
 		button.setOnMouseClicked(e -> {
 			if (list.getSelectionModel().getSelectedItem() != null) {
-				myReceiver.removeObject(type, list.getSelectionModel().getSelectedItem());
+				myReceiver.removeObject(list.getSelectionModel().getSelectedItem());
 			}
 		});
 		return button;

@@ -2,10 +2,8 @@ package gae.model;
 
 import gae.model.inventory.Inventory;
 import gae.view.inventorypane.UpdateListener;
-import interfaces.Authorable;
 
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,20 +26,13 @@ public class Model implements Receiver {
 	}
 
 	@Override
-	public void runOnObject(String type, String obj, Method method, Object...params) {
-		myInventory.runOnObject(type, obj, method, params);
-	}
-
-	@Override
-	public void editObject(String type, String obj) {
-		Authorable curItem = myInventory.getObject(type, obj);
-		//TODO: make correct editor show up
-		
+	public void runOnObject(String obj, Method method, Object...params) {
+		myInventory.runOnObject(obj, method, params);
 	}
 	
 	@Override
-	public void removeObject(String type, String obj) {
-		myInventory.removeObject(type, obj);
+	public void removeObject(String obj) {
+		myInventory.removeObject(obj);
 	}
 	
 	@Override
@@ -62,6 +53,7 @@ public class Model implements Receiver {
 	}
 
 	//might not be used
+	//is used
 	@Override
 	public void setListener(String type, UpdateListener ul) {
 		myInventory.setListener(type, ul);

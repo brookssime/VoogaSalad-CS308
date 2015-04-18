@@ -54,6 +54,7 @@ public class EditorPane extends GAEPane {
 		Tab newTab = new Tab();
 		Editor newEditor = new Editor(myMenuAdder, myReceiver, type, obj);
 		newTab.setContent(newEditor.getPane());
+		myTabs.getTabs().add(newTab);
 	}
 
 	/* (non-Javadoc)

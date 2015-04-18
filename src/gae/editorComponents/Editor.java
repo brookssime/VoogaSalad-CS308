@@ -43,7 +43,8 @@ public class Editor extends GAEPane{
 		
 
 		ArrayList<Method> objMethods = new ArrayList<Method>(
-				Reflection.getEditorMethods(myType));
+				Reflection.getEditorMethods("engine."+myType));
+		System.out.println(objMethods);
 
 		myLayout = new HBox();
 		myView = new Group();

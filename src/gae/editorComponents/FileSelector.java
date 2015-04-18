@@ -55,7 +55,7 @@ public class FileSelector extends EditorComponent{
 				return;
 			}
 			selectedFile = fileChooser.getSelectedFile();
-			myReceiver.runOnObject(myType, myObj, myMethod, selectedFile);
+			myReceiver.runOnObject(myObj, myMethod, selectedFile);
 		});
 
 		
