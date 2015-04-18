@@ -24,7 +24,7 @@ public class ComponentsDialog extends JDialog {
 
 	public ComponentsDialog(String type) {
 		myReturnElement = null;
-		myOptions = model.getList(type);
+//		myOptions = model.getList(type);
 		for (String option : myOptions) {
 			JButton b = new JButton(option);
 			b.addActionListener(new ActionListener() {

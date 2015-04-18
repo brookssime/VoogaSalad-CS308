@@ -5,6 +5,7 @@ package gae;
 
 import gae.view.View;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 // TODO: Auto-generated Javadoc
