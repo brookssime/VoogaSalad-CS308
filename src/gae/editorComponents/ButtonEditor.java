@@ -1,13 +1,15 @@
 package gae.editorComponents;
 
+import gae.model.Receiver;
+
 import java.lang.reflect.Method;
 
 import javafx.scene.Parent;
 
 public class ButtonEditor extends EditorComponent{
 
-	public ButtonEditor(Method method, Object object) {
-		super(method, object);
+	public ButtonEditor(Receiver receiver, Method method, String classname, String objectName) {
+		super(receiver, method, classname, objectName);
 	}
 
 	@Override

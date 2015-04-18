@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import engine.ParameterAnnotation;
+import gae.model.Receiver;
 import reflection.Reflection;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,6 +28,7 @@ public class TextFieldEditor extends EditorComponent {
 	private TextField[] textFields;
 	private Button setButton;
 	
+	
 	/** The parameters length. */
 	private Integer parametersLength;
 
@@ -38,8 +40,8 @@ public class TextFieldEditor extends EditorComponent {
 	 */
 	
 
-	public TextFieldEditor(Method method, Object object) {
-		super(method, object);
+	public TextFieldEditor(Receiver receiver, Method method, String classname, String objectName) {
+		super(receiver, method, classname, objectName);
 	}
 	
 	@Override 
@@ -78,7 +80,7 @@ public class TextFieldEditor extends EditorComponent {
 						parameterType[index].getName(), argStr);
 				paramObjects[index] = arg;
 			}
-			Reflection.callMethod(myObject, myMethod.getName(), paramObjects);
+			myReceiver.runOnObject(myType, myObj, myMethod, paramObjects);
 		});
 		myBox.getChildren().add(setButton);
 

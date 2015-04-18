@@ -1,16 +1,17 @@
 package gae.editorComponents;
 
+import gae.model.Receiver;
+
 import java.lang.reflect.Method;
 
-import javafx.application.Application;
+
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -33,8 +34,8 @@ import javafx.util.Callback;
  */
 public class MultipleSelectEditor extends EditorComponent{
 
-        public MultipleSelectEditor(Method method, Object object) {
-        	super(method, object);
+        public MultipleSelectEditor(Receiver receiver, Method method, String classname, String objectName) {
+        	super(receiver, method, classname, objectName);
         }
 
 		@Override
