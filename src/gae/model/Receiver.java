@@ -15,9 +15,9 @@ import java.util.Set;
 public interface Receiver {
 	
 	public void addObject(String type);
-	public void runOnObject(String type, String obj, Method method, Object...params);
-	public void removeObject(String type, String obj);
-	public void editObject(String type, String obj);
+	public void runOnObject(String obj, Method method, Object...params);
+	public Object getFromObject(String obj, Method method, Object...params);
+	public void removeObject(String obj);
  	public Set<String> getList(String type);//once peter figures how to do this, we will change it. 
 	public void saveFile();
 	public void exportFile(String game);

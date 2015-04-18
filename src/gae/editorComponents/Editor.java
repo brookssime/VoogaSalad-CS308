@@ -15,15 +15,16 @@ import gae.model.Receiver;
 import gae.view.GAEPane;
 import gae.view.menupane.MenuAdder;
 
-public class Editor extends GAEPane{
+public class Editor extends GAEPane {
 	/**
 	 * @author Negatu
 	 * 
-	 * an editor window that creates different editor components based on the classname passed to it. 
+	 *         an editor window that creates different editor components based
+	 *         on the classname passed to it.
 	 * 
-	 * @param classname - the class name of the object to be instantiated. 
+	 * @param classname
+	 *            - the class name of the object to be instantiated.
 	 */
-
 
 	private HBox myLayout;
 	private Group myView;
@@ -31,7 +32,7 @@ public class Editor extends GAEPane{
 	private Button exportObject;
 	private EditorComponentFactory myFactory;
 	private Receiver myReceiver;
-	
+
 	private String myType;
 	private String myObj;
 
@@ -40,31 +41,32 @@ public class Editor extends GAEPane{
 		myType = type;
 		myObj = obj;
 		myReceiver = receiver;
-		
 
 		ArrayList<Method> objMethods = new ArrayList<Method>(
-				Reflection.getEditorMethods(myType));
+				Reflection.getEditorMethods("engine." + myType));
+		System.out.println(objMethods);
 
 		myLayout = new HBox();
 		myView = new Group();
 		myForm = new VBox();
 		myLayout.getChildren().addAll(myView, myForm);
 		myRoot.getChildren().add(myLayout);
-		
+
 		myFactory = new EditorComponentFactory();
 		for (Method method : objMethods) {
-			MethodAnnoation methodAnnotation = method.getAnnotation(engine.MethodAnnoation.class);
+			MethodAnnoation methodAnnotation = method
+					.getAnnotation(engine.MethodAnnoation.class);
 			String componentType = methodAnnotation.type();
-			EditorComponent fieldEditor = myFactory.generateComponent(componentType, myReceiver, method, myType, myObj);
+			EditorComponent fieldEditor = myFactory.generateComponent(
+					componentType, myReceiver, method, myType, myObj);
 			myForm.getChildren().add(fieldEditor);
 		}
-		
+
 		exportObject = new Button("Export Object");
 		exportObject.setOnAction(e -> {
-			//udpate/export object missing in receiver?.
-			
-			
-		});
+			// udpate/export object missing in receiver?.
+
+			});
 		myForm.getChildren().add(exportObject);
 	}
 
@@ -73,7 +75,5 @@ public class Editor extends GAEPane{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
 
 }
