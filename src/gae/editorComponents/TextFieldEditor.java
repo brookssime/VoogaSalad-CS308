@@ -27,31 +27,33 @@ public class TextFieldEditor extends EditorComponent {
 	private HBox myBox;
 	private TextField[] textFields;
 	private Button setButton;
-	
-	
+
 	/** The parameters length. */
 	private Integer parametersLength;
 
 	/**
 	 * Instantiates a new field editor.
 	 *
-	 * @param obj the object being created/edited
-	 * @param method the method used to modify the object
+	 * @param obj
+	 *            the object being created/edited
+	 * @param method
+	 *            the method used to modify the object
 	 */
-	
 
-	public TextFieldEditor(Receiver receiver, Method method, String classname, String objectName) {
+	public TextFieldEditor(Receiver receiver, Method method, String classname,
+			String objectName) {
 		super(receiver, method, classname, objectName);
 	}
-	
-	@Override 
+
+	@Override
 	public void setUpEditor() {
 		myBox = new HBox();
 		fieldLabel = new Label();
 		myBox.getChildren().add(fieldLabel);
 
 		Class<?>[] parameterType = myMethod.getParameterTypes();
-		Annotation[][] parameterAnnotations = myMethod.getParameterAnnotations();
+		Annotation[][] parameterAnnotations = myMethod
+				.getParameterAnnotations();
 		ArrayList<String> parameterNames = new ArrayList<>();
 		parametersLength = new Integer(parameterType.length);
 
@@ -80,7 +82,7 @@ public class TextFieldEditor extends EditorComponent {
 						parameterType[index].getName(), argStr);
 				paramObjects[index] = arg;
 			}
-			myReceiver.runOnObject(myObj, myMethod, paramObjects);
+			myReceiver.runOnObject(myObject, myMethod, paramObjects);
 		});
 		myBox.getChildren().add(setButton);
 

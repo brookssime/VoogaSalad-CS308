@@ -18,12 +18,13 @@ import gae.view.menupane.MenuAdder;
 
 /**
  * The Class EditorPane.
- * @author Peter
- * EditorPane superclass for other editors to extend. This class was not used yet. 
+ * 
+ * @author Peter EditorPane superclass for other editors to extend. This class
+ *         was not used yet.
  *
  */
 public class EditorPane extends GAEPane {
-	
+
 	/** The my tabs. */
 	private TabPane myTabs;
 	private Receiver myReceiver;
@@ -31,25 +32,25 @@ public class EditorPane extends GAEPane {
 	/**
 	 * Instantiates a new editor pane.
 	 *
-	 * @param adder the adder
+	 * @param adder
+	 *            the adder
 	 */
 	public EditorPane(MenuAdder adder, Receiver receiver) {
 		super(EditorPane.class.getSimpleName(), adder);
 		myTabs = new TabPane();
 		myRoot.getChildren().add(myTabs);
 		myReceiver = receiver;
-		
-		
-		//if you uncomment below, this example works. Except that there is no object named "new" in the inventory yet. 
+
+		// if you uncomment below, this example works. Except that there is no
+		// object named "new" in the inventory yet.
 		/*
-		Editor editor = new Editor(myMenuAdder, myReceiver, "engine.ExampleEnemy", "new" );
-		Tab newTab = new Tab("Peter");
-		newTab.setContent(editor.getPane());
-		myTabs.getTabs().add(newTab);
-		*/
-		
+		 * Editor editor = new Editor(myMenuAdder, myReceiver, "Tower", "new" );
+		 * Tab newTab = new Tab("Peter"); newTab.setContent(editor.getPane());
+		 * myTabs.getTabs().add(newTab);
+		 */
+
 	}
-	
+
 	public void addEditor(String type, String obj) {
 		Tab newTab = new Tab();
 		Editor newEditor = new Editor(myMenuAdder, myReceiver, type, obj);
@@ -57,13 +58,15 @@ public class EditorPane extends GAEPane {
 		myTabs.getTabs().add(newTab);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see gae.menupane.Menuable#getMenus()
 	 */
 	@Override
 	public List<Menu> getMenus() {
 		List<Menu> menus = new ArrayList<Menu>();
-		
+
 		Menu menuEditor = new Menu("Editor");
 		MenuItem closeTabMenuItem = new MenuItem("Close Tab");
 		closeTabMenuItem.setOnAction(e -> {
@@ -74,9 +77,10 @@ public class EditorPane extends GAEPane {
 				}
 			}
 		});
-		closeTabMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+W"));
+		closeTabMenuItem.setAccelerator(KeyCombination
+				.keyCombination("shortcut+W"));
 		menuEditor.getItems().add(closeTabMenuItem);
-		
+
 		menus.add(menuEditor);
 		return menus;
 	}
