@@ -91,7 +91,7 @@ public class Inventory {
 	 * @param params
 	 *            the params
 	 */
-	public void runOnObject(String obj, Method method, Object... params) {
+	public void runOnObject(String obj, Method method, Object...params) {
 		ObservableMap<String, Authorable> map = getMap(obj);
 		Authorable object = map.get(obj);
 		try {
@@ -100,7 +100,26 @@ public class Inventory {
 				| InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		map.put(object.getName(), object);
+		if (object.getName().equals(obj)) {
+			map.put(obj, object);
+		} else {
+			map.remove(obj);
+			map.put(object.getName(), object);
+		}
+	}
+	
+	public Object getFromObject(String obj, Method method, Object...params) {
+		ObservableMap<String, Authorable> map = getMap(obj);
+		Authorable object = map.get(obj);
+		Object ret;
+		try {
+			ret = method.invoke(object, params);
+		} catch (IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+			ret = null;
+		}
+		return ret;
 	}
 
 	public Authorable getObject(String type, String obj) {

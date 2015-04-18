@@ -31,6 +31,11 @@ public class Model implements Receiver {
 	}
 	
 	@Override
+	public Object getFromObject(String obj, Method method, Object...params) {
+		return myInventory.getFromObject(obj, method, params);
+	}
+	
+	@Override
 	public void removeObject(String obj) {
 		myInventory.removeObject(obj);
 	}
