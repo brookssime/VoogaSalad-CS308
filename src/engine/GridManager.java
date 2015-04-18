@@ -128,13 +128,14 @@ public class GridManager {
 	private void spawnEnemies() {
 		while (!myWaves.peek().isComplete()) {
 			List<Enemy> spawnedEnemies = myWaves.peek().update(myStartTime);
+			for (Enemy e : spawnedEnemies)
+				setEnemyPath(e);
 			while (spawnedEnemies != null) {
 				myMovables.addAll(spawnedEnemies);
 				myCollidables.addAll(spawnedEnemies);
 			}
 		}
 		myWaves.pop();
-
 	}
 
 	/**
@@ -146,10 +147,11 @@ public class GridManager {
 		if(myEnemyPaths.containsKey(enemy.getID()))
 			enemy.setSteps(myEnemyPaths.get(enemy.getID()));
 		else
-			myEnemyPaths.put(enemy.getID(), (LinkedList)findPath(enemy));
+			myEnemyPaths.put(enemy.getID(), (LinkedList<Tile>)findPath(enemy));
 	}
 
 	
+<<<<<<< HEAD
 	/**
 	 * Find path.
 	 *
@@ -157,20 +159,29 @@ public class GridManager {
 	 * @return the list
 	 */
 	public List<Tile> findPath(Enemy enemy){
+=======
+	public LinkedList<Tile> findPath(Enemy enemy){
+>>>>>>> c518b688f0ceba76f3e4ca2866b8d587cd2934bf
 		Tile current = myGrid.getPort();
-		List<Tile> path = new LinkedList<Tile>();
+		
+		LinkedList<Tile> path = new LinkedList<Tile>();
 		boolean pathFound = false;
 		
-		while(!pathFound){
-			path.add(current);
-			current = findNextTile(current, enemy);
-			if (current == null) // perhaps give Tile a way to check if it has a Tower on it...?
-				pathFound = true;
-		}
 		
+		
+		while(!pathFound){
+			
+			path.add(current);
+			current = findNextTile(current, enemy);	
+			if (current == null){ // perhaps give Tile a way to check if it has a Tower on it...?
+				pathFound = true;
+				
+			}
+		}
 		return path;
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * Find next tile.
 	 *
@@ -179,11 +190,26 @@ public class GridManager {
 	 * @return the tile
 	 */
 	private Tile findNextTile(Tile current, Enemy enemy){
+=======
+	
+	
+	public Tile findNextTile(Tile current, Enemy enemy){
+
+		for (Tile t: myGrid.getTileNeighbors(current)){
+			if(enemy.getWalkables().contains(t.getID()) && !enemy.getTilePath().contains(t)){
+				enemy.getTilePath().add(t);
+				return t;
+			}
+		}
 		
+>>>>>>> c518b688f0ceba76f3e4ca2866b8d587cd2934bf
+		
+		
+		return null;
+				
 		// TODO
 		// SHOULD return null if no next tile is found, or if this tile is a base..there is a null check in findPath
 		
-		return null;
 	}
 	
 }

@@ -10,6 +10,7 @@ import interfaces.Movable;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
@@ -52,8 +53,12 @@ public class Enemy implements Collidable, Movable, Authorable {
 	
 	/** The my path. */
 	private LinkedList<Point> myPath;
+<<<<<<< HEAD
 	
 	/** The my steps. */
+=======
+	private LinkedList<Tile> myTilePath;
+>>>>>>> c518b688f0ceba76f3e4ca2866b8d587cd2934bf
 	private LinkedList<Tile> mySteps;
 	
 	/** The my rad. */
@@ -73,7 +78,8 @@ public class Enemy implements Collidable, Movable, Authorable {
 	 * Instantiates a new enemy.
 	 */
 	public Enemy(){
-		
+		myWalkable = new ArrayList<Integer>();
+		myTilePath = new LinkedList<Tile>();
 	}
 	
 	/**
@@ -85,10 +91,13 @@ public class Enemy implements Collidable, Movable, Authorable {
 	public Enemy(Point location, LinkedList<Point> path){
 		myLocation = location; 
 		myPath = path;
+		myWalkable = new ArrayList<Integer>();
 		
 	}
 	
-
+	public List<Integer> getWalkables(){
+		return myWalkable;
+	}
 
 	
 
@@ -111,14 +120,22 @@ public class Enemy implements Collidable, Movable, Authorable {
 		return myID;
 	}
 	
-
+	public List<Tile> getTilePath(){
+		return myTilePath;
+	}
+	
+	public void setTilePath(LinkedList<Tile> l){
+		myTilePath = l; 
+	}
+	
 
 	/* (non-Javadoc)
 	 * @see interfaces.Movable#move()
 	 */
 	@Override
 	public void move() {
-		myLocation = myPath.removeFirst();
+		myLocation = myTilePath.removeFirst().getLocation();
+		//myLocation.translate();
 		tilesWalked++;
 	}
 

@@ -34,7 +34,7 @@ import javafx.stage.Stage;
  * The Class TowerEditor.
  * 
  * Allows the game designer to edit a tower object and save it.
- * @author Reyina
+ * @author ReyinaSenatus
  */
 
 public class TowerEditor {
