@@ -8,6 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -96,16 +98,6 @@ public class TestEditor extends Application{
         final Text action = new Text();
         myPane.add(action, 1, 13);
         
-        //Event Handling of save button
-        finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-        	@Override
-            public void handle(ActionEvent e) {
-                action.setFill(Color.GREEN);
-                action.setText("You saved your enemy!");
-                //TODO: Make this close the editor instead
-            }
-        });
-        
         //Choosing a file button
         Button fileBtn = new Button("Choose Image");
         HBox fileHB = new HBox(10);
@@ -145,11 +137,33 @@ public class TestEditor extends Application{
         Slider mySlider = new Slider(min, max, cur);
         mySlider.setShowTickLabels(true);
         mySlider.setShowTickMarks(true);
-        mySlider.setBlockIncrement(2.5f);
+        mySlider.setSnapToTicks(true);
+        mySlider.setMajorTickUnit(cur);
+        final Label sliderVal = new Label(Double.toString(mySlider.getValue()));
+        
+        mySlider.valueProperty().addListener(new ChangeListener<Number>(){
+        	public void changed(ObservableValue<? extends Number> ov,
+                    Number old_val, Number new_val) {
+                        sliderVal.setText(String.format("%.2f", new_val));
+                }
+        });
+        
+      //Event Handling of save button
+        finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+        	@Override
+            public void handle(ActionEvent e) {
+                action.setFill(Color.GREEN);
+                action.setText("You saved your enemy!");
+                System.out.println(mySlider.getValue());
+                //TODO: Make this close the editor instead
+            }
+        });
+        
+        myPane.add(sliderVal, 1, 14);
         myPane.add(mySlider, 1, 13);
         
-        Label slide = new Label("Slide"); 
-        damage.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
+        final Label slide = new Label("Slide"); 
+        slide.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
         myPane.add(slide, 0, 13);
         
         Scene scene = new Scene(myPane, 800, 800); //this will depend on the GAE's main interface
