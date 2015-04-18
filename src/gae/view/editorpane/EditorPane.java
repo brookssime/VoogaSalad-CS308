@@ -39,16 +39,20 @@ public class EditorPane extends GAEPane {
 		myRoot.getChildren().add(myTabs);
 		myReceiver = receiver;
 		
-		//Testing tabs.
-		Editor editor = new Editor(myMenuAdder, myReceiver, "engine.ExampleEnemy");
+		
+		//if you uncomment below, this example works. Except that there is no object named "new" in the inventory yet. 
+		/*
+		Editor editor = new Editor(myMenuAdder, myReceiver, "engine.ExampleEnemy", "new" );
 		Tab newTab = new Tab("Peter");
 		newTab.setContent(editor.getPane());
 		myTabs.getTabs().add(newTab);
+		*/
+		
 	}
 	
 	public void addEditor(String type, String obj) {
 		Tab newTab = new Tab();
-		Editor newEditor = new Editor(myMenuAdder, myReceiver, type);
+		Editor newEditor = new Editor(myMenuAdder, myReceiver, type, obj);
 		newTab.setContent(newEditor.getPane());
 	}
 

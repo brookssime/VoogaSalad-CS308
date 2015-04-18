@@ -28,17 +28,22 @@ public class Editor extends GAEPane{
 	private HBox myLayout;
 	private Group myView;
 	private VBox myForm;
-	private Object myObject;
 	private Button exportObject;
 	private EditorComponentFactory myFactory;
+	private Receiver myReceiver;
+	
+	private String myType;
+	private String myObj;
 
-	public Editor(MenuAdder adder, Receiver receiver, String type) {
+	public Editor(MenuAdder adder, Receiver receiver, String type, String obj) {
 		super(Editor.class.getSimpleName(), adder);
+		myType = type;
+		myObj = obj;
+		myReceiver = receiver;
 		
-		//this needs to happen using the receiver instead once everything on our backend is sorted out.
-		myObject = Reflection.createInstance(type);
+
 		ArrayList<Method> objMethods = new ArrayList<Method>(
-				Reflection.getEditorMethods(myObject));
+				Reflection.getEditorMethods(myType));
 
 		myLayout = new HBox();
 		myView = new Group();
@@ -50,14 +55,15 @@ public class Editor extends GAEPane{
 		for (Method method : objMethods) {
 			MethodAnnoation methodAnnotation = method.getAnnotation(engine.MethodAnnoation.class);
 			String componentType = methodAnnotation.type();
-			EditorComponent fieldEditor = myFactory.generateComponent(componentType, method, myObject);
+			EditorComponent fieldEditor = myFactory.generateComponent(componentType, myReceiver, method, myType, myObj);
 			myForm.getChildren().add(fieldEditor);
 		}
 		
 		exportObject = new Button("Export Object");
 		exportObject.setOnAction(e -> {
-			//export object to receiver, this is just a sample print method for now.
-			myObject.toString();
+			//udpate/export object missing in receiver?.
+			
+			
 		});
 		myForm.getChildren().add(exportObject);
 	}

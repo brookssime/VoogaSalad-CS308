@@ -6,6 +6,8 @@ package gae.model.inventory;
 import gae.view.inventorypane.UpdateListener;
 import interfaces.Authorable;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Set;
 
@@ -41,6 +43,8 @@ import javafx.collections.ObservableMap;
  *
  */
 public class Inventory {
+	
+	//TODO: make this a list of maps instead of individual maps
 
 	/** The my games. */
 	private ObservableMap<String, Game> myGames;
@@ -149,7 +153,7 @@ public class Inventory {
 	 * @param params the params
 	 */
 	@SuppressWarnings("unchecked")
-	public void updateObject(String type, String obj, List<Object> params) {
+	public void runOnObject(String type, String obj, Method method, Object...params) {
 		String mapString = "my" + type + "s";
 		ObservableMap<String, Authorable> map = null;
 		try {
@@ -160,7 +164,12 @@ public class Inventory {
 			e1.printStackTrace();
 		}
 		Authorable oldE = map.get(obj);
-		oldE.updateParams(params);
+		try {
+			method.invoke(oldE, params);
+		} catch (IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+		}
 		map.put(oldE.getName(), oldE);
 	}
 	

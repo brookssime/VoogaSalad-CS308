@@ -1,7 +1,10 @@
 package gae.editorComponents;
 
+
 import gae.view.View;
 
+
+import gae.model.Receiver;
 
 import java.lang.reflect.Method;
 
@@ -35,9 +38,10 @@ public class ButtonEditor extends EditorComponent{
 	private static final double SCALE_SLIDER_MAJOR_TICK = 1;
 	private static final int MINOR_TICK_COUNT = 4;
 
-	public ButtonEditor(Method method, Object object) {
-		super(method, object);
+	public ButtonEditor(Receiver receiver, Method method, String classname, String objectName) {
+		super(receiver, method, classname, objectName);
 	}
+
 
 	//@Override
 	public void setUpEditor() {

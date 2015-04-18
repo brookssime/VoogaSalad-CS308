@@ -6,8 +6,10 @@ import java.lang.reflect.Method;
 
 import javax.swing.JFileChooser;
 
-import reflection.Reflection;
+
+
 import engine.ParameterAnnotation;
+import gae.model.Receiver;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
@@ -24,8 +26,8 @@ public class FileSelector extends EditorComponent{
 	private Button selectButton;
 	private File selectedFile;
 
-	public FileSelector(Method method, Object object){
-		super(method, object);
+	public FileSelector(Receiver receiver, Method method, String classname, String objectName){
+		super(receiver, method, classname, objectName);
 		
 	}
 
@@ -53,8 +55,7 @@ public class FileSelector extends EditorComponent{
 				return;
 			}
 			selectedFile = fileChooser.getSelectedFile();
-			//invoking method on object here but will need to go through receiver later on. 
-			Reflection.callMethod(myObject, myMethod.getName(), selectedFile);
+			myReceiver.runOnObject(myType, myObj, myMethod, selectedFile);
 		});
 
 		
