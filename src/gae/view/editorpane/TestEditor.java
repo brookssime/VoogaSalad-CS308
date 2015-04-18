@@ -1,14 +1,13 @@
-/*
- * 
- */
 package gae.view.editorpane;
 
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -17,7 +16,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -28,40 +30,20 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-
-// TODO: Auto-generated Javadoc
 /**
- * The Class TowerEditor.
- * 
- * Allows the game designer to edit a tower object and save it.
+ * This class is testing the creation of tabs for the editor window
  * @author ReyinaSenatus
+ *
  */
 
-public class TowerEditor {
-
-	/** The my stage. */
-	private Stage myStage;
-	
-	/** The desktop. */
-	private Desktop desktop = Desktop.getDesktop();
+public class TestEditor extends Application{
 	//TODO: Make sure what goes in the fields is saved
+	private Desktop desktop = Desktop.getDesktop();
 	
-	/**
-	 * Tower editor.
-	 *
-	 * @param s the s
-	 */
-	public void TowerEditor(Stage s){
-		myStage = new Stage();
-		myStage = s;
-	}
-	
-	/**
-	 * Edits the.
-	 */
-	public void edit(){
-    	
-        myStage.setTitle("Tower Editor");
+    @Override
+    public void start(Stage primaryStage) {
+    
+        primaryStage.setTitle("Enemy Editor");
         Group root = new Group();
         GridPane myPane = new GridPane();
         myPane.setAlignment(Pos.CENTER);
@@ -71,14 +53,13 @@ public class TowerEditor {
         //myPane.setGridLinesVisible(true);
         
         //Code for the fields
-        Text title = new Text("Edit your tower here");
+        Text title = new Text("Edit your enemy here");
         title.setFont(Font.font("Times New Roman", FontWeight.BOLD, 25));
         myPane.add(title, 0, 1, 2, 1);
         
         Label image = new Label("Set Image");
         image.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
         myPane.add(image, 0, 2);
-      
         
         Label name = new Label("Set Name"); 
         name.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
@@ -86,46 +67,46 @@ public class TowerEditor {
         TextField nameField = new TextField();
         myPane.add(nameField, 1, 4);
         
-        Label fire = new Label("Set Fire Rate");
-        fire.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(fire, 0, 6);
-        TextField fireField = new TextField();
-        myPane.add(fireField, 1, 6);
-        
-        Label health = new Label("Set Health"); 
+        Label health = new Label("Set Health");
         health.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(health, 0, 8);
+        myPane.add(health, 0, 6);
         TextField healthField = new TextField();
-        myPane.add(healthField, 1, 8);
+        myPane.add(healthField, 1, 6);
         
-        Label range = new Label("Set Range");
-        range.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(range, 0, 10);
-        TextField rangeField = new TextField();
-        myPane.add(rangeField, 1, 10);
+        Label speed = new Label("Set Speed");
+        speed.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
+        myPane.add(speed, 0, 8);
+        TextField speedField = new TextField();
+        myPane.add(speedField, 1, 8);
         
-        //Code for the button
+        Label damage = new Label("Set Damage"); 
+        damage.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
+        myPane.add(damage, 0, 10);
+        TextField damageField = new TextField();
+        myPane.add(damageField, 1, 10);
+        
+        //Code for the save button
         Button finishBtn = new Button("Save");
         HBox finishHB = new HBox(10);
         finishHB.setAlignment(Pos.BOTTOM_CENTER);
         finishHB.getChildren().add(finishBtn);
         myPane.add(finishHB, 1, 12);
         
-      //Displaying messages for save button
+        //Displaying messages for save button
         final Text action = new Text();
         myPane.add(action, 1, 13);
         
-      //Event Handling of save button
+        //Event Handling of save button
         finishBtn.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
             public void handle(ActionEvent e) {
                 action.setFill(Color.GREEN);
-                action.setText("You saved your tower!");
+                action.setText("You saved your enemy!");
                 //TODO: Make this close the editor instead
             }
         });
         
-      //Choosing a file button
+        //Choosing a file button
         Button fileBtn = new Button("Choose Image");
         HBox fileHB = new HBox(10);
         fileHB.setAlignment(Pos.CENTER);
@@ -140,12 +121,36 @@ public class TowerEditor {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(final ActionEvent e) {
-                        File file = chooser.showOpenDialog(myStage);
+                        File file = chooser.showOpenDialog(primaryStage);
                         if (file != null) {
                             openFile(file);
                         }
                     }
                 });
+        
+        ToggleButton tgb1 = new ToggleButton("hi");
+        tgb1.setSelected(true);
+        ToggleButton tgb2 = new ToggleButton("Bye");
+        ToggleGroup tgroup = new ToggleGroup();
+        tgb1.setToggleGroup(tgroup);
+        tgb2.setToggleGroup(tgroup);
+        myPane.add(tgb1, 5, 6);
+        myPane.add(tgb2, 5, 7);
+        
+        //TODO: Print the slider values as you slide
+        //TODO: Set the distance between ticks/when you slide
+        double min = 0;
+        double max = 10;
+        double cur = (max-min)/2;
+        Slider mySlider = new Slider(min, max, cur);
+        mySlider.setShowTickLabels(true);
+        mySlider.setShowTickMarks(true);
+        mySlider.setBlockIncrement(2.5f);
+        myPane.add(mySlider, 1, 13);
+        
+        Label slide = new Label("Slide"); 
+        damage.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
+        myPane.add(slide, 0, 13);
         
         Scene scene = new Scene(myPane, 800, 800); //this will depend on the GAE's main interface
         BorderPane borderPane = new BorderPane();
@@ -155,24 +160,23 @@ public class TowerEditor {
         borderPane.prefWidthProperty().bind(scene.widthProperty());
         //borderPane.setCenter(tabPane);
         root.getChildren().add(borderPane);
-        myStage.setScene(scene);
-        myStage.show();
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
     
-    /**
-     * Open file.
-     *
-     * @param file the file
-     */
     private void openFile(java.io.File file) {
-   	 try {
-            desktop.open(file);
-        } catch (IOException ex) {
-            Logger.getLogger(
-                EnemyEditor.class.getName()).log(
-                    Level.SEVERE, null, ex
-                );
-        }
-    }
+    	 try {
+             desktop.open(file);
+         } catch (IOException ex) {
+             Logger.getLogger(
+                 EnemyEditor.class.getName()).log(
+                     Level.SEVERE, null, ex
+                 );
+         }
+     }
     
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
+
 }

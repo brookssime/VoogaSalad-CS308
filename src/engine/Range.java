@@ -37,11 +37,16 @@ public class Range implements Collidable, Authorable{
 	/** The my rad. */
 	private int myRad;
 	
+<<<<<<< HEAD
 	/**
 	 * Instantiates a new range.
 	 */
 	public Range(){
 		
+=======
+	public Range(int x, int y, int r){
+		myCollisionBounds = new Ellipse2D.Double(x, y, r, r);
+>>>>>>> c518b688f0ceba76f3e4ca2866b8d587cd2934bf
 	}
 
 	/**

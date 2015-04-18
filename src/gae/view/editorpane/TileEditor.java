@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 
 /**
  * 
- * @author ?
+ * @author ReyinaSenatus
  * Allows the game designer to edit the tile in the Editor Pane.
  *
  */
