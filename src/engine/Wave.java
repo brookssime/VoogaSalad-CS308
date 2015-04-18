@@ -4,15 +4,26 @@ import interfaces.Authorable;
 
 import java.util.List;
 
-public class Wave implements Authorable{
-	
-	private String myName;
+public class Wave extends GameObject{
+	private String myPortName;
 	private List<Enemy> myEnemies;
 	private List<Long> myDelays;
 	private int myCurrentEnemy;
 	
 	public Wave(){
 		
+	}
+	
+	public void setPortName(String portName){
+		myPortName = portName;
+	}
+	
+	public void setEnemies(List<Enemy> enemies){
+		myEnemies = enemies;
+	}
+	
+	public void setDelays(List<Long> delays){
+		myDelays = delays;
 	}
 	
 	public List<Enemy> update(long startTime) {
@@ -35,22 +46,6 @@ public class Wave implements Authorable{
 		return false;
 	}
 
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

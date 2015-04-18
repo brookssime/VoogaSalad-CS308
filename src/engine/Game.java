@@ -22,6 +22,10 @@ public class Game implements Authorable {
 		addStoreToLevel();
 	}
 	
+	public void setHead(GameScene head){
+		myHead = head;
+	}
+	
 	/**
 	 * This is pretty awful design
 	 * Any ideas?

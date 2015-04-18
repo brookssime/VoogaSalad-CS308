@@ -3,7 +3,7 @@ package engine;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
-public abstract class GameScene {
+public abstract class GameScene extends GameObject{
 	
 	private String myName;
 	private GameScene myNext;

@@ -1,8 +1,10 @@
 package engine;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +15,9 @@ public class Grid implements Authorable{
 	
 	private String myName;
 	public Tile[][] myTiles;
-	private List<Collidable> myCollidables;
+	private Map<Collidable, Point> myCollidables;
+	private Map<GridObject, Point> myGridObjectMap;
+	
 	private Tile myPort;
 	// myProjectiles?
 	// myEnemies?
@@ -34,6 +38,14 @@ public class Grid implements Authorable{
 			for (int y = 0; y < myTiles.length; y++){
 				myTiles[x][y] = new Tile(x, y);
 			}	
+	}
+	
+	public void setTiles(Tile[][] tiles){
+		myTiles = tiles;
+	}
+	
+	public void placeGridObjectAt(GridObject o, Point p){
+		myGridObjectMap.put(o, p);
 	}
 	
 	
@@ -92,7 +104,7 @@ public class Grid implements Authorable{
 	}
 	
 	public ObservableList<Collidable> getObjects(){
-		return FXCollections.observableList(myCollidables);
+		return FXCollections.observableList((List<Collidable>) myCollidables.keySet());
 	}
 
 	@Override

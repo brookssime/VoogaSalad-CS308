@@ -9,15 +9,15 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.util.List;
 
-public class Projectile implements Collidable, Movable, Authorable{
+public class Projectile extends GridObject implements Collidable, Movable{
 
 	private String myName;
 	private String myImageString;
-	private List<Integer> myAccessIDs;
+	private List<String> myAccessIDs;
 	private Integer mySpeed; 
 	public Effect myEffect;
 	private Point myLocation;
-	private int myRad;
+	private int myRadius;
 	private double myDirection;
 	private Shape myCollisionBounds;
 	
@@ -29,9 +29,14 @@ public class Projectile implements Collidable, Movable, Authorable{
 		myLocation = location; 
 		mySpeed = speed; 
 		myEffect = effect;
-		myRad = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
+		myRadius = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
 		setCollisionBounds();
 	}
+	
+	public void setRadius(int x){
+		myRadius = x;
+	}
+
 	
 	@Override
 	public void move() {
@@ -57,7 +62,7 @@ public class Projectile implements Collidable, Movable, Authorable{
 	}
 	
 	public void setCollisionBounds() {
-		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRad*2, myRad*2);
+		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRadius*2, myRadius*2);
 		
 	}
 
@@ -66,22 +71,6 @@ public class Projectile implements Collidable, Movable, Authorable{
 		return myCollisionBounds;
 	}
 
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

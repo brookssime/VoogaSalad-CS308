@@ -5,15 +5,46 @@ import interfaces.Authorable;
 import java.util.List;
 import java.util.TimerTask;
 
-public class Effect implements Authorable{
-	private String myName;
+public class Effect extends GameObject{
+	
 	private Integer mySpeedDamage;
+	private Double mySpeedFrequency;
+	private Integer mySpeedReps;
+	private Double mySpeedDuration;
 	private Integer myHealthDamage;
-	private boolean isFinal;
-	private long myDuration;
+	private Double myHealthFrequency;
+	private Integer myHealthReps;
 	
 	public Effect(){
 		
+	}
+	
+	public void setSpeedDamage(int x){
+		mySpeedDamage = x;
+	}
+	
+	public void setSpeedFrequency(Double x){
+		mySpeedFrequency = x;
+	}
+
+	public void setSpeedReps(int x){
+		mySpeedReps = x;
+	}
+	
+	public void setSpeedDamageDuration(Double x){
+		mySpeedDuration = x;
+	}
+	
+	public void setHealthDamage(int x){
+		myHealthDamage = x;
+	}
+	
+	public void setHealthFrequency(Double x){
+		myHealthFrequency = x;
+	}
+	
+	public void setHealthReps(int x){
+		myHealthReps = x;
 	}
 	
 	public Integer getSpeedDamage(){
@@ -24,28 +55,8 @@ public class Effect implements Authorable{
 		return myHealthDamage;
 		
 	}
-	
-	public long getDuration(){
-		return myDuration;
-	}
-	public boolean isFinal() {
-		return isFinal;
-	}
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
+
+
 	
 	
 }

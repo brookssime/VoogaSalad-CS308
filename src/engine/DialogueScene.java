@@ -15,24 +15,29 @@ import java.util.Queue;
  * @author Sid and Brooks and Patrick
  *
  */
-public class DialogueScene extends GameScene implements Authorable{
+public class DialogueScene extends GameScene{
 
-	private String myName;
-	private Queue<String> myDialogue;
-	private String myBackgroundImagePath;
-	private List<String> myImagePathList; // contains all image paths of talking
-											// heads. gamePlayer can read these
-											// and determine how many spaces to
-											// make in dialogueScene for heads
+	private Queue<DialogueBox> myDialogueBoxes;
+	private String myBackroundImagePath;
 	
 	public DialogueScene(){
 		
 	}
 	
-	public DialogueScene(String backroundImagePath, List<String> imagePathList) {
-		myBackgroundImagePath = backroundImagePath;
-		myImagePathList = imagePathList;
+	public DialogueScene(String backroundImagePath, Queue<DialogueBox> dialogueBoxes) {
+		myBackroundImagePath = backroundImagePath;
+		myDialogueBoxes = dialogueBoxes;
 	}
+	
+	public void setImagePath(String imagePath){
+		myBackroundImagePath = imagePath;
+	}
+	
+	public void setDialogueBoxes(Queue<DialogueBox> dialogueBoxes){
+		myDialogueBoxes = dialogueBoxes;
+	}
+	
+	
 	
 	/**
 	 * Empty for now
@@ -44,21 +49,17 @@ public class DialogueScene extends GameScene implements Authorable{
 
 	@Override
 	public void checkComplete() {
-		myHasCompleted = (myDialogue.size() <= 0);
+		myHasCompleted = (myDialogueBoxes.size() <= 0);
 	}
 	
-	public String getNextDialogue(){
-		return myDialogue.poll();
+	public DialogueBox getNextDialogueBox(){
+		return myDialogueBoxes.poll();
 	}
 	
 	/**
 	 * To be accessed by view
 	 * Returns imagePathList to allow for dialogue to be set up
 	 */
-	public List<String> getImagePathList(){
-		return myImagePathList;
-	}
-
 	@Override
 	public void setName(String s) {
 		// TODO Auto-generated method stub
@@ -71,9 +72,4 @@ public class DialogueScene extends GameScene implements Authorable{
 		return null;
 	}
 
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
 }

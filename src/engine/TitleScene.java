@@ -10,9 +10,8 @@ import interfaces.Authorable;
  * @author Sid and Brooks and Rob and Patrick, oh my!
  *
  */
-public class TitleScene extends GameScene implements Authorable{
-	
-	private String myName;
+public class TitleScene extends GameScene{
+
 	private String myTitlePicturePath;
 	private Boolean myButtonClicked;
 	
@@ -46,21 +45,6 @@ public class TitleScene extends GameScene implements Authorable{
 		return myTitlePicturePath;
 	}
 
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

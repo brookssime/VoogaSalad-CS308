@@ -8,13 +8,10 @@ import java.util.List;
 import interfaces.Authorable;
 import interfaces.Collidable;
 
-public class Base implements Collidable, Authorable{
+public class Base extends GridObject implements Collidable{
 
-	private String myName;
-	private String myImageString;
 	private Integer myHealth;
-	private Integer myBaseID; //not sure when/if this will be used yet
-	private int myRad;
+	private int myRadius;
 	private Shape myCollisionBounds;
 	private Point myLocation;
 	
@@ -23,11 +20,20 @@ public class Base implements Collidable, Authorable{
 		
 	}
 	
-	public Base(String imageString, Integer health, Integer baseID){
-		myImageString = imageString;
+	public Base(String imageString, Integer health){
+		myImagePath = imageString;
 		myHealth = health;
-		myBaseID = baseID;
+
 	}
+	
+	public void setHealth(int health){
+		myHealth = health;
+	}
+	
+	public void setRadius(int radius){
+		myRadius = radius;
+	}
+
 
 	@Override
 	public boolean evaluateCollision(Collidable collider){
@@ -46,7 +52,7 @@ public class Base implements Collidable, Authorable{
 	}
 	
 	public void setCollisionBounds() {
-		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRad*2, myRad*2);
+		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRadius*2, myRadius*2);
 
 	}
 
@@ -55,21 +61,4 @@ public class Base implements Collidable, Authorable{
 		return myCollisionBounds;
 	}
 
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
 }

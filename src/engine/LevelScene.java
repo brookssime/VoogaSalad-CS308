@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,10 +16,10 @@ import javafx.animation.KeyFrame;
 
 public class LevelScene extends GameScene implements Authorable {
 
-	private String myName;
 	private String myLevelTitle; 
-	private Store myCurrentStore;
+	private Store myStore;
 	private Grid myGrid;
+	private Queue<Wave> myWaves;
 	private GridManager myGridManager;
 
 	public LevelScene() {
@@ -35,12 +36,19 @@ public class LevelScene extends GameScene implements Authorable {
 	}
 
 	public void setStore(Store store){
-		myCurrentStore = store;
+		myStore = store;
 	}
 	
-	private void setGrid(Grid newGrid){
-		myGrid = newGrid;
-		//myGridManager = new GridManager(newGrid);
+	//TODO: MAKE SURE this is all that needs to be set up
+	private void setGrid(Grid grid){
+		myGrid = grid;
+		myGridManager = new GridManager(grid);
+	}
+	
+	//TODO: make sure this is the right way to handle this
+	private void setWaves(Queue<Wave> waves){
+		myGridManager.setWaves(waves);
+		myWaves = waves;
 	}
 	
 	public void update(){	

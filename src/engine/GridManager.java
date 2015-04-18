@@ -8,17 +8,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GridManager {
 	
 	private Grid myGrid;
-	private HashMap<Integer, LinkedList<Tile>> myEnemyPaths;
+	private HashMap<String, LinkedList<Tile>> myEnemyPaths;
 	private List<Movable> myMovables;
 	private List<Collidable> myCollidables;
 	private Set<Collidable> mySpritesToRemove;
-	private LinkedList<Wave> myWaves;
+	private Queue<Wave> myWaves;
 	private long myStartTime;
 	private Base myBase;
 	
@@ -37,6 +38,10 @@ public class GridManager {
 		moveSprites();
 		clearSprites();
 		spawnEnemies();
+	}
+	
+	public void setWaves(Queue<Wave> waves){
+		myWaves = waves;
 	}
 	
 	public void start(){
@@ -94,14 +99,14 @@ public class GridManager {
 				myCollidables.addAll(spawnedEnemies);
 			}
 		}
-		myWaves.pop();
+		myWaves.poll();
 	}
 
 	private void setEnemyPath(Enemy enemy){
-		if(myEnemyPaths.containsKey(enemy.getID()))
-			enemy.setSteps(myEnemyPaths.get(enemy.getID()));
+		if(myEnemyPaths.containsKey(enemy.getName()))
+			enemy.setSteps(myEnemyPaths.get(enemy.getName()));
 		else
-			myEnemyPaths.put(enemy.getID(), (LinkedList<Tile>)findPath(enemy));
+			myEnemyPaths.put(enemy.getName(), (LinkedList<Tile>)findPath(enemy));
 	}
 
 	
@@ -130,7 +135,7 @@ public class GridManager {
 	public Tile findNextTile(Tile current, Enemy enemy){
 
 		for (Tile t: myGrid.getTileNeighbors(current)){
-			if(enemy.getWalkables().contains(t.getID()) && !enemy.getTilePath().contains(t)){
+			if(enemy.getWalkables().contains(t.getName()) && !enemy.getTilePath().contains(t)){
 				enemy.getTilePath().add(t);
 				return t;
 			}

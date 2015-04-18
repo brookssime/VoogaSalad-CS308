@@ -16,12 +16,9 @@ import interfaces.Movable;
 
 
 
-public class Tower implements Movable, EditableTower, Authorable{
+public class Tower extends GridObject implements Movable, EditableTower{
 
-
-	private String myName;
-	private String myImageString;
-	private List<Integer> myAccessList;
+	
 	private Integer myFireRate;
 	private Point2D myLocation;
 	private Integer myHealth;
@@ -42,19 +39,19 @@ public class Tower implements Movable, EditableTower, Authorable{
 	}
 
 
-	public Tower (String name, String imagePath,  List<Integer> accessList, int range, int health, int radius, int fireRate, Point2D location) {
-		init(name, imagePath, accessList, range, health, radius, fireRate, location);
+	public Tower (String name, String imagePath,  List<String> accessList, int range, int health, int radius, int fireRate, Point2D location) {	
+		init(name, imagePath, accessList, range, health, radius, fireRate, location);		
 	}
 
 	public Tower (XStream serializer, String data, Point2D location) {
 		Tower incomplete = (Tower)serializer.fromXML(data);
-		init(incomplete.myName, incomplete.myImageString, incomplete.myAccessList, incomplete.myRange, incomplete.myHealth, incomplete.myRad, incomplete.myFireRate, location);
+		init(incomplete.myName, incomplete.myImagePath, incomplete.myAccessNames, incomplete.myRange, incomplete.myHealth, incomplete.myRad, incomplete.myFireRate, location);
 	}
 
-	public void init(String name, String imagePath,  List<Integer> accessList, int range, int health, int radius, int fireRate, Point2D location){
-		myImageString = imagePath;
+	public void init(String name, String imagePath,  List<String> accessNames, int range, int health, int radius, int fireRate, Point2D location){
+		myImagePath = imagePath;
 		myName = name;
-		myAccessList = accessList;
+		myAccessNames = accessNames;
 		myRange = range;
 		myFireRate = fireRate;
 		myLocation = location;
@@ -155,18 +152,6 @@ public class Tower implements Movable, EditableTower, Authorable{
 
 
 	@Override
-	public void setImageString(String imageString) {
-		// TODO Auto-generated method stub
-		myImageString = imageString;
-	}
-
-	@Override
-	public void setAccessList(List<Integer> accessList) {
-		// TODO Auto-generated method stub
-		myAccessList = accessList;
-	}
-
-	@Override
 	public void setRange(Integer range) {
 		// TODO Auto-generated method stub
 		myRange = range;
@@ -202,22 +187,27 @@ public class Tower implements Movable, EditableTower, Authorable{
 		myProjectile = projectile;
 	}
 
+
+	@Override
+	public void setImageString(String imageString) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	@Override
 	public String getImageString() {
 		// TODO Auto-generated method stub
-		return myImageString;
+		return null;
 	}
 
+
 	@Override
-	public void setName(String s) {
+	public void setAccessList(List<Integer> accessList) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

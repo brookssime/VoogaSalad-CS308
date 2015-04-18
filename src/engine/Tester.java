@@ -8,13 +8,13 @@ public class Tester {
 	
 	public static void main(String[] args){
 		
-		testPathFinding();	
-		testTargeting();
+		//testPathFinding();	
+		//testTargeting();
 	}
 	
 	private static ArrayList<Point> myTestPath = new ArrayList<Point>();
 	
-	public static void testPathFinding(){
+	/*public static void testPathFinding(){
 		
 		System.out.println("~~~~~PATHFINDING ALGORITHM~~~~~");
 		Grid g = new Grid(10, 10);
@@ -111,6 +111,7 @@ public class Tester {
 		}
 			
 		
-	}
-
+	}*/
 }
+
+
