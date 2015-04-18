@@ -2,7 +2,9 @@ package gae.editorComponents;
 
 import gae.view.View;
 
+
 import java.lang.reflect.Method;
+
 
 import javafx.application.Application;
 import javafx.event.EventType;
@@ -23,7 +25,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ButtonEditor extends Application{
+public class ButtonEditor extends EditorComponent{
 
 	private static final int HBOX_SPACING = 5;
 	private static final int VBOX_SPACING = 20;
@@ -33,15 +35,14 @@ public class ButtonEditor extends Application{
 	private static final double SCALE_SLIDER_MAJOR_TICK = 1;
 	private static final int MINOR_TICK_COUNT = 4;
 
-	public ButtonEditor(/*Method method, Object object*/) {
-		//super(method, object);
+	public ButtonEditor(Method method, Object object) {
+		super(method, object);
 	}
 
 	//@Override
-	public Parent setUpEditor() {
+	public void setUpEditor() {
 		VBox v = new VBox();
 		v.getChildren().add(button());
-		return v;
 	}
 
 	private Parent button() {
@@ -92,36 +93,67 @@ public class ButtonEditor extends Application{
 		TextField buttonText = new TextField();
 		buttonText.setText("Default");
 		
-		//add Square as visual
+		//add Square as visual with text
 		Rectangle visual = new Rectangle(100, 100);
 		visual.setScaleX(scaleSlider.getValue());
 		visual.setScaleY(scaleSlider.getValue());
 		visual.setTranslateX(130);
 		visual.setFill(Color.WHITE);
 		visual.setStroke(Color.BLACK);
+		
+		Text text = new Text();
+		text.setText(buttonText.getText());
+		text.setFont(new Font(20));
+		text.setScaleX(scaleSlider.getValue());
+		text.setScaleY(scaleSlider.getValue());
+		text.setTranslateX(visual.getTranslateX() + visual.getBoundsInLocal().getWidth() * 1 / 7);
+		text.setTranslateY(visual.getTranslateY() - visual.getBoundsInLocal().getHeight() * 4 / 5);
+		
 		scaleSlider.valueProperty().addListener(e -> {
 			visual.setScaleX(scaleSlider.getValue());
 			visual.setScaleY(scaleSlider.getValue());
+			text.setScaleX(scaleSlider.getValue());
+			text.setScaleY(scaleSlider.getValue());
 		});
 		
-		v.getChildren().addAll(sliderBox, buttonText, new Rectangle(), new Rectangle(), visual);
+		buttonText.textProperty().addListener(e -> {
+			text.setText(buttonText.getText());
+		});
+		
+		v.getChildren().addAll(sliderBox, buttonText, new Rectangle(), new Rectangle(), visual, text);
+		
+		//Location Specifier
+		StackPane location = new StackPane();
+		location.setPrefSize(400, 100);
+		location.setAlignment(Pos.CENTER);
+		VBox pos = new VBox(VBOX_SPACING);
+		TextField xPos = new TextField();
+		xPos.setText("X Location");
+		TextField yPos = new TextField();
+		yPos.setText("Y Location");
+		pos.getChildren().addAll(xPos, yPos);
+		location.getChildren().addAll(pos);
+		
+		//Return button
+		HBox returnButtons = new HBox(HBOX_SPACING);
+		Button accept = new Button("Accept");
+		accept.setOnAction(e -> {
+			//return all information
+		});
+		
+		//Cancel button
+		Button quit = new Button("Quit");
+		quit.setOnAction(e -> {
+			//ignore all information
+			System.exit(1);
+		});
+		
+		returnButtons.getChildren().addAll(accept, quit);
 		
 		//Add overall features to ButtonEditor Scene
-		buttonEditor.getChildren().addAll(stackTitle, new Separator(), buttonSettings, new Separator());
+		buttonEditor.getChildren().addAll(stackTitle, new Separator(), buttonSettings, new Separator(), 
+				location, returnButtons);
 		return buttonEditor;
-	}
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
-
-	@Override
-	public void start(Stage stage) {
-		ButtonEditor b = new ButtonEditor();
-		stage = new Stage();
-		stage.setScene(new Scene(b.setUpEditor()));
-		stage.show();
-		
 	}
 
 }
