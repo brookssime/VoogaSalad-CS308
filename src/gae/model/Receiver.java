@@ -8,7 +8,7 @@ import java.util.Set;
 
 /**
  * 
- * @author sunjeevdevulapalli
+ * @author Peter
  * A simple interface for the view to talk to the model.
  *
  */
