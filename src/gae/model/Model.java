@@ -4,10 +4,9 @@ import gae.model.inventory.Inventory;
 import gae.view.inventorypane.UpdateListener;
 import interfaces.Authorable;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Set;
-
-import javafx.collections.ObservableMap;
 
 /**
  * Not yet implemented
@@ -29,8 +28,8 @@ public class Model implements Receiver {
 	}
 
 	@Override
-	public void updateObject(String type, String obj, List<Object> params) {
-		myInventory.updateObject(type, obj, params);
+	public void runOnObject(String type, String obj, Method method, Object...params) {
+		myInventory.runOnObject(type, obj, method, params);
 	}
 
 	@Override

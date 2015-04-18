@@ -2,8 +2,9 @@ package gae.model;
 
 import gae.view.inventorypane.UpdateListener;
 
-import java.util.List;
+import java.lang.reflect.Method;
 import java.util.Set;
+
 
 /**
  * 
@@ -14,7 +15,7 @@ import java.util.Set;
 public interface Receiver {
 	
 	public void addObject(String type);
-	public void updateObject(String type, String obj, List<Object> params);
+	public void runOnObject(String type, String obj, Method method, Object...params);
 	public void removeObject(String type, String obj);
 	public void editObject(String type, String obj);
  	public Set<String> getList(String type);//once peter figures how to do this, we will change it. 

@@ -31,9 +31,11 @@ public class Editor extends GAEPane{
 	private Object myObject;
 	private Button exportObject;
 	private EditorComponentFactory myFactory;
+	private Receiver myReceiver;
 
 	public Editor(MenuAdder adder, Receiver receiver, String type) {
 		super(Editor.class.getSimpleName(), adder);
+		myReceiver = receiver;
 		
 		//this needs to happen using the receiver instead once everything on our backend is sorted out.
 		myObject = Reflection.createInstance(type);
@@ -58,6 +60,7 @@ public class Editor extends GAEPane{
 		exportObject.setOnAction(e -> {
 			//export object to receiver, this is just a sample print method for now.
 			myObject.toString();
+			
 		});
 		myForm.getChildren().add(exportObject);
 	}
