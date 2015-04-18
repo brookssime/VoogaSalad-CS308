@@ -4,7 +4,12 @@ import java.io.IOException;
 
 import engine.Tower;
 
-
+/**
+ * an example use of the GameData class
+ * takes in two towers with names and saves tower 1 and overwrites tower 2 with loaded version of tower 1. 
+ * @author Negatu
+ *
+ */
 
 public class ExampleUsage {
 
