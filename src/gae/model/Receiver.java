@@ -6,7 +6,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import java.util.ArrayList;
 
-import engine.Game;
 
 /**
  * 
