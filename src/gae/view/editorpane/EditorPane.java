@@ -43,11 +43,11 @@ public class EditorPane extends GAEPane {
 
 		// if you uncomment below, this example works. Except that there is no
 		// object named "new" in the inventory yet.
-		/*
-		 * Editor editor = new Editor(myMenuAdder, myReceiver, "Tower", "new" );
-		 * Tab newTab = new Tab("Peter"); newTab.setContent(editor.getPane());
-		 * myTabs.getTabs().add(newTab);
-		 */
+		
+		Editor editor = new Editor(myMenuAdder, myReceiver, "ExampleEnemy", "new" );
+		Tab newTab = new Tab("Peter"); newTab.setContent(editor.getPane());
+		myTabs.getTabs().add(newTab);
+		 
 
 	}
 

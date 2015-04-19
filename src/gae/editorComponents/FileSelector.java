@@ -9,6 +9,8 @@ import javax.swing.JFileChooser;
 import engine.ParameterAnnotation;
 import gae.model.Receiver;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
@@ -21,8 +23,14 @@ import javafx.scene.layout.HBox;
 public class FileSelector extends EditorComponent {
 
 	private HBox myBox;
+	private ImageView myDisplay;
 	private Button selectButton;
 	private File selectedFile;
+	
+	
+	private final String defaultImagePath = "/images/addImage.png";
+	private final static Double displayWidth = 100.0;
+	private final static Double displayHeight = 100.0;
 
 	public FileSelector(Receiver receiver, Method method, String classname,
 			String objectName) {
@@ -42,9 +50,13 @@ public class FileSelector extends EditorComponent {
 		String parameterName = parameterAnnotation.name();
 
 		myBox = new HBox();
+		myDisplay = new ImageView();
+		setupImageView();
+		
 		this.getChildren().add(myBox);
 		selectButton = new Button(parameterName);
-		myBox.getChildren().add(selectButton);
+		myBox.getChildren().addAll(selectButton, myDisplay);
+		
 		selectButton.setOnAction(e -> {
 			JFileChooser fileChooser = new JFileChooser(System.getProperties()
 					.getProperty("user.dir") + "/src/images");
@@ -55,8 +67,17 @@ public class FileSelector extends EditorComponent {
 				return;
 			}
 			selectedFile = fileChooser.getSelectedFile();
+			myDisplay.setImage(new Image(selectedFile.toURI().toString()));
 			myReceiver.runOnObject(myObject, myMethod, selectedFile);
 		});
 
+	}
+	
+	private void setupImageView(){
+		Image myImage = new Image(getClass().getResourceAsStream(defaultImagePath));
+		myDisplay.setImage(myImage);
+		System.out.println(displayWidth);
+		myDisplay.setFitWidth(displayWidth);
+		myDisplay.setFitHeight(displayHeight);
 	}
 }

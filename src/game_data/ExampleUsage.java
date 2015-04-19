@@ -2,6 +2,7 @@ package game_data;
 
 import java.io.IOException;
 
+import engine.Projectile;
 import engine.Tower;
 
 /**
@@ -21,17 +22,23 @@ public class ExampleUsage {
 
 		t1.setName("tower 1");
 		t2.setName("tower 2");
+		
+		Projectile p1 = new Projectile();
+		Projectile p2 = new Projectile();
+		p1.setName("Projectile 1");
+		p2.setName("Projectile 2");
+		
 
 		// saving t1 to a file named by the user's choice.
 		try {
-			GameData.SaveGameData(t1);
+			GameData.SaveGameData(p1);
 		} catch (IOException e) {
 			System.out.println("Failed to save file: " + e);
 		}
 
 		// loading the file into t2
 		try {
-			t2 = (Tower) GameData.LoadGameData();
+			p2 = (Projectile) GameData.LoadGameData();
 		} catch (ClassNotFoundException e) {
 			System.out.println("Class not found: " + e);
 		} catch (IOException e) {
@@ -39,7 +46,7 @@ public class ExampleUsage {
 		}
 
 		// test if t2 is now t1
-		System.out.println(t2.getName());
+		System.out.println(p2.getName());
 
 	}
 
