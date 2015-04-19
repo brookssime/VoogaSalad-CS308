@@ -31,8 +31,8 @@ public class Tile implements Authorable{
 	private int myX;
 	private int myY;
 	private Point myLocation = new Point();
-	
-<<<<<<< HEAD
+
+
 	/**
 	 * Instantiates a new tile.
 	 *
@@ -45,8 +45,8 @@ public class Tile implements Authorable{
 	/**
 	 * Instantiates a new tile.
 	 */
-	public Tile(){
-=======
+
+
 	public Tile(int x, int y, String imagePath){
 		myLocation.x = x;
 		myLocation.y = y;
@@ -54,7 +54,7 @@ public class Tile implements Authorable{
 	}
 	
 	public Tile(int x, int y){
->>>>>>> c518b688f0ceba76f3e4ca2866b8d587cd2934bf
+
 		
 		myLocation.x = x;
 		myLocation.y = y;

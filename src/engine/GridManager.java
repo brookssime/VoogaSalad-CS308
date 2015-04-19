@@ -150,18 +150,18 @@ public class GridManager {
 			myEnemyPaths.put(enemy.getID(), (LinkedList<Tile>)findPath(enemy));
 	}
 
-	
-<<<<<<< HEAD
+
+
 	/**
 	 * Find path.
 	 *
 	 * @param enemy the enemy
 	 * @return the list
 	 */
-	public List<Tile> findPath(Enemy enemy){
-=======
+
+
 	public LinkedList<Tile> findPath(Enemy enemy){
->>>>>>> c518b688f0ceba76f3e4ca2866b8d587cd2934bf
+
 		Tile current = myGrid.getPort();
 		
 		LinkedList<Tile> path = new LinkedList<Tile>();
@@ -180,8 +180,8 @@ public class GridManager {
 		}
 		return path;
 	}
-	
-<<<<<<< HEAD
+
+
 	/**
 	 * Find next tile.
 	 *
@@ -189,8 +189,8 @@ public class GridManager {
 	 * @param enemy the enemy
 	 * @return the tile
 	 */
-	private Tile findNextTile(Tile current, Enemy enemy){
-=======
+
+
 	
 	
 	public Tile findNextTile(Tile current, Enemy enemy){
@@ -201,8 +201,8 @@ public class GridManager {
 				return t;
 			}
 		}
-		
->>>>>>> c518b688f0ceba76f3e4ca2866b8d587cd2934bf
+
+
 		
 		
 		return null;

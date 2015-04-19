@@ -29,12 +29,11 @@ public class Grid implements Authorable{
 	private Tile myPort;
 	// myProjectiles?
 	// myEnemies?
-<<<<<<< HEAD
+
 	/** The my grid manager. */
-	private GridManager myGridManager;
-=======
+
 	public GridManager myGridManager;
->>>>>>> c518b688f0ceba76f3e4ca2866b8d587cd2934bf
+
 	
 	/**
 	 * Instantiates a new grid.
@@ -76,19 +75,19 @@ public class Grid implements Authorable{
 	public void addTile(Tile t, int x, int y){
 		myTiles[x][y] = t;
 	}
-	
-<<<<<<< HEAD
+
+
 	/**
 	 * Gets the port.
 	 *
 	 * @return the port
 	 */
-=======
+
 	public void setPort(Tile t){
 		myPort = t;
 	}
-	
->>>>>>> c518b688f0ceba76f3e4ca2866b8d587cd2934bf
+
+
 	public Tile getPort(){
 		return myPort;
 	}
@@ -103,14 +102,14 @@ public class Grid implements Authorable{
 	public Tile getTile(int x, int y){
 		return myTiles[x][y];
 	}
-	
-<<<<<<< HEAD
+
+
 	/**
 	 * Spawn.
 	 *
 	 * @param c the c
 	 */
-=======
+
 	public List<Tile> getTileNeighbors(Tile t){
 		if (t == null)
 			System.out.println("Grid.getTileNeighbors called with null Tile");
@@ -143,8 +142,8 @@ public class Grid implements Authorable{
 		
 		return neighbors;
 	}
-	
->>>>>>> c518b688f0ceba76f3e4ca2866b8d587cd2934bf
+
+
 	public void spawn(Collidable c){
 		
 		// TODO

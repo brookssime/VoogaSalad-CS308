@@ -53,12 +53,10 @@ public class Enemy implements Collidable, Movable, Authorable {
 	
 	/** The my path. */
 	private LinkedList<Point> myPath;
-<<<<<<< HEAD
 	
 	/** The my steps. */
-=======
 	private LinkedList<Tile> myTilePath;
->>>>>>> c518b688f0ceba76f3e4ca2866b8d587cd2934bf
+
 	private LinkedList<Tile> mySteps;
 	
 	/** The my rad. */

@@ -67,20 +67,16 @@ public class Tower implements Movable, EditableTower, Authorable{
 	/** The my rad. */
 	private Integer myRad;
 
-<<<<<<< HEAD
+
 	/**
 	 * Instantiates a new tower.
 	 */
-	public Tower(){
-		
-=======
 
 	public Tower(int x, int y, int radius){ //default constructor for circular radius
 		myLocation = new Point2D();
 		myRangeObject = new Range(x, y, radius);
 		myLocation.x = x;
 		myLocation.y = y;
->>>>>>> c518b688f0ceba76f3e4ca2866b8d587cd2934bf
 	}
 
 	/**
@@ -196,18 +192,17 @@ public class Tower implements Movable, EditableTower, Authorable{
 	}
 	
 
-	
-<<<<<<< HEAD
+
+
 	/**
 	 * Calculate shot.
 	 *
 	 * @param e the e
 	 * @return the double
 	 */
-	private Double calculateShot(Enemy e){
-=======
+	
+
 	public Double calculateShot(Enemy e){
->>>>>>> c518b688f0ceba76f3e4ca2866b8d587cd2934bf
 		
 		// TODO: implement this
 		// math involving the enemy's path, speed, projectile speed, rotation speed, current angle
