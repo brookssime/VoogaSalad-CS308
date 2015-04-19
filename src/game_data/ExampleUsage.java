@@ -16,8 +16,8 @@ public class ExampleUsage {
 
 	public static void main(String[] args) {
 
-		Tower t1 = new Tower();
-		Tower t2 = new Tower();
+		Tower t1 = new Tower(1, 2, 3);
+		Tower t2 = new Tower(4, 5, 6);
 
 		t1.setName("tower 1");
 		t2.setName("tower 2");
