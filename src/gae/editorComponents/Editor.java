@@ -33,18 +33,30 @@ public class Editor extends GAEPane {
 	private EditorComponentFactory myFactory;
 	private Receiver myReceiver;
 
-	private String myType;
 	private String myObj;
 
-	public Editor(MenuAdder adder, Receiver receiver, String type, String obj) {
+	public Editor(MenuAdder adder, Receiver receiver, String obj) {
 		super(Editor.class.getSimpleName(), adder);
-		myType = type;
 		myObj = obj;
 		myReceiver = receiver;
 
 		ArrayList<Method> objMethods = new ArrayList<Method>(
-				Reflection.getEditorMethods("engine." + myType));
+				Reflection.getEditorMethods("engine." + myReceiver.getType(obj)));
 		System.out.println(objMethods);
+		
+		ArrayList<Method> setMethods = new ArrayList<Method>();
+		ArrayList<Method> getMethods = new ArrayList<Method>();
+		
+		for (Method method : objMethods) {
+			MethodAnnoation ma = method.getAnnotation(engine.MethodAnnoation.class);
+			if (ma.gsType().equals("setter")) {
+				setMethods.add(method);
+			} else {
+				if (ma.gsType().equals("getter")) {
+					getMethods.add(method);
+				}
+			}
+		}
 
 		myLayout = new HBox();
 		myView = new Group();
@@ -53,12 +65,12 @@ public class Editor extends GAEPane {
 		myRoot.getChildren().add(myLayout);
 
 		myFactory = new EditorComponentFactory();
-		for (Method method : objMethods) {
+		for (Method method : setMethods) {
 			MethodAnnoation methodAnnotation = method
 					.getAnnotation(engine.MethodAnnoation.class);
 			String componentType = methodAnnotation.type();
 			EditorComponent fieldEditor = myFactory.generateComponent(
-					componentType, myReceiver, method, myType, myObj);
+					componentType, myReceiver, method, myObj);
 			myForm.getChildren().add(fieldEditor);
 		}
 

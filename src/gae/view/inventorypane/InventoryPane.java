@@ -77,7 +77,7 @@ public class InventoryPane extends GAEPane {
 		Button button = new Button("Edit");
 		button.setOnMouseClicked(e -> {
 			if (list.getSelectionModel().getSelectedItem() != null) {
-				myEditor.addEditor(type, list.getSelectionModel().getSelectedItem());
+				myEditor.addEditor(list.getSelectionModel().getSelectedItem());
 			}
 		});
 		return button;

@@ -18,14 +18,11 @@ public abstract class EditorComponent extends VBox {
 	protected Method myMethod;
 	protected Receiver myReceiver;
 
-	protected String myType;
 	protected String myObject;
 
-	public EditorComponent(Receiver receiver, Method method, String classname,
-			String objectName) {
+	public EditorComponent(Receiver receiver, Method method, String objectName) {
 		myReceiver = receiver;
 		myMethod = method;
-		myType = classname;
 		myObject = objectName;
 		MethodAnnoation methodAnnotation = method
 				.getAnnotation(engine.MethodAnnoation.class);

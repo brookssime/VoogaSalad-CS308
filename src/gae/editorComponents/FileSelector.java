@@ -26,15 +26,13 @@ public class FileSelector extends EditorComponent {
 	private ImageView myDisplay;
 	private Button selectButton;
 	private File selectedFile;
-	
-	
+
 	private final String defaultImagePath = "/images/addImage.png";
 	private final static Double displayWidth = 100.0;
 	private final static Double displayHeight = 100.0;
 
-	public FileSelector(Receiver receiver, Method method, String classname,
-			String objectName) {
-		super(receiver, method, classname, objectName);
+	public FileSelector(Receiver receiver, Method method, String objectName) {
+		super(receiver, method, objectName);
 
 	}
 
@@ -52,11 +50,11 @@ public class FileSelector extends EditorComponent {
 		myBox = new HBox();
 		myDisplay = new ImageView();
 		setupImageView();
-		
+
 		this.getChildren().add(myBox);
 		selectButton = new Button(parameterName);
 		myBox.getChildren().addAll(selectButton, myDisplay);
-		
+
 		selectButton.setOnAction(e -> {
 			JFileChooser fileChooser = new JFileChooser(System.getProperties()
 					.getProperty("user.dir") + "/src/images");
@@ -72,9 +70,10 @@ public class FileSelector extends EditorComponent {
 		});
 
 	}
-	
-	private void setupImageView(){
-		Image myImage = new Image(getClass().getResourceAsStream(defaultImagePath));
+
+	private void setupImageView() {
+		Image myImage = new Image(getClass().getResourceAsStream(
+				defaultImagePath));
 		myDisplay.setImage(myImage);
 		System.out.println(displayWidth);
 		myDisplay.setFitWidth(displayWidth);

@@ -26,4 +26,5 @@ public @interface MethodAnnoation {
 	boolean editor();
 	public String name();
 	public String type();
+	public String gsType();
 }

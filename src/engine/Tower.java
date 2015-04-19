@@ -106,6 +106,10 @@ public class Tower implements Movable, EditableTower, Authorable{
 		Tower incomplete = (Tower)serializer.fromXML(data);
 		init(incomplete.myName, incomplete.myImageString, incomplete.myAccessList, incomplete.myRange, incomplete.myHealth, incomplete.myRad, incomplete.myFireRate, location);
 	}
+	
+	public Tower() {
+		
+	}
 
 	/**
 	 * Inits the.

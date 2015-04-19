@@ -1,16 +1,9 @@
 package gae.editorComponents;
 
-
-import gae.view.View;
-
-
 import gae.model.Receiver;
 
 import java.lang.reflect.Method;
 
-
-import javafx.application.Application;
-import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -38,8 +31,8 @@ public class ButtonEditor extends EditorComponent{
 	private static final double SCALE_SLIDER_MAJOR_TICK = 1;
 	private static final int MINOR_TICK_COUNT = 4;
 
-	public ButtonEditor(Receiver receiver, Method method, String classname, String objectName) {
-		super(receiver, method, classname, objectName);
+	public ButtonEditor(Receiver receiver, Method method, String objectName) {
+		super(receiver, method, objectName);
 	}
 
 

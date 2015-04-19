@@ -40,9 +40,8 @@ public class TextFieldEditor extends EditorComponent {
 	 *            the method used to modify the object
 	 */
 
-	public TextFieldEditor(Receiver receiver, Method method, String classname,
-			String objectName) {
-		super(receiver, method, classname, objectName);
+	public TextFieldEditor(Receiver receiver, Method method, String objectName) {
+		super(receiver, method, objectName);
 	}
 
 	@Override

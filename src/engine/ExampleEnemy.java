@@ -40,7 +40,7 @@ public class ExampleEnemy {
 	 * @param width the width
 	 * @param height the height
 	 */
-	@MethodAnnoation(editor=true, name="Size", type="textfield")
+	@MethodAnnoation(editor=true, name="Size", type="textfield", gsType = "setter")
 	public void SetSize(@ParameterAnnotation(name="Width") Double width, @ParameterAnnotation(name="Height") Double height){
 		myImage.setFitWidth(width);
 		myImage.setFitHeight(height);
@@ -52,7 +52,7 @@ public class ExampleEnemy {
 	 * @param x the x
 	 * @param y the y
 	 */
-	@MethodAnnoation(editor=true, name = "Position", type = "textfield")
+	@MethodAnnoation(editor=true, name = "Position", type = "textfield", gsType = "setter")
 	public void SetPosition(@ParameterAnnotation(name="X Location") Double x, @ParameterAnnotation(name="Y Location")Double y){
 		myImage.setTranslateX(x);
 		myImage.setTranslateY(y);
@@ -63,7 +63,7 @@ public class ExampleEnemy {
 	 *
 	 * @param health the health
 	 */
-	@MethodAnnoation(editor=true, name = "Health", type = "textfield")
+	@MethodAnnoation(editor=true, name = "Health", type = "textfield", gsType = "setter")
 	public void SetHealthCapacity(@ParameterAnnotation(name="Health Capacity") Double health){
 		this.setMyHealthCapacity(health);
 	}
@@ -71,7 +71,7 @@ public class ExampleEnemy {
 	/**
 	 * Change image.
 	 */
-	@MethodAnnoation(editor=true, name = "Image File", type = "fileselect")
+	@MethodAnnoation(editor=true, name = "Image File", type = "fileselect", gsType = "setter")
 	public void ChangeImage(@ParameterAnnotation(name="Select Image") File file) {
 		this.changeImage(new Image(file.toURI().toString()));
 	}

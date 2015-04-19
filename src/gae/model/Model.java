@@ -41,6 +41,11 @@ public class Model implements Receiver {
 	}
 	
 	@Override
+	public String getType(String obj) {
+		return myInventory.getType(obj);
+	}
+	
+	@Override
 	public Set<String> getList(String type) {
 		return myInventory.getList(type);
 	}

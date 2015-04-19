@@ -18,7 +18,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Inventory.
  * 
@@ -136,6 +135,20 @@ public class Inventory {
 	public void removeObject(String obj) {
 		ObservableMap<String, Authorable> map = getMap(obj);
 		map.remove(obj);
+	}
+	
+	public String getType(String obj) {
+		for (String type : TYPES) {
+			if (myMaps.get(type).containsKey(obj)) {
+				return type;
+			}
+		}
+		try {
+			throw new ObjectDoesntExistException();
+		} catch (ObjectDoesntExistException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public Set<String> getList(String type) {
