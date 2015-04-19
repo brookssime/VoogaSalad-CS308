@@ -37,24 +37,26 @@ public class DialogueScene extends GameScene{
 		myDialogueBoxes = dialogueBoxes;
 	}
 	
-	
-	
-	/**
-	 * Empty for now
-	 */
+	@Override
+	public boolean isComplete() {
+		
+		return (myDialogueBoxes.size() <= 0);
+	}
+
 	@Override
 	public void update() {
 
 	}
-
-	@Override
-	public void checkComplete() {
-		myHasCompleted = (myDialogueBoxes.size() <= 0);
-	}
-	
 	public DialogueBox getNextDialogueBox(){
 		return myDialogueBoxes.poll();
 	}
+
+	/*@Override
+	public void checkComplete() {
+		myHasCompleted = (myDialogueBoxes.size() <= 0);
+	}*/
+	
+	
 	
 	/**
 	 * To be accessed by view
@@ -71,5 +73,7 @@ public class DialogueScene extends GameScene{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }

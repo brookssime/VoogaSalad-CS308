@@ -22,15 +22,22 @@ public class TitleScene extends GameScene{
 	@Override
 	public void update() {
 		myButtonClicked = false;
-		myHasCompleted = false;
+		//myHasCompleted = false;
 	}
 
 	@Override
+	public boolean isComplete(){
+		if(myButtonClicked)
+			return true;
+		return false;
+	}
+	
+	/*@Override
 	public void checkComplete() {
 		if(myButtonClicked){
 			myHasCompleted = true;
 		}
-	}
+	}*/
 	
 	/**
 	 * Theoretically, this could apply to any button

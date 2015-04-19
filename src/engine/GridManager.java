@@ -22,6 +22,9 @@ public class GridManager {
 	private Queue<Wave> myWaves;
 	private long myStartTime;
 	private Base myBase;
+	private boolean myGameLost; //remove these 
+	private boolean myHasCompleted; // remove these 
+	private boolean myGameWon; //remove these
 	
 
 	/**
@@ -38,6 +41,10 @@ public class GridManager {
 		moveSprites();
 		clearSprites();
 		spawnEnemies();
+	}
+	
+	public boolean isComplete() {
+		return myHasCompleted;
 	}
 	
 	public void setWaves(Queue<Wave> waves){
@@ -84,6 +91,17 @@ public class GridManager {
 		mySpritesToRemove.clear();
 	}
 	
+	
+	public void checkComplete() {
+		if (myBase.isDead()) {
+			myGameLost = true;
+			myHasCompleted = true;
+		} else if (myGameWon == true) {
+			myHasCompleted = true;
+		} else {
+			myHasCompleted = false;
+		}
+	}
 
 	/**
 	 * TODO: Figure out timing and how to space out enemies within wave What
@@ -149,6 +167,8 @@ public class GridManager {
 		// SHOULD return null if no next tile is found, or if this tile is a base..there is a null check in findPath
 		
 	}
+
+	
 	
 }
 	

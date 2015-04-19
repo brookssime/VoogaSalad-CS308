@@ -19,8 +19,8 @@ public class LevelScene extends GameScene implements Authorable {
 	private String myLevelTitle; 
 	private Store myStore;
 	private Grid myGrid;
-	private Queue<Wave> myWaves;
-	private GridManager myGridManager;
+	//private Queue<Wave> myWaves;
+	//private GridManager myGridManager;
 
 	public LevelScene() {
 		super();
@@ -29,9 +29,8 @@ public class LevelScene extends GameScene implements Authorable {
 	
 	@Override
 	public KeyFrame start(double frameRate){
-		myGridManager.start();
+		myGrid.start();
 		return super.start(frameRate);
-		
 		
 	}
 
@@ -41,23 +40,26 @@ public class LevelScene extends GameScene implements Authorable {
 	
 	//TODO: MAKE SURE this is all that needs to be set up
 	private void setGrid(Grid grid){
-		myGrid = grid;
-		myGridManager = new GridManager(grid);
+		myGrid = new Grid(grid, new GridManager(myGrid));
+		//myGridManager = new GridManager(grid);
 	}
 	
 	//TODO: make sure this is the right way to handle this
 	private void setWaves(Queue<Wave> waves){
-		myGridManager.setWaves(waves);
-		myWaves = waves;
+		myGrid.setWaves(waves);
+		//myWaves = waves;
 	}
 	
 	public void update(){	
-		myGridManager.update();
-		checkComplete();
+		myGrid.update();
+		//checkComplete();
 	}
 
+	public boolean isComplete(){
+		return myGrid.isComplete();
+	}
 
-	@Override
+	/*@Override
 	public void checkComplete() {
 		if (myGridManager.getBase().isDead()) {
 			myGameLost = true;
@@ -67,7 +69,7 @@ public class LevelScene extends GameScene implements Authorable {
 		} else {
 			myHasCompleted = false;
 		}
-	}
+	}*/
 
 	@Override
 	public void setName(String s) {

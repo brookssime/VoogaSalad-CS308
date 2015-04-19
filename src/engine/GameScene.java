@@ -7,13 +7,13 @@ public abstract class GameScene extends GameObject{
 	
 	private String myName;
 	private GameScene myNext;
-	protected boolean myHasCompleted;
+	//protected boolean myHasCompleted;
 	private KeyFrame myScene;
-	protected boolean myGameLost;
-	protected boolean myGameWon;
+	//protected boolean myGameLost;
+	//protected boolean myGameWon;
 	
 	public GameScene(){
-		myGameLost = false;
+		//myGameLost = false;
 	}
 
 	public KeyFrame start(double frameRate) {
@@ -23,7 +23,7 @@ public abstract class GameScene extends GameObject{
 
 	public abstract void update();
 	
-	public abstract void checkComplete();
+	public abstract boolean isComplete();
 	
 	public GameScene getNextScene(){
 		return myNext;
@@ -33,10 +33,6 @@ public abstract class GameScene extends GameObject{
 		return myScene;
 	}
 	
-	public boolean isComplete(){
-		checkComplete();
-		return myHasCompleted;
-	}
 	
 	public void setNextScene(GameScene gameScene){
 		myNext = gameScene;

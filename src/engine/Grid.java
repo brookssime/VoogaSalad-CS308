@@ -5,25 +5,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import interfaces.Authorable;
 import interfaces.Collidable;
 
-public class Grid implements Authorable{
+public class Grid implements Authorable, Observable{
 	
 	private String myName;
 	public Tile[][] myTiles;
 	private Map<Collidable, Point> myCollidables;
 	private Map<GridObject, Point> myGridObjectMap;
 	
+	
 	private Tile myPort;
 	// myProjectiles?
 	// myEnemies?
 	public GridManager myGridManager;
 	
-	public Grid(){
+	
+	public Grid(Grid grid, GridManager gm){
+		myGridManager = gm;
 		
 	}
 	
@@ -39,6 +45,23 @@ public class Grid implements Authorable{
 				myTiles[x][y] = new Tile(x, y);
 			}	
 	}
+	
+	public void start(){
+		myGridManager.start();
+		
+	}
+	
+	public void setWaves(Queue<Wave> waves){
+		myGridManager.setWaves(waves);
+		
+	}
+	
+	public void update(){
+		myGridManager.update();
+		myGridManager.checkComplete();
+	}
+	
+	
 	
 	public void setTiles(Tile[][] tiles){
 		myTiles = tiles;
@@ -97,11 +120,7 @@ public class Grid implements Authorable{
 		
 		return neighbors;
 	}
-	
-	public void spawn(Collidable c){
-		
-		// TODO
-	}
+
 	
 	public ObservableList<Collidable> getObjects(){
 		return FXCollections.observableList((List<Collidable>) myCollidables.keySet());
@@ -123,6 +142,22 @@ public class Grid implements Authorable{
 	public void updateParams(List<Object> params) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void addListener(InvalidationListener listener) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeListener(InvalidationListener listener) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean isComplete() {
+		return myGridManager.isComplete();
 	}
 	
 	
