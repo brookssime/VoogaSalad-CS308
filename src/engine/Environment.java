@@ -1,8 +1,8 @@
-package engine.gameInfo;
+package engine;
 
 import java.util.Observable;
 
-import engine.gameScenes.Store;
+import engine.gameScreens.Store;
 
 /**
  * This class will hold objects that are observable by the view

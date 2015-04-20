@@ -1,6 +1,6 @@
-package engine.gameScenes;
+package engine.gameScreens;
 
-import engine.gameInfo.GameObject;
+import engine.gameLogic.GameObject;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 

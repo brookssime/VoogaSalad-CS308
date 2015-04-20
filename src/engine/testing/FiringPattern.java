@@ -2,7 +2,7 @@ package engine.testing;
 
 import java.util.List;
 
-import engine.gameInfo.GridObject;
+import engine.sprites.GridObject;
 
 public class FiringPattern {
 	

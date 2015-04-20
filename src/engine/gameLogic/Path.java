@@ -1,8 +1,6 @@
-package engine.gameInfo;
+package engine.gameLogic;
 
 import java.util.LinkedList;
-
-import engine.Placement;
 
 /**
  * TODO: Make this a functioning class

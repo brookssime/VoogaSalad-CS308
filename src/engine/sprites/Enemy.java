@@ -9,9 +9,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import engine.Placement;
-import engine.gameInfo.GridObject;
-import engine.gameInfo.Path;
+import engine.gameLogic.Path;
+import engine.gameLogic.Placement;
 
 /**
  * The Class Enemy. 

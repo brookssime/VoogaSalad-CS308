@@ -1,4 +1,4 @@
-package engine.gameInfo;
+package engine;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,10 @@ import java.util.Queue;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import engine.Placement;
+import engine.gameLogic.GameObject;
+import engine.gameLogic.Placement;
+import engine.gameLogic.Wave;
+import engine.sprites.GridObject;
 import engine.sprites.Tile;
 
 /**
@@ -29,16 +32,6 @@ public class Grid extends GameObject implements Observable{
 	private Map<GridObject, Placement> myGridObjectMap;	
 	private List<Tile> myPorts;
 	
-	/**
-	 * Instantiates a new grid.
-	 */
-	public Grid(Grid grid, GridManager gm){
-		myName = grid.myName;
-		myTiles = grid.myTiles;
-		myGridObjectMap = grid.myGridObjectMap;
-		myPorts = grid.myPorts;
-		myGridManager = gm;
-	}
 
 	/**
 	 * Instantiates a new grid.
@@ -52,6 +45,16 @@ public class Grid extends GameObject implements Observable{
 		init();
 	}
 
+	/**
+	 * Instantiates a grid that connects to the gridmanager
+	 */
+	public Grid(Grid grid, GridManager gm){
+		myName = grid.myName;
+		myTiles = grid.myTiles;
+		myGridObjectMap = grid.myGridObjectMap;
+		myPorts = grid.myPorts;
+		myGridManager = gm;
+	}
 	public Tile[][] getTiles(){
 		return myTiles;
 	}

@@ -1,12 +1,13 @@
 package gae.editorComponents;
 
+import interfaces.ParameterAnnotation;
+
 import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 import javax.swing.JFileChooser;
 
-import engine.ParameterAnnotation;
 import gae.model.Receiver;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;

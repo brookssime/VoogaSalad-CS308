@@ -3,7 +3,7 @@
  */
 package interfaces;
 
-import engine.Placement;
+import engine.gameLogic.Placement;
 
 
 // TODO: Auto-generated Javadoc

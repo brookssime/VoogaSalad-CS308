@@ -1,6 +1,5 @@
-package engine.sprites;
+package engine.gameLogic;
 
-import engine.gameInfo.GameObject;
 
 /**
  * The Class Effect.

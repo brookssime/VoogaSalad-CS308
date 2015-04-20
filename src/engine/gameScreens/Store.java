@@ -1,8 +1,8 @@
-package engine.gameScenes;
+package engine.gameScreens;
 
 import java.util.Map;
 
-import engine.gameInfo.GameObject;
+import engine.gameLogic.GameObject;
 import engine.sprites.Tower;
 
 /**

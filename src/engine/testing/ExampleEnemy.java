@@ -3,15 +3,15 @@
  */
 package engine.testing;
 
+import interfaces.MethodAnnotation;
+import interfaces.ParameterAnnotation;
+
 import java.io.File;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javax.swing.JFileChooser;
-
-import engine.MethodAnnotation;
-import engine.ParameterAnnotation;
 
 // TODO: Auto-generated Javadoc
 /**

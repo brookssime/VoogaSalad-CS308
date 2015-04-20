@@ -1,6 +1,5 @@
 package engine.sprites;
 
-import engine.gameInfo.GridObject;
 
 
 /**

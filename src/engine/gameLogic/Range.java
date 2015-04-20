@@ -1,4 +1,4 @@
-package engine.sprites;
+package engine.gameLogic;
 
 import interfaces.Collidable;
 
@@ -6,6 +6,8 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+
+import engine.sprites.Enemy;
 
 /**
  * The Class Range.

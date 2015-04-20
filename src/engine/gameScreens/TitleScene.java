@@ -1,4 +1,4 @@
-package engine.gameScenes;
+package engine.gameScreens;
 
 /**
  * Currently a static title screen

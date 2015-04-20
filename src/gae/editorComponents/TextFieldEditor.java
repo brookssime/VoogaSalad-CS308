@@ -3,11 +3,12 @@
  */
 package gae.editorComponents;
 
+import interfaces.ParameterAnnotation;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import engine.ParameterAnnotation;
 import gae.model.Receiver;
 import reflection.Reflection;
 import javafx.scene.control.Button;

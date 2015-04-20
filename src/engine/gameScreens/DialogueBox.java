@@ -1,4 +1,4 @@
-package engine;
+package engine.gameScreens;
 
 /**
  * TODO: What does this class do? Do we need it?

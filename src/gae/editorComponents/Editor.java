@@ -1,10 +1,11 @@
 package gae.editorComponents;
 
+import interfaces.MethodAnnotation;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.MethodAnnotation;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
@@ -49,7 +50,7 @@ public class Editor extends GAEPane {
 
 		for (Method method : objMethods) {
 			MethodAnnotation ma = method
-					.getAnnotation(engine.MethodAnnotation.class);
+					.getAnnotation(MethodAnnotation.class);
 			if (ma.gsType().equals("setter")) {
 				setMethods.add(method);
 			} else {
@@ -68,7 +69,7 @@ public class Editor extends GAEPane {
 		myFactory = new EditorComponentFactory();
 		for (Method method : setMethods) {
 			MethodAnnotation methodAnnotation = method
-					.getAnnotation(engine.MethodAnnotation.class);
+					.getAnnotation(MethodAnnotation.class);
 			String componentType = methodAnnotation.type();
 			EditorComponent fieldEditor = myFactory.generateComponent(
 					componentType, myReceiver, method, myObj);
