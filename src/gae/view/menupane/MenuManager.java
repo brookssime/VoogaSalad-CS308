@@ -14,8 +14,8 @@ import javafx.scene.control.SeparatorMenuItem;
 /**
  * The Class MenuManager.
  * 
- * @author Peter
- * Manages the menu. Allows other classes to add menus to the bar and get menus.
+ * @author Peter Manages the menu. Allows other classes to add menus to the bar
+ *         and get menus.
  */
 public class MenuManager implements MenuAdder {
 
@@ -39,7 +39,9 @@ public class MenuManager implements MenuAdder {
 		return myMenuBar;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see gae.menupane.MenuAdder#addMenus(java.util.List)
 	 */
 	public void addMenus(List<Menu> newMenus) {

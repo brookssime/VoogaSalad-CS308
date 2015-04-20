@@ -48,7 +48,7 @@ public class Inventory {
 			myMaps.put(type, map);
 		}
 	}
-	
+
 	private ObservableMap<String, Authorable> getMap(String obj) {
 		for (String type : TYPES) {
 			if (myMaps.get(type).containsKey(obj)) {
@@ -85,12 +85,13 @@ public class Inventory {
 
 	/**
 	 * Update object.
+	 * 
 	 * @param obj
 	 *            the obj
 	 * @param params
 	 *            the params
 	 */
-	public void runOnObject(String obj, Method method, Object...params) {
+	public void runOnObject(String obj, Method method, Object... params) {
 		ObservableMap<String, Authorable> map = getMap(obj);
 		Authorable object = map.get(obj);
 		try {
@@ -106,8 +107,8 @@ public class Inventory {
 			map.put(object.getName(), object);
 		}
 	}
-	
-	public Object getFromObject(String obj, Method method, Object...params) {
+
+	public Object getFromObject(String obj, Method method, Object... params) {
 		ObservableMap<String, Authorable> map = getMap(obj);
 		Authorable object = map.get(obj);
 		Object ret;
@@ -129,6 +130,7 @@ public class Inventory {
 
 	/**
 	 * Removes the object.
+	 * 
 	 * @param obj
 	 *            the obj
 	 */
@@ -136,7 +138,7 @@ public class Inventory {
 		ObservableMap<String, Authorable> map = getMap(obj);
 		map.remove(obj);
 	}
-	
+
 	public String getType(String obj) {
 		for (String type : TYPES) {
 			if (myMaps.get(type).containsKey(obj)) {

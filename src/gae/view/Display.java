@@ -19,38 +19,36 @@ import javafx.scene.layout.Pane;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Display.
-=======
-/**
- * @author Peter
- * This class is our main display class, it contains the borderpane which contains all the different
- * components, including the editorpanes, timelinepane, inventorypane, and menupane.
-
+ * The Class Display. ======= /**
+ * 
+ * @author Peter This class is our main display class, it contains the
+ *         borderpane which contains all the different components, including the
+ *         editorpanes, timelinepane, inventorypane, and menupane.
  */
 public class Display {
 
 	/** The my root. */
 	private BorderPane myRoot;
-	
+
 	/** The my receiver. */
 	private Receiver myReceiver;
-	
+
 	/** The my scene. */
 	private Scene myScene;
-	
+
 	private EditorPane myEditor;
-	
+
 	/** The my menu adder. */
 	private MenuAdder myMenuAdder;
-	
+
 	/** The my configs. */
 	private static ResourceBundle myConfigs = BundleGrabber.grabBundle(
 			"configs", "display"); // find way to add this :
-									// this.getClass().getName());
+	// this.getClass().getName());
 	/** The Constant myWidth. */
-									private static final int myWidth = Integer.parseInt(myConfigs
+	private static final int myWidth = Integer.parseInt(myConfigs
 			.getString("Width"));
-	
+
 	/** The Constant myHeight. */
 	private static final int myHeight = Integer.parseInt(myConfigs
 			.getString("Height"));
@@ -58,7 +56,8 @@ public class Display {
 	/**
 	 * Instantiates a new display.
 	 *
-	 * @param rec the rec
+	 * @param rec
+	 *            the rec
 	 */
 	public Display(Receiver rec) {
 		myRoot = new BorderPane();
@@ -99,20 +98,23 @@ public class Display {
 	private Pane setupEditorPane() {
 		EditorPane editorPane = new EditorPane(myMenuAdder, myReceiver);
 		myEditor = editorPane;
+		editorPane.getPane().setPrefSize(myWidth, myHeight);
 		return editorPane.getPane();
 	}
 
 	/**
 	 * Setup inventory pane.
-	 * @param ep 
+	 * 
+	 * @param ep
 	 *
 	 * @return the pane
 	 */
 	private Pane setupInventoryPane() {
-		InventoryPane inventoryPane = new InventoryPane(myMenuAdder, myReceiver, myEditor);
+		InventoryPane inventoryPane = new InventoryPane(myMenuAdder,
+				myReceiver, myEditor);
 		return inventoryPane.getPane();
 	}
-	
+
 	/**
 	 * Setup timeline pane.
 	 *

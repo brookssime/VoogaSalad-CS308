@@ -12,79 +12,82 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class DefaultMenus.
-
  * 
- * @author Peter
- * Creates the default menus in the menubar.
+ * 
+ * @author Peter Creates the default menus in the menubar.
  *
  */
 public class DefaultMenus implements Menuable {
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see gae.menupane.Menuable#getMenus()
 	 */
 	@Override
 	public List<Menu> getMenus() {
 		List<Menu> menus = new ArrayList<Menu>();
-		
-		//setup File menu
+
+		// setup File menu
 		Menu menuFile = new Menu("File");
 		MenuItem exitMenuItem = new MenuItem("Exit");
-		exitMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+Q"));
+		exitMenuItem
+				.setAccelerator(KeyCombination.keyCombination("shortcut+Q"));
 		exitMenuItem.setOnAction(e -> exit());
 		menuFile.getItems().addAll(exitMenuItem);
 		menus.add(menuFile);
-		
-		//setup Edit menu
+
+		// setup Edit menu
 		Menu menuEdit = new Menu("Edit");
 		MenuItem undoMenuItem = new MenuItem("Undo");
-		undoMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+Z"));
+		undoMenuItem
+				.setAccelerator(KeyCombination.keyCombination("shortcut+Z"));
 		undoMenuItem.setOnAction(e -> undo());
 		MenuItem redoMenuItem = new MenuItem("Redo");
-		redoMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+shift+Z"));
+		redoMenuItem.setAccelerator(KeyCombination
+				.keyCombination("shortcut+shift+Z"));
 		redoMenuItem.setOnAction(e -> redo());
 		menuEdit.getItems().addAll(undoMenuItem, redoMenuItem);
 		menus.add(menuEdit);
-		
-		//setup Window menu
+
+		// setup Window menu
 		Menu menuWindow = new Menu("Window");
 		menus.add(menuWindow);
-		
-		//setup Help menu
+
+		// setup Help menu
 		Menu menuHelp = new Menu("Help");
 		MenuItem showHelpMenuItem = new MenuItem("Show Help");
 		showHelpMenuItem.setOnAction(e -> showHelp());
 		menuHelp.getItems().add(showHelpMenuItem);
 		menus.add(menuHelp);
-		
+
 		return menus;
 	}
-	
+
 	/**
 	 * Exit.
 	 */
 	private void exit() {
 		System.exit(0);
 	}
-	
+
 	/**
 	 * Undo.
 	 */
 	private void undo() {
 		System.out.println("Not Implemented");
 	}
-	
+
 	/**
 	 * Redo.
 	 */
 	private void redo() {
-		System.out.println("Not Implemented");		
+		System.out.println("Not Implemented");
 	}
-	
+
 	/**
 	 * Show help.
 	 */

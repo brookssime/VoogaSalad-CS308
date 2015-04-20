@@ -2,7 +2,6 @@ package gae;
 
 import java.util.ResourceBundle;
 
-
 public final class BundleGrabber {
 
 	/** The instance. */
@@ -29,8 +28,10 @@ public final class BundleGrabber {
 	/**
 	 * Grab bundle.
 	 *
-	 * @param folder the folder
-	 * @param file the file
+	 * @param folder
+	 *            the folder
+	 * @param file
+	 *            the file
 	 * @return the resource bundle
 	 */
 	public static ResourceBundle grabBundle(String folder, String file) {

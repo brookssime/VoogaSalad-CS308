@@ -43,12 +43,13 @@ public class Editor extends GAEPane {
 		ArrayList<Method> objMethods = new ArrayList<Method>(
 				Reflection.getEditorMethods("engine." + myReceiver.getType(obj)));
 		System.out.println(objMethods);
-		
+
 		ArrayList<Method> setMethods = new ArrayList<Method>();
 		ArrayList<Method> getMethods = new ArrayList<Method>();
-		
+
 		for (Method method : objMethods) {
-			MethodAnnoation ma = method.getAnnotation(engine.MethodAnnoation.class);
+			MethodAnnoation ma = method
+					.getAnnotation(engine.MethodAnnoation.class);
 			if (ma.gsType().equals("setter")) {
 				setMethods.add(method);
 			} else {
