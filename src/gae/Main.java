@@ -3,7 +3,9 @@
  */
 package gae;
 
+import gae.view.View;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 // TODO: Auto-generated Javadoc
@@ -12,7 +14,9 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javafx.application.Application#start(javafx.stage.Stage)
 	 */
 	@Override
@@ -24,7 +28,8 @@ public class Main extends Application {
 	/**
 	 * The main method.
 	 *
-	 * @param args the arguments
+	 * @param args
+	 *            the arguments
 	 */
 	public static void main(String[] args) {
 		launch(args);
