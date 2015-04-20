@@ -55,7 +55,10 @@ public class Range implements Collidable{
 	}
 
 	public ArrayList<Collidable> getObjectsInRange(){
-		return objectsInRange;
+		ArrayList<Collidable> a =  objectsInRange;
+		objectsInRange.clear();
+		return a;
+		
 	}
 
 
@@ -73,9 +76,8 @@ public class Range implements Collidable{
 	/**
 	 * Refresh enemies.
 	 */
-	private void refreshEnemies(){
-		// clear enemies that have died / left range --> updating enemiesInRange
-		// alternatively, clear it on every cycle and simply re-add enemies? probably not
+	private void refreshObjects(){
+		objectsInRange.clear();
 	}
 
 	/* (non-Javadoc)

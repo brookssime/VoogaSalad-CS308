@@ -247,8 +247,7 @@ public class Enemy extends GridObject implements Collidable, Movable {
 
 		@Override
 		public Placement move() {
-			// TODO Auto-generated method stub
-			return null;
+			return myPath.getNext();
 		}
 
 

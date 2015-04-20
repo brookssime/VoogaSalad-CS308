@@ -3,15 +3,11 @@
  */
 package engine;
 
-import interfaces.Authorable;
-
 import java.util.List;
 
 public class Wave extends GameObject{
 	
-	/** The my name. */
-	private String myName;
-	
+
 	/** The my enemies. */
 	private List<Enemy> myEnemies;
 

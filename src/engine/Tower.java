@@ -80,10 +80,9 @@ public class Tower extends GridObject implements Shootable, Movable{
 	 * Instantiates a new tower.
 	 */
 	public Tower(int x, int y, int radius){ //default constructor for circular radius
-		//myLocation = new Point2D();
+		
 		myRangeObject = new Range(x, y, radius);
-		//myLocation.x = x;
-		//myLocation.y = y;
+	
 	}
 
 
@@ -110,7 +109,7 @@ public class Tower extends GridObject implements Shootable, Movable{
 		myAccessNames = accessNames;
 		myRange = range;
 		myFireRate = fireRate;
-		//myLocation = location;
+		
 		myHealth = health;
 		myRad = radius;
 	}
@@ -141,7 +140,7 @@ public class Tower extends GridObject implements Shootable, Movable{
 	
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub		
+		// TODO set myPath up here
 	}
 	
 	/**

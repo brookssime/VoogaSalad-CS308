@@ -37,14 +37,14 @@ public class Grid extends GameObject implements Observable{
 	 */
 	//private Map<Collidable, Placement> myCollidables;
 	private Map<GridObject, Placement> myGridObjectMap;	
-	private Tile myPort;
+	private List<Tile> myPorts;
 	// myProjectiles?
 	// myEnemies?
 	public Grid(Grid grid, GridManager gm){
 		myName = grid.myName;
 		myTiles = grid.myTiles;
 		myGridObjectMap = grid.myGridObjectMap;
-		myPort = grid.myPort;
+		myPorts = grid.myPorts;
 		myGridManager = gm;
 	}
 
@@ -122,8 +122,8 @@ public class Grid extends GameObject implements Observable{
 	 *
 	 */
 
-	public void setPort(Tile t){
-		myPort = t;
+	public void setPort(List<Tile> t){
+		myPorts = t;
 	}
 
 
@@ -133,8 +133,8 @@ public class Grid extends GameObject implements Observable{
 	 *
 	 * @return the port
 	 */
-	public Tile getPort(){
-		return myPort;
+	public List<Tile> getPort(){
+		return myPorts;
 	}
 
 	/**
@@ -170,8 +170,18 @@ public class Grid extends GameObject implements Observable{
 	}
 
 	public Tile getPortFor(Wave w) {
-		// TODO RETURN THE TILE THAT CORRESPONDS TO THE PORT FOR THIS WAVE
-		return null;
+		Placement p = new Placement();
+		for(GridObject o : myGridObjectMap.keySet()){
+			if(o.getName().equals(w.getPortName()))
+					p = myGridObjectMap.get(o);
+			
+		}
+		
+		return getTileForPlacement(p);
+	}
+	
+	private Tile getTileForPlacement(Placement p){
+		return myTiles[(int) Math.floor(p.getLocation().getX())][(int) Math.floor(p.getLocation().getY())];
 	}
 
 	public Queue<Wave> getWaves() {
