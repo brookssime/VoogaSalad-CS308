@@ -1,25 +1,17 @@
-/*
- * 
- */
-package engine;
+package engine.gameScenes;
 
-import interfaces.Authorable;
-
-import java.util.List;
 import java.util.Map;
 
+import engine.gameInfo.GameObject;
+import engine.sprites.Tower;
 
-public class Store extends GameObject {
-
-// TODO: Auto-generated Javadoc
 /**
  * The Class Store.
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  */
+public class Store extends GameObject {
 
-	
-	
 	/** The my towers on sale. */
 	private Map<Tower, Integer> myTowersOnSale;
 	
@@ -83,6 +75,4 @@ public class Store extends GameObject {
 	public String getImagePath(){
 		return myBackgroundImagePath;
 	}
-
-
 }

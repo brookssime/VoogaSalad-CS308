@@ -11,7 +11,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.MethodAnnoation;
+import engine.MethodAnnotation;
 
 
 // TODO: Auto-generated Javadoc
@@ -162,7 +162,7 @@ public class Reflection {
     	Method[] allMethods = target.getClass().getMethods();
     	List<Method> targetMethods = new ArrayList<>();
     	 for(Method method : allMethods){
-    		 MethodAnnoation methodAnnotation = method.getAnnotation(engine.MethodAnnoation.class);
+    		 MethodAnnotation methodAnnotation = method.getAnnotation(engine.MethodAnnotation.class);
     		 if(methodAnnotation != null && methodAnnotation.editor()) {
     			 targetMethods.add(method);
     		 }

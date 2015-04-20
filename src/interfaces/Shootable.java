@@ -2,10 +2,10 @@ package interfaces;
 
 import java.util.List;
 
-import engine.GridObject;
 import engine.Placement;
-import engine.Projectile;
-import engine.Range;
+import engine.gameInfo.GridObject;
+import engine.sprites.Projectile;
+import engine.sprites.Range;
 
 public interface Shootable {
 	

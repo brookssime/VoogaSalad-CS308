@@ -1,36 +1,25 @@
-/*
- * 
- */
-package engine;
+package engine.sprites;
 
-import java.awt.Point;
-import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
+import interfaces.Collidable;
+import interfaces.Movable;
+import interfaces.Shootable;
+
 import java.util.Collections;
 import java.util.List;
 
 import com.sun.javafx.geom.Point2D;
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-import interfaces.Authorable;
-import interfaces.Collidable;
-import interfaces.EditableTower;
-import interfaces.Movable;
-import interfaces.Shootable;
+import engine.Placement;
+import engine.gameInfo.GridObject;
+import engine.gameInfo.Path;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Tower.
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  */
-
 public class Tower extends GridObject implements Shootable, Movable{
-
-
-
 
 	/** The my name. */
 	private String myName;
@@ -48,11 +37,8 @@ public class Tower extends GridObject implements Shootable, Movable{
 	private Point2D myLocation;
 	
 	/** The my health. */
-	
-
 	private Integer myHealth;
 
-	
 	/** The my projectile. */
 	private Projectile myProjectile;
 	
@@ -80,11 +66,8 @@ public class Tower extends GridObject implements Shootable, Movable{
 	 * Instantiates a new tower.
 	 */
 	public Tower(int x, int y, int radius){ //default constructor for circular radius
-		
-		myRangeObject = new Range(x, y, radius);
-	
+		myRangeObject = new Range(x, y, radius);	
 	}
-
 
 	public Tower (String name, String imagePath,  List<String> accessList, int range, int health, int radius, int fireRate, Point2D location) {	
 		init(name, imagePath, accessList, range, health, radius, fireRate, location);		
@@ -102,20 +85,16 @@ public class Tower extends GridObject implements Shootable, Movable{
 		init(incomplete.myName, incomplete.myImagePath, incomplete.myAccessNames, incomplete.myRange, incomplete.myHealth, incomplete.myRad, incomplete.myFireRate, location);
 	}
 
-
 	public void init(String name, String imagePath,  List<String> accessNames, int range, int health, int radius, int fireRate, Point2D location){
 		myImagePath = imagePath;
 		myName = name;
 		myAccessNames = accessNames;
 		myRange = range;
-		myFireRate = fireRate;
-		
+		myFireRate = fireRate;		
 		myHealth = health;
 		myRad = radius;
 	}
 	
-	
-
 	/* (non-Javadoc)
 	 * @see interfaces.EditableTower#getName()
 	 */
@@ -123,12 +102,9 @@ public class Tower extends GridObject implements Shootable, Movable{
 		return myName;
 	}
 
-
-
 	/* (non-Javadoc)
 	 * @see interfaces.Movable#move()
 	 */
-
 	@Override
 	public Placement move() {
 		rotate();
@@ -149,18 +125,14 @@ public class Tower extends GridObject implements Shootable, Movable{
 	private void rotate(){
 		// TODO
 		// increment myCurRotation based on targetRotation
-		
 		myCurRotation = myCurRotation + myRotationSpeed;
 	}
 	
-	
-
 	public Projectile fire(){
 		return myProjectile;
 		
 	}
 	
-
 	/**
 	 * Sets the target rotation.
 	 *
@@ -170,9 +142,6 @@ public class Tower extends GridObject implements Shootable, Movable{
 		myTargetRotation = targetAngle;
 	}
 	
-
-	
-
 	//public Double calculateShot(Collidable c){
 
 		// TODO: implement this
@@ -182,13 +151,9 @@ public class Tower extends GridObject implements Shootable, Movable{
 		// perhaps make turret rotation speed variable based on the time at which an enemy can be 
 		// shot (based on fire rate, which will NOT be changing but instead fixed per type of tower)
 		
-		//return Math.toDegrees(Math.atan2(myLocation.y-e.getLocation().y, myLocation.x-e.getLocation().x));
-		
-		
-		
+		//return Math.toDegrees(Math.atan2(myLocation.y-e.getLocation().y, myLocation.x-e.getLocation().x));	
 	//}
 	
-
 	/**
 	 * Select target.
 	 *
@@ -196,21 +161,19 @@ public class Tower extends GridObject implements Shootable, Movable{
 	 * @return list of targets
 	 */
 	//private GridObject selectTarget(ArrayList<Enemy> inRange){
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collidable selectTarget(List<Collidable> targets) {
-
 		Collections.sort(targets);		
 		Collidable target = targets.get(targets.size()-1); //should get the furthest along, for enemies
-		if(isHittable(target))
+		if(isHittable(target)){
 			return target;
+		}
 		targets.remove(target);
 		return selectTarget(targets);
+	}
 		
-		}
-		
-	
-
 	/**
 	 * Checks if is hittable.
 	 *
@@ -219,14 +182,10 @@ public class Tower extends GridObject implements Shootable, Movable{
 	 */
 	
 	private boolean isHittable(Collidable c){
-
-		
 		// TODO: implement this, if necessary 
-		// determine, based on enemy path and other variables, if an enemy is hittable by this tower or not
-		
+		// determine, based on enemy path and other variables, if an enemy is hittable by this tower or not		
 		return true;
 	}
-
 
 	/**
 	 * Checks if is dead.
@@ -237,26 +196,17 @@ public class Tower extends GridObject implements Shootable, Movable{
 		return (myHealth <= 0);
 	}
 
-
-
-
 	public void setFireRate(Integer fireRate) {
 		myFireRate = fireRate;
 	}
-
 	
 	public Integer getFireRate(){
 		return myFireRate;
 	}
 
-
-
 	public void setHealth(Integer health) {
-		
 		myHealth = health;
-
 	}
-
 
 	public Integer getRange(){
 		return myRange;
@@ -266,8 +216,6 @@ public class Tower extends GridObject implements Shootable, Movable{
 		myRange = range;
 	}
 
-
-
 	/* (non-Javadoc)
 	 * @see interfaces.EditableTower#getImageString()
 	 */
@@ -276,15 +224,9 @@ public class Tower extends GridObject implements Shootable, Movable{
 		return isReady;
 	}
 
-
 	@Override
 	public Range getRangeObject() {
 		// TODO Auto-generated method stub
 		return myRangeObject;
 	}
-
-
-
-	
-
 }

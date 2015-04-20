@@ -7,8 +7,7 @@ public class Placement {
 	private Point2D myLocation;
 	private double myHeading;
 	
-	public Placement(){
-		
+	public Placement(){	
 	}
 	
 	public void setLocation(Point2D location){
@@ -26,6 +25,4 @@ public class Placement {
 	public double getHeading(){
 		return myHeading;
 	}
-	
-
 }

@@ -1,5 +1,10 @@
 package engine;
 
+/**
+ * TODO: What does this class do? Do we need it?
+ * @author Sid
+ *
+ */
 public class DialogueBox {
 	
 	private String myImagePath;

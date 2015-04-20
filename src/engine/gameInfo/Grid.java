@@ -1,23 +1,20 @@
-package engine;
+package engine.gameInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import interfaces.Collidable;
+import engine.Placement;
+import engine.sprites.Tile;
 
-
-// TODO: Auto-generated Javadoc
 /**
  * The Class Grid.
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  * 
  */
-
 public class Grid extends GameObject implements Observable{
 
 
@@ -27,19 +24,14 @@ public class Grid extends GameObject implements Observable{
 	/** The my tiles. */
 	public Tile[][] myTiles;
 
-
-
 	/** The my grid manager. */
 	private GridManager myGridManager;
-
+	private Map<GridObject, Placement> myGridObjectMap;	
+	private List<Tile> myPorts;
+	
 	/**
 	 * Instantiates a new grid.
 	 */
-	//private Map<Collidable, Placement> myCollidables;
-	private Map<GridObject, Placement> myGridObjectMap;	
-	private List<Tile> myPorts;
-	// myProjectiles?
-	// myEnemies?
 	public Grid(Grid grid, GridManager gm){
 		myName = grid.myName;
 		myTiles = grid.myTiles;
@@ -68,9 +60,6 @@ public class Grid extends GameObject implements Observable{
 		return myGridObjectMap;
 	}
 
-	/**
-	 * Inits the.
-	 */
 	private void init(){
 		for (int x = 0; x < myTiles.length; x++)
 			for (int y = 0; y < myTiles.length; y++){
@@ -80,20 +69,16 @@ public class Grid extends GameObject implements Observable{
 
 	public void start(){
 		myGridManager.start();
-
 	}
 
 	public void setWaves(Queue<Wave> waves){
 		myGridManager.setWaves(waves);
-
 	}
 
 	public void update(){
 		myGridManager.update();
 		myGridManager.checkComplete();
 	}
-
-
 
 	public void setTiles(Tile[][] tiles){
 		myTiles = tiles;
@@ -121,12 +106,9 @@ public class Grid extends GameObject implements Observable{
 	 *
 	 *
 	 */
-
 	public void setPort(List<Tile> t){
 		myPorts = t;
 	}
-
-
 
 	/**
 	 * Gets the port.
@@ -148,10 +130,6 @@ public class Grid extends GameObject implements Observable{
 		return myTiles[x][y];
 	}
 
-
-	
-
-
 	@Override
 	public void addListener(InvalidationListener listener) {
 		// TODO Auto-generated method stub
@@ -161,9 +139,7 @@ public class Grid extends GameObject implements Observable{
 	@Override
 	public void removeListener(InvalidationListener listener) {
 		// TODO Auto-generated method stub
-
 	}
-
 
 	public boolean isComplete() {
 		return myGridManager.isComplete();
@@ -173,8 +149,7 @@ public class Grid extends GameObject implements Observable{
 		Placement p = new Placement();
 		for(GridObject o : myGridObjectMap.keySet()){
 			if(o.getName().equals(w.getPortName()))
-					p = myGridObjectMap.get(o);
-			
+					p = myGridObjectMap.get(o);	
 		}
 		
 		return getTileForPlacement(p);
@@ -187,5 +162,4 @@ public class Grid extends GameObject implements Observable{
 	public Queue<Wave> getWaves() {
 		return myGridManager.getWaves();
 	}
-
 }

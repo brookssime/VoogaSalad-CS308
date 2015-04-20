@@ -1,20 +1,18 @@
 /*
  * 
  */
-package engine;
+package engine.gameInfo;
 
 import java.util.List;
 
+import engine.sprites.Enemy;
+
 public class Wave extends GameObject{
 	
-
 	/** The my enemies. */
 	private List<Enemy> myEnemies;
-
-
 	private String myPortName; //myPortName NEEDS TO BE UNIQUE FOR EACH PORT
 
-	
 	/** The my delays. */
 	private List<Long> myDelays;
 	
@@ -28,7 +26,6 @@ public class Wave extends GameObject{
 		
 	}
 	
-
 	public String getPortName(){
 		return myPortName;
 	}
@@ -78,5 +75,4 @@ public class Wave extends GameObject{
 		}
 		return false;
 	}
-
 }

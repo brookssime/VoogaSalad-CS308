@@ -5,7 +5,7 @@ package interfaces;
 import java.awt.geom.*;
 import java.awt.Shape;
 
-import engine.Effect;
+import engine.sprites.Effect;
 
 
 // TODO: Auto-generated Javadoc

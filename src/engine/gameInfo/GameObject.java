@@ -1,4 +1,4 @@
-package engine;
+package engine.gameInfo;
 
 public abstract class GameObject {
 	
@@ -11,5 +11,4 @@ public abstract class GameObject {
 	public String getName(){
 		return myName;
 	}
-
 }

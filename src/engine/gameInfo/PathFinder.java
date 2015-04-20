@@ -1,13 +1,16 @@
-package engine;
+package engine.gameInfo;
 
 import interfaces.Collidable;
-import interfaces.Movable;
 import interfaces.Shootable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
+import engine.sprites.Enemy;
+import engine.sprites.Projectile;
+import engine.sprites.Tile;
 
 public class PathFinder {
 	
@@ -22,14 +25,12 @@ public class PathFinder {
 	}
 	
 	//REFACTOR to make this a generic setPath()... for both enemies and projectiles
-	void setEnemyPath(Enemy enemy, Wave w){
+	public void setEnemyPath(Enemy enemy, Wave w){
 		if(!myEnemyPaths.containsKey(enemy.getName()))
 			myEnemyPaths.put(enemy.getName(), findEnemyPath(enemy, myGrid.getPortFor(w)));
 		
 		enemy.setPath(myEnemyPaths.get(enemy.getName()));
 	}
-	
-
 	
 	public Path findEnemyPath(Enemy enemy, Tile port){
 		Tile current = port;
@@ -46,12 +47,14 @@ public class PathFinder {
 		return convertToPath(path);
 	}
 	
+	/**
+	 * TODO: make this function
+	 * @param tiles
+	 * @return
+	 */
 	private Path convertToPath(LinkedList<Tile> tiles){
-		
 		return null;
 	}
-	
-	
 	
 	public Tile findNextTile(Tile current, Enemy enemy){
 		for (Tile t: getTileNeighbors(current)){
@@ -98,8 +101,6 @@ public class PathFinder {
 
 	public Path target(Shootable s, Collidable c) {
 		// TODO CREATE PROJECTILE PATH BETWEEN OBJECTS
-		
-		
 		return null;
 	}
 
@@ -108,9 +109,4 @@ public class PathFinder {
 		newP.setPath(path);
 		myGrid.placeGridObjectAt(projectile, path.getNext());
 	}
-	
-	
-	
-	
-
 }

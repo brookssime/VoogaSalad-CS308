@@ -1,12 +1,12 @@
 /*
  * 
  */
-package engine;
-
-import interfaces.Authorable;
+package engine.gameScenes;
 
 import java.util.List;
 import java.util.Queue;
+
+import engine.DialogueBox;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -20,7 +20,6 @@ import java.util.Queue;
  * 
  */
 public class DialogueScene extends GameScene{
-
 
 	/** The my name. */
 	private String myName;
@@ -44,7 +43,6 @@ public class DialogueScene extends GameScene{
 	public DialogueScene(){
 		
 	}
-	
 
 	public DialogueScene(String backgroundImagePath, Queue<DialogueBox> dialogueBoxes) {
 		myBackgroundImagePath = backgroundImagePath;
@@ -66,26 +64,18 @@ public class DialogueScene extends GameScene{
 	public Queue<DialogueBox> getDialogueBoxes(){
 		return myDialogueBoxes;
 	}
-	
-	
-	
-	@Override
-	public boolean isComplete() {
 		
+	@Override
+	public boolean isComplete() {	
 		return (myDialogueBoxes.size() <= 0);
 	}
-
 
 	@Override
 	public void update() {
 
 	}
+	
 	public DialogueBox getNextDialogueBox(){
 		return myDialogueBoxes.poll();
 	}
-
-
-
-
-
-	}
+}

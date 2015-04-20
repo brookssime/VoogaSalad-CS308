@@ -1,6 +1,8 @@
-package engine;
+package engine.testing;
 
 import java.util.List;
+
+import engine.gameInfo.GridObject;
 
 public class FiringPattern {
 	

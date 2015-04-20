@@ -1,7 +1,7 @@
 /*
  * 
  */
-package engine;
+package engine.testing;
 
 import java.io.File;
 
@@ -9,6 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javax.swing.JFileChooser;
+
+import engine.MethodAnnotation;
+import engine.ParameterAnnotation;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -40,7 +43,7 @@ public class ExampleEnemy {
 	 * @param width the width
 	 * @param height the height
 	 */
-	@MethodAnnoation(editor=true)
+	@MethodAnnotation(editor=true)
 	public void SetSize(@ParameterAnnotation(name="Width") Double width, @ParameterAnnotation(name="Height") Double height){
 		myImage.setFitWidth(width);
 		myImage.setFitHeight(height);
@@ -52,7 +55,7 @@ public class ExampleEnemy {
 	 * @param x the x
 	 * @param y the y
 	 */
-	@MethodAnnoation(editor=true)
+	@MethodAnnotation(editor=true)
 	public void SetPosition(@ParameterAnnotation(name="X Location") Double x, @ParameterAnnotation(name="Y Location")Double y){
 		myImage.setTranslateX(x);
 		myImage.setTranslateY(y);
@@ -63,7 +66,7 @@ public class ExampleEnemy {
 	 *
 	 * @param health the health
 	 */
-	@MethodAnnoation(editor=true)
+	@MethodAnnotation(editor=true)
 	public void SetHealthCapacity(@ParameterAnnotation(name="Health Capacity") Double health){
 		this.setMyHealthCapacity(health);
 	}
@@ -71,7 +74,7 @@ public class ExampleEnemy {
 	/**
 	 * Change image.
 	 */
-	@MethodAnnoation(editor=true)
+	@MethodAnnotation(editor=true)
 	public void ChangeImage() {
 		selectImage();
 	}

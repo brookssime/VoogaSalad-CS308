@@ -2,8 +2,8 @@ package game_data;
 
 import java.io.IOException;
 
-import engine.Projectile;
-import engine.Tower;
+import engine.sprites.Projectile;
+import engine.sprites.Tower;
 
 /**
  * an example use of the GameData class takes in two towers with names and saves

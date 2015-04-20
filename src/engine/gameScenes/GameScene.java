@@ -1,10 +1,9 @@
-package engine;
+package engine.gameScenes;
 
+import engine.gameInfo.GameObject;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
-
-// TODO: Auto-generated Javadoc
 /**
  * The Class GameScene.
  * 
@@ -12,12 +11,10 @@ import javafx.util.Duration;
  * 
  * 
  */
-
 public abstract class GameScene extends GameObject{
 
 
 	private GameScene myNext;
-
 	
 	/** The my has completed. */
 	protected boolean myHasCompleted;
@@ -55,14 +52,11 @@ public abstract class GameScene extends GameObject{
 	 */
 	public abstract void update();
 	
-
 	/**
 	 * Check complete.
 	 */
-	
 	public abstract boolean isComplete();
 
-	
 	/**
 	 * Gets the next scene.
 	 *
@@ -80,10 +74,7 @@ public abstract class GameScene extends GameObject{
 	public KeyFrame getCurScene(){
 		return myScene;
 	}
-	
-
-
-	
+		
 	/**
 	 * Sets the next scene.
 	 *

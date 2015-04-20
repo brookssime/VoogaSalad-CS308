@@ -1,20 +1,15 @@
-package engine;
+package engine.gameScenes;
 
 import interfaces.Authorable;
-import interfaces.Collidable;
-import interfaces.Movable;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import javafx.animation.KeyFrame;
+import engine.gameInfo.Grid;
+import engine.gameInfo.GridManager;
+import engine.gameInfo.Wave;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class LevelScene.
  * 
@@ -45,7 +40,6 @@ public class LevelScene extends GameScene implements Authorable {
 	 */
 	public LevelScene() {
 		super();
-
 	}
 	
 	/* (non-Javadoc)
@@ -73,7 +67,6 @@ public class LevelScene extends GameScene implements Authorable {
 		//myGridManager = new GridManager(grid);
 	}
 	
-
 	//TODO: make sure this is the right way to handle this
 	public void setWaves(Queue<Wave> waves){
 		myGrid.setWaves(waves);
@@ -81,7 +74,6 @@ public class LevelScene extends GameScene implements Authorable {
 
 	}
 	
-
 	public Grid getGrid(){
 		return myGrid;
 	}
@@ -94,7 +86,6 @@ public class LevelScene extends GameScene implements Authorable {
 		return myStore;
 	}
 	
-
 	/* (non-Javadoc)
 	 * @see engine.GameScene#update()
 	 */
@@ -109,7 +100,6 @@ public class LevelScene extends GameScene implements Authorable {
 
 
 	/*@Override
->>>>>>> game_engine
 	public void checkComplete() {
 		if (myGridManager.getBase().isDead()) {
 			myGameLost = true;
@@ -119,15 +109,15 @@ public class LevelScene extends GameScene implements Authorable {
 		} else {
 			myHasCompleted = false;
 		}
-	}*/
+	}
+	*/
 
 	/* (non-Javadoc)
 	 * @see interfaces.Authorable#setName(java.lang.String)
 	 */
 	@Override
 	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	/* (non-Javadoc)
@@ -145,7 +135,5 @@ public class LevelScene extends GameScene implements Authorable {
 	@Override
 	public void updateParams(List<Object> params) {
 		// TODO Auto-generated method stub
-		
 	}
-
 }

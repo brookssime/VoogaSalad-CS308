@@ -1,19 +1,11 @@
+package engine.sprites;
 
-package engine;
+import engine.gameInfo.GameObject;
 
-import interfaces.Authorable;
-
-import java.util.List;
-import java.util.TimerTask;
-
-
-// TODO: Auto-generated Javadoc
 /**
  * The Class Effect.
  * 
- * @author Brooks, Patrick, Robert, and Sid.
- * 
- * 
+ * @author Brooks, Patrick, Robert, and Sid. 
  */
 public class Effect extends GameObject{
 	
@@ -37,9 +29,6 @@ public class Effect extends GameObject{
 	/** The my duration. */
 	private long myDuration;
 
-
-
-	
 	/**
 	 * Instantiates a new effect.
 	 */
@@ -47,9 +36,6 @@ public class Effect extends GameObject{
 		
 	}
 	
-
-	
-
 	public void setSpeedDamage(int x){
 		mySpeedDamage = x;
 	}
@@ -79,13 +65,11 @@ public class Effect extends GameObject{
 	}
 	
 	public Integer getSpeedDamage(){
-		return mySpeedDamage;
-
-		
+		return mySpeedDamage;	
 	}
+	
 	public Integer getHealthDamage(){
-		return myHealthDamage;
-		
+		return myHealthDamage;	
 	}
 	
 	public Double getSpeedFrequency(){
@@ -103,7 +87,4 @@ public class Effect extends GameObject{
 	public int getHealthReps(){
 		return myHealthReps;
 	}
-
-	
-	
 }

@@ -1,24 +1,21 @@
-/*
- * 
- */
-package engine;
+package engine.sprites;
 
-import interfaces.Authorable;
 import interfaces.Collidable;
 import interfaces.Movable;
 
 import java.awt.Point;
 import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
+import engine.Placement;
+import engine.gameInfo.GridObject;
+import engine.gameInfo.Path;
+
 /**
  * The Class Projectile.
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  */
-
 public class Projectile extends GridObject implements Collidable, Movable{
 
 	/** The my name. */
@@ -31,8 +28,6 @@ public class Projectile extends GridObject implements Collidable, Movable{
 	private List<Integer> myAccessIDs;
 	
 	/** The my speed. */
-
-
 	private Integer mySpeed; 
 	
 	/** The my effect. */
@@ -45,7 +40,6 @@ public class Projectile extends GridObject implements Collidable, Movable{
 	private double myDirection;
 	
 	/** The my collision bounds. */
-
 	private Shape myCollisionBounds;
 	private Path myPath;
 	
@@ -73,7 +67,6 @@ public class Projectile extends GridObject implements Collidable, Movable{
 		setCollisionBounds();
 	}
 	
-
 	public Projectile(Projectile projectile) {
 		this.myName = projectile.myName;
 		this.myImageString = projectile.myImageString;
@@ -94,8 +87,6 @@ public class Projectile extends GridObject implements Collidable, Movable{
 	public void setRadius(int x){
 		myRadius = x;
 	}
-
-	
 
 	@Override
 	public Placement move() {
@@ -130,8 +121,7 @@ public class Projectile extends GridObject implements Collidable, Movable{
 	 * @see interfaces.Collidable#setCollisionBounds()
 	 */
 	public void setCollisionBounds() {
-		// myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRadius*2, myRadius*2);
-		
+		// myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRadius*2, myRadius*2);		
 	}
 	
 	public int getRadius(){
@@ -154,8 +144,4 @@ public class Projectile extends GridObject implements Collidable, Movable{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
-
-
 }

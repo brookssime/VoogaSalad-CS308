@@ -20,7 +20,7 @@ import gae.GAEPane;
 import gae.inventory.Inventory;
 import gae.menupane.MenuAdder;
 import gae.model.Receiver;
-import engine.Tower;
+import engine.sprites.Tower;
 
 /**
  * 

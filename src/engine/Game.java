@@ -2,11 +2,13 @@ package engine;
 
 import java.util.List;
 
+import engine.gameScenes.GameScene;
+import engine.gameScenes.LevelScene;
+import engine.gameScenes.Store;
 import interfaces.Authorable;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Game.
  * 

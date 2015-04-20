@@ -1,33 +1,19 @@
-/*
- * 
- */
-package engine;
+package engine.gameScenes;
 
-import java.util.List;
-
-import interfaces.Authorable;
-
-// TODO: Auto-generated Javadoc
 /**
  * Currently a static title screen
  * Animation can be added later.
  *
  * @author Brooks, Patrick, Robert, and Sid.
  */
-
 public class TitleScene extends GameScene{
 	
 	/** The my name. */
 	private String myName;
 	
-	/** The my title picture path. */
-	
+	/** The my title picture path. */	
 	private String myTitlePicturePath;
 
-
-
-
-	
 	/** The my button clicked. */
 	private Boolean myButtonClicked;
 	
@@ -57,8 +43,6 @@ public class TitleScene extends GameScene{
 		return false;
 	}
 	
-	
-	
 	/*@Override
 	public void checkComplete() {
 		if(myButtonClicked){
@@ -87,6 +71,4 @@ public class TitleScene extends GameScene{
 	public void setTitlePicturePath(String path){
 		myTitlePicturePath = path;
 	}
-
-
 }

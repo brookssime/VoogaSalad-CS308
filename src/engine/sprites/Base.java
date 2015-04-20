@@ -1,27 +1,21 @@
 /*
  * 
  */
-package engine;
+package engine.sprites;
+
+import interfaces.Collidable;
 
 import java.awt.Point;
 import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
-import java.util.List;
 
-import interfaces.Authorable;
-import interfaces.Collidable;
+import engine.gameInfo.GridObject;
 
-
-// TODO: Auto-generated Javadoc
 /**
  * The Class Base.
  * @author Brooks, Patrick, Robert, and Sid.
  */
-
-
-
-
 public class Base extends GridObject implements Collidable{
+	
 	/** The my name. */
 	private String myName;
 	
@@ -40,12 +34,9 @@ public class Base extends GridObject implements Collidable{
 	/** The my collision bounds. */
 	private Shape myCollisionBounds;
 
-
-	
 	/** The my location. */
 	private Point myLocation;
-	
-	
+		
 	/**
 	 * Instantiates a new base.
 	 */
@@ -65,7 +56,6 @@ public class Base extends GridObject implements Collidable{
 	public Base(String imageString, Integer health){
 		myImagePath = imageString;
 		myHealth = health;
-
 	}
 	
 	public void setHealth(int health){
@@ -84,11 +74,9 @@ public class Base extends GridObject implements Collidable{
 		return myRadius;
 	}
 
-	
 	/* (non-Javadoc)
 	 * @see interfaces.Collidable#evaluateCollision(interfaces.Collidable)
 	 */
-
 	@Override
 	public boolean evaluateCollision(Collidable collider){
 		if(isCollision(collider)){
@@ -128,7 +116,6 @@ public class Base extends GridObject implements Collidable{
 	 * @see interfaces.Authorable#setName(java.lang.String)
 	 */
 	@Override
-
 	public void setName(String s) {
 		// TODO Auto-generated method stub
 		
@@ -138,6 +125,4 @@ public class Base extends GridObject implements Collidable{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
 }
