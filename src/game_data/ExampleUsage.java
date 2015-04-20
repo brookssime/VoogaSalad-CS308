@@ -2,8 +2,7 @@ package game_data;
 
 import java.io.IOException;
 
-import engine.Projectile;
-import engine.Tower;
+import engine.sprites.Projectile;
 
 /**
  * an example use of the GameData class takes in two towers with names and saves
@@ -17,28 +16,22 @@ public class ExampleUsage {
 
 	public static void main(String[] args) {
 
-		Tower t1 = new Tower(1, 2, 3);
-		Tower t2 = new Tower(4, 5, 6);
-
-		t1.setName("tower 1");
-		t2.setName("tower 2");
-		
 		Projectile p1 = new Projectile();
 		Projectile p2 = new Projectile();
-		p1.setName("Projectile 1");
-		p2.setName("Projectile 2");
-		
+
+		p1.setName("projectile 1");
+		p2.setName("projectile 2");
 
 		// saving t1 to a file named by the user's choice.
 		try {
-			GameData.SaveGameData(p1);
+			XMLWriter.SaveGameData(p1);
 		} catch (IOException e) {
 			System.out.println("Failed to save file: " + e);
 		}
 
 		// loading the file into t2
 		try {
-			p2 = (Projectile) GameData.LoadGameData();
+			p2 = (Projectile) XMLWriter.LoadGameData() ;
 		} catch (ClassNotFoundException e) {
 			System.out.println("Class not found: " + e);
 		} catch (IOException e) {

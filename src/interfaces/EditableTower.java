@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.sun.javafx.geom.Point2D;
 
-import engine.Projectile;
+import engine.sprites.Projectile;
 
 // TODO: Auto-generated Javadoc
 /**

@@ -2,11 +2,13 @@ package engine;
 
 import java.util.List;
 
+import engine.gameScenes.GameScene;
+import engine.gameScenes.LevelScene;
+import engine.gameScenes.Store;
 import interfaces.Authorable;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Game.
  * 
@@ -42,6 +44,14 @@ public class Game implements Authorable {
 	public Game(GameScene head){
 		myHead = head;
 		addStoreToLevel();
+	}
+	
+	public void setHead(GameScene head){
+		myHead = head;
+	}
+	
+	public GameScene getHead(){
+		return myHead;
 	}
 	
 	/**

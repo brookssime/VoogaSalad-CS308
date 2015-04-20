@@ -3,6 +3,8 @@
  */
 package interfaces;
 
+import engine.Placement;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -10,8 +12,7 @@ package interfaces;
  */
 public interface Movable {
 	
-	/**
-	 * Move.
-	 */
-	void move();
+
+	Placement move();
+
 }

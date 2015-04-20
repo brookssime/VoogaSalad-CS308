@@ -2,7 +2,7 @@ package gae.editorComponents;
 
 import java.lang.reflect.Method;
 
-import engine.MethodAnnoation;
+import engine.MethodAnnotation;
 import gae.model.Receiver;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -24,8 +24,8 @@ public abstract class EditorComponent extends VBox {
 		myReceiver = receiver;
 		myMethod = method;
 		myObject = objectName;
-		MethodAnnoation methodAnnotation = method
-				.getAnnotation(engine.MethodAnnoation.class);
+		MethodAnnotation methodAnnotation = method
+				.getAnnotation(engine.MethodAnnotation.class);
 		String methodName = methodAnnotation.name();
 		fieldLabel = new Label(methodName);
 		this.getChildren().add(fieldLabel);
