@@ -8,8 +8,6 @@ import interfaces.Collidable;
 import java.awt.Point;
 import java.awt.Shape;
 
-import engine.gameInfo.GridObject;
-
 /**
  * The Class Base.
  * @author Brooks, Patrick, Robert, and Sid.

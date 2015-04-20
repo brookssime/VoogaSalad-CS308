@@ -1,7 +1,7 @@
 /*
  * 
  */
-package engine.gameInfo;
+package engine.gameLogic;
 
 import java.util.List;
 

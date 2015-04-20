@@ -1,4 +1,4 @@
-package engine.gameInfo;
+package engine;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,10 @@ import java.util.Queue;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import engine.Placement;
+import engine.gameLogic.GameObject;
+import engine.gameLogic.Placement;
+import engine.gameLogic.Wave;
+import engine.sprites.GridObject;
 import engine.sprites.Tile;
 
 /**

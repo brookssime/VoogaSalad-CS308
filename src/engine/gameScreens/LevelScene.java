@@ -1,4 +1,4 @@
-package engine.gameScenes;
+package engine.gameScreens;
 
 import interfaces.Authorable;
 
@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Queue;
 
 import javafx.animation.KeyFrame;
-import engine.gameInfo.Grid;
-import engine.gameInfo.GridManager;
-import engine.gameInfo.Wave;
+import engine.Grid;
+import engine.GridManager;
+import engine.gameLogic.Wave;
 
 /**
  * The Class LevelScene.

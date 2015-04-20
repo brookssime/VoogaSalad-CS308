@@ -1,10 +1,10 @@
-package engine.gameInfo;
+package engine.gameLogic;
 
 /**
  * TODO: Is it okay that this is basically just geters and setters?
  * @author Brooks and Sid
  */
-public class GameData {
+public class GameScoreboard {
 	
 	private int myMoney;
 	private int myBaseHealth;

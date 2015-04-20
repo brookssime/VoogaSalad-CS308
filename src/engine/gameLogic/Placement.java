@@ -1,4 +1,4 @@
-package engine;
+package engine.gameLogic;
 
 import java.awt.geom.Point2D;
 

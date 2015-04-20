@@ -1,4 +1,4 @@
-package engine.gameInfo;
+package engine.gameLogic;
 
 import interfaces.Collidable;
 import interfaces.Shootable;
@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import engine.Grid;
 import engine.sprites.Enemy;
 import engine.sprites.Projectile;
 import engine.sprites.Tile;

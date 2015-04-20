@@ -3,12 +3,13 @@
  */
 package engine.testing;
 
+import interfaces.MethodAnnotation;
+import interfaces.ParameterAnnotation;
+
 import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import engine.MethodAnnotation;
-import engine.ParameterAnnotation;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

@@ -3,6 +3,8 @@
  */
 package reflection;
 
+import interfaces.MethodAnnotation;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
@@ -10,8 +12,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-
-import engine.MethodAnnotation;
 
 
 // TODO: Auto-generated Javadoc
@@ -162,7 +162,7 @@ public class Reflection {
     	Method[] allMethods = target.getClass().getMethods();
     	List<Method> targetMethods = new ArrayList<>();
     	 for(Method method : allMethods){
-    		 MethodAnnotation methodAnnotation = method.getAnnotation(engine.MethodAnnotation.class);
+    		 MethodAnnotation methodAnnotation = method.getAnnotation(interfaces.MethodAnnotation.class);
     		 if(methodAnnotation != null && methodAnnotation.editor()) {
     			 targetMethods.add(method);
     		 }

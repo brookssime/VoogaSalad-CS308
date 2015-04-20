@@ -1,12 +1,10 @@
 /*
  * 
  */
-package engine.gameScenes;
+package engine.gameScreens;
 
 import java.util.List;
 import java.util.Queue;
-
-import engine.DialogueBox;
 
 // TODO: Auto-generated Javadoc
 /**

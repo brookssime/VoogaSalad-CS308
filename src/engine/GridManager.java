@@ -1,4 +1,4 @@
-package engine.gameInfo;
+package engine;
 
 import interfaces.Collidable;
 import interfaces.Movable;
@@ -12,9 +12,13 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import engine.Placement;
+import engine.gameLogic.Path;
+import engine.gameLogic.PathFinder;
+import engine.gameLogic.Placement;
+import engine.gameLogic.Wave;
 import engine.sprites.Base;
 import engine.sprites.Enemy;
+import engine.sprites.GridObject;
 import engine.sprites.Projectile;
 
 /**

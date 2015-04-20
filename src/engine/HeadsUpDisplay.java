@@ -1,4 +1,6 @@
-package engine.gameInfo;
+package engine;
+
+import engine.gameLogic.GameScoreboard;
 
 /**
  * TODO: Does this class work? The methods don't seem to make full sense yet.
@@ -13,14 +15,16 @@ public class HeadsUpDisplay {
 	/**
 	 * GameData object
 	 */
-	private GameData data;
+	private GameScoreboard data;
 	
-	public void displayMoney(){
+	public int displayMoney(){
 		int money = data.getMoney();
+		return money;
 	}
 	
-	public void displayHealth(){
+	public int displayHealth(){
 		int health = data.getBaseHealth();
+		return health;
 		
 	}
 	
@@ -28,7 +32,8 @@ public class HeadsUpDisplay {
 		//TODO: Where is the timer?
 	}
 	
-	public void displayScore(){
+	public int displayScore(){
 		int score = data.getScore();
+		return score;
 	}
 }

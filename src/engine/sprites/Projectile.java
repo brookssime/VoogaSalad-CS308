@@ -7,9 +7,9 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.util.List;
 
-import engine.Placement;
-import engine.gameInfo.GridObject;
-import engine.gameInfo.Path;
+import engine.gameLogic.Effect;
+import engine.gameLogic.Path;
+import engine.gameLogic.Placement;
 
 /**
  * The Class Projectile.

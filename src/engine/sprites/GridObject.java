@@ -1,6 +1,8 @@
-package engine.gameInfo;
+package engine.sprites;
 
 import java.util.List;
+
+import engine.gameLogic.GameObject;
 
 public abstract class GridObject extends GameObject{
 	

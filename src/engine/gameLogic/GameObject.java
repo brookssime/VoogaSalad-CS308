@@ -1,4 +1,4 @@
-package engine.gameInfo;
+package engine.gameLogic;
 
 public abstract class GameObject {
 	
