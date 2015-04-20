@@ -55,7 +55,22 @@ public class Effect extends GameObject{
 		return myHealthDamage;
 		
 	}
+	
+	public Double getSpeedFrequency(){
+		return mySpeedFrequency;
+	}
 
+	public Double getSpeedDuration(){
+		return mySpeedDuration;
+	}
+	
+	public Double getHealthFrequency(){
+		return myHealthFrequency;
+	}
+	
+	public int getHealthReps(){
+		return myHealthReps;
+	}
 
 	
 	

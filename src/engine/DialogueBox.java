@@ -16,4 +16,12 @@ public class DialogueBox {
 	public void setText(String text){
 		myText = text;
 	}
+	
+	public String getImagePath(){
+		return myImagePath;
+	}
+	
+	public String getText(){
+		return myText;
+	}
 }

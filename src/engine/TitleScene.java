@@ -32,6 +32,8 @@ public class TitleScene extends GameScene{
 		return false;
 	}
 	
+	
+	
 	/*@Override
 	public void checkComplete() {
 		if(myButtonClicked){
@@ -50,6 +52,10 @@ public class TitleScene extends GameScene{
 	
 	public String getTitlePicturePath(){
 		return myTitlePicturePath;
+	}
+	
+	public void setTitlePicturePath(String path){
+		myTitlePicturePath = path;
 	}
 
 

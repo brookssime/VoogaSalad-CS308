@@ -26,6 +26,10 @@ public class Game implements Authorable {
 		myHead = head;
 	}
 	
+	public GameScene getHead(){
+		return myHead;
+	}
+	
 	/**
 	 * This is pretty awful design
 	 * Any ideas?

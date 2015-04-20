@@ -39,15 +39,27 @@ public class LevelScene extends GameScene implements Authorable {
 	}
 	
 	//TODO: MAKE SURE this is all that needs to be set up
-	private void setGrid(Grid grid){
+	public void setGrid(Grid grid){
 		myGrid = new Grid(grid, new GridManager(myGrid));
 		//myGridManager = new GridManager(grid);
 	}
 	
 	//TODO: make sure this is the right way to handle this
-	private void setWaves(Queue<Wave> waves){
+	public void setWaves(Queue<Wave> waves){
 		myGrid.setWaves(waves);
 		//myWaves = waves;
+	}
+	
+	public Grid getGrid(){
+		return myGrid;
+	}
+	
+	public Queue<Wave> getWaves(){
+		return myGrid.getWaves();
+	}
+	
+	public Store getStore(){
+		return myStore;
 	}
 	
 	public void update(){	

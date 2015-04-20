@@ -111,7 +111,7 @@ public class GridManager {
 	
 	//TODO: Come back such that we don't have to return the range...then take getRange out of the interface
 	private List<Collidable> getObjectsInRange(Shootable c){
-		return c.getRange().getObjectsInRange();
+		return c.getRangeObject().getObjectsInRange();
 	}
 	
 	
@@ -159,6 +159,10 @@ public class GridManager {
 			}
 		}
 		myWaves.poll();
+	}
+
+	public Queue<Wave> getWaves() {
+		return myWaves;
 	}
 
 

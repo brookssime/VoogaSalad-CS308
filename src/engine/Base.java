@@ -33,6 +33,14 @@ public class Base extends GridObject implements Collidable{
 	public void setRadius(int radius){
 		myRadius = radius;
 	}
+	
+	public int getHealth(){
+		return myHealth;
+	}
+	
+	public int getRadius(){
+		return myRadius;
+	}
 
 
 	@Override

@@ -37,6 +37,16 @@ public class DialogueScene extends GameScene{
 		myDialogueBoxes = dialogueBoxes;
 	}
 	
+	public String getImagePath(){
+		return myBackroundImagePath;
+	}
+	
+	public Queue<DialogueBox> getDialogueBoxes(){
+		return myDialogueBoxes;
+	}
+	
+	
+	
 	@Override
 	public boolean isComplete() {
 		

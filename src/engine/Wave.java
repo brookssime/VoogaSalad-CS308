@@ -14,6 +14,18 @@ public class Wave extends GameObject{
 		
 	}
 	
+	public String getPortName(){
+		return myPortName;
+	}
+	
+	public List<Enemy> getEnemies(){
+		return myEnemies;
+	}
+	
+	public List<Long> myDelays(){
+		return myDelays;
+	}
+	
 	public void setPortName(String portName){
 		myPortName = portName;
 	}

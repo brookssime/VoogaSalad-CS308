@@ -113,6 +113,10 @@ public class Grid extends GameObject implements Observable{
 		// TODO RETURN THE TILE THAT CORRESPONDS TO THE PORT FOR THIS WAVE
 		return null;
 	}
+
+	public Queue<Wave> getWaves() {
+		return myGridManager.getWaves();
+	}
 	
 	
 }

@@ -2,15 +2,12 @@ package engine;
 
 import java.util.List;
 
-public abstract class GridObject{
+public abstract class GridObject extends GameObject{
 	
-	protected String myName;
+	
 	protected String myImagePath;
 	protected List<String> myAccessNames;
 	
-	public void setName(String name){
-		myName = name;
-	}
 	
 	public void setImagePath(String imagePath){
 		myImagePath = imagePath;
@@ -20,12 +17,13 @@ public abstract class GridObject{
 		myAccessNames = accessNames;
 	}
 	
-	public String getName(){
-		return myName;
-	}
 	
 	public String getImagePath(){
 		return myImagePath;
+	}
+	
+	public List<String> getAccessNames(){
+		return myAccessNames;
 	}
 
 }

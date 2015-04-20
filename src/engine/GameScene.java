@@ -5,7 +5,6 @@ import javafx.util.Duration;
 
 public abstract class GameScene extends GameObject{
 	
-	private String myName;
 	private GameScene myNext;
 	//protected boolean myHasCompleted;
 	private KeyFrame myScene;

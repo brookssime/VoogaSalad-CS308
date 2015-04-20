@@ -13,5 +13,5 @@ public interface Shootable {
 	Collidable selectTarget(List<Collidable> targets);
 	Projectile fire();
 	boolean isReady();
-	Range getRange();
+	Range getRangeObject();
 }

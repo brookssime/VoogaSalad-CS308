@@ -20,33 +20,21 @@ public class Enemy extends GridObject implements Collidable, Movable {
 	private Integer myDamage;
 	private Integer myHealth;
 	private Shape myCollisionBounds;
-	//private Point myLocation;
-	//private LinkedList<Point> myPath;
 	private LinkedList<Tile> myTilePath;
 	private int myRad;
 	private Double distanceWalked;
 	private Timer timer;
 	private Path myPath;
-	//orientation??
-	//State?
 	
 	public Enemy(){
 		
 		myTilePath = new LinkedList<Tile>();
 	}
 	
-	/*public Enemy(Point location, LinkedList<Point> path){
-		myLocation = location; 
-		myPath = path;
-		
-		
-	}*/
 	
 	public void setHealth(int x){
 		myHealth = x;
 	}
-	
-	
 	
 	public void setSpeed(int x){
 		mySpeed = x;
@@ -54,6 +42,18 @@ public class Enemy extends GridObject implements Collidable, Movable {
 	
 	public void setDamage(int x){
 		myDamage = x;
+	}
+	
+	public int getHealth(){
+		return myHealth;
+	}
+	
+	public int getSpeed(){
+		return mySpeed;
+	}
+	
+	public int getDamage(){
+		return myDamage;
 	}
 	
 	//TODO: Fix this with new projectile info

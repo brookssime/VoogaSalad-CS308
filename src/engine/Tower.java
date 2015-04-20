@@ -95,7 +95,6 @@ public class Tower extends GridObject implements Shootable, Movable{
 		return myProjectile;
 		
 	}
-
 	
 
 	private void setTargetRotation(double targetAngle){
@@ -150,19 +149,21 @@ public class Tower extends GridObject implements Shootable, Movable{
 
 
 	public void setFireRate(Integer fireRate) {
-		// TODO Auto-generated method stub
 		myFireRate = fireRate;
 	}
-
-
-/*	@Override
-	public void setHealth(Integer health) {
-		// TODO Auto-generated method stub
-		myHealth = health;
+	
+	public Integer getFireRate(){
+		return myFireRate;
 	}
-*/
 
 
+	public Integer getRange(){
+		return myRange;
+	}
+	
+	public void setRange(Integer range){
+		myRange = range;
+	}
 
 	@Override
 	public boolean isReady() {
@@ -171,9 +172,9 @@ public class Tower extends GridObject implements Shootable, Movable{
 
 
 	@Override
-	public Range getRange() {
+	public Range getRangeObject() {
 		// TODO Auto-generated method stub
-		return null;
+		return myRangeObject;
 	}
 
 

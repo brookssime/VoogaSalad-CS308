@@ -81,6 +81,10 @@ public class Projectile extends GridObject implements Collidable, Movable{
 		// myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRadius*2, myRadius*2);
 		
 	}
+	
+	public int getRadius(){
+		return myRadius;
+	}
 
 	@Override
 	public Shape getCollisionBounds() {

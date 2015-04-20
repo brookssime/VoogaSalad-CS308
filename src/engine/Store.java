@@ -5,9 +5,8 @@ import interfaces.Authorable;
 import java.util.List;
 import java.util.Map;
 
-public class Store implements Authorable {
+public class Store extends GameObject {
 
-	private String myName;
 	private Map<Tower, Integer> myTowersOnSale;
 	private Integer myMoney;
 	private String myBackgroundImagePath;
@@ -37,21 +36,4 @@ public class Store implements Authorable {
 		return myBackgroundImagePath;
 	}
 
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
 }
