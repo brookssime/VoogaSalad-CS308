@@ -29,12 +29,7 @@ public class Game {
 	/** The my store. */
 	private Store myStore;
 	
-	/**
-	 * Instantiates a new game.
-	 */
-	public Game(){
-		
-	}
+	
 	
 	/**
 	 * Instantiates a new game.
