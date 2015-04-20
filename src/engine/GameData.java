@@ -2,34 +2,31 @@ package engine;
 
 public class GameData {
 	
-	private int money;
-	private int baseHealth;
-	private int score;
+	private int myMoney;
+	private int myBaseHealth;
+	private int myScore;
 	
-	protected void updateMoney(int m){
-		money += m;
-		
+	protected void updateMoney(int money){
+		myMoney += money;
 	}
 	
 	protected Integer getMoney(){
-		return money;
-	};
+		return myMoney;
+	}
 	
-	
-	protected void updateBaseHealth(int b){
-		baseHealth += b;
+	protected void updateBaseHealth(int healthChange){
+		myBaseHealth += healthChange;
 	}
 	
 	protected Integer getBaseHealth(){
-		return baseHealth;
+		return myBaseHealth;
 	}
 	
-	protected void updateScore(int s){
-		score += s;
+	protected void updateScore(int score){
+		myScore += score;
 	}
 	
 	protected Integer getScore(){
-		return score;
+		return myScore;
 	}
-
 }

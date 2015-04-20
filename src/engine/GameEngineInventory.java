@@ -31,6 +31,5 @@ public class GameEngineInventory {
 	private static void populateInventory(){
 		myInventory.add("engine.ExampleSprite");
 		myInventory.add("engine.ExampleEnemy");
-	}
-	
+	}	
 }

@@ -27,5 +27,4 @@ public abstract class GridObject{
 	public String getImagePath(){
 		return myImagePath;
 	}
-
 }
