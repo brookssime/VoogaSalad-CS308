@@ -21,9 +21,11 @@ public abstract class GridObject extends GameObject{
 	public String getImagePath(){
 		return myImagePath;
 	}
+
 	
 	public List<String> getAccessNames(){
 		return myAccessNames;
 	}
 
 }
+

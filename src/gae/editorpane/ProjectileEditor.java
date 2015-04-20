@@ -1,4 +1,4 @@
-package gae;
+package gae.editorpane;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -25,9 +25,17 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author ?
+ * An editor for setting up the projectile object. Allows the game designer to set up different
+ * properties of the projectile object and save them.
+ *
+ */
 public class ProjectileEditor {
 	private Stage myStage;
 	private Desktop desktop = Desktop.getDesktop();
+	//TODO: Make sure what goes in the fields is saved
 	
 	public void ProjectileEditor(Stage s){
 		myStage = new Stage();

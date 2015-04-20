@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package engine;
 
 import interfaces.Authorable;
@@ -6,10 +9,23 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.util.List;
 
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Tile.
+ * 
+ * @author Brooks, Patrick, Robert, and Sid.
+ */
+
 public class Tile{
+
 	
+	/** The my name. */
 	private String myName;
+	
+	/** The my image path. */
 	private String myImagePath;
+
 	private Point myLocation = new Point();
 	
 	public Tile(int x, int y, String imagePath){
@@ -39,9 +55,11 @@ public class Tile{
 		return myImagePath;
 	}
 	
+
 	public String getName() {
 		return myName;
 	}
+
 
 	public int getX() {
 		return myLocation.x;
@@ -49,5 +67,6 @@ public class Tile{
 	
 	public int getY(){
 		return myLocation.y;
+
 	}
 }

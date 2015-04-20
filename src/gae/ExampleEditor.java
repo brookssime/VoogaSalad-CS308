@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package gae;
 
 import reflection.*;
@@ -10,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+// TODO: Auto-generated Javadoc
 /**
  * An example editor window that takes a class name, and creates an editor
  * window to outsource a custom instantiation.
@@ -19,12 +23,27 @@ import javafx.scene.layout.VBox;
  */
 
 public class ExampleEditor extends Group {
+	
+	/** The my layout. */
 	private HBox myLayout;
+	
+	/** The my view. */
 	private Group myView;
+	
+	/** The my form. */
 	private VBox myForm;
+	
+	/** The my object. */
 	private Object myObject;
+	
+	/** The export object. */
 	private Button exportObject;
 
+	/**
+	 * Instantiates a new example editor.
+	 *
+	 * @param className the class name
+	 */
 	public ExampleEditor(String className) {
 
 		myObject = Reflection.createInstance(className);

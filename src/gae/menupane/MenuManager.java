@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package gae.menupane;
 
 import java.util.List;
@@ -7,19 +10,38 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.SeparatorMenuItem;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MenuManager.
+ * 
+ * @author Peter
+ * Manages the menu. Allows other classes to add menus to the bar and get menus.
+ */
 public class MenuManager implements MenuAdder {
 
+	/** The my menu bar. */
 	private final MenuBar myMenuBar;
 
+	/**
+	 * Instantiates a new menu manager.
+	 */
 	public MenuManager() {
 		myMenuBar = new MenuBar();
 		setDefault();
 	}
 
+	/**
+	 * Gets the menu bar.
+	 *
+	 * @return the menu bar
+	 */
 	public MenuBar getMenuBar() {
 		return myMenuBar;
 	}
 
+	/* (non-Javadoc)
+	 * @see gae.menupane.MenuAdder#addMenus(java.util.List)
+	 */
 	public void addMenus(List<Menu> newMenus) {
 		if (newMenus != null) {
 			ObservableList<Menu> curMenus = myMenuBar.getMenus();
@@ -35,6 +57,9 @@ public class MenuManager implements MenuAdder {
 		}
 	}
 
+	/**
+	 * Sets the default.
+	 */
 	private void setDefault() {
 		DefaultMenus dm = new DefaultMenus();
 		myMenuBar.getMenus().addAll(dm.getMenus());

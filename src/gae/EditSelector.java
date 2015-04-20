@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package gae;
 
 import java.util.ArrayList;
@@ -7,20 +10,35 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+// TODO: Auto-generated Javadoc
 /**
  * A sample window that selects what kind of object to edit and outsource.
  * 
  * @author Negatu
  */
-public class EditSelector extends Group {
+public class EditSelector extends Pane {
+	
+	/** The my layout. */
 	private HBox myLayout;
+	
+	/** The my editables window. */
 	private VBox myEditablesWindow;
+	
+	/** The my editor window. */
 	private Group myEditorWindow;
+	
+	/** The my editor. */
 	private ExampleEditor myEditor;
+	
+	/** The my label. */
 	private Label myLabel;
 
+	/**
+	 * Instantiates a new edits the selector.
+	 */
 	public EditSelector() {
 		myLayout = new HBox();
 		myEditablesWindow = new VBox();
