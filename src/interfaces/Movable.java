@@ -1,7 +1,9 @@
 package interfaces;
 
+import engine.Placement;
+
 
 public interface Movable {
 	
-	void move();
+	Placement move();
 }

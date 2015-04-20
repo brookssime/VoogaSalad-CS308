@@ -61,4 +61,10 @@ public class Base extends GridObject implements Collidable{
 		return myCollisionBounds;
 	}
 
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

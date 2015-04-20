@@ -1,14 +1,17 @@
 package interfaces;
 
 import java.util.List;
+
 import engine.GridObject;
 import engine.Placement;
 import engine.Projectile;
+import engine.Range;
 
 public interface Shootable {
 	
-	void update(List<GridObject> targets);
-	GridObject selectTarget(List<GridObject> targets);
-	Projectile fire(Placement p);
-
+	void update();
+	Collidable selectTarget(List<Collidable> targets);
+	Projectile fire();
+	boolean isReady();
+	Range getRange();
 }

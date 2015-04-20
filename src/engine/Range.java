@@ -13,7 +13,7 @@ import interfaces.Collidable;
 public class Range implements Collidable, Authorable{
 	
 	private String myName;
-	private ArrayList<Enemy> enemiesInRange = new ArrayList<Enemy>();
+	private ArrayList<Collidable> objectsInRange = new ArrayList<Collidable>();
 	private Shape myCollisionBounds;
 	private Point myLocation;
 	private int myRad;
@@ -22,14 +22,16 @@ public class Range implements Collidable, Authorable{
 		myCollisionBounds = new Ellipse2D.Double(x, y, r, r);
 	}
 
-	public ArrayList<Enemy> getEnemiesInRange(){
-		return enemiesInRange;
+	public ArrayList<Collidable> getObjectsInRange(){
+		return objectsInRange;
 	}
 	
+	
+	//REFACTOR THIS to allow for use by BOTH ENEMIES AND TOWERS--ie discriminate based on ID, name, etc.
 	@Override
 	public boolean evaluateCollision(Collidable collider) {
 		if(!(collider.getClass() == Enemy.class)){
-			enemiesInRange.add((Enemy)collider); 
+			objectsInRange.add(collider); 
 			return true;
 		}
 			return false;
@@ -71,5 +73,11 @@ public class Range implements Collidable, Authorable{
 	public void updateParams(List<Object> params) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

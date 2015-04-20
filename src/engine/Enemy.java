@@ -20,13 +20,13 @@ public class Enemy extends GridObject implements Collidable, Movable {
 	private Integer myDamage;
 	private Integer myHealth;
 	private Shape myCollisionBounds;
-	private Point myLocation;
-	private LinkedList<Point> myPath;
+	//private Point myLocation;
+	//private LinkedList<Point> myPath;
 	private LinkedList<Tile> myTilePath;
-	private LinkedList<Tile> mySteps;
 	private int myRad;
-	private int tilesWalked;
+	private Double distanceWalked;
 	private Timer timer;
+	private Path myPath;
 	//orientation??
 	//State?
 	
@@ -35,12 +35,12 @@ public class Enemy extends GridObject implements Collidable, Movable {
 		myTilePath = new LinkedList<Tile>();
 	}
 	
-	public Enemy(Point location, LinkedList<Point> path){
+	/*public Enemy(Point location, LinkedList<Point> path){
 		myLocation = location; 
 		myPath = path;
 		
 		
-	}
+	}*/
 	
 	public void setHealth(int x){
 		myHealth = x;
@@ -74,12 +74,12 @@ public class Enemy extends GridObject implements Collidable, Movable {
 	public List<String> getWalkables(){
 		return myAccessNames;
 	}
-	
-	public void setSteps(LinkedList<Tile> steps){
-		mySteps = steps;
-	}
-	
 
+	
+	void setPath(Path p){
+		myPath = p.generateNew();
+		
+	}
 	
 	public List<Tile> getTilePath(){
 		return myTilePath;
@@ -91,20 +91,21 @@ public class Enemy extends GridObject implements Collidable, Movable {
 	
 
 	@Override
-	public void move() {
-		myLocation = myTilePath.removeFirst().getLocation();
+	public Placement move() {
+		
+		//TODO: INCREMENT distancewalked so compareTo stays useful
+		
+		return myPath.getNext();
 		//myLocation.translate();
-		tilesWalked++;
+		//tilesWalked++;
+		
+		
 	}
 
-	public int getTilesWalked() {
-		return tilesWalked;
+/*	public int getTilesWalked() {
+		return distanceWalked;
 	}
-
-	public Point getLocation() {
-		return myLocation;
-	}
-
+*/
 	@Override
 	public boolean evaluateCollision(Collidable collider) {
 		if (isCollision(collider)) {
@@ -149,9 +150,16 @@ public class Enemy extends GridObject implements Collidable, Movable {
 
 	@Override
 	public void setCollisionBounds() {
-		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y,
-				myRad * 2, myRad * 2);
+		//myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y,myRad * 2, myRad * 2);
 
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		
+		//MAKE SURE this works
+		
+		return (this.distanceWalked).compareTo((((Enemy)o).distanceWalked));
 	}
 
 

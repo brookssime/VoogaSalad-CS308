@@ -11,37 +11,53 @@ import java.util.List;
 
 public class Projectile extends GridObject implements Collidable, Movable{
 
-	private String myName;
+	
 	private String myImageString;
-	private List<String> myAccessIDs;
 	private Integer mySpeed; 
 	public Effect myEffect;
-	private Point myLocation;
 	private int myRadius;
-	private double myDirection;
 	private Shape myCollisionBounds;
+	private Path myPath;
 	
 	public Projectile(){
 		
 	}
 	
 	public Projectile(Point location, Integer speed, Integer damage, Integer duration, Effect effect){
-		myLocation = location; 
+		
 		mySpeed = speed; 
 		myEffect = effect;
 		myRadius = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
 		setCollisionBounds();
 	}
 	
+	public Projectile(Projectile projectile) {
+		this.myName = projectile.myName;
+		this.myImageString = projectile.myImageString;
+		this.mySpeed = projectile.mySpeed;
+		this.myEffect = projectile.myEffect;
+		this.myRadius = projectile.myRadius;
+		this.myCollisionBounds = projectile.myCollisionBounds;
+		this.myAccessNames = projectile.myAccessNames;
+		this.myName = projectile.myName;
+		this.myAccessNames = projectile.myAccessNames;
+		
+	}
+	
+	public void setPath(Path p){
+		myPath = p;
+	}
+
 	public void setRadius(int x){
 		myRadius = x;
 	}
 
 	
 	@Override
-	public void move() {
-		myLocation.x += mySpeed * Math.cos(myDirection);
-		myLocation.y += mySpeed * Math.sin(myDirection);		
+	public Placement move() {
+		/*myLocation.x += mySpeed * Math.cos(myDirection);
+		myLocation.y += mySpeed * Math.sin(myDirection);	*/	
+		return myPath.getNext();
 	}
 
 	/**
@@ -62,13 +78,19 @@ public class Projectile extends GridObject implements Collidable, Movable{
 	}
 	
 	public void setCollisionBounds() {
-		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRadius*2, myRadius*2);
+		// myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRadius*2, myRadius*2);
 		
 	}
 
 	@Override
 	public Shape getCollisionBounds() {
 		return myCollisionBounds;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

@@ -5,7 +5,7 @@ import interfaces.Authorable;
 import java.util.List;
 
 public class Wave extends GameObject{
-	private String myPortName;
+	private String myPortName; //myPortName NEEDS TO BE UNIQUE FOR EACH PORT
 	private List<Enemy> myEnemies;
 	private List<Long> myDelays;
 	private int myCurrentEnemy;

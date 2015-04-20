@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.sun.javafx.geom.Point2D;
@@ -13,14 +14,15 @@ import interfaces.Authorable;
 import interfaces.Collidable;
 import interfaces.EditableTower;
 import interfaces.Movable;
+import interfaces.Shootable;
 
 
 
-public class Tower extends GridObject implements Movable, EditableTower{
+public class Tower extends GridObject implements Shootable, Movable{
 
 	
 	private Integer myFireRate;
-	private Point2D myLocation;
+	//private Point2D myLocation;
 	private Integer myHealth;
 	private Projectile myProjectile;
 	private Range myRangeObject;
@@ -29,13 +31,15 @@ public class Tower extends GridObject implements Movable, EditableTower{
 	private Double myTargetRotation;
 	private Double myRotationSpeed;
 	private Integer myRad;
+	private boolean isReady;
+	private Path myPath;
 
 
 	public Tower(int x, int y, int radius){ //default constructor for circular radius
-		myLocation = new Point2D();
+		//myLocation = new Point2D();
 		myRangeObject = new Range(x, y, radius);
-		myLocation.x = x;
-		myLocation.y = y;
+		//myLocation.x = x;
+		//myLocation.y = y;
 	}
 
 
@@ -54,7 +58,7 @@ public class Tower extends GridObject implements Movable, EditableTower{
 		myAccessNames = accessNames;
 		myRange = range;
 		myFireRate = fireRate;
-		myLocation = location;
+		//myLocation = location;
 		myHealth = health;
 		myRad = radius;
 	}
@@ -66,12 +70,17 @@ public class Tower extends GridObject implements Movable, EditableTower{
 
 	
 	@Override
-	public void move() {
+	public Placement move() {
 		rotate();
 		if(myCurRotation == myTargetRotation){
-			fire();
-			target();
+			isReady = true;
 		}
+		return myPath.getNext();
+	}
+	
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub		
 	}
 	
 	private void rotate(){
@@ -82,17 +91,11 @@ public class Tower extends GridObject implements Movable, EditableTower{
 	}
 	
 	
-	private void fire(){
-		
-		// TODO: implement this
+	public Projectile fire(){
+		return myProjectile;
 		
 	}
-	
-	private void target(){
-		ArrayList<Enemy> inRange = myRangeObject.getEnemiesInRange();
-		Enemy e = selectTarget(inRange);
-		setTargetRotation(calculateShot(e));
-	}
+
 	
 
 	private void setTargetRotation(double targetAngle){
@@ -101,7 +104,7 @@ public class Tower extends GridObject implements Movable, EditableTower{
 	
 
 	
-	public Double calculateShot(Enemy e){
+	//public Double calculateShot(Collidable c){
 		
 		// TODO: implement this
 		// math involving the enemy's path, speed, projectile speed, rotation speed, current angle
@@ -110,35 +113,30 @@ public class Tower extends GridObject implements Movable, EditableTower{
 		// perhaps make turret rotation speed variable based on the time at which an enemy can be 
 		// shot (based on fire rate, which will NOT be changing but instead fixed per type of tower)
 		
-		return Math.toDegrees(Math.atan2(myLocation.y-e.getLocation().y, myLocation.x-e.getLocation().x));
+		//return Math.toDegrees(Math.atan2(myLocation.y-e.getLocation().y, myLocation.x-e.getLocation().x));
 		
 		
 		
-	}
+	//}
 	
-	private Enemy selectTarget(ArrayList<Enemy> inRange){
-		
-		Enemy target = null;
-		int i = -1;
-		
-		for (Enemy e : inRange){
-			if(e.getTilesWalked() > i){
-				target = e;
-				i = e.getTilesWalked();
-			}
-		}
-		
+	//private GridObject selectTarget(ArrayList<Enemy> inRange){
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collidable selectTarget(List<Collidable> targets) {
+
+		Collections.sort(targets);		
+		Collidable target = targets.get(targets.size()-1); //should get the furthest along, for enemies
 		if(isHittable(target))
 			return target;
-		inRange.remove(target);
-		return selectTarget(inRange);
+		targets.remove(target);
+		return selectTarget(targets);
 		
 		}
 		
 	
-	private boolean isHittable(Enemy e){
+	private boolean isHittable(Collidable c){
 		
-		// TODO: implement this
+		// TODO: implement this, if necessary 
 		// determine, based on enemy path and other variables, if an enemy is hittable by this tower or not
 		
 		return true;
@@ -151,62 +149,34 @@ public class Tower extends GridObject implements Movable, EditableTower{
 	}
 
 
-	@Override
-	public void setRange(Integer range) {
-		// TODO Auto-generated method stub
-		myRange = range;
-	}
-
-	@Override
 	public void setFireRate(Integer fireRate) {
 		// TODO Auto-generated method stub
 		myFireRate = fireRate;
 	}
 
-	@Override
-	public void setLocation(Point2D location) {
-		// TODO Auto-generated method stub
-		myLocation = location;
-	}
 
-	@Override
+/*	@Override
 	public void setHealth(Integer health) {
 		// TODO Auto-generated method stub
 		myHealth = health;
 	}
+*/
+
+
 
 	@Override
-	public void setRadius(Integer radius) {
-		// TODO Auto-generated method stub
-		myRad = radius;
-	}
-
-	@Override
-	public void setProjectile(Projectile projectile) {
-		// TODO Auto-generated method stub
-		myProjectile = projectile;
+	public boolean isReady() {
+		return isReady;
 	}
 
 
 	@Override
-	public void setImageString(String imageString) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public String getImageString() {
+	public Range getRange() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 
-	@Override
-	public void setAccessList(List<Integer> accessList) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	
 

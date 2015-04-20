@@ -4,7 +4,7 @@ import java.awt.Shape;
 
 import engine.Effect;
 
-public interface Collidable {
+public interface Collidable extends Comparable{
 
 	boolean evaluateCollision(Collidable collider);
 	boolean isDead(); //TODO: maybe make this a default method?
