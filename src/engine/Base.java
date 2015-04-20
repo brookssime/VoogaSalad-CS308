@@ -11,13 +11,17 @@ import java.util.List;
 import interfaces.Authorable;
 import interfaces.Collidable;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class Base.
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class Base implements Collidable, Authorable{
 
+
+
+
+public class Base extends GridObject implements Collidable{
 	/** The my name. */
 	private String myName;
 	
@@ -35,6 +39,8 @@ public class Base implements Collidable, Authorable{
 	
 	/** The my collision bounds. */
 	private Shape myCollisionBounds;
+
+
 	
 	/** The my location. */
 	private Point myLocation;
@@ -47,22 +53,34 @@ public class Base implements Collidable, Authorable{
 		
 	}
 	
+
 	/**
 	 * Instantiates a new base.
 	 *
 	 * @param imageString the image string
 	 * @param health the health
-	 * @param baseID the base id
+	 * 
 	 */
-	public Base(String imageString, Integer health, Integer baseID){
-		myImageString = imageString;
+	
+	public Base(String imageString, Integer health){
+		myImagePath = imageString;
 		myHealth = health;
-		myBaseID = baseID;
+
+	}
+	
+	public void setHealth(int health){
+		myHealth = health;
+	}
+	
+	public void setRadius(int radius){
+		myRad = radius;
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see interfaces.Collidable#evaluateCollision(interfaces.Collidable)
 	 */
+
 	@Override
 	public boolean evaluateCollision(Collidable collider){
 		if(isCollision(collider)){
@@ -102,26 +120,16 @@ public class Base implements Collidable, Authorable{
 	 * @see interfaces.Authorable#setName(java.lang.String)
 	 */
 	@Override
+
 	public void setName(String s) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#getName()
-	 */
-	@Override
-	public String getName() {
+	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#updateParams(java.util.List)
-	 */
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
+
 }

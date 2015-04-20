@@ -14,13 +14,19 @@ import interfaces.Authorable;
  *
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class TitleScene extends GameScene implements Authorable{
+
+public class TitleScene extends GameScene{
 	
 	/** The my name. */
 	private String myName;
 	
 	/** The my title picture path. */
+	
 	private String myTitlePicturePath;
+
+
+
+
 	
 	/** The my button clicked. */
 	private Boolean myButtonClicked;
@@ -38,18 +44,25 @@ public class TitleScene extends GameScene implements Authorable{
 	@Override
 	public void update() {
 		myButtonClicked = false;
-		myHasCompleted = false;
+		//myHasCompleted = false;
 	}
 
 	/* (non-Javadoc)
 	 * @see engine.GameScene#checkComplete()
 	 */
 	@Override
+	public boolean isComplete(){
+		if(myButtonClicked)
+			return true;
+		return false;
+	}
+	
+	/*@Override
 	public void checkComplete() {
 		if(myButtonClicked){
 			myHasCompleted = true;
 		}
-	}
+	}*/
 	
 	/**
 	 * Theoretically, this could apply to any button
@@ -69,30 +82,5 @@ public class TitleScene extends GameScene implements Authorable{
 		return myTitlePicturePath;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#setName(java.lang.String)
-	 */
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#getName()
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#updateParams(java.util.List)
-	 */
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
 }

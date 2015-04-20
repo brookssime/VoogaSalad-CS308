@@ -7,11 +7,13 @@ import java.awt.Shape;
 
 import engine.Effect;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * The Interface Collidable.
  */
-public interface Collidable {
+
+public interface Collidable extends Comparable{
 
 	/**
 	 * Evaluate collision.

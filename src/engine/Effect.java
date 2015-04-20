@@ -1,12 +1,11 @@
-/*
- * 
- */
+
 package engine;
 
 import interfaces.Authorable;
 
 import java.util.List;
 import java.util.TimerTask;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -16,22 +15,30 @@ import java.util.TimerTask;
  * 
  * 
  */
-public class Effect implements Authorable{
+public class Effect extends GameObject{
 	
 	/** The my name. */
 	private String myName;
 	
 	/** The my speed damage. */
 	private Integer mySpeedDamage;
+	private Double mySpeedFrequency;
+	private Integer mySpeedReps;
+	private Double mySpeedDuration;
 	
 	/** The my health damage. */
 	private Integer myHealthDamage;
+	private Double myHealthFrequency;
+	private Integer myHealthReps;
 	
 	/** The is final. */
 	private boolean isFinal;
 	
 	/** The my duration. */
 	private long myDuration;
+
+
+
 	
 	/**
 	 * Instantiates a new effect.
@@ -40,70 +47,48 @@ public class Effect implements Authorable{
 		
 	}
 	
-	/**
-	 * Gets the speed damage.
-	 *
-	 * @return the speed damage
-	 */
-	public Integer getSpeedDamage(){
-		return mySpeedDamage;
-		
+
+	
+
+	public void setSpeedDamage(int x){
+		mySpeedDamage = x;
 	}
 	
-	/**
-	 * Gets the health damage.
-	 *
-	 * @return the health damage
-	 */
+	public void setSpeedFrequency(Double x){
+		mySpeedFrequency = x;
+	}
+
+	public void setSpeedReps(int x){
+		mySpeedReps = x;
+	}
+	
+	public void setSpeedDamageDuration(Double x){
+		mySpeedDuration = x;
+	}
+	
+	public void setHealthDamage(int x){
+		myHealthDamage = x;
+	}
+	
+	public void setHealthFrequency(Double x){
+		myHealthFrequency = x;
+	}
+	
+	public void setHealthReps(int x){
+		myHealthReps = x;
+	}
+	
+	public Integer getSpeedDamage(){
+		return mySpeedDamage;
+
+		
+	}
 	public Integer getHealthDamage(){
 		return myHealthDamage;
 		
 	}
-	
-	/**
-	 * Gets the duration.
-	 *
-	 * @return the duration
-	 */
-	public long getDuration(){
-		return myDuration;
-	}
-	
-	/**
-	 * Checks if is final.
-	 *
-	 * @return true, if is final
-	 */
-	public boolean isFinal() {
-		return isFinal;
-	}
-	
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#setName(java.lang.String)
-	 */
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#getName()
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#updateParams(java.util.List)
-	 */
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
+
+
 	
 	
 }

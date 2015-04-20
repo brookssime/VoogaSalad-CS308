@@ -5,8 +5,10 @@ package engine;
 
 import interfaces.Authorable;
 
+import java.awt.Point;
 import java.awt.Shape;
 import java.util.List;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -14,60 +16,57 @@ import java.util.List;
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class Tile implements Authorable{
+
+public class Tile{
+
 	
 	/** The my name. */
 	private String myName;
 	
 	/** The my image path. */
 	private String myImagePath;
+
+	private Point myLocation = new Point();
 	
-	/** The my shape. */
-	private Shape myShape;
-	
-	/** The my access id. */
-	private int myAccessID;
-	
-	/**
-	 * Instantiates a new tile.
-	 *
-	 * @param imagePath the image path
-	 */
-	public Tile(String imagePath){
-		
+	public Tile(int x, int y, String imagePath){
+		myLocation.x = x;
+		myLocation.y = y;
+		myImagePath = imagePath;
 	}
 	
-	/**
-	 * Instantiates a new tile.
-	 */
-	public Tile(){
-		
+	public Tile(int x, int y){
+		myLocation.x = x;
+		myLocation.y = y;
+	}
+	
+	public Point getLocation(){
+		return myLocation;
+	}
+	
+	public void setImagePath(String imagePath){
+		myImagePath = imagePath;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#setName(java.lang.String)
-	 */
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
+	public void setName(String name) {
+		myName = name;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#getName()
-	 */
-	@Override
+	public String getImagePath(){
+		return myImagePath;
+	}
+	
+
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return myName;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#updateParams(java.util.List)
-	 */
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
+
+	public int getX() {
+		return myLocation.x;
+	}
+	
+	public int getY(){
+		return myLocation.y;
+
 	}
 }

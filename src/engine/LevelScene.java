@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ import javafx.animation.KeyFrame;
  */
 public class LevelScene extends GameScene implements Authorable {
 
+
 	/** The my name. */
 	private String myName;
 	
@@ -29,13 +31,14 @@ public class LevelScene extends GameScene implements Authorable {
 	private String myLevelTitle; 
 	
 	/** The my current store. */
-	private Store myCurrentStore;
+	private Store myStore;
 	
 	/** The my grid. */
 	private Grid myGrid;
 	
 	/** The my grid manager. */
 	private GridManager myGridManager;
+
 
 	/**
 	 * Instantiates a new level scene.
@@ -50,9 +53,8 @@ public class LevelScene extends GameScene implements Authorable {
 	 */
 	@Override
 	public KeyFrame start(double frameRate){
-		myGridManager.start();
+		myGrid.start();
 		return super.start(frameRate);
-		
 		
 	}
 
@@ -62,32 +64,38 @@ public class LevelScene extends GameScene implements Authorable {
 	 * @param store the new store
 	 */
 	public void setStore(Store store){
-		myCurrentStore = store;
+		myStore = store;
 	}
 	
-	/**
-	 * Sets the grid.
-	 *
-	 * @param newGrid the new grid
-	 */
-	private void setGrid(Grid newGrid){
-		myGrid = newGrid;
-		//myGridManager = new GridManager(newGrid);
+	//TODO: MAKE SURE this is all that needs to be set up
+	private void setGrid(Grid grid){
+		myGrid = new Grid(grid, new GridManager(myGrid));
+		//myGridManager = new GridManager(grid);
+	}
+	
+
+	//TODO: make sure this is the right way to handle this
+	private void setWaves(Queue<Wave> waves){
+		myGrid.setWaves(waves);
+		//myWaves = waves;
+
 	}
 	
 	/* (non-Javadoc)
 	 * @see engine.GameScene#update()
 	 */
 	public void update(){	
-		myGridManager.update();
-		checkComplete();
+		myGrid.update();
+		//checkComplete();
+	}
+
+	public boolean isComplete(){
+		return myGrid.isComplete();
 	}
 
 
-	/* (non-Javadoc)
-	 * @see engine.GameScene#checkComplete()
-	 */
-	@Override
+	/*@Override
+>>>>>>> game_engine
 	public void checkComplete() {
 		if (myGridManager.getBase().isDead()) {
 			myGameLost = true;
@@ -97,7 +105,7 @@ public class LevelScene extends GameScene implements Authorable {
 		} else {
 			myHasCompleted = false;
 		}
-	}
+	}*/
 
 	/* (non-Javadoc)
 	 * @see interfaces.Authorable#setName(java.lang.String)

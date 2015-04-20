@@ -1,12 +1,14 @@
 package engine;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import interfaces.Authorable;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import interfaces.Collidable;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -15,28 +17,37 @@ import interfaces.Collidable;
  * @author Brooks, Patrick, Robert, and Sid.
  * 
  */
-public class Grid implements Authorable{
-	
+
+public class Grid extends GameObject implements Observable{
+
+
 	/** The my name. */
 	private String myName;
-	
+
 	/** The my tiles. */
 	public Tile[][] myTiles;
-	
-	/** The my collidables. */
-	private List<Collidable> myCollidables;
-	// myProjectiles?
-	// myEnemies?
+
+
+
 	/** The my grid manager. */
 	private GridManager myGridManager;
-	
+
 	/**
 	 * Instantiates a new grid.
 	 */
-	public Grid(){
-		
+	//private Map<Collidable, Placement> myCollidables;
+	private Map<GridObject, Placement> myGridObjectMap;	
+	private Tile myPort;
+	// myProjectiles?
+	// myEnemies?
+	public Grid(Grid grid, GridManager gm){
+		myName = grid.myName;
+		myTiles = grid.myTiles;
+		myGridObjectMap = grid.myGridObjectMap;
+		myPort = grid.myPort;
+		myGridManager = gm;
 	}
-	
+
 	/**
 	 * Instantiates a new grid.
 	 *
@@ -46,17 +57,53 @@ public class Grid implements Authorable{
 	public Grid(int width, int height){
 		myTiles = new Tile[width][height];
 		myGridManager = new GridManager(this);
+		init();
 	}
-	
+
+	public Tile[][] getTiles(){
+		return myTiles;
+	}
+
+	public Map<GridObject, Placement> getGridObjectMap(){
+		return myGridObjectMap;
+	}
+
 	/**
 	 * Inits the.
 	 */
 	private void init(){
-		
-		
+		for (int x = 0; x < myTiles.length; x++)
+			for (int y = 0; y < myTiles.length; y++){
+				myTiles[x][y] = new Tile(x, y);
+			}	
 	}
-	
-	
+
+	public void start(){
+		myGridManager.start();
+
+	}
+
+	public void setWaves(Queue<Wave> waves){
+		myGridManager.setWaves(waves);
+
+	}
+
+	public void update(){
+		myGridManager.update();
+		myGridManager.checkComplete();
+	}
+
+
+
+	public void setTiles(Tile[][] tiles){
+		myTiles = tiles;
+	}
+
+	public void placeGridObjectAt(GridObject o, Placement p){
+		myGridObjectMap.put(o, p);
+	}
+
+
 	/**
 	 * Adds the tile.
 	 *
@@ -67,17 +114,29 @@ public class Grid implements Authorable{
 	public void addTile(Tile t, int x, int y){
 		myTiles[x][y] = t;
 	}
-	
+
+
+	/**
+	 * Sets the port.
+	 *
+	 *
+	 */
+
+	public void setPort(Tile t){
+		myPort = t;
+	}
+
+
+
 	/**
 	 * Gets the port.
 	 *
 	 * @return the port
 	 */
 	public Tile getPort(){
-		// TODO: implement this
-		return null;
+		return myPort;
 	}
-	
+
 	/**
 	 * Gets the tile.
 	 *
@@ -88,52 +147,32 @@ public class Grid implements Authorable{
 	public Tile getTile(int x, int y){
 		return myTiles[x][y];
 	}
+
+
 	
-	/**
-	 * Spawn.
-	 *
-	 * @param c the c
-	 */
-	public void spawn(Collidable c){
-		
-		// TODO
-	}
-	
-	/**
-	 * Gets the objects.
-	 *
-	 * @return the objects
-	 */
-	public ObservableList<Collidable> getObjects(){
-		return FXCollections.observableList(myCollidables);
+
+
+	@Override
+	public void addListener(InvalidationListener listener) {
+		// TODO Auto-generated method stub
+
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#setName(java.lang.String)
-	 */
 	@Override
-	public void setName(String s) {
+	public void removeListener(InvalidationListener listener) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#getName()
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
+
+	public boolean isComplete() {
+		return myGridManager.isComplete();
+	}
+
+	public Tile getPortFor(Wave w) {
+		// TODO RETURN THE TILE THAT CORRESPONDS TO THE PORT FOR THIS WAVE
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#updateParams(java.util.List)
-	 */
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
+
 }

@@ -18,7 +18,8 @@ import java.util.List;
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class Projectile implements Collidable, Movable, Authorable{
+
+public class Projectile extends GridObject implements Collidable, Movable{
 
 	/** The my name. */
 	private String myName;
@@ -30,22 +31,23 @@ public class Projectile implements Collidable, Movable, Authorable{
 	private List<Integer> myAccessIDs;
 	
 	/** The my speed. */
+
+
 	private Integer mySpeed; 
 	
 	/** The my effect. */
 	public Effect myEffect;
 	
-	/** The my location. */
-	private Point myLocation;
-	
 	/** The my rad. */
-	private int myRad;
+	private int myRadius;
 	
 	/** The my direction. */
 	private double myDirection;
 	
 	/** The my collision bounds. */
+
 	private Shape myCollisionBounds;
+	private Path myPath;
 	
 	/**
 	 * Instantiates a new projectile.
@@ -64,20 +66,42 @@ public class Projectile implements Collidable, Movable, Authorable{
 	 * @param effect the effect
 	 */
 	public Projectile(Point location, Integer speed, Integer damage, Integer duration, Effect effect){
-		myLocation = location; 
+		
 		mySpeed = speed; 
 		myEffect = effect;
-		myRad = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
+		myRadius = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
 		setCollisionBounds();
 	}
 	
-	/* (non-Javadoc)
-	 * @see interfaces.Movable#move()
-	 */
+
+	public Projectile(Projectile projectile) {
+		this.myName = projectile.myName;
+		this.myImageString = projectile.myImageString;
+		this.mySpeed = projectile.mySpeed;
+		this.myEffect = projectile.myEffect;
+		this.myRadius = projectile.myRadius;
+		this.myCollisionBounds = projectile.myCollisionBounds;
+		this.myAccessNames = projectile.myAccessNames;
+		this.myName = projectile.myName;
+		this.myAccessNames = projectile.myAccessNames;
+		
+	}
+	
+	public void setPath(Path p){
+		myPath = p;
+	}
+
+	public void setRadius(int x){
+		myRadius = x;
+	}
+
+	
+
 	@Override
-	public void move() {
-		myLocation.x += mySpeed * Math.cos(myDirection);
-		myLocation.y += mySpeed * Math.sin(myDirection);		
+	public Placement move() {
+		/*myLocation.x += mySpeed * Math.cos(myDirection);
+		myLocation.y += mySpeed * Math.sin(myDirection);	*/	
+		return myPath.getNext();
 	}
 
 	/**
@@ -106,7 +130,7 @@ public class Projectile implements Collidable, Movable, Authorable{
 	 * @see interfaces.Collidable#setCollisionBounds()
 	 */
 	public void setCollisionBounds() {
-		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRad*2, myRad*2);
+		// myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRadius*2, myRadius*2);
 		
 	}
 
@@ -122,28 +146,12 @@ public class Projectile implements Collidable, Movable, Authorable{
 	 * @see interfaces.Authorable#setName(java.lang.String)
 	 */
 	@Override
-	public void setName(String s) {
+	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
-		myName = s;
-		
+		return 0;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#getName()
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return myName;
-	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#updateParams(java.util.List)
-	 */
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.sun.javafx.geom.Point2D;
@@ -17,6 +18,7 @@ import interfaces.Authorable;
 import interfaces.Collidable;
 import interfaces.EditableTower;
 import interfaces.Movable;
+import interfaces.Shootable;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -25,7 +27,8 @@ import interfaces.Movable;
  * @author Brooks, Patrick, Robert, and Sid.
  */
 
-public class Tower implements Movable, EditableTower, Authorable{
+public class Tower extends GridObject implements Shootable, Movable{
+
 
 
 
@@ -45,6 +48,8 @@ public class Tower implements Movable, EditableTower, Authorable{
 	private Point2D myLocation;
 	
 	/** The my health. */
+	
+
 	private Integer myHealth;
 
 	
@@ -68,31 +73,22 @@ public class Tower implements Movable, EditableTower, Authorable{
 	
 	/** The my rad. */
 	private Integer myRad;
+	private boolean isReady;
+	private Path myPath;
 
 	/**
 	 * Instantiates a new tower.
 	 */
-
-	public Tower(){
-		
-		
+	public Tower(int x, int y, int radius){ //default constructor for circular radius
+		//myLocation = new Point2D();
+		myRangeObject = new Range(x, y, radius);
+		//myLocation.x = x;
+		//myLocation.y = y;
 	}
 
-	/**
-	 * Instantiates a new tower.
-	 *
-	 * @param name the name
-	 * @param imagePath the image path
-	 * @param accessList the access list
-	 * @param range the range
-	 * @param health the health
-	 * @param radius the radius
-	 * @param fireRate the fire rate
-	 * @param location the location
-	 */
-	public Tower (String name, String imagePath,  List<Integer> accessList, int range, int health, int radius, int fireRate, Point2D location) {
-		init(name, imagePath, accessList, range, health, radius, fireRate, location);
-		
+
+	public Tower (String name, String imagePath,  List<String> accessList, int range, int health, int radius, int fireRate, Point2D location) {	
+		init(name, imagePath, accessList, range, health, radius, fireRate, location);		
 	}
 
 	/**
@@ -104,28 +100,17 @@ public class Tower implements Movable, EditableTower, Authorable{
 	 */
 	public Tower (XStream serializer, String data, Point2D location) {
 		Tower incomplete = (Tower)serializer.fromXML(data);
-		init(incomplete.myName, incomplete.myImageString, incomplete.myAccessList, incomplete.myRange, incomplete.myHealth, incomplete.myRad, incomplete.myFireRate, location);
+		init(incomplete.myName, incomplete.myImagePath, incomplete.myAccessNames, incomplete.myRange, incomplete.myHealth, incomplete.myRad, incomplete.myFireRate, location);
 	}
 
-	/**
-	 * Inits the.
-	 *
-	 * @param name the name
-	 * @param imagePath the image path
-	 * @param accessList the access list
-	 * @param range the range
-	 * @param health the health
-	 * @param radius the radius
-	 * @param fireRate the fire rate
-	 * @param location the location
-	 */
-	public void init(String name, String imagePath,  List<Integer> accessList, int range, int health, int radius, int fireRate, Point2D location){
-		myImageString = imagePath;
+
+	public void init(String name, String imagePath,  List<String> accessNames, int range, int health, int radius, int fireRate, Point2D location){
+		myImagePath = imagePath;
 		myName = name;
-		myAccessList = accessList;
+		myAccessNames = accessNames;
 		myRange = range;
 		myFireRate = fireRate;
-		myLocation = location;
+		//myLocation = location;
 		myHealth = health;
 		myRad = radius;
 	}
@@ -146,12 +131,17 @@ public class Tower implements Movable, EditableTower, Authorable{
 	 */
 
 	@Override
-	public void move() {
+	public Placement move() {
 		rotate();
 		if(myCurRotation == myTargetRotation){
-			fire();
-			target();
+			isReady = true;
 		}
+		return myPath.getNext();
+	}
+	
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub		
 	}
 	
 	/**
@@ -165,23 +155,13 @@ public class Tower implements Movable, EditableTower, Authorable{
 	}
 	
 	
-	/**
-	 * Fire.
-	 */
-	private void fire(){
-		
-		// TODO: implement this
+
+	public Projectile fire(){
+		return myProjectile;
 		
 	}
-	
-	/**
-	 * Target.
-	 */
-	private void target(){
-		ArrayList<Enemy> inRange = myRangeObject.getEnemiesInRange();
-		Enemy e = selectTarget(inRange);
-		setTargetRotation(calculateShot(e));
-	}
+
+
 	
 
 	/**
@@ -195,14 +175,9 @@ public class Tower implements Movable, EditableTower, Authorable{
 	
 
 	
-	/**
-	 * Calculate shot.
-	 *
-	 * @param e the e
-	 * @return the double
-	 */
-	private Double calculateShot(Enemy e){
-		
+
+	//public Double calculateShot(Collidable c){
+
 		// TODO: implement this
 		// math involving the enemy's path, speed, projectile speed, rotation speed, current angle
 		// this will be the FIRE RATE implementation as well
@@ -210,47 +185,46 @@ public class Tower implements Movable, EditableTower, Authorable{
 		// perhaps make turret rotation speed variable based on the time at which an enemy can be 
 		// shot (based on fire rate, which will NOT be changing but instead fixed per type of tower)
 		
-		return Math.atan2(myLocation.y-e.getLocation().y, myLocation.x-e.getLocation().x);
+		//return Math.toDegrees(Math.atan2(myLocation.y-e.getLocation().y, myLocation.x-e.getLocation().x));
 		
 		
 		
-	}
+	//}
 	
+
 	/**
 	 * Select target.
 	 *
-	 * @param inRange the in range
-	 * @return the enemy
+	 * @param targets
+	 * @return list of targets
 	 */
-	private Enemy selectTarget(ArrayList<Enemy> inRange){
-		
-		Enemy target = null;
-		int i = -1;
-		
-		for (Enemy e : inRange){
-			if(e.getTilesWalked() > i){
-				target = e;
-				i = e.getTilesWalked();
-			}
-		}
-		
+	//private GridObject selectTarget(ArrayList<Enemy> inRange){
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collidable selectTarget(List<Collidable> targets) {
+
+		Collections.sort(targets);		
+		Collidable target = targets.get(targets.size()-1); //should get the furthest along, for enemies
 		if(isHittable(target))
 			return target;
-		inRange.remove(target);
-		return selectTarget(inRange);
+		targets.remove(target);
+		return selectTarget(targets);
 		
 		}
 		
 	
+
 	/**
 	 * Checks if is hittable.
 	 *
 	 * @param e the e
 	 * @return true, if is hittable
 	 */
-	private boolean isHittable(Enemy e){
+	
+	private boolean isHittable(Collidable c){
+
 		
-		// TODO: implement this
+		// TODO: implement this, if necessary 
 		// determine, based on enemy path and other variables, if an enemy is hittable by this tower or not
 		
 		return true;
@@ -266,106 +240,44 @@ public class Tower implements Movable, EditableTower, Authorable{
 		return (myHealth <= 0);
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.EditableTower#setImageString(java.lang.String)
-	 */
-	@Override
-	public void setImageString(String imageString) {
-		// TODO Auto-generated method stub
-		myImageString = imageString;
-	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.EditableTower#setAccessList(java.util.List)
-	 */
-	@Override
-	public void setAccessList(List<Integer> accessList) {
-		// TODO Auto-generated method stub
-		myAccessList = accessList;
-	}
 
 
-	/* (non-Javadoc)
-	 * @see interfaces.EditableTower#setRange(java.lang.Integer)
-	 */
 
-	@Override
-	public void setRange(Integer range) {
-		// TODO Auto-generated method stub
-		myRange = range;
-	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.EditableTower#setFireRate(java.lang.Integer)
-	 */
-	@Override
 	public void setFireRate(Integer fireRate) {
 		// TODO Auto-generated method stub
 		myFireRate = fireRate;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.EditableTower#setLocation(com.sun.javafx.geom.Point2D)
-	 */
-	@Override
-	public void setLocation(Point2D location) {
-		// TODO Auto-generated method stub
-		myLocation = location;
-	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.EditableTower#setHealth(java.lang.Integer)
-	 */
-	@Override
+
+/*	@Override
 	public void setHealth(Integer health) {
 		// TODO Auto-generated method stub
 		myHealth = health;
 	}
+*/
 
-	/* (non-Javadoc)
-	 * @see interfaces.EditableTower#setRadius(java.lang.Integer)
-	 */
-	@Override
-	public void setRadius(Integer radius) {
-		// TODO Auto-generated method stub
-		myRad = radius;
-	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.EditableTower#setProjectile(engine.Projectile)
-	 */
-	@Override
 
-	public void setProjectile(Projectile projectile) {
-		// TODO Auto-generated method stub
-		myProjectile = projectile;
-	}
+
 
 	/* (non-Javadoc)
 	 * @see interfaces.EditableTower#getImageString()
 	 */
 	@Override
-	public String getImageString() {
-		// TODO Auto-generated method stub
-		return myImageString;
+	public boolean isReady() {
+		return isReady;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.EditableTower#setName(java.lang.String)
-	 */
+
 	@Override
-	public void setName(String s) {
+	public Range getRange() {
 		// TODO Auto-generated method stub
-		myName = s;
+		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#updateParams(java.util.List)
-	 */
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
+
+
+	
 
 }

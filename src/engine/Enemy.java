@@ -10,10 +10,12 @@ import interfaces.Movable;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -25,262 +27,217 @@ import java.util.TimerTask;
  * 
  */
 
-public class Enemy implements Collidable, Movable, Authorable {
+
+
+
+public class Enemy extends GridObject implements Collidable, Movable {
+
 
 	private String myName;
-	
+
 	/** The my speed. */
+
+
 	private Integer mySpeed;
-	
+
 	/** The my damage. */
 	private Integer myDamage;
-	
+
 	/** The my health. */
 	private Integer myHealth;
-	
+
 	/** The my walkable. */
 	private List<Integer> myWalkable;
-	
+
 	/** The my image string. */
 	private String myImageString;
-	
+
 	/** The my collision bounds. */
 	private Shape myCollisionBounds;
-	
-	/** The my location. */
-	private Point myLocation;
-	
-	/** The my path. */
-	private LinkedList<Point> myPath;
-	
+
+
 	/** The my steps. */
-	private LinkedList<Tile> mySteps;
-	
+	private LinkedList<Tile> myTilePath;
+
 	/** The my rad. */
 	private int myRad;
-	
+
 	/** The tiles walked. */
 	private int tilesWalked;
+
+
 	private Integer myID; // IMPLEMENT CREATING THIS
-	
+
 	/** The timer. */
 	private Timer timer;
+
+
+	private Double distanceWalked;
+
+
+	private Path myPath;
 	//orientation??
 	//State?
 
-	
+
 	/**
 	 * Instantiates a new enemy.
 	 */
 	public Enemy(){
-		
+
+		myTilePath = new LinkedList<Tile>();
 	}
-	
-	/**
-	 * Instantiates a new enemy.
-	 *
-	 * @param location the location
-	 * @param path the path
-	 */
-	public Enemy(Point location, LinkedList<Point> path){
-		myLocation = location; 
-		myPath = path;
-		
-	}
-	
 
 
 	
-
-	/**
-	 * Sets the steps.
-	 *
-	 * @param steps the new steps
-	 */
-
-	public void setSteps(LinkedList<Tile> steps){
-		mySteps = steps;
-	}
-	
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
-	public Integer getID(){
-		return myID;
-	}
-	
-
-
-	/* (non-Javadoc)
-	 * @see interfaces.Movable#move()
-	 */
-	@Override
-	public void move() {
-		myLocation = myPath.removeFirst();
-		tilesWalked++;
-	}
-
-	/**
-	 * Gets the tiles walked.
-	 *
-	 * @return the tiles walked
-	 */
-	public int getTilesWalked() {
-		return tilesWalked;
-	}
-
-	/**
-	 * Gets the location.
-	 *
-	 * @return the location
-	 */
-	public Point getLocation() {
-		return myLocation;
-	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Collidable#evaluateCollision(interfaces.Collidable)
-	 */
-	@Override
-	public boolean evaluateCollision(Collidable collider) {
-		if (isCollision(collider)) {
-			if (collider.getClass().isAssignableFrom(Projectile.class)) {
-				executeEffect((Projectile) collider);
-			}
-			return true;
+		public void setHealth(int x){
+			myHealth = x;
 		}
-		return false;
 
-	}
-	
-	/**
-	 * Gets the enemy damage.
-	 *
-	 * @return the enemy damage
-	 */
-	public Integer getEnemyDamage(){
-		return myDamage;
-	}
 
-	/**
-	 * Execute effect.
-	 *
-	 * @param projectile the projectile
-	 */
-	public void executeEffect(Projectile projectile) {
-		// change stuff
-		mySpeed -= projectile.myEffect.getSpeedDamage();
-		// if its not final do stuff
-		if (!projectile.myEffect.isFinal()) {
-			timer = new Timer();
-			timer.schedule(
-					new reverseEffect(projectile.myEffect.getSpeedDamage()),
-					projectile.myEffect.getDuration());
-		}
-	}
 
-	/**
-	 * The Class reverseEffect.
-	 */
-	class reverseEffect extends TimerTask {
-		
-		/** The speed change. */
-		private Integer speedChange;
 
 		/**
-		 * Instantiates a new reverse effect.
+		 * Sets the steps.
 		 *
-		 * @param speed the speed
+		 * @param steps the new steps
 		 */
-		reverseEffect(Integer speed) {
-			speedChange = speed;
+
+		public void setSteps(LinkedList<Tile> steps){
+			myTilePath = steps;
+		}
+
+		/**
+		 * Gets the id.
+		 *
+		 * @return the id
+		 */
+
+
+		public void setSpeed(int x){
+			mySpeed = x;
+		}
+
+		public void setDamage(int x){
+			myDamage = x;
+
+		}
+
+
+
+
+
+		public List<String> getWalkables(){
+			return myAccessNames;
+		}
+
+
+		void setPath(Path p){
+			myPath = p.generateNew();
+
+		}
+
+		public List<Tile> getTilePath(){
+			return myTilePath;
+
+		}
+
+		public void setTilePath(LinkedList<Tile> l){
+			myTilePath = l; 
+		}
+
+
+
+
+
+
+		/**
+		 * Gets the enemy damage.
+		 *
+		 * @return the enemy damage
+		 */
+		public Integer getEnemyDamage(){
+			return myDamage;
+		}
+
+
+
+
+
+		/**
+		 * The Class reverseEffect.
+		 */
+		class reverseEffect extends TimerTask {
+
+			/** The speed change. */
+			private Integer speedChange;
+
+			/**
+			 * Instantiates a new reverse effect.
+			 *
+			 * @param speed the speed
+			 */
+			reverseEffect(Integer speed) {
+				speedChange = speed;
+			}
+
+			/* (non-Javadoc)
+			 * @see java.util.TimerTask#run()
+			 */
+			public void run() {
+				mySpeed += speedChange;
+				timer.cancel();
+			}
 		}
 
 		/* (non-Javadoc)
-		 * @see java.util.TimerTask#run()
+		 * @see interfaces.Collidable#isDead()
 		 */
-		public void run() {
-			mySpeed += speedChange;
-			timer.cancel();
+		@Override
+		public boolean isDead() {
+			if (myHealth <= 0) {
+				return true;
+			}
+			return false;
+		}
+
+		/* (non-Javadoc)
+		 * @see interfaces.Collidable#getCollisionBounds()
+		 */
+		public Shape getCollisionBounds() {
+			return myCollisionBounds;
+		}
+
+		/* (non-Javadoc)
+		 * @see interfaces.Collidable#setCollisionBounds()
+		 */
+		@Override
+		public void setCollisionBounds() {
+			//myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y,myRad * 2, myRad * 2);
+
+		}
+
+
+		@Override
+		public int compareTo(Object o) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+
+		@Override
+		public Placement move() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+		@Override
+		public boolean evaluateCollision(Collidable collider) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Collidable#isDead()
-	 */
-	@Override
-	public boolean isDead() {
-		if (myHealth <= 0) {
-			return true;
-		}
-		return false;
-	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Collidable#getCollisionBounds()
-	 */
-	public Shape getCollisionBounds() {
-		return myCollisionBounds;
-	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Collidable#setCollisionBounds()
-	 */
-	@Override
-	public void setCollisionBounds() {
-		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y,
-				myRad * 2, myRad * 2);
-
-	}
-	
-//	public Enemy(String name, int speed, int damage, int health, List<Integer> walkable, String imageString, 
-//			Point location, LinkedList<Point>path, int rad){
-//		init(name, speed, damage, health, walkable, imageString, location, path, rad);
-//		
-//	}
-	
-//	public void init (String name, int speed, int damage, int health, List<Integer> walkable, String imageString, 
-//	Point location, LinkedList<Point>path, int rad){
-//myName = name;
-//mySpeed = speed;
-//myDamage = damage;
-//myHealth = health;
-//myWalkable = walkable;
-//myImageString = imageString;
-//myLocation = location;
-//myPath = path;
-//myRad = rad;
-//setCollisionBounds();
-//	
-//}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#setName(java.lang.String)
-	 */
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#getName()
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#updateParams(java.util.List)
-	 */
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
-
-}

@@ -13,10 +13,10 @@ import java.util.Observable;
 
 public class Environment extends Observable {
 	
-	public Grid myGrid;
-	public Store myStore;
-	public HeadsUpDisplay myHUD;
-	
+	private Grid myGrid;
+	private Store myStore;
+	private HeadsUpDisplay myHUD;
+	private GridManager myGridManager;
 	
 	/**
 	 * Environment constructor, initiates the class
@@ -44,7 +44,7 @@ public class Environment extends Observable {
 	 * Initializes the environment
 	 */
 	private void init(){
-		myGrid = new Grid();
+		myGrid = new Grid(myGrid, myGridManager);
 		myStore  = new Store();
 		myHUD = new HeadsUpDisplay();
 	}

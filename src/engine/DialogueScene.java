@@ -19,13 +19,14 @@ import java.util.Queue;
  * @author Brooks, Patrick, Robert, and Sid.
  * 
  */
-public class DialogueScene extends GameScene implements Authorable{
+public class DialogueScene extends GameScene{
+
 
 	/** The my name. */
 	private String myName;
 	
 	/** The my dialogue. */
-	private Queue<String> myDialogue;
+	private Queue<DialogueBox> myDialogue;
 	
 	/** The my background image path. */
 	private String myBackgroundImagePath;
@@ -35,84 +36,46 @@ public class DialogueScene extends GameScene implements Authorable{
 											// heads. gamePlayer can read these
 											// and determine how many spaces to
 											// make in dialogueScene for heads
-	
-	/**
-											 * Instantiates a new dialogue scene.
-											 */
-											public DialogueScene(){
-		
-	}
+
 	
 	/**
 	 * Instantiates a new dialogue scene.
-	 *
-	 * @param backroundImagePath the backround image path
-	 * @param imagePathList the image path list
 	 */
-	public DialogueScene(String backroundImagePath, List<String> imagePathList) {
-		myBackgroundImagePath = backroundImagePath;
-		myImagePathList = imagePathList;
+	public DialogueScene(){
+		
 	}
 	
-	/**
-	 * Empty for now.
-	 */
+
+	public DialogueScene(String backgroundImagePath, Queue<DialogueBox> dialogueBoxes) {
+		myBackgroundImagePath = backgroundImagePath;
+		myDialogue = dialogueBoxes;
+	}
+	
+	public void setImagePath(String imagePath){
+		myBackgroundImagePath = imagePath;
+	}
+	
+	public void setDialogueBoxes(Queue<DialogueBox> dialogueBoxes){
+		myDialogue = dialogueBoxes;
+	}
+	
+	@Override
+	public boolean isComplete() {
+		
+		return (myDialogue.size() <= 0);
+	}
+
+
 	@Override
 	public void update() {
 
 	}
-
-	/* (non-Javadoc)
-	 * @see engine.GameScene#checkComplete()
-	 */
-	@Override
-	public void checkComplete() {
-		myHasCompleted = (myDialogue.size() <= 0);
-	}
-	
-	/**
-	 * Gets the next dialogue.
-	 *
-	 * @return the next dialogue
-	 */
-	public String getNextDialogue(){
+	public DialogueBox getNextDialogueBox(){
 		return myDialogue.poll();
 	}
-	
-	/**
-	 * To be accessed by view
-	 * Returns imagePathList to allow for dialogue to be set up.
-	 *
-	 * @return the image path list
-	 */
-	public List<String> getImagePathList(){
-		return myImagePathList;
-	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#setName(java.lang.String)
-	 */
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#getName()
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#updateParams(java.util.List)
-	 */
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
+
+
 	}
-}

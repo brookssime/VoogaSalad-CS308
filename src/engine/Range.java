@@ -20,51 +20,56 @@ import interfaces.Collidable;
  * 
  * 
  */
-public class Range implements Collidable, Authorable{
-	
+public class Range implements Collidable{
+
 	/** The my name. */
 	private String myName;
 	
-	/** The enemies in range. */
-	private ArrayList<Enemy> enemiesInRange = new ArrayList<Enemy>();
-	
+
+	/** The objects in range. */
+	private ArrayList<Collidable> objectsInRange = new ArrayList<Collidable>();
+
 	/** The my collision bounds. */
 	private Shape myCollisionBounds;
+
 	
+	
+
+
 	/** The my location. */
 	private Point myLocation;
-	
+
 	/** The my rad. */
 	private int myRad;
-	
+
+
 	/**
 	 * Instantiates a new range.
 	 */
 	public Range(){
-		
+
 	}
 
-	/**
-	 * Gets the enemies in range.
-	 *
-	 * @return the enemies in range
-	 */
-	public ArrayList<Enemy> getEnemiesInRange(){
-		return enemiesInRange;
+	public Range(int x, int y, int r){
+		myCollisionBounds = new Ellipse2D.Double(x, y, r, r);
 	}
+
+	public ArrayList<Collidable> getObjectsInRange(){
+		return objectsInRange;
+	}
+
+
+	//REFACTOR THIS to allow for use by BOTH ENEMIES AND TOWERS--ie discriminate based on ID, name, etc.
 	
-	/* (non-Javadoc)
-	 * @see interfaces.Collidable#evaluateCollision(interfaces.Collidable)
-	 */
 	@Override
 	public boolean evaluateCollision(Collidable collider) {
 		if(!(collider.getClass() == Enemy.class)){
-			enemiesInRange.add((Enemy)collider); 
+			objectsInRange.add(collider); 
 			return true;
 		}
-			return false;
+		return false;
 	}
-	
+
 	/**
 	 * Refresh enemies.
 	 */
@@ -86,7 +91,7 @@ public class Range implements Collidable, Authorable{
 	 */
 	public void setCollisionBounds() {
 		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRad*2, myRad*2);
-		
+
 	}
 
 	/* (non-Javadoc)
@@ -97,30 +102,10 @@ public class Range implements Collidable, Authorable{
 		return myCollisionBounds;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#setName(java.lang.String)
-	 */
+	
 	@Override
-	public void setName(String s) {
+	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#getName()
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#updateParams(java.util.List)
-	 */
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 }

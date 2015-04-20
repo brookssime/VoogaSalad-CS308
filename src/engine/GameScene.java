@@ -3,6 +3,7 @@ package engine;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class GameScene.
@@ -11,13 +12,16 @@ import javafx.util.Duration;
  * 
  * 
  */
-public abstract class GameScene {
+
+public abstract class GameScene extends GameObject{
+
 	
 	/** The my name. */
 	private String myName;
 	
 	/** The my next. */
 	private GameScene myNext;
+
 	
 	/** The my has completed. */
 	protected boolean myHasCompleted;
@@ -30,12 +34,13 @@ public abstract class GameScene {
 	
 	/** The my game won. */
 	protected boolean myGameWon;
+
 	
 	/**
 	 * Instantiates a new game scene.
 	 */
 	public GameScene(){
-		myGameLost = false;
+		//myGameLost = false;
 	}
 
 	/**
@@ -54,10 +59,13 @@ public abstract class GameScene {
 	 */
 	public abstract void update();
 	
+
 	/**
 	 * Check complete.
 	 */
-	public abstract void checkComplete();
+	
+	public abstract boolean isComplete();
+
 	
 	/**
 	 * Gets the next scene.
@@ -77,15 +85,8 @@ public abstract class GameScene {
 		return myScene;
 	}
 	
-	/**
-	 * Checks if is complete.
-	 *
-	 * @return true, if is complete
-	 */
-	public boolean isComplete(){
-		checkComplete();
-		return myHasCompleted;
-	}
+
+
 	
 	/**
 	 * Sets the next scene.

@@ -7,17 +7,17 @@ import interfaces.Authorable;
 
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Wave.
- */
-public class Wave implements Authorable{
+public class Wave extends GameObject{
 	
 	/** The my name. */
 	private String myName;
 	
 	/** The my enemies. */
 	private List<Enemy> myEnemies;
+
+
+	private String myPortName; //myPortName NEEDS TO BE UNIQUE FOR EACH PORT
+
 	
 	/** The my delays. */
 	private List<Long> myDelays;
@@ -32,12 +32,20 @@ public class Wave implements Authorable{
 		
 	}
 	
-	/**
-	 * Update.
-	 *
-	 * @param startTime the start time
-	 * @return the list
-	 */
+
+	public void setPortName(String portName){
+		myPortName = portName;
+	}
+	
+	public void setEnemies(List<Enemy> enemies){
+		myEnemies = enemies;
+	}
+	
+	public void setDelays(List<Long> delays){
+		myDelays = delays;
+	}
+	
+
 	public List<Enemy> update(long startTime) {
 		List<Enemy> toSpawn = null;
 		long elapsedTime = startTime - System.nanoTime();
@@ -63,31 +71,7 @@ public class Wave implements Authorable{
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#setName(java.lang.String)
-	 */
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#getName()
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#updateParams(java.util.List)
-	 */
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
