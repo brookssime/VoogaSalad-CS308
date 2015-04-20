@@ -1,7 +1,7 @@
 package game_data;
 
 import java.io.File;
-
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -58,6 +59,8 @@ public class GameData {
 		XStream xstream = new XStream(new DomDriver());
 		JFileChooser fileChooser = new JFileChooser(System.getProperties()
 				.getProperty("user.dir") + "/src/resources/game_data");
+		FileNameExtensionFilter XMLfilter = new FileNameExtensionFilter("XML","xml");
+		fileChooser.addChoosableFileFilter(XMLfilter);
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		int retval = fileChooser.showOpenDialog(null);
 		if (retval != JFileChooser.APPROVE_OPTION) {

@@ -124,6 +124,7 @@ public class Projectile implements Collidable, Movable, Authorable{
 	@Override
 	public void setName(String s) {
 		// TODO Auto-generated method stub
+		myName = s;
 		
 	}
 
@@ -133,7 +134,7 @@ public class Projectile implements Collidable, Movable, Authorable{
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return null;
+		return myName;
 	}
 
 	/* (non-Javadoc)
