@@ -25,14 +25,14 @@ public class ExampleUsage {
 
 		// saving t1 to a file named by the user's choice.
 		try {
-			GameData.SaveGameData(p1);
+			XMLWriter.SaveGameData(p1);
 		} catch (IOException e) {
 			System.out.println("Failed to save file: " + e);
 		}
 
 		// loading the file into t2
 		try {
-			p2 = (Projectile) GameData.LoadGameData();
+			p2 = (Projectile) XMLWriter.LoadGameData() ;
 		} catch (ClassNotFoundException e) {
 			System.out.println("Class not found: " + e);
 		} catch (IOException e) {

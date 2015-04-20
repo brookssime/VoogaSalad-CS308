@@ -23,7 +23,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  *
  */
 
-public class GameData {
+public class XMLWriter {
 	/*
 	 * Takes in an object and lets the user save it at a directory with a file
 	 * name.
