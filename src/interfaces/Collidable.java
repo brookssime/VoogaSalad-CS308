@@ -2,10 +2,8 @@
  * 
  */
 package interfaces;
-import java.awt.geom.*;
 import java.awt.Shape;
-
-import engine.gameLogic.Effect;
+import java.awt.geom.Area;
 
 
 // TODO: Auto-generated Javadoc
@@ -23,12 +21,7 @@ public interface Collidable extends Comparable{
 	 */
 	boolean evaluateCollision(Collidable collider);
 	
-	/**
-	 * Checks if is dead.
-	 *
-	 * @return true, if is dead
-	 */
-	boolean isDead(); //TODO: maybe make this a default method?
+
 	
 	/**
 	 * Sets the collision bounds.
