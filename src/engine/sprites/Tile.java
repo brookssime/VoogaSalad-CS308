@@ -1,10 +1,6 @@
 package engine.sprites;
 
-import java.awt.Point;
-
-import java.awt.Shape;
 import java.awt.geom.Point2D;
-import java.util.List;
 
 
 /**
@@ -65,8 +61,8 @@ public class Tile{
 	}
 
 	public int getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		// TODO change if we ever need to consider Tiles of width != 1
+		return 1;
 
 	}
 }
