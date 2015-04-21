@@ -1,11 +1,8 @@
 package engine;
 
-import java.util.List;
-
 import engine.gameScreens.GameScene;
 import engine.gameScreens.LevelScene;
 import engine.gameScreens.Store;
-import interfaces.GameObject;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 

@@ -1,8 +1,5 @@
 package engine.gameScreens;
 
-import interfaces.GameObject;
-
-import java.util.List;
 import java.util.Queue;
 
 import javafx.animation.KeyFrame;
@@ -16,7 +13,7 @@ import engine.gameLogic.Wave;
  * @author Brooks, Patrick, Robert, and Sid.
  * 
  */
-public class LevelScene extends GameScene implements GameObject {
+public class LevelScene extends GameScene {
 
 
 	/** The my name. */
@@ -132,8 +129,4 @@ public class LevelScene extends GameScene implements GameObject {
 	/* (non-Javadoc)
 	 * @see interfaces.Authorable#updateParams(java.util.List)
 	 */
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-	}
 }

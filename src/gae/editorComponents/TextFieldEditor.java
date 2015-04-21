@@ -37,12 +37,12 @@ public class TextFieldEditor extends EditorComponent {
 	 *
 	 * @param obj
 	 *            the object being created/edited
-	 * @param method
+	 * @param setMethod
 	 *            the method used to modify the object
 	 */
 
-	public TextFieldEditor(Receiver receiver, Method method, String objectName) {
-		super(receiver, method, objectName);
+	public TextFieldEditor(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
+		super(receiver, setMethod, getMethod, objectName);
 	}
 
 	@Override
@@ -51,8 +51,8 @@ public class TextFieldEditor extends EditorComponent {
 		fieldLabel = new Label();
 		myBox.getChildren().add(fieldLabel);
 
-		Class<?>[] parameterType = myMethod.getParameterTypes();
-		Annotation[][] parameterAnnotations = myMethod
+		Class<?>[] parameterType = mySetMethod.getParameterTypes();
+		Annotation[][] parameterAnnotations = mySetMethod
 				.getParameterAnnotations();
 		ArrayList<String> parameterNames = new ArrayList<>();
 		parametersLength = new Integer(parameterType.length);
@@ -65,12 +65,13 @@ public class TextFieldEditor extends EditorComponent {
 		}
 
 		textFields = new TextField[parametersLength];
-
 		for (int index = 0; index < parametersLength; index++) {
-			Label label = new Label(parameterNames.get(index));
-			TextField textField = new TextField();
-			myBox.getChildren().addAll(label, textField);
-			textFields[index] = textField;
+				Label label = new Label(parameterNames.get(index));
+				TextField textField = new TextField();
+				System.out.println(myReceiver.getFromObject(myObject, myGetMethod, (Object[]) null));
+				textField.setText((String) myReceiver.getFromObject(myObject, myGetMethod, (Object[]) null));
+				myBox.getChildren().addAll(label, textField);
+				textFields[index] = textField;
 		}
 
 		setButton = new Button("Set");
@@ -80,9 +81,10 @@ public class TextFieldEditor extends EditorComponent {
 				String argStr = textFields[index].getText();
 				Object arg = Reflection.createInstance(
 						parameterType[index].getName(), argStr);
+				System.out.println(arg);
 				paramObjects[index] = arg;
 			}
-			myReceiver.runOnObject(myObject, myMethod, paramObjects);
+			myReceiver.runOnObject(myObject, mySetMethod, paramObjects);
 		});
 		myBox.getChildren().add(setButton);
 

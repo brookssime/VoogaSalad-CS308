@@ -32,8 +32,8 @@ public class FileSelector extends EditorComponent {
 	private final static Double displayWidth = 100.0;
 	private final static Double displayHeight = 100.0;
 
-	public FileSelector(Receiver receiver, Method method, String objectName) {
-		super(receiver, method, objectName);
+	public FileSelector(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
+		super(receiver, setMethod, getMethod, objectName);
 
 	}
 
@@ -43,7 +43,7 @@ public class FileSelector extends EditorComponent {
 		// added
 		// TODO ?multiple select button in case multiple select files
 
-		Annotation[][] Annotations = myMethod.getParameterAnnotations();
+		Annotation[][] Annotations = mySetMethod.getParameterAnnotations();
 		Annotation[] annotationList = Annotations[0];
 		ParameterAnnotation parameterAnnotation = (ParameterAnnotation) annotationList[0];
 		String parameterName = parameterAnnotation.name();
@@ -67,7 +67,7 @@ public class FileSelector extends EditorComponent {
 			}
 			selectedFile = fileChooser.getSelectedFile();
 			myDisplay.setImage(new Image(selectedFile.toURI().toString()));
-			myReceiver.runOnObject(myObject, myMethod, selectedFile);
+			myReceiver.runOnObject(myObject, mySetMethod, selectedFile);
 		});
 
 	}

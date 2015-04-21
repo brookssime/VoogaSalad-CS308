@@ -16,16 +16,18 @@ import javafx.scene.layout.VBox;
 public abstract class EditorComponent extends VBox {
 
 	protected Label fieldLabel;
-	protected Method myMethod;
+	protected Method mySetMethod;
+	protected Method myGetMethod;
 	protected Receiver myReceiver;
 
 	protected String myObject;
 
-	public EditorComponent(Receiver receiver, Method method, String objectName) {
+	public EditorComponent(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
 		myReceiver = receiver;
-		myMethod = method;
+		mySetMethod = setMethod;
+		myGetMethod = getMethod;
 		myObject = objectName;
-		MethodAnnotation methodAnnotation = method
+		MethodAnnotation methodAnnotation = setMethod
 				.getAnnotation(MethodAnnotation.class);
 		String methodName = methodAnnotation.name();
 		fieldLabel = new Label(methodName);
