@@ -1,7 +1,9 @@
 package engine;
 
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import engine.gameLogic.Placement;
@@ -10,26 +12,32 @@ public class EnemyMovement {
 	
 	// should describe the EQUATION that describes movement
 	
-	private Double mySpeed; // dx in path direction
-	private Double myAmplitude;
-	private Double myFrequency;
+	private double mySpeed; // dx in path direction
+	private double myAmplitude;
+	private double myFrequency;
 	
 	public EnemyMovement(){
 		
 	}
 	
-	Double getAmplitude(){
+	double getAmplitude(){
 		return myAmplitude;
 	}
 	
-	public LinkedList<Placement> makeStretch(Point2D.Double start, Point2D.Double end, int directionProperty){
+	public LinkedList<Placement> makeStretch(Placement p1, Placement p2, int directionProperty){
+		
+		Point2D.Double start;
+		Point2D.Double end;
+		
+		start = p1.getLocation();
+		end = p2.getLocation();
 		
 		LinkedList<Placement> path = new LinkedList<Placement>();
 		
 		Random freqRandom = new Random((long) (2*(1/myFrequency)));
-		Double c = freqRandom.nextDouble()-1/myFrequency;
-		Double zeroLoc = getCoordProperty(start, directionProperty); // baseline in direction we care about
-		Double distance = getCoordProperty(start, directionProperty) - getCoordProperty(end,directionProperty); // distance in direction we care about
+		double c = freqRandom.nextDouble()-1/myFrequency;
+		double zeroLoc = getCoordProperty(start, directionProperty); // baseline in direction we care about
+		double distance = getCoordProperty(start, directionProperty) - getCoordProperty(end,directionProperty); // distance in direction we care about
 		
 		// if current is less than target, increment positively; else, increment negatively
 		int modifier  = ((getCoordProperty(start, directionProperty)) < (getCoordProperty(end, directionProperty))?1:-1);
@@ -64,9 +72,14 @@ public class EnemyMovement {
 		
 	}
 	
+	public List<Placement> makeTurn(Placement start, Placement end) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
-	Double getCoordProperty(Point2D.Double p, int i){
+	
+	double getCoordProperty(Point2D.Double p, int i){
 		if(i == 0)
 			return p.x;
 		return p.y;
@@ -78,5 +91,7 @@ public class EnemyMovement {
 		else
 			p.y = D;	
 	}
+
+	
 
 }

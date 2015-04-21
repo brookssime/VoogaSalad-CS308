@@ -11,6 +11,11 @@ public class Placement {
 	public Placement(){	
 	}
 	
+	public Placement(Point2D.Double location){
+		myLocation = location;
+		myHeading = 0.0;
+	}
+	
 	public Placement(Point2D.Double location, double d) {
 		myLocation = location;
 		myHeading = d;
