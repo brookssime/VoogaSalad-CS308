@@ -13,7 +13,6 @@ import javafx.util.Duration;
  */
 public abstract class GameScene extends GameObject{
 
-
 	private GameScene myNext;
 	
 	/** The my has completed. */

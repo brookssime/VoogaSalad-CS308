@@ -12,8 +12,8 @@ public class Path {
 	
 	private LinkedList<Placement> myPlacements;
 	
-	public Path(){
-		
+	public Path(LinkedList<Placement> placements){
+		myPlacements = placements;
 	}
 	
 	public Placement getNext(){

@@ -3,11 +3,15 @@ package engine.gameLogic;
 import interfaces.Collidable;
 import interfaces.Shootable;
 
+import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
+import engine.EnemyMovement;
 import engine.Grid;
 import engine.sprites.Enemy;
 import engine.sprites.Projectile;
@@ -15,7 +19,6 @@ import engine.sprites.Tile;
 
 public class PathFinder {
 	
-	//private Tile[][] myTiles;
 	private Grid myGrid;
 	private HashMap<String, Path> myEnemyPaths; 
 	// this will be an issue when multiple enemies of the same type require different paths..
@@ -45,18 +48,64 @@ public class PathFinder {
 				
 			}
 		}
-		return convertToPath(path);
+		return convertToPath(path, enemy);
 	}
 	
-	/**
-	 * TODO: make this function
-	 * @param tiles
-	 * @return
-	 */
-	private Path convertToPath(LinkedList<Tile> tiles){
+
+	private Path convertToPath(LinkedList<Tile> tiles, Enemy enemy){
+		Tile[] tileArray = (Tile[]) tiles.toArray();
+		
+		List<Placement> myMovements = new LinkedList<Placement>();
+		
+		Tile lastStraight = tileArray[0];
+		
+		for (int i = 2; i < tileArray.length; i++){
+			if(tileArray[i-2].getX() != tileArray[i].getX() && tileArray[i-2].getY() != tileArray[i].getY()){
+				myMovements.addAll(generateStretch(lastStraight.getLocation(), tileArray[i-2].getLocation(), enemy.getMovement()));
+				myMovements.addAll(generateTurn(tileArray[i-2].getLocation(), tileArray[i].getLocation(), enemy.getMovement()));
+				lastStraight = tileArray[i];	
+			}
+		}
+		
+		// MAKE SURE THIS CAST WORKS
+		return new Path((LinkedList<Placement>) myMovements); 
+	}
+	
+	
+	// Given two points which represent two tiles on the ends of a straightaway
+	List<Placement> generateStretch(Point2D.Double Start, Point2D.Double End, EnemyMovement m){
+		Start = (Point2D.Double) Start;
+		int myCoordProperty = 0;
+	
+		// 1. Adjust actual coordinates as necessary from Tile Locations
+		
+		if(Start.x != End.x){
+			Start.setLocation(Start.x + (myGrid.getTiles()[(int)Start.x][(int)Start.y].getWidth())*((Start.x < End.x)?1:0) , Start.y); 
+			End.setLocation(End.x + (myGrid.getTiles()[(int)End.x][(int)End.y].getWidth())*((Start.x < End.x)?0:1), End.y);
+			myCoordProperty = 0;
+		}
+		
+		else if(Start.y != End.y){
+			Start.setLocation(Start.x, Start.y + (myGrid.getTiles()[(int)Start.x][(int)Start.y].getWidth())*((Start.y < End.y)?1:0));
+			End.setLocation(End.x, End.y + (myGrid.getTiles()[(int)End.x][(int)End.y].getWidth())*((Start.y < End.y)?0:1));
+			myCoordProperty = 1;
+		}
+		
+		// calculate Placements based on points and coordinate property
+		
+		List<Placement> stretch = m.makeStretch(Start, End, myCoordProperty);
+		return stretch;
+
+	}
+	
+	// Given two points which represent Tiles on either side of a Corner Tile
+	List<Placement> generateTurn(Point2D.Double Start, Point2D.Double End, EnemyMovement m){
+		// TODO 
 		return null;
 	}
 	
+	
+
 	public Tile findNextTile(Tile current, Enemy enemy){
 		for (Tile t: getTileNeighbors(current)){
 			if(enemy.getWalkables().contains(t.getName()) && !enemy.getTilePath().contains(t)){
@@ -89,14 +138,7 @@ public class PathFinder {
 				
 			}
 		}
-		
-		/*neighbors.add(myTiles[x-1][y]);
-		neighbors.add(myTiles[x+1][y]);
-		neighbors.add(myTiles[x][y-1]);
-		neighbors.add(myTiles[x][y+1]);
-		//TODO
-		*/
-		
+
 		return neighbors;
 	}
 
@@ -110,4 +152,6 @@ public class PathFinder {
 		newP.setPath(path);
 		myGrid.placeGridObjectAt(projectile, path.getNext());
 	}
+
 }
+
