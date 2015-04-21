@@ -1,13 +1,10 @@
 package engine;
 
-import java.util.List;
-
+import javafx.animation.KeyFrame;
+import javafx.util.Duration;
 import engine.gameScreens.GameScene;
 import engine.gameScreens.LevelScene;
 import engine.gameScreens.Store;
-import interfaces.Authorable;
-import javafx.animation.KeyFrame;
-import javafx.util.Duration;
 
 /**
  * The Class Game.
@@ -19,8 +16,7 @@ public class Game {
 	
 	/** The my name. */
 	private String myName;
-	
-	/** The frame rate. */
+
 	private final int FRAME_RATE = 10;
 	
 	/** The my head. */
@@ -96,6 +92,4 @@ public class Game {
 	public boolean sceneComplete(){
 		return myHead.isComplete();
 	}
-
-	
 }
