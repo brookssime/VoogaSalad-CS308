@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Path {
 	
@@ -10,9 +11,14 @@ public class Path {
 		
 	}
 	
+	public Path(LinkedList<Placement> placements){
+		myPlacements = placements;
+	}
+	
 	Placement getNext(){
 		return myPlacements.pop();
 	}
+
 	
 	//creates a new instance of this Path, including modifying for randomness
 	Path generateNew(){
@@ -28,6 +34,9 @@ public class Path {
 	LinkedList<Placement> getPlacements(){
 		return myPlacements;
 	}
+	
+	
+	
 	
 	//TODO: come back to this
 

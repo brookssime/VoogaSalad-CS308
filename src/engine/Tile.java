@@ -7,6 +7,7 @@ import interfaces.Authorable;
 
 import java.awt.Point;
 import java.awt.Shape;
+import java.awt.geom.Point2D;
 import java.util.List;
 
 
@@ -26,11 +27,11 @@ public class Tile{
 	/** The my image path. */
 	private String myImagePath;
 
-	private Point myLocation = new Point();
+	private Point2D.Double myLocation = new Point2D.Double();
 	
 	public Tile(int x, int y, String imagePath){
-		myLocation.x = x;
-		myLocation.y = y;
+		myLocation.x = (double)x;
+		myLocation.y = (double)y;
 		myImagePath = imagePath;
 	}
 	
@@ -39,7 +40,7 @@ public class Tile{
 		myLocation.y = y;
 	}
 	
-	public Point getLocation(){
+	public Point2D.Double getLocation(){
 		return myLocation;
 	}
 	
@@ -62,11 +63,16 @@ public class Tile{
 
 
 	public int getX() {
-		return myLocation.x;
+		return (int) myLocation.x;
 	}
 	
 	public int getY(){
-		return myLocation.y;
+		return (int) myLocation.y;
 
+	}
+
+	public int getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

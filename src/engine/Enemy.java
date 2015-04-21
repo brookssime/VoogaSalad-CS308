@@ -33,24 +33,16 @@ import java.util.TimerTask;
 public class Enemy extends GridObject implements Collidable, Movable {
 
 
-	private String myName;
-
-	/** The my speed. */
-
 
 	private Integer mySpeed;
+	
+	private EnemyMovement myEnemyMovement;
 
 	/** The my damage. */
 	private Integer myDamage;
 
 	/** The my health. */
 	private Integer myHealth;
-
-	/** The my walkable. */
-	private List<Integer> myWalkable;
-
-	/** The my image string. */
-	private String myImageString;
 
 	/** The my collision bounds. */
 	private Shape myCollisionBounds;
@@ -61,11 +53,7 @@ public class Enemy extends GridObject implements Collidable, Movable {
 	/** The my rad. */
 	private int myRad;
 
-	/** The tiles walked. */
-	private int tilesWalked;
-
-
-	private Integer myID; // IMPLEMENT CREATING THIS
+	private Integer myID; // set by GAE
 
 	/** The timer. */
 	private Timer timer;
@@ -87,7 +75,9 @@ public class Enemy extends GridObject implements Collidable, Movable {
 		myTilePath = new LinkedList<Tile>();
 	}
 	
-	
+	/**
+	 * The following exist for the GAE's use
+	 */
 	public void setHealth(int x){
 		myHealth = x;
 	}
@@ -255,6 +245,10 @@ public class Enemy extends GridObject implements Collidable, Movable {
 		public boolean evaluateCollision(Collidable collider) {
 			// TODO Auto-generated method stub
 			return false;
+		}
+
+		public EnemyMovement getMovement() {
+			return myEnemyMovement;
 		}
 	}
 
