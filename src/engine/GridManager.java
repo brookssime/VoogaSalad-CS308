@@ -4,18 +4,23 @@ import interfaces.Collidable;
 import interfaces.Movable;
 import interfaces.Shootable;
 
-import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-// TODO: Auto-generated Javadoc
+import engine.gameLogic.Path;
+import engine.gameLogic.PathFinder;
+import engine.gameLogic.Placement;
+import engine.gameLogic.Wave;
+import engine.sprites.Base;
+import engine.sprites.Enemy;
+import engine.sprites.GridObject;
+import engine.sprites.Projectile;
+
 /**
  * The Class GridManager.
  * 
@@ -24,7 +29,6 @@ import java.util.stream.Collectors;
  */
 public class GridManager {
 
-
 	/** The my grid. */
 	private Grid myGrid;
 
@@ -32,10 +36,6 @@ public class GridManager {
 	private HashMap<String, Path> myEnemyPaths;
 
 	/** The my movables. */
-
-
-
-
 	private List<Movable> myMovables;
 
 	/** The my shootables. */
@@ -50,12 +50,7 @@ public class GridManager {
 
 	/** The my start time. */
 	private long myStartTime;
-
-
-
-
 	private PathFinder myPathFinder;
-
 
 	/** The my base. */
 	private Base myBase;
@@ -63,14 +58,12 @@ public class GridManager {
 	private boolean myHasCompleted; // remove these 
 	private boolean myGameWon; //remove these
 
-
 	/**
 	 * TODO: How are all of these lists being populated?
 	 * TODO: Where do we initialize Grid? XStream?.
 	 *
 	 * @param g the g
 	 */
-
 	public GridManager(Grid g){
 		//myGrid = g;
 		sortObjects(g.getGridObjectMap());
@@ -99,7 +92,6 @@ public class GridManager {
 		spawnEnemies();
 	}
 
-
 	/**
 	 * Start.
 	 */
@@ -125,7 +117,7 @@ public class GridManager {
 	}
 
 	/**
-	 * Clean this up if time?.
+	 * TODO: Clean this up
 	 */
 	private void checkCollidables() {
 		for (Collidable sprite : myCollidables) {
@@ -141,7 +133,6 @@ public class GridManager {
 		}
 	}
 
-
 	private void checkShootables(){
 		for (Shootable s : myShootables){
 			s.update();
@@ -155,13 +146,10 @@ public class GridManager {
 		myPathFinder.generateProjectile(s.fire(), myPathFinder.target(s, c));
 	}
 
-
 	//TODO: Come back such that we don't have to return the range...then take getRange out of the interface
 	private List<Collidable> getObjectsInRange(Shootable c){
 		return c.getRangeObject().getObjectsInRange();
 	}
-
-
 
 	private void moveSprites() {
 		for (Movable sprite : myMovables) {
@@ -181,7 +169,6 @@ public class GridManager {
 		mySpritesToRemove.clear();
 	}
 
-
 	public void checkComplete() {
 		if (myBase.isDead()) {
 			myGameLost = true;
@@ -193,17 +180,14 @@ public class GridManager {
 		}
 	}
 
-	/**
-	 * TODO: Figure out timing and how to space out enemies within wave What
-	 * data structure do we use for waves?.
-	 */
 	private void spawnEnemies() {
 		while (!myWaves.peek().isComplete()) {
 			Wave w = myWaves.peek();
 			List<Enemy> spawnedEnemies = w.update(myStartTime);
 			//List<Enemy> spawnedEnemies = myWaves.peek().update(myStartTime);
-			for (Enemy e : spawnedEnemies)
+			for (Enemy e : spawnedEnemies){
 				myPathFinder.setEnemyPath(e, w);
+			}
 			while (spawnedEnemies != null) {
 				myMovables.addAll(spawnedEnemies);
 				myCollidables.addAll(spawnedEnemies);
@@ -212,10 +196,7 @@ public class GridManager {
 		myWaves.poll();
 	}
 
-
 	public Queue<Wave> getWaves() {
 		return myWaves;
 	}
-
-
 }

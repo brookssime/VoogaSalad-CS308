@@ -4,6 +4,8 @@ import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.Random;
 
+import engine.gameLogic.Placement;
+
 public class EnemyMovement {
 	
 	// should describe the EQUATION that describes movement
@@ -20,7 +22,7 @@ public class EnemyMovement {
 		return myAmplitude;
 	}
 	
-	LinkedList<Placement> makeStretch(Point2D.Double start, Point2D.Double end, int directionProperty){
+	public LinkedList<Placement> makeStretch(Point2D.Double start, Point2D.Double end, int directionProperty){
 		
 		LinkedList<Placement> path = new LinkedList<Placement>();
 		

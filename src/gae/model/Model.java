@@ -1,67 +1,76 @@
 package gae.model;
 
-import gae.inventory.Inventory;
+import gae.model.inventory.Inventory;
+import gae.view.inventorypane.UpdateListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javafx.beans.property.ObjectProperty;
-import javafx.collections.ObservableList;
+import java.lang.reflect.Method;
+import java.util.Set;
 
 /**
  * Not yet implemented
+ * 
  * @author Peter
  */
 public class Model implements Receiver {
-	
+
 	Inventory myInventory;
-	
+
 	public Model() {
-		
+
 		myInventory = new Inventory();
-		
+
 	}
 
 	@Override
 	public void addObject(String type) {
-		// TODO Auto-generated method stub
 		myInventory.addObject(type);
 	}
 
 	@Override
-	public void updateObject(String type, String obj, List<Object> params) {
-		// TODO Auto-generated method stub
-		
+	public void runOnObject(String obj, Method method, Object... params) {
+		myInventory.runOnObject(obj, method, params);
 	}
 
 	@Override
-	public void editObject(String type, String obj) {
-		// TODO Auto-generated method stub
-		
+	public Object getFromObject(String obj, Method method, Object... params) {
+		return myInventory.getFromObject(obj, method, params);
+	}
+
+	@Override
+	public void removeObject(String obj) {
+		myInventory.removeObject(obj);
+	}
+
+	@Override
+	public String getType(String obj) {
+		return myInventory.getType(obj);
+	}
+
+	@Override
+	public Set<String> getList(String type) {
+		return myInventory.getList(type);
 	}
 
 	@Override
 	public void saveFile() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void exportFile(String game) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	// might not be used
+	// is used
 	@Override
-	public void setBind(String type, ObjectProperty<ObservableList<String>> prop) {
-		// TODO Auto-generated method stub
-		
+	public void setListener(String type, UpdateListener ul) {
+		myInventory.setListener(type, ul);
 	}
 
-	@Override
-	public ArrayList<String> getElements(String type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	// We need a way of getting every instances of one kind (all created towers
+	// for example)
 
 }

@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import engine.Tower;
+import engine.sprites.Tower;
 
 /*
  * display the tower info such as price range damage and name

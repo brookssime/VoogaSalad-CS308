@@ -3,6 +3,8 @@ package engine;
 import java.util.LinkedList;
 import java.util.Random;
 
+import engine.gameLogic.Placement;
+
 public class Path {
 	
 	LinkedList<Placement> myPlacements;
