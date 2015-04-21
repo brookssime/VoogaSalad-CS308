@@ -1,6 +1,6 @@
 package engine.gameScreens;
 
-import interfaces.Authorable;
+import interfaces.GameObject;
 
 import java.util.List;
 import java.util.Queue;
@@ -16,7 +16,7 @@ import engine.gameLogic.Wave;
  * @author Brooks, Patrick, Robert, and Sid.
  * 
  */
-public class LevelScene extends GameScene implements Authorable {
+public class LevelScene extends GameScene implements GameObject {
 
 	private String myName;
 	private String myLevelTitle; 

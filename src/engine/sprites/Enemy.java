@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import engine.EnemyMovement;
 import engine.gameLogic.Path;
 import engine.gameLogic.Placement;
 
@@ -18,22 +19,16 @@ import engine.gameLogic.Placement;
  */
 public class Enemy extends GridObject implements Collidable, Movable {
 
-	private String myName;
 
-	/** The my speed. */
 	private Integer mySpeed;
+	
+	private EnemyMovement myEnemyMovement;
 
 	/** The my damage. */
 	private Integer myDamage;
 
 	/** The my health. */
 	private Integer myHealth;
-
-	/** The my walkable. */
-	private List<Integer> myWalkable;
-
-	/** The my image string. */
-	private String myImageString;
 
 	/** The my collision bounds. */
 	private Shape myCollisionBounds;
@@ -44,9 +39,6 @@ public class Enemy extends GridObject implements Collidable, Movable {
 	/** The my rad. */
 	private int myRad;
 
-	/** The tiles walked. */
-	private int tilesWalked;
-	private Integer myID; // IMPLEMENT CREATING THIS
 
 	/** The timer. */
 	private Timer timer;
@@ -63,7 +55,11 @@ public class Enemy extends GridObject implements Collidable, Movable {
 	public Enemy(){
 		myTilePath = new LinkedList<Tile>();
 	}
-	
+
+	/**
+	 * The following exist for the GAE's use
+	 */
+
 	public void setHealth(int x){
 		myHealth = x;
 	}
@@ -212,4 +208,12 @@ public class Enemy extends GridObject implements Collidable, Movable {
 			// TODO Auto-generated method stub
 			return false;
 		}
+
+
+		public EnemyMovement getMovement() {
+			return myEnemyMovement;
+		}
 	}
+
+
+

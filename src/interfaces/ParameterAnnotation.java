@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * Annotations for method parameters. 
  * 
- * @author Brooks, Patrick, Robert, and Sid.
+ * @author Negatu
  *
  */
 
@@ -14,9 +14,7 @@ import java.lang.annotation.*;
 public @interface ParameterAnnotation {
 	
 	/**
-	 * Name.
-	 *
-	 * @return the string
+	 * Name - the display name of the parameter in the editor
 	 */
 	public String name();
 

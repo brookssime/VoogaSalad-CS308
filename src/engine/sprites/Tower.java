@@ -61,6 +61,13 @@ public class Tower extends GridObject implements Shootable, Movable{
 	private Integer myRad;
 	private boolean isReady;
 	private Path myPath;
+	
+	/**
+	 * Default Constructor
+	 */
+	public Tower() {
+		
+	}
 
 	/**
 	 * Instantiates a new tower.
@@ -95,13 +102,6 @@ public class Tower extends GridObject implements Shootable, Movable{
 		myRad = radius;
 	}
 	
-	/* (non-Javadoc)
-	 * @see interfaces.EditableTower#getName()
-	 */
-	public String getName() {
-		return myName;
-	}
-
 	/* (non-Javadoc)
 	 * @see interfaces.Movable#move()
 	 */

@@ -32,16 +32,6 @@ public class Grid extends GameObject implements Observable{
 	private Map<GridObject, Placement> myGridObjectMap;	
 	private List<Tile> myPorts;
 	
-	/**
-	 * Instantiates a new grid.
-	 */
-	public Grid(Grid grid, GridManager gm){
-		myName = grid.myName;
-		myTiles = grid.myTiles;
-		myGridObjectMap = grid.myGridObjectMap;
-		myPorts = grid.myPorts;
-		myGridManager = gm;
-	}
 
 	/**
 	 * Instantiates a new grid.
@@ -55,6 +45,16 @@ public class Grid extends GameObject implements Observable{
 		init();
 	}
 
+	/**
+	 * Instantiates a grid that connects to the gridmanager
+	 */
+	public Grid(Grid grid, GridManager gm){
+		myName = grid.myName;
+		myTiles = grid.myTiles;
+		myGridObjectMap = grid.myGridObjectMap;
+		myPorts = grid.myPorts;
+		myGridManager = gm;
+	}
 	public Tile[][] getTiles(){
 		return myTiles;
 	}

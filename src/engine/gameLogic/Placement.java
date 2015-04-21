@@ -1,16 +1,22 @@
 package engine.gameLogic;
 
+
 import java.awt.geom.Point2D;
 
 public class Placement {
 	
-	private Point2D myLocation;
+	private Point2D.Double myLocation;
 	private double myHeading;
 	
 	public Placement(){	
 	}
 	
-	public void setLocation(Point2D location){
+	public Placement(Point2D.Double location, double d) {
+		myLocation = location;
+		myHeading = d;
+	}
+
+	public void setLocation(Point2D.Double location){
 		myLocation = location;
 	}
 	
@@ -18,7 +24,7 @@ public class Placement {
 		myHeading = heading;
 	}
 	
-	public Point2D getLocation(){
+	public Point2D.Double getLocation(){
 		return myLocation;
 	}
 	
