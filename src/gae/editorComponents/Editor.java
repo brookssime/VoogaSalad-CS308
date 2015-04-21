@@ -42,7 +42,7 @@ public class Editor extends GAEPane {
 		myReceiver = receiver;
 
 		ArrayList<Method> objMethods = new ArrayList<Method>(
-				Reflection.getEditorMethods("engine." + myReceiver.getType(obj)));
+				Reflection.getEditorMethods("engine.sprites." + myReceiver.getType(obj)));
 		System.out.println(objMethods);
 
 		ArrayList<Method> setMethods = new ArrayList<Method>();
