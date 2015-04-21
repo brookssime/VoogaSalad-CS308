@@ -12,7 +12,7 @@ import java.util.List;
  *
  */
 
-public interface Authorable {
+public interface GameObject {
 	
 	/**
 	 * Sets the name.

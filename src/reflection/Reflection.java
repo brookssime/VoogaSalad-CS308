@@ -211,6 +211,24 @@ public class Reflection {
 		}
 	}
 	
+    /**
+     * return a list of methods for a given object that can be edited by the editor window.
+     *
+     * @param target object
+     * @return a list of editor methods
+     */
+    public static List<Method> getEditorMethods(Object target){
+    	Method[] allMethods = target.getClass().getMethods();
+    	List<Method> targetMethods = new ArrayList<>();
+    	 for(Method method : allMethods){
+    		 MethodAnnotation methodAnnotation = method.getAnnotation(MethodAnnotation.class);
+    		 if(methodAnnotation != null && methodAnnotation.editor()) {
+    			 targetMethods.add(method);
+    		 }
+    	 }
+    	return targetMethods;
+    }
+
 	// are parameters of compatible types and in same order?
 	/**
 	 * Types match.

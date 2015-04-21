@@ -5,7 +5,7 @@ package gae.model.inventory;
 
 import exceptions.ObjectDoesntExistException;
 import gae.view.inventorypane.UpdateListener;
-import interfaces.Authorable;
+import engine.gameLogic.GameObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -29,7 +29,7 @@ import javafx.collections.ObservableMap;
  */
 public class Inventory {
 
-	private Map<String, ObservableMap<String, Authorable>> myMaps;
+	private Map<String, ObservableMap<String, GameObject>> myMaps;
 
 	/** The Constant TYPES. */
 	private static final String[] TYPES = { "Game", "LevelScene",
@@ -41,15 +41,15 @@ public class Inventory {
 	 * Instantiates a new inventory.
 	 */
 	public Inventory() {
-		myMaps = new HashMap<String, ObservableMap<String, Authorable>>();
+		myMaps = new HashMap<String, ObservableMap<String, GameObject>>();
 		for (String type : TYPES) {
-			ObservableMap<String, Authorable> map = FXCollections
+			ObservableMap<String, GameObject> map = FXCollections
 					.observableHashMap();
 			myMaps.put(type, map);
 		}
 	}
 
-	private ObservableMap<String, Authorable> getMap(String obj) {
+	private ObservableMap<String, GameObject> getMap(String obj) {
 		for (String type : TYPES) {
 			if (myMaps.get(type).containsKey(obj)) {
 				return myMaps.get(type);
@@ -70,8 +70,8 @@ public class Inventory {
 	 *            the type
 	 */
 	public void addObject(String type) {
-		ObservableMap<String, Authorable> map = myMaps.get(type);
-		Authorable newThing = (Authorable) Reflection.createInstance("engine."
+		ObservableMap<String, GameObject> map = myMaps.get(type);
+		GameObject newThing = (GameObject) Reflection.createInstance("engine.sprites."
 				+ type);
 		String newName = "New" + type;
 		int vrsNum = 0;
@@ -92,8 +92,8 @@ public class Inventory {
 	 *            the params
 	 */
 	public void runOnObject(String obj, Method method, Object... params) {
-		ObservableMap<String, Authorable> map = getMap(obj);
-		Authorable object = map.get(obj);
+		ObservableMap<String, GameObject> map = getMap(obj);
+		GameObject object = map.get(obj);
 		try {
 			method.invoke(object, params);
 		} catch (IllegalAccessException | IllegalArgumentException
@@ -109,8 +109,8 @@ public class Inventory {
 	}
 
 	public Object getFromObject(String obj, Method method, Object... params) {
-		ObservableMap<String, Authorable> map = getMap(obj);
-		Authorable object = map.get(obj);
+		ObservableMap<String, GameObject> map = getMap(obj);
+		GameObject object = map.get(obj);
 		Object ret;
 		try {
 			ret = method.invoke(object, params);
@@ -122,9 +122,9 @@ public class Inventory {
 		return ret;
 	}
 
-	public Authorable getObject(String type, String obj) {
-		ObservableMap<String, Authorable> map = myMaps.get(type);
-		Authorable object = map.get(obj);
+	public GameObject getObject(String type, String obj) {
+		ObservableMap<String, GameObject> map = myMaps.get(type);
+		GameObject object = map.get(obj);
 		return object;
 	}
 
@@ -135,7 +135,7 @@ public class Inventory {
 	 *            the obj
 	 */
 	public void removeObject(String obj) {
-		ObservableMap<String, Authorable> map = getMap(obj);
+		ObservableMap<String, GameObject> map = getMap(obj);
 		map.remove(obj);
 	}
 
@@ -154,7 +154,7 @@ public class Inventory {
 	}
 
 	public Set<String> getList(String type) {
-		ObservableMap<String, Authorable> map = myMaps.get(type);
+		ObservableMap<String, GameObject> map = myMaps.get(type);
 		return map.keySet();
 	}
 
@@ -167,13 +167,13 @@ public class Inventory {
 	 *            the listener
 	 */
 	public void setListener(String type, UpdateListener ul) {
-		ObservableMap<String, Authorable> map = myMaps.get(type);
+		ObservableMap<String, GameObject> map = myMaps.get(type);
 		Set<String> update = map.keySet();
-		map.addListener(new MapChangeListener<String, Authorable>() {
+		map.addListener(new MapChangeListener<String, GameObject>() {
 
 			@Override
 			public void onChanged(
-					Change<? extends String, ? extends Authorable> arg0) {
+					Change<? extends String, ? extends GameObject> arg0) {
 				ul.setUpdate(FXCollections.observableArrayList(update));
 				ul.run();
 			}
