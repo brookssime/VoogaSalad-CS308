@@ -19,7 +19,6 @@ import engine.sprites.Tile;
 
 public class PathFinder {
 	
-	//private Tile[][] myTiles;
 	private Grid myGrid;
 	private HashMap<String, Path> myEnemyPaths; 
 	// this will be an issue when multiple enemies of the same type require different paths..
