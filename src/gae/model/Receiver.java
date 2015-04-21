@@ -1,30 +1,37 @@
 package gae.model;
 
-import java.util.List;
+import gae.view.inventorypane.UpdateListener;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.collections.ObservableList;
-import java.util.ArrayList;
-
-import engine.Game;
+import java.lang.reflect.Method;
+import java.util.Set;
 
 /**
  * 
- * @author sunjeevdevulapalli
- * A simple interface for the view to talk to the model.
+ * @author Peter A simple interface for the view to talk to the model.
  *
  */
 public interface Receiver {
-	
-	public void addObject(String type);
-	public void updateObject(String type, String obj, List<Object> params);
-	public void editObject(String type, String obj);
-	public void saveFile();
-	public void exportFile(String game);
-	public void setBind(String type, ObjectProperty<ObservableList<String>> prop);
-	public ArrayList<String> getElements(String type);
 
-	//type is the name of the editor like the class name
-	//obj is the name of the string key
-	//params
+	public void addObject(String type);
+
+	public void runOnObject(String obj, Method method, Object... params);
+
+	public Object getFromObject(String obj, Method method, Object... params);
+
+	public void removeObject(String obj);
+
+	public String getType(String obj);
+
+	public Set<String> getList(String type);// once peter figures how to do
+											// this, we will change it.
+
+	public void saveFile();
+
+	public void exportFile(String game);
+
+	public void setListener(String type, UpdateListener ul);
+
+	// type is the name of the editor like the class name
+	// obj is the name of the string key
+	// params
 }

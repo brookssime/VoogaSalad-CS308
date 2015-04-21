@@ -1,10 +1,14 @@
+/*
+ * 
+ */
 package gae;
+
+import interfaces.ParameterAnnotation;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import engine.ParameterAnnotation;
 import reflection.Reflection;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
@@ -12,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
+// TODO: Auto-generated Javadoc
 /**
  * An editor that can set values of a field for an object.
  * 
@@ -19,12 +24,28 @@ import javafx.scene.layout.HBox;
  *
  */
 public class FieldEditor extends Group {
+	
+	/** The my box. */
 	private HBox myBox;
+	
+	/** The field label. */
 	private Label fieldLabel;
+	
+	/** The text fields. */
 	private TextField[] textFields;
+	
+	/** The set button. */
 	private Button setButton;
+	
+	/** The parameters length. */
 	private Integer parametersLength;
 
+	/**
+	 * Instantiates a new field editor.
+	 *
+	 * @param method the method
+	 * @param obj the obj
+	 */
 	public FieldEditor(Method method, Object obj) {
 		myBox = new HBox();
 		fieldLabel = new Label();
