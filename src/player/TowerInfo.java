@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import engine.sprites.Tower;
 
@@ -16,7 +17,7 @@ import engine.sprites.Tower;
  */
 
 public class TowerInfo{
-	private ImageView image;
+	private StackPane image;
 	private String name;
 	private int price;
 	private int range;
@@ -35,9 +36,14 @@ public class TowerInfo{
 	}
 	
 	public TowerInfo(String imageFile, String name,int price,  int range, int damage ){
-		image = new ImageView(new Image((getClass().getResourceAsStream(imageFile))));
-		image.setFitHeight(IMAGESIZE);
-		image.setFitWidth(IMAGESIZE);
+		image = new StackPane();
+		Image towerimage = new Image((getClass().getResourceAsStream(imageFile)));
+		ImageView myimage = new ImageView(towerimage);
+		myimage.setFitHeight(IMAGESIZE);
+		myimage.setFitWidth(IMAGESIZE);
+		image.getChildren().add(myimage);
+		GraphicTower myTower = new GraphicTower(towerimage,display);
+		image.getChildren().add(myTower.getNode());
 		this.name = name;
 		this.price = price;
 		this.range = range;
