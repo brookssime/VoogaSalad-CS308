@@ -63,7 +63,7 @@ public abstract class GameNode extends GameObject{
 	 *
 	 * @return the next scene
 	 */
-	public GameNode getNextNode(String key){
+	public GameNode getNextNode(Double key){
 		return nextNodes.get(key);
 	}
 	
@@ -79,9 +79,9 @@ public abstract class GameNode extends GameObject{
 	/**
 	 * Sets the next scene.
 	 *
-	 * @param gameScene the new next scene
+	 * @param gameNode the new next scene
 	 */
-	public void setNextScene(GameNode gameScene){
-		myNext = gameScene;
+	public void addNewNode(Double key, GameNode gameNode){
+		nextNodes.put(key, gameNode);
 	}
 }
