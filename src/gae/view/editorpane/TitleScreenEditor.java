@@ -35,8 +35,7 @@ import javafx.stage.Stage;
 /**
  * 
  * @author sunjeevdevulapalli
- * Allows the user to edit the title screen editor. Extends GAEPane so that the user can also add to the
- * menu.
+ * Allows the user to edit the title screen editor. 
  *
  */
 public class TitleScreenEditor extends EditorPane{
