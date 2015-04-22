@@ -80,7 +80,7 @@ public class Grid extends GameObject implements Observable{
 
 	public void update(){
 		myGridManager.update();
-		myGridManager.checkComplete();
+		//myGridManager.checkComplete();
 	}
 
 	public void setTiles(Tile[][] tiles){

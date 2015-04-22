@@ -24,4 +24,6 @@ public abstract class GridObject extends GameObject{
 	public List<String> getAccessNames(){
 		return myAccessNames;
 	}
+	
+	public abstract boolean isDead();
 }
