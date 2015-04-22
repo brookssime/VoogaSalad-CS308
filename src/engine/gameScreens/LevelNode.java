@@ -16,7 +16,7 @@ import engine.gameLogic.Wave;
  * @author Brooks, Patrick, Robert, and Sid.
  * 
  */
-public class LevelScene extends GameScene implements GameObject {
+public class LevelNode extends GameNode implements GameObject {
 
 	private String myName;
 	private String myLevelTitle; 
@@ -24,7 +24,7 @@ public class LevelScene extends GameScene implements GameObject {
 	private Grid myGrid;
 	private GridManager myGridManager;
 
-	public LevelScene() {
+	public LevelNode() {
 		super();
 	}
 	
