@@ -1,10 +1,13 @@
 package gae.editorComponents;
 
+import interfaces.MethodAnnotation;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import engine.MethodAnnoation;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
@@ -41,19 +44,21 @@ public class Editor extends GAEPane {
 		myReceiver = receiver;
 
 		ArrayList<Method> objMethods = new ArrayList<Method>(
-				Reflection.getEditorMethods("engine." + myReceiver.getType(obj)));
+				Reflection.getEditorMethods("engine.gameLogic."
+						+ myReceiver.getType(obj)));
 		System.out.println(objMethods);
-		
-		ArrayList<Method> setMethods = new ArrayList<Method>();
-		ArrayList<Method> getMethods = new ArrayList<Method>();
-		
-		for (Method method : objMethods) {
-			MethodAnnoation ma = method.getAnnotation(engine.MethodAnnoation.class);
+
+		Map<Method, Method> methodMap = new HashMap<Method, Method>();
+
+		for (Method m1 : objMethods) {
+			MethodAnnotation ma = m1.getAnnotation(MethodAnnotation.class);
 			if (ma.gsType().equals("setter")) {
-				setMethods.add(method);
-			} else {
-				if (ma.gsType().equals("getter")) {
-					getMethods.add(method);
+				String str = ma.name();
+				for (Method m2 : objMethods) {
+					MethodAnnotation ma2 = m2.getAnnotation(MethodAnnotation.class);
+					if ((ma2.gsType().equals("getter")) && (ma2.name().equals(str))) {
+						methodMap.put(m1, m2);
+					}
 				}
 			}
 		}
@@ -65,21 +70,22 @@ public class Editor extends GAEPane {
 		myRoot.getChildren().add(myLayout);
 
 		myFactory = new EditorComponentFactory();
-		for (Method method : setMethods) {
-			MethodAnnoation methodAnnotation = method
-					.getAnnotation(engine.MethodAnnoation.class);
+		for (Method setMethod : methodMap.keySet()) {
+			MethodAnnotation methodAnnotation = setMethod
+					.getAnnotation(MethodAnnotation.class);
 			String componentType = methodAnnotation.type();
+			System.out.println(setMethod.getName() + ", " + methodMap.get(setMethod).getName());
 			EditorComponent fieldEditor = myFactory.generateComponent(
-					componentType, myReceiver, method, myObj);
+					componentType, myReceiver, setMethod, methodMap.get(setMethod), myObj);
 			myForm.getChildren().add(fieldEditor);
 		}
 
-		exportObject = new Button("Export Object");
-		exportObject.setOnAction(e -> {
-			// udpate/export object missing in receiver?.
-
-			});
-		myForm.getChildren().add(exportObject);
+		// exportObject = new Button("Export Object");
+		// exportObject.setOnAction(e -> {
+		// // udpate/export object missing in receiver?.
+		//
+		// });
+		// myForm.getChildren().add(exportObject);
 	}
 
 	@Override

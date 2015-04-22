@@ -12,35 +12,33 @@ import java.util.ResourceBundle;
 
 import javafx.scene.layout.Pane;
 
-
 // TODO: Auto-generated Javadoc
 /**
- * The Class GAEPane.
-=======
-/**
+ * The Class GAEPane. ======= /**
  * 
- * @author Peter
- * The main Pane class that all panes extend. It creates a pane in myRoot and also allows panes to 
- * add methods to the menu using the Menuable interface.
+ * @author Peter The main Pane class that all panes extend. It creates a pane in
+ *         myRoot and also allows panes to add methods to the menu using the
+ *         Menuable interface.
  *
  */
 public abstract class GAEPane implements Menuable {
 
 	/** The my root. */
 	protected Pane myRoot;
-	
+
 	/** The my menu adder. */
 	protected MenuAdder myMenuAdder;
-	
+
 	/** The my configs. */
 	private final ResourceBundle myConfigs;
-
 
 	/**
 	 * Instantiates a new GAE pane.
 	 *
-	 * @param className the class name
-	 * @param adder the adder
+	 * @param className
+	 *            the class name
+	 * @param adder
+	 *            the adder
 	 */
 	public GAEPane(String className, MenuAdder adder) {
 		myMenuAdder = adder;
@@ -64,7 +62,8 @@ public abstract class GAEPane implements Menuable {
 	/**
 	 * Sets the root.
 	 *
-	 * @param type the new root
+	 * @param type
+	 *            the new root
 	 */
 	private void setRoot(Class<?> type) {
 		try {
@@ -76,7 +75,7 @@ public abstract class GAEPane implements Menuable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Gets the pane.
 	 *

@@ -35,9 +35,9 @@ import javafx.util.Callback;
  */
 public class MultipleSelectEditor extends EditorComponent {
 
-	public MultipleSelectEditor(Receiver receiver, Method method,
+	public MultipleSelectEditor(Receiver receiver, Method setMethod, Method getMethod,
 			String objectName) {
-		super(receiver, method, objectName);
+		super(receiver, setMethod, getMethod, objectName);
 	}
 
 	@Override

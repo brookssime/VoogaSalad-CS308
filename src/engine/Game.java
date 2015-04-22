@@ -1,19 +1,18 @@
 package engine;
 
-import java.util.List;
-
-import interfaces.Authorable;
+import engine.gameScreens.GameScene;
+import engine.gameScreens.LevelScene;
+import engine.gameScreens.Store;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Game.
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  * 
  */
-public class Game implements Authorable {
+public class Game {
 	
 	/** The my name. */
 	private String myName;
@@ -27,12 +26,7 @@ public class Game implements Authorable {
 	/** The my store. */
 	private Store myStore;
 	
-	/**
-	 * Instantiates a new game.
-	 */
-	public Game(){
-		
-	}
+	
 	
 	/**
 	 * Instantiates a new game.
@@ -42,6 +36,14 @@ public class Game implements Authorable {
 	public Game(GameScene head){
 		myHead = head;
 		addStoreToLevel();
+	}
+	
+	public void setHead(GameScene head){
+		myHead = head;
+	}
+	
+	public GameScene getHead(){
+		return myHead;
 	}
 	
 	/**
@@ -87,30 +89,5 @@ public class Game implements Authorable {
 		return myHead.isComplete();
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#setName(java.lang.String)
-	 */
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#getName()
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#updateParams(java.util.List)
-	 */
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

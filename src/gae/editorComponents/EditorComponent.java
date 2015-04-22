@@ -1,8 +1,9 @@
 package gae.editorComponents;
 
+import interfaces.MethodAnnotation;
+
 import java.lang.reflect.Method;
 
-import engine.MethodAnnoation;
 import gae.model.Receiver;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -15,17 +16,19 @@ import javafx.scene.layout.VBox;
 public abstract class EditorComponent extends VBox {
 
 	protected Label fieldLabel;
-	protected Method myMethod;
+	protected Method mySetMethod;
+	protected Method myGetMethod;
 	protected Receiver myReceiver;
 
 	protected String myObject;
 
-	public EditorComponent(Receiver receiver, Method method, String objectName) {
+	public EditorComponent(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
 		myReceiver = receiver;
-		myMethod = method;
+		mySetMethod = setMethod;
+		myGetMethod = getMethod;
 		myObject = objectName;
-		MethodAnnoation methodAnnotation = method
-				.getAnnotation(engine.MethodAnnoation.class);
+		MethodAnnotation methodAnnotation = setMethod
+				.getAnnotation(MethodAnnotation.class);
 		String methodName = methodAnnotation.name();
 		fieldLabel = new Label(methodName);
 		this.getChildren().add(fieldLabel);

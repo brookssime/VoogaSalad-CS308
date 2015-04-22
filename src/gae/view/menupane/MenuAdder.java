@@ -16,7 +16,8 @@ public interface MenuAdder {
 	/**
 	 * Adds the menus.
 	 *
-	 * @param newMenus the new menus
+	 * @param newMenus
+	 *            the new menus
 	 */
 	public void addMenus(List<Menu> newMenus);
 

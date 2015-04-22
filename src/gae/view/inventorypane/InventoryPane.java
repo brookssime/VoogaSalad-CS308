@@ -20,16 +20,16 @@ import gae.view.menupane.MenuAdder;
 
 /**
  * 
- * @author Peter
- * Displays the items in the inventory to the user in an easy-to-read way.
+ * @author Peter Displays the items in the inventory to the user in an
+ *         easy-to-read way.
  *
  */
 public class InventoryPane extends GAEPane {
 
 	private static final String[] TYPES = { "Game", "LevelScene",
-		"DialogueScene", "TitleScene", "Base", "Projectile", "Grid",
-		"Wave", "Port", "Enemy", "Tower", "Tile", "Effect", "Range",
-	"Store" };
+			"DialogueScene", "TitleScene", "Base", "Projectile", "Grid",
+			"Wave", "Port", "Enemy", "Tower", "Tile", "Effect", "Range",
+			"Store" };
 	private Accordion myAccordion;
 	private Receiver myReceiver;
 	private EditorPane myEditor;
@@ -38,7 +38,7 @@ public class InventoryPane extends GAEPane {
 		super(InventoryPane.class.getSimpleName(), adder);
 		myAccordion = new Accordion();
 		myReceiver = rec;
-		myEditor =  ep;
+		myEditor = ep;
 		for (String type : TYPES) {
 			myAccordion.getPanes().add(makePane(type));
 		}
@@ -48,7 +48,7 @@ public class InventoryPane extends GAEPane {
 	private TitledPane makePane(String type) {
 		TitledPane pane = new TitledPane();
 		pane.setText(type);
-		ObservableList<String> theList= FXCollections.observableArrayList();
+		ObservableList<String> theList = FXCollections.observableArrayList();
 		ListView<String> list = new ListView<String>(theList);
 		UpdateListener ul = new UpdateListener(list);
 		myReceiver.setListener(type, ul);
@@ -58,8 +58,6 @@ public class InventoryPane extends GAEPane {
 		Button editButton = makeEdit(type, list);
 		Button removeButton = makeRemove(type, list);
 		buttonBox.getChildren().addAll(addButton, editButton, removeButton);
-		//		list.setPrefHeight(0);
-		//		VBox.setVgrow(list, Priority.ALWAYS);
 		mainbox.getChildren().addAll(buttonBox, list);
 		pane.setContent(mainbox);
 		return pane;
@@ -87,7 +85,8 @@ public class InventoryPane extends GAEPane {
 		Button button = new Button("Remove");
 		button.setOnMouseClicked(e -> {
 			if (list.getSelectionModel().getSelectedItem() != null) {
-				myReceiver.removeObject(list.getSelectionModel().getSelectedItem());
+				myReceiver.removeObject(list.getSelectionModel()
+						.getSelectedItem());
 			}
 		});
 		return button;
@@ -97,8 +96,8 @@ public class InventoryPane extends GAEPane {
 	public List<Menu> getMenus() {
 		List<Menu> menus = new ArrayList<Menu>();
 
-		Menu menuInventory = new Menu("Inventory");
-		
+		Menu menuInventory = new Menu("New...");
+
 		for (String type : TYPES) {
 			MenuItem newMenuItem = new MenuItem("New " + type);
 			newMenuItem.setOnAction(e -> {

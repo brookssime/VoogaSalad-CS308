@@ -1,47 +1,38 @@
 package engine;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import interfaces.Authorable;
-import interfaces.Collidable;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import engine.gameLogic.GameObject;
+import engine.gameLogic.Placement;
+import engine.gameLogic.Wave;
+import engine.sprites.GridObject;
+import engine.sprites.Tile;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Grid.
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  * 
  */
-public class Grid implements Authorable{
-	
+public class Grid extends GameObject implements Observable{
+
+
 	/** The my name. */
 	private String myName;
-	
+
 	/** The my tiles. */
 	public Tile[][] myTiles;
-	
-	/** The my collidables. */
-	private List<Collidable> myCollidables;
-	private Tile myPort;
-	// myProjectiles?
-	// myEnemies?
 
 	/** The my grid manager. */
-
-	public GridManager myGridManager;
-
+	private GridManager myGridManager;
+	private Map<GridObject, Placement> myGridObjectMap;	
+	private List<Tile> myPorts;
 	
-	/**
-	 * Instantiates a new grid.
-	 */
-	public Grid(){
-		
-	}
-	
+
 	/**
 	 * Instantiates a new grid.
 	 *
@@ -53,18 +44,54 @@ public class Grid implements Authorable{
 		myGridManager = new GridManager(this);
 		init();
 	}
-	
+
 	/**
-	 * Inits the.
+	 * Instantiates a grid that connects to the gridmanager
 	 */
+	public Grid(Grid grid, GridManager gm){
+		myName = grid.myName;
+		myTiles = grid.myTiles;
+		myGridObjectMap = grid.myGridObjectMap;
+		myPorts = grid.myPorts;
+		myGridManager = gm;
+	}
+	public Tile[][] getTiles(){
+		return myTiles;
+	}
+
+	public Map<GridObject, Placement> getGridObjectMap(){
+		return myGridObjectMap;
+	}
+
 	private void init(){
 		for (int x = 0; x < myTiles.length; x++)
 			for (int y = 0; y < myTiles.length; y++){
 				myTiles[x][y] = new Tile(x, y);
 			}	
 	}
-	
-	
+
+	public void start(){
+		myGridManager.start();
+	}
+
+	public void setWaves(Queue<Wave> waves){
+		myGridManager.setWaves(waves);
+	}
+
+	public void update(){
+		myGridManager.update();
+		myGridManager.checkComplete();
+	}
+
+	public void setTiles(Tile[][] tiles){
+		myTiles = tiles;
+	}
+
+	public void placeGridObjectAt(GridObject o, Placement p){
+		myGridObjectMap.put(o, p);
+	}
+
+
 	/**
 	 * Adds the tile.
 	 *
@@ -78,20 +105,23 @@ public class Grid implements Authorable{
 
 
 	/**
+	 * Sets the port.
+	 *
+	 *
+	 */
+	public void setPort(List<Tile> t){
+		myPorts = t;
+	}
+
+	/**
 	 * Gets the port.
 	 *
 	 * @return the port
 	 */
-
-	public void setPort(Tile t){
-		myPort = t;
+	public List<Tile> getPort(){
+		return myPorts;
 	}
 
-
-	public Tile getPort(){
-		return myPort;
-	}
-	
 	/**
 	 * Gets the tile.
 	 *
@@ -103,87 +133,36 @@ public class Grid implements Authorable{
 		return myTiles[x][y];
 	}
 
+	@Override
+	public void addListener(InvalidationListener listener) {
+		// TODO Auto-generated method stub
 
-	/**
-	 * Spawn.
-	 *
-	 * @param c the c
-	 */
+	}
 
-	public List<Tile> getTileNeighbors(Tile t){
-		if (t == null)
-			System.out.println("Grid.getTileNeighbors called with null Tile");
-		int x = t.getX();
-		int y = t.getY();
-		List<Tile> neighbors = new ArrayList<Tile>();
-		int[] dx = {1, -1, 0, 0};
-		int[] dy = {0, 0, 1, -1};
-		
-		//System.out.println("Neighbors added: ");
-		
-		for (int i = 0; i < dx.length; i++){
-			if(x + dx[i] < myTiles.length && 
-					x + dx[i] >= 0 &&
-					y + dy[i] < myTiles[0].length &&
-					y + dy[i] >= 0){
-				Tile temp = (myTiles[x + dx[i]][y + dy[i]]);
-				neighbors.add(temp);
-				//System.out.println(temp.getX() + ", " + temp.getY());
-				
-			}
+	@Override
+	public void removeListener(InvalidationListener listener) {
+		// TODO Auto-generated method stub
+	}
+
+	public boolean isComplete() {
+		return myGridManager.isComplete();
+	}
+
+	public Tile getPortFor(Wave w) {
+		Placement p = new Placement();
+		for(GridObject o : myGridObjectMap.keySet()){
+			if(o.getName().equals(w.getPortName()))
+					p = myGridObjectMap.get(o);	
 		}
 		
-		/*neighbors.add(myTiles[x-1][y]);
-		neighbors.add(myTiles[x+1][y]);
-		neighbors.add(myTiles[x][y-1]);
-		neighbors.add(myTiles[x][y+1]);
-		//TODO
-		*/
-		
-		return neighbors;
-	}
-
-
-	public void spawn(Collidable c){
-		
-		// TODO
+		return getTileForPlacement(p);
 	}
 	
-	/**
-	 * Gets the objects.
-	 *
-	 * @return the objects
-	 */
-	public ObservableList<Collidable> getObjects(){
-		return FXCollections.observableList(myCollidables);
+	private Tile getTileForPlacement(Placement p){
+		return myTiles[(int) Math.floor(p.getLocation().getX())][(int) Math.floor(p.getLocation().getY())];
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#setName(java.lang.String)
-	 */
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
+	public Queue<Wave> getWaves() {
+		return myGridManager.getWaves();
 	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#getName()
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#updateParams(java.util.List)
-	 */
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
 }

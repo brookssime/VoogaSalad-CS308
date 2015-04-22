@@ -48,10 +48,10 @@ public class TitleScreenEditor extends EditorPane{
 	public TitleScreenEditor(MenuAdder adder, Receiver receiver) {
 		super(adder, receiver);
 		myConfigs = BundleGrabber.grabBundle("configs", TitleScreenEditor.class.getSimpleName());
-		myRoot.getChildren().add(setRootProperties());
+		myRoot.getChildren().add(setRootProperties(receiver));
 	}
 	
-	private VBox setRootProperties(){
+	private VBox setRootProperties(Receiver receiver){
 		VBox titleScreenComponents = new VBox(VBOX_SPACING);
 		titleScreenComponents.setPadding(new Insets(VBOX_PADDING));	
 		String className = "engine.TitleScene";
@@ -60,14 +60,16 @@ public class TitleScreenEditor extends EditorPane{
 				Reflection.getEditorMethods(myObject.getClass().toString()));
 		
 		for(Method method : objMethods){
-			titleScreenComponents.getChildren().add(getComponent(method, myObject));
+			titleScreenComponents.getChildren().add(getComponent(method, myObject, receiver));
 		}
 		
 		return null;
 	}
 
-	private EditorComponent getComponent(Method method, Object myObject) {
-		
+	private EditorComponent getComponent(Method method, Object myObject, Receiver receiver) {
+		// 1) determine which editor component we're dealing with
+		// 2) construct new editor component and pass it the receiver
+		// 3) return the editor component
 		return null;
 	}
 

@@ -5,18 +5,21 @@ import gae.model.Receiver;
 import java.lang.reflect.Method;
 
 public class EditorComponentFactory {
-	
-	
-	public EditorComponent generateComponent(String editorType, Receiver receiver, Method method, String objName){
-		if (editorType.equalsIgnoreCase("textfield")){
-			return (new TextFieldEditor(receiver, method, objName));
+
+	public EditorComponent generateComponent(String editorType,
+			Receiver receiver, Method setMethod, Method getMethod, String objName) {
+		if (editorType.equalsIgnoreCase("textfield")) {
+			return (new TextFieldEditor(receiver, setMethod, getMethod, objName));
+		} else if (editorType.equalsIgnoreCase("fileselect")) {
+			return (new FileSelector(receiver, setMethod, getMethod, objName));
+		} else if (editorType.equalsIgnoreCase("slider")) {
+//			return (new SliderEditor(receiver, nethod, objName));
 		}
-		else if (editorType.equalsIgnoreCase("fileselect")){
-			return (new FileSelector(receiver, method, objName ));
-		}
-		
-		//we should implement a better error handling here.
-		throw new RuntimeException("Unable to generate the name editor component type: "+ editorType);
+
+		// we should implement a better error handling here.
+		throw new RuntimeException(
+				"Unable to generate the name editor component type: "
+						+ editorType);
 	}
 
 }
