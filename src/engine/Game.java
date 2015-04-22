@@ -2,8 +2,8 @@ package engine;
 
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
-import engine.gameScreens.GameScene;
-import engine.gameScreens.LevelScene;
+import engine.gameScreens.GameNode;
+import engine.gameScreens.LevelNode;
 import engine.gameScreens.Store;
 
 
@@ -21,7 +21,7 @@ public class Game {
 	private final int FRAME_RATE = 10;
 	
 	/** The my head. */
-	private GameScene myHead;
+	private GameNode myStartNode;
 	
 	/** The my store. */
 	private Store myStore;
@@ -33,17 +33,17 @@ public class Game {
 	 *
 	 * @param head the head
 	 */
-	public Game(GameScene head){
-		myHead = head;
+	public Game(GameNode head){
+		myStartNode = head;
 		addStoreToLevel();
 	}
 	
-	public void setHead(GameScene head){
-		myHead = head;
+	public void setHead(GameNode head){
+		myStartNode = head;
 	}
 	
-	public GameScene getHead(){
-		return myHead;
+	public GameNode getHead(){
+		return myStartNode;
 	}
 	
 	/**
@@ -51,8 +51,8 @@ public class Game {
 	 * Any ideas?.
 	 */
 	public void addStoreToLevel(){
-		if(myHead instanceof LevelScene){
-			((LevelScene) myHead).setStore(myStore);
+		if(myStartNode instanceof LevelNode){
+			((LevelNode) myStartNode).setStore(myStore);
 		}
 	}
 	
@@ -73,11 +73,11 @@ public class Game {
 	 */
 	public KeyFrame update(){
 		if(sceneComplete()){
-			myHead = myHead.getNextScene();
+			myStartNode = myStartNode.getNextNode();
 			addStoreToLevel();
-			return myHead.start(FRAME_RATE);
+			return myStartNode.start(FRAME_RATE);
 		}
-		return myHead.getCurScene();
+		return myStartNode.getCurScene();
 	}
 	
 	/**
@@ -86,6 +86,6 @@ public class Game {
 	 * @return true, if successful
 	 */
 	public boolean sceneComplete(){
-		return myHead.isComplete();
+		return myStartNode.isComplete();
 	}
 }

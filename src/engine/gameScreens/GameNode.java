@@ -1,5 +1,7 @@
 package engine.gameScreens;
 
+import java.util.Map;
+
 import engine.gameLogic.GameObject;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
@@ -11,9 +13,9 @@ import javafx.util.Duration;
  * 
  * 
  */
-public abstract class GameScene extends GameObject{
+public abstract class GameNode extends GameObject{
 
-	private GameScene myNext;
+	private Map<Double, GameNode> nextNodes;
 	
 	/** The my has completed. */
 	protected boolean myHasCompleted;
@@ -31,7 +33,7 @@ public abstract class GameScene extends GameObject{
 	/**
 	 * Instantiates a new game scene.
 	 */
-	public GameScene(){
+	public GameNode(){
 		//myGameLost = false;
 	}
 
@@ -61,8 +63,8 @@ public abstract class GameScene extends GameObject{
 	 *
 	 * @return the next scene
 	 */
-	public GameScene getNextScene(){
-		return myNext;
+	public GameNode getNextNode(Double key){
+		return nextNodes.get(key);
 	}
 	
 	/**
@@ -77,9 +79,9 @@ public abstract class GameScene extends GameObject{
 	/**
 	 * Sets the next scene.
 	 *
-	 * @param gameScene the new next scene
+	 * @param gameNode the new next scene
 	 */
-	public void setNextScene(GameScene gameScene){
-		myNext = gameScene;
+	public void addNewNode(Double key, GameNode gameNode){
+		nextNodes.put(key, gameNode);
 	}
 }
