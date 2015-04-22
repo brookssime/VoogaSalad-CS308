@@ -17,7 +17,7 @@ import engine.gameLogic.Placement;
  * The Class Enemy. 
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class Enemy extends GridObject implements Collidable, Movable {
+public class Enemy extends Sprite implements Collidable, Movable {
 
 
 	private Integer mySpeed;

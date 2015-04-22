@@ -5,7 +5,7 @@ package engine.sprites;
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class Port extends GridObject{
+public class Port extends Sprite{
 
 	public Port(){
 		

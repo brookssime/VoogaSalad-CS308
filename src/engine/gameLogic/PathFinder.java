@@ -66,12 +66,12 @@ public class PathFinder {
 		for (int i = 2; i < placementArray.length; i++){
 			if(placementArray[i-2].getLocation().x != placementArray[i].getLocation().x && placementArray[i-2].getLocation().y != placementArray[i].getLocation().y){
 				myMovements.addAll(generateStretch(lastStraight, placementArray[i-2], enemy.getMovement()));
-				myMovements.addAll(generateTurn(placementArray[i-2], placementArray[i], enemy.getMovement()));
-				lastStraight = placementArray[i];	
+				myMovements.addAll(generateTurn(myMovements.get(myMovements.size()-1), placementArray[i], enemy.getMovement()));
+				lastStraight = myMovements.get(myMovements.size()-1); // TODO MAKE SURE this gets the right Placement coming out of the turn	
 			}
 		}
 		
-		// MAKE SURE THIS CAST WORKS
+		// TODO MAKE SURE THIS CAST WORKS
 		return new Path((LinkedList<Placement>) myMovements); 
 	}
 	
@@ -79,7 +79,7 @@ public class PathFinder {
 	// Given two points which represent two tiles on the ends of a straightaway
 	List<Placement> generateStretch(Placement p1, Placement p2, EnemyMovement m){
 		
-		Point2D.Double start = p1.getLocation(); // MAKE SURE THE UPDATES BELOW...
+		Point2D.Double start = p1.getLocation(); // TODO MAKE SURE THE UPDATES BELOW...
 		Point2D.Double end = p2.getLocation();
 		
 		int myCoordProperty = 0;
@@ -98,7 +98,7 @@ public class PathFinder {
 			myCoordProperty = 1;
 		}
 		
-		// ...RESULT IN p1 and p2 BEING UPDATED HERE:
+		// ...RESULT IN p1 and p2 BEING UPDATED HERE: TODO
 		// calculate Placements based on points and coordinate property
 		
 		List<Placement> stretch = m.makeStretch(p1, p2, myCoordProperty);
@@ -160,7 +160,7 @@ public class PathFinder {
 	public void generateProjectile(Projectile projectile, Path path) {
 		Projectile newP = new Projectile(projectile);
 		newP.setPath(path);
-		myGrid.placeGridObjectAt(projectile, path.getNext());
+		myGrid.placeSpriteAt(projectile, path.getNext());
 	}
 
 }

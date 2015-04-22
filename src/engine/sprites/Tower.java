@@ -19,7 +19,7 @@ import engine.gameLogic.Range;
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class Tower extends GridObject implements Shootable, Movable{
+public class Tower extends Sprite implements Shootable, Movable{
 
 	/** The my name. */
 	private String myName;
@@ -160,7 +160,7 @@ public class Tower extends GridObject implements Shootable, Movable{
 	 * @param targets
 	 * @return list of targets
 	 */
-	//private GridObject selectTarget(ArrayList<Enemy> inRange){
+	//private Sprite selectTarget(ArrayList<Enemy> inRange){
 	
 	@SuppressWarnings("unchecked")
 	@Override

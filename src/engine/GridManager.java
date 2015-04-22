@@ -18,7 +18,7 @@ import engine.gameLogic.Placement;
 import engine.gameLogic.Wave;
 import engine.sprites.Base;
 import engine.sprites.Enemy;
-import engine.sprites.GridObject;
+import engine.sprites.Sprite;
 import engine.sprites.Projectile;
 
 /**
@@ -34,8 +34,8 @@ public class GridManager {
 	private List<Movable> myMovables;
 	private List<Shootable> myShootables;
 	private List<Collidable> myCollidables;
-	private Set<GridObject> myGridObjectsToRemove;
-	private List<GridObject> myGridObjects; //consider this replacing myCollidables
+	private Set<Sprite> mySpritesToRemove;
+	private List<Sprite> mySprites; //consider this replacing myCollidables
 	private Queue<Wave> myWaves;
 	private long myStartTime;
 	private PathFinder myPathFinder;
@@ -44,12 +44,12 @@ public class GridManager {
 
 	public GridManager(Grid g){
 		//myGrid = g;
-		sortObjects(g.getGridObjectMap());
+		sortObjects(g.getSpriteMap());
 		myPathFinder = new PathFinder(g);
 	}
 
-	public void sortObjects(Map<GridObject, Placement> map){
-		for (GridObject o : map.keySet()){
+	public void sortObjects(Map<Sprite, Placement> map){
+		for (Sprite o : map.keySet()){
 			if(Arrays.asList(o.getClass().getClasses()).contains(Movable.class)){
 				myMovables.add((Movable) o);
 			}
@@ -59,8 +59,8 @@ public class GridManager {
 			if(Arrays.asList(o.getClass().getClasses()).contains(Shootable.class)){
 				myShootables.add((Shootable) o);
 			}
-			if(Arrays.asList(o.getClass().getClasses()).contains(GridObject.class)){
-				myGridObjects.add((GridObject) o);
+			if(Arrays.asList(o.getClass().getClasses()).contains(Sprite.class)){
+				mySprites.add((Sprite) o);
 			}
 		}
 	}
@@ -97,17 +97,17 @@ public class GridManager {
 
 	/**
 	 * TODO: Clean this up
-	 * Get rid of casting to GridObject as well as massive if statement
+	 * Get rid of casting to Sprite as well as massive if statement
 	 */
 	private void checkCollidables() {
 		for (Collidable sprite : myCollidables) {
 			for (Collidable collider : myCollidables) {
 				if (!(sprite.equals(collider))
-						&& myGridObjectsToRemove.contains(collider)
+						&& mySpritesToRemove.contains(collider)
 						&& sprite.evaluateCollision(collider)
 						&& collider.getClass().isAssignableFrom(
 								Projectile.class)) {
-					myGridObjectsToRemove.add((GridObject) collider);
+					mySpritesToRemove.add((Sprite) collider);
 				}
 			}
 		}
@@ -138,12 +138,12 @@ public class GridManager {
 	}
 
 	private void clearSprites() {
-		myGridObjectsToRemove.addAll(myGridObjects.stream().filter(s -> s.isDead())
+		mySpritesToRemove.addAll(mySprites.stream().filter(s -> s.isDead())
 				.collect(Collectors.toSet())); // filter to find dead objects
-		for (GridObject sprite : myGridObjectsToRemove) {
+		for (Sprite sprite : mySpritesToRemove) {
 			myCollidables.remove(sprite);
 		}
-		myGridObjectsToRemove.clear();
+		mySpritesToRemove.clear();
 	}
 
 	private void spawnEnemies() {
