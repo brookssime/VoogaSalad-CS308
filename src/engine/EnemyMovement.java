@@ -73,19 +73,22 @@ public class EnemyMovement {
 	}
 	
 	public List<Placement> makeTurn(Placement start, Placement end) {
-		// TODO Auto-generated method stub
+		// TODO
+		// Determine, based on coords, which quadrant end is in wrt start
+		// determine which kind of turn this is and what that means about our incrementing of the orientations
+		// based on this, accurately surmise the diagonal and find an accurate end location
 		return null;
 	}
 	
 	
 	
-	double getCoordProperty(Point2D.Double p, int i){
+	private double getCoordProperty(Point2D.Double p, int i){
 		if(i == 0)
 			return p.x;
 		return p.y;
 	}
 	
-	void setCoordProperty(Point2D.Double p, int i, double D){
+	private void setCoordProperty(Point2D.Double p, int i, double D){
 		if(i == 0)
 			p.x = D;
 		else
