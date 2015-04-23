@@ -3,6 +3,7 @@ package gae.editorComponents;
 import gae.model.Receiver;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -33,29 +34,43 @@ import javafx.util.Callback;
  *         .java?r=96
  *
  */
-public class MultipleSelectEditor extends EditorComponent {
+public class MultipleSelectEditor extends EditorComponent{
 
-	public MultipleSelectEditor(Receiver receiver, Method method,
+	public MultipleSelectEditor(Receiver receiver, Method setMethod, Method getMethod,
 			String objectName) {
-		super(receiver, method, objectName);
+		super(receiver, setMethod, getMethod, objectName);
 	}
 
 	@Override
 	public void setUpEditor() {
+		//Steps:
+		//1) need to get parameters -> all access ids [not necessary for this component?...DONE?]
+		//2) then need to construct UI [DONE]
+		//3) then set UI with getFromObject method [DONE]
+		//4) then create button to update inventory [DONE]
+		
 		Button btn = new Button("Select Access");
-		this.getChildren().add(btn);
+//		this.getChildren().add(btn);
 		btn.setOnAction(e -> {
 			Stage stage = new Stage();
 			stage.setScene(new Scene(makeScene()));
 			stage.show();
 		});
-
 	}
 
+	@SuppressWarnings("unchecked")
 	private Parent makeScene() {
 		ObservableList<GameObject> data = FXCollections.observableArrayList();
-		for (int i = 0; i < 10; i++) {
-			data.add(new GameObject(i % 2 == 0 ? true : false, "Access ID: "
+		ArrayList<Integer> list = null;
+		try{
+			list = ((ArrayList<Integer>) myReceiver.getFromObject(myObject, myGetMethod, (Object[]) null));
+		} catch (Exception e) {
+			System.err.println("Cannot convert Object to ArrayList");
+			e.printStackTrace();
+		}
+		
+		for (int i = 0; i < 20; i++) {
+			data.add(new GameObject(list.contains(i) ? true : false, "Access ID: "
 					+ i));
 		}
 
@@ -63,6 +78,7 @@ public class MultipleSelectEditor extends EditorComponent {
 		listView.setPrefSize(200, 250);
 		listView.setEditable(true);
 		listView.setItems(data);
+		
 
 		Callback<GameObject, ObservableValue<Boolean>> getProperty = new Callback<GameObject, ObservableValue<Boolean>>() {
 			@Override
@@ -79,18 +95,34 @@ public class MultipleSelectEditor extends EditorComponent {
 		Button btn = new Button("Accept");
 
 		btn.setOnAction(e -> {
-			for (GameObject employee : data) {
-				System.out.println(employee.getSelected());
-				// update backend inventory
+			ArrayList<Integer> accessArray = new ArrayList<>();
+			for (GameObject g : data) {
+				if(g.getSelected()){
+					System.out.println(g.getSelected());
+					//Format: "Access ID: i
+					try {
+						System.out.println(g.getName().split("\\s++")[2]);
+						accessArray.add(Integer.parseInt(g.getName().split("\\s++")[2]));
+					} catch (IndexOutOfBoundsException e1){
+						System.err.println("Cannot find Index");
+						e1.printStackTrace();
+					}
+					
+				}
 			}
+			// update backend inventory
+			myReceiver.runOnObject(myObject, mySetMethod, accessArray);
 		});
 
 		VBox vb = new VBox();
 		vb.getChildren().addAll(listView, btn);
 		root.getChildren().add(vb);
-		return vb;
+		
+		return root;
 	}
 
+	
+	
 	class GameObject {
 		private SimpleBooleanProperty selected;
 		private SimpleStringProperty name;
@@ -125,4 +157,5 @@ public class MultipleSelectEditor extends EditorComponent {
 			return getName();
 		}
 	}
+
 }

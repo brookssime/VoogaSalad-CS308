@@ -31,8 +31,8 @@ public class ButtonEditor extends EditorComponent {
 	private static final double SCALE_SLIDER_MAJOR_TICK = 1;
 	private static final int MINOR_TICK_COUNT = 4;
 
-	public ButtonEditor(Receiver receiver, Method method, String objectName) {
-		super(receiver, method, objectName);
+	public ButtonEditor(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
+		super(receiver, setMethod, getMethod, objectName);
 	}
 
 	// @Override

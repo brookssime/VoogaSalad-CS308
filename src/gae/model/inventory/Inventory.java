@@ -71,7 +71,7 @@ public class Inventory {
 	 */
 	public void addObject(String type) {
 		ObservableMap<String, GameObject> map = myMaps.get(type);
-		GameObject newThing = (GameObject) Reflection.createInstance("engine.sprites."
+		GameObject newThing = (GameObject) Reflection.createInstance("engine.gameLogic."
 				+ type);
 		String newName = "New" + type;
 		int vrsNum = 0;
@@ -92,9 +92,11 @@ public class Inventory {
 	 *            the params
 	 */
 	public void runOnObject(String obj, Method method, Object... params) {
+		System.out.println(obj);
 		ObservableMap<String, GameObject> map = getMap(obj);
 		GameObject object = map.get(obj);
 		try {
+			System.out.println(obj + ", " + params.toString());
 			method.invoke(object, params);
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
@@ -119,6 +121,7 @@ public class Inventory {
 			e.printStackTrace();
 			ret = null;
 		}
+		System.out.println(ret);
 		return ret;
 	}
 

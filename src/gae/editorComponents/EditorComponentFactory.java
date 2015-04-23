@@ -7,11 +7,13 @@ import java.lang.reflect.Method;
 public class EditorComponentFactory {
 
 	public EditorComponent generateComponent(String editorType,
-			Receiver receiver, Method method, String objName) {
+			Receiver receiver, Method setMethod, Method getMethod, String objName) {
 		if (editorType.equalsIgnoreCase("textfield")) {
-			return (new TextFieldEditor(receiver, method, objName));
+			return (new TextFieldEditor(receiver, setMethod, getMethod, objName));
 		} else if (editorType.equalsIgnoreCase("fileselect")) {
-			return (new FileSelector(receiver, method, objName));
+			return (new FileSelector(receiver, setMethod, getMethod, objName));
+		} else if (editorType.equalsIgnoreCase("slider")) {
+//			return (new SliderEditor(receiver, nethod, objName));
 		}
 
 		// we should implement a better error handling here.
