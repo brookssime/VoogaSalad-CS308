@@ -39,7 +39,7 @@ public class Effect extends GameObject{
 	}
 	
 	@MethodAnnotation(editor = true, name = "Name", type = "textfield", gsType = "setter") 
-	public void setName(@ParameterAnnotation(name="Name") String name) {
+	public void setName(String name) {
 		myName = name;
 	}
 	
@@ -49,37 +49,37 @@ public class Effect extends GameObject{
 	}
 	
 	@MethodAnnotation(editor = true, name = "SpeedDamage", type = "textfield", gsType = "setter") 
-	public void setSpeedDamage(@ParameterAnnotation(name="Speed Damage") Integer x){
+	public void setSpeedDamage(Integer x){
 		mySpeedDamage = x;
 	}
 	
 	@MethodAnnotation(editor = true, name = "SppedFrequency", type = "textfield", gsType = "setter") 
-	public void setSpeedFrequency(@ParameterAnnotation(name="Speed Frequency") Double x){
+	public void setSpeedFrequency(Double x){
 		mySpeedFrequency = x;
 	}
 
 	@MethodAnnotation(editor = true, name = "SpeedReps", type = "textfield", gsType = "setter") 
-	public void setSpeedReps(@ParameterAnnotation(name="Speed Reps") Integer x){
+	public void setSpeedReps(Integer x){
 		mySpeedReps = x;
 	}
 	
 	@MethodAnnotation(editor = true, name = "SpeedDuration", type = "textfield", gsType = "setter") 
-	public void setSpeedDuration(@ParameterAnnotation(name="Speed Duration") Double x){
+	public void setSpeedDuration(Double x){
 		mySpeedDuration = x;
 	}
 	
 	@MethodAnnotation(editor = true, name = "HealtDamage", type = "textfield", gsType = "setter") 
-	public void setHealthDamage(@ParameterAnnotation(name="Health Damage") Integer x){
+	public void setHealthDamage(Integer x){
 		myHealthDamage = x;
 	}
 	
 	@MethodAnnotation(editor = true, name = "HealtFrequency", type = "textfield", gsType = "setter") 
-	public void setHealthFrequency(@ParameterAnnotation(name="Health Frequency") Double x){
+	public void setHealthFrequency(Double x){
 		myHealthFrequency = x;
 	}
 	
 	@MethodAnnotation(editor = true, name = "HealtReps", type = "textfield", gsType = "setter") 
-	public void setHealthReps(@ParameterAnnotation(name="Health Reps") Integer x){
+	public void setHealthReps(Integer x){
 		myHealthReps = x;
 	}
 	

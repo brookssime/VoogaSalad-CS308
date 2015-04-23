@@ -125,8 +125,8 @@ public class Inventory {
 		return ret;
 	}
 
-	public GameObject getObject(String type, String obj) {
-		ObservableMap<String, GameObject> map = myMaps.get(type);
+	public GameObject getObject(String obj) {
+		ObservableMap<String, GameObject> map = getMap(obj);
 		GameObject object = map.get(obj);
 		return object;
 	}

@@ -41,7 +41,8 @@ public class TextFieldEditor extends EditorComponent {
 	 *            the method used to modify the object
 	 */
 
-	public TextFieldEditor(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
+	public TextFieldEditor(Receiver receiver, Method setMethod,
+			Method getMethod, String objectName) {
 		super(receiver, setMethod, getMethod, objectName);
 	}
 
@@ -66,12 +67,17 @@ public class TextFieldEditor extends EditorComponent {
 
 		textFields = new TextField[parametersLength];
 		for (int index = 0; index < parametersLength; index++) {
-				Label label = new Label(parameterNames.get(index));
-				TextField textField = new TextField();
-				System.out.println(myReceiver.getFromObject(myObject, myGetMethod, (Object[]) null));
-				textField.setText((String) myReceiver.getFromObject(myObject, myGetMethod, (Object[]) null));
-				myBox.getChildren().addAll(label, textField);
-				textFields[index] = textField;
+			Label label = new Label("");
+			if (parameterNames.size() > index) {
+				label = new Label(parameterNames.get(index));
+			} 
+			TextField textField = new TextField();
+			System.out.println(myReceiver.getFromObject(myObject, myGetMethod,
+					(Object[]) null));
+			textField.setText((String) myReceiver.getFromObject(myObject,
+					myGetMethod, (Object[]) null));
+			myBox.getChildren().addAll(label, textField);
+			textFields[index] = textField;
 		}
 
 		setButton = new Button("Set");

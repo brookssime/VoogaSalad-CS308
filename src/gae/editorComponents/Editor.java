@@ -80,12 +80,12 @@ public class Editor extends GAEPane {
 			myForm.getChildren().add(fieldEditor);
 		}
 
-		// exportObject = new Button("Export Object");
-		// exportObject.setOnAction(e -> {
-		// // udpate/export object missing in receiver?.
-		//
-		// });
-		// myForm.getChildren().add(exportObject);
+		exportObject = new Button("Export Object");
+		exportObject.setOnAction(e -> {
+			// udpate/export object missing in receiver?.
+			myReceiver.exportFile(obj);
+		});
+		myForm.getChildren().add(exportObject);
 	}
 
 	@Override
