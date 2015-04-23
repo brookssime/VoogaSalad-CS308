@@ -1,5 +1,7 @@
 package engine;
 
+import interfaces.MovementStrategy;
+
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.util.LinkedList;
@@ -7,8 +9,9 @@ import java.util.List;
 import java.util.Random;
 
 import engine.gameLogic.Placement;
+import engine.sprites.Tile;
 
-public class EnemyMovement {
+public class EnemyMovement implements MovementStrategy{
 	
 	// should describe the EQUATION that describes movement
 	
@@ -19,16 +22,74 @@ public class EnemyMovement {
 	public EnemyMovement(){
 		
 	}
+
+	@Override
+	public Path generatePath(LinkedList<Tile> tiles) {
+		
+		Tile[] tileArray = (Tile[]) tiles.toArray();
+		Placement[] placementArray = new Placement[tiles.size()];
+		for (int i = 0; i < tiles.size(); i++)
+			placementArray[i] = new Placement(tileArray[i].getLocation());
+		
+		List<Placement> myMovements = new LinkedList<Placement>();
+		Placement lastStraight = new Placement();
+		lastStraight = placementArray[0];
+		
+		for (int i = 2; i < placementArray.length; i++){
+			if(placementArray[i-2].getLocation().x != placementArray[i].getLocation().x && placementArray[i-2].getLocation().y != placementArray[i].getLocation().y){
+				myMovements.addAll(generateStretch(lastStraight, placementArray[i-2]));
+				myMovements.addAll(generateTurn(myMovements.get(myMovements.size()-1), placementArray[i]));
+				lastStraight = myMovements.get(myMovements.size()-1); // TODO MAKE SURE this gets the right Placement coming out of the turn	
+			}
+		}
+		
+		// TODO MAKE SURE THIS CAST WORKS
+		return new Path((LinkedList<Placement>) myMovements); 
+		
+		
 	
-	double getAmplitude(){
-		return myAmplitude;
 	}
 	
-	public LinkedList<Placement> makeStretch(Placement p1, Placement p2, int directionProperty){
+	List<Placement> generateTurn(Placement start, Placement end){
+		// TODO 
 		
+		List<Placement> turn = makeTurn(start, end);
+		return turn;
+	}
+	
+	// Given two points which represent two tiles on the ends of a straightaway
+	List<Placement> generateStretch(Placement p1, Placement p2){
+			
+			Point2D.Double start = (Point2D.Double) p1.getLocation().clone(); // TODO MAKE SURE THE UPDATES BELOW...
+			Point2D.Double end = (Point2D.Double) p2.getLocation().clone();
+			
+			int myCoordProperty = 0;
+		
+			// 1. Adjust actual coordinates as necessary from Tile Locations
+			
+			if(start.x != end.x){
+				start.setLocation(start.x + ((start.x < end.x)?1:0) , start.y); 
+				end.setLocation(end.x + ((start.x < end.x)?0:1), end.y);
+				myCoordProperty = 0;
+			}
+			
+			else if(start.y != end.y){
+				start.setLocation(start.x, start.y + ((start.y < end.y)?1:0));
+				end.setLocation(end.x, end.y + ((start.y < end.y)?0:1));
+				myCoordProperty = 1;
+			}
+			
+			// ...RESULT IN p1 and p2 BEING UPDATED HERE^^ TODO
+			// calculate Placements based on points and coordinate property
+			
+			List<Placement> stretch = makeStretch(p1, p2, myCoordProperty);
+			return stretch;
+			
 
-		
-		
+		}
+	
+	public LinkedList<Placement> makeStretch(Placement p1, Placement p2, int directionProperty){
+	
 		Point2D.Double start;
 		Point2D.Double end;
 		
@@ -83,8 +144,6 @@ public class EnemyMovement {
 		return null;
 	}
 	
-	
-	
 	private double getCoordProperty(Point2D.Double p, int i){
 		if(i == 0)
 			return p.x;
@@ -97,7 +156,5 @@ public class EnemyMovement {
 		else
 			p.y = D;	
 	}
-
-	
 
 }

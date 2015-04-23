@@ -56,29 +56,13 @@ public class PathFinder {
 
 	private Path convertToPath(LinkedList<Tile> tiles, Enemy enemy){
 		
-		Tile[] tileArray = (Tile[]) tiles.toArray();
-		Placement[] placementArray = new Placement[tiles.size()];
-		for (int i = 0; i < tiles.size(); i++)
-			placementArray[i] = new Placement(tileArray[i].getLocation());
+		return enemy.getMovement().generatePath(tiles);
 		
-		List<Placement> myMovements = new LinkedList<Placement>();
-		Placement lastStraight = new Placement();
-		lastStraight = placementArray[0];
 		
-		for (int i = 2; i < placementArray.length; i++){
-			if(placementArray[i-2].getLocation().x != placementArray[i].getLocation().x && placementArray[i-2].getLocation().y != placementArray[i].getLocation().y){
-				myMovements.addAll(generateStretch(lastStraight, placementArray[i-2], enemy.getMovement()));
-				myMovements.addAll(generateTurn(myMovements.get(myMovements.size()-1), placementArray[i], enemy.getMovement()));
-				lastStraight = myMovements.get(myMovements.size()-1); // TODO MAKE SURE this gets the right Placement coming out of the turn	
-			}
-		}
-		
-		// TODO MAKE SURE THIS CAST WORKS
-		return new Path((LinkedList<Placement>) myMovements); 
 		
 	}
 	
-	// Given two points which represent two tiles on the ends of a straightaway
+	/*// Given two points which represent two tiles on the ends of a straightaway
 	List<Placement> generateStretch(Placement p1, Placement p2, EnemyMovement m){
 		
 		Point2D.Double start = (Point2D.Double) p1.getLocation().clone(); // TODO MAKE SURE THE UPDATES BELOW...
@@ -107,15 +91,15 @@ public class PathFinder {
 		return stretch;
 		
 
-	}
+	}*/
 	
 	// Given two points which represent Tiles on either side of a Corner Tile
-	List<Placement> generateTurn(Placement start, Placement end, EnemyMovement m){
+	/*List<Placement> generateTurn(Placement start, Placement end, EnemyMovement m){
 		// TODO 
 		
 		List<Placement> turn = m.makeTurn(start, end);
 		return turn;
-	}
+	}*/
 	
 	
 

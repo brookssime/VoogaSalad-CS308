@@ -2,6 +2,7 @@ package engine.sprites;
 
 import interfaces.Collidable;
 import interfaces.Movable;
+import interfaces.MovementStrategy;
 
 import java.awt.Shape;
 import java.util.LinkedList;
@@ -22,7 +23,7 @@ public class Enemy extends Sprite implements Collidable, Movable {
 
 	private Integer mySpeed;
 	
-	private EnemyMovement myEnemyMovement;
+	private MovementStrategy myMovement;
 
 	/** The my damage. */
 	private Integer myDamage;
@@ -210,8 +211,8 @@ public class Enemy extends Sprite implements Collidable, Movable {
 		}
 
 
-		public EnemyMovement getMovement() {
-			return myEnemyMovement;
+		public MovementStrategy getMovement() {
+			return myMovement;
 		}
 	}
 
