@@ -37,7 +37,7 @@ public class TowerInfo{
 	
 	public TowerInfo(String imageFile, String name,int price,  int range, int damage ){
 		image = new StackPane();
-		Image towerimage = new Image((getClass().getResourceAsStream(imageFile)));
+		Image towerimage = new Image((getClass().getResourceAsStream(imageFile)),IMAGESIZE,IMAGESIZE,false,false);
 		ImageView myimage = new ImageView(towerimage);
 		myimage.setFitHeight(IMAGESIZE);
 		myimage.setFitWidth(IMAGESIZE);
