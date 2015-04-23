@@ -8,7 +8,7 @@ import java.awt.Shape;
 import java.util.List;
 
 import engine.gameLogic.Effect;
-import engine.gameLogic.Path;
+import engine.Path;
 import engine.gameLogic.Placement;
 
 /**

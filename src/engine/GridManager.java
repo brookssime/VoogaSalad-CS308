@@ -12,7 +12,6 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import engine.gameLogic.Path;
 import engine.gameLogic.PathFinder;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Wave;

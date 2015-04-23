@@ -5,6 +5,7 @@ import interfaces.Shootable;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -13,6 +14,7 @@ import java.util.Random;
 
 import engine.EnemyMovement;
 import engine.Grid;
+import engine.Path;
 import engine.sprites.Enemy;
 import engine.sprites.Projectile;
 import engine.sprites.Tile;
@@ -53,13 +55,13 @@ public class PathFinder {
 	
 
 	private Path convertToPath(LinkedList<Tile> tiles, Enemy enemy){
+		
 		Tile[] tileArray = (Tile[]) tiles.toArray();
 		Placement[] placementArray = new Placement[tiles.size()];
 		for (int i = 0; i < tiles.size(); i++)
 			placementArray[i] = new Placement(tileArray[i].getLocation());
-	
-		List<Placement> myMovements = new LinkedList<Placement>();
 		
+		List<Placement> myMovements = new LinkedList<Placement>();
 		Placement lastStraight = new Placement();
 		lastStraight = placementArray[0];
 		
@@ -73,14 +75,14 @@ public class PathFinder {
 		
 		// TODO MAKE SURE THIS CAST WORKS
 		return new Path((LinkedList<Placement>) myMovements); 
+		
 	}
-	
 	
 	// Given two points which represent two tiles on the ends of a straightaway
 	List<Placement> generateStretch(Placement p1, Placement p2, EnemyMovement m){
 		
-		Point2D.Double start = p1.getLocation(); // TODO MAKE SURE THE UPDATES BELOW...
-		Point2D.Double end = p2.getLocation();
+		Point2D.Double start = (Point2D.Double) p1.getLocation().clone(); // TODO MAKE SURE THE UPDATES BELOW...
+		Point2D.Double end = (Point2D.Double) p2.getLocation().clone();
 		
 		int myCoordProperty = 0;
 	
@@ -98,11 +100,12 @@ public class PathFinder {
 			myCoordProperty = 1;
 		}
 		
-		// ...RESULT IN p1 and p2 BEING UPDATED HERE: TODO
+		// ...RESULT IN p1 and p2 BEING UPDATED HERE^^ TODO
 		// calculate Placements based on points and coordinate property
 		
 		List<Placement> stretch = m.makeStretch(p1, p2, myCoordProperty);
 		return stretch;
+		
 
 	}
 	

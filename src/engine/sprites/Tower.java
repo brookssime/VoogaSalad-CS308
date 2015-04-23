@@ -10,7 +10,7 @@ import java.util.List;
 import com.sun.javafx.geom.Point2D;
 import com.thoughtworks.xstream.XStream;
 
-import engine.gameLogic.Path;
+import engine.Path;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Range;
 

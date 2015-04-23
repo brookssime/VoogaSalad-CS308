@@ -10,7 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import engine.EnemyMovement;
-import engine.gameLogic.Path;
+import engine.Path;
 import engine.gameLogic.Placement;
 
 /**

@@ -17,13 +17,13 @@ public class Path {
 		myPlacements = placements;
 	}
 	
-	Placement getNext(){
+	public Placement getNext(){
 		return myPlacements.pop();
 	}
 
 	
 	//creates a new instance of this Path, including modifying for randomness
-	Path generateNew(){
+	public Path generateNew(){
 		return null;
 	}
 	

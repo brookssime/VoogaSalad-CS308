@@ -26,6 +26,9 @@ public class EnemyMovement {
 	
 	public LinkedList<Placement> makeStretch(Placement p1, Placement p2, int directionProperty){
 		
+
+		
+		
 		Point2D.Double start;
 		Point2D.Double end;
 		
