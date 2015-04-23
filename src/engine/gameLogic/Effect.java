@@ -10,30 +10,16 @@ import interfaces.ParameterAnnotation;
  * @author Brooks, Patrick, Robert, and Sid. 
  */
 public class Effect extends GameObject{
-	
-	/** The my name. */
-	private String myName;
-	
-	/** The my speed damage. */
+
 	private Integer mySpeedDamage;
 	private Double mySpeedFrequency;
 	private Integer mySpeedReps;
 	private Double mySpeedDuration;
-	
-	/** The my health damage. */
+
 	private Integer myHealthDamage;
 	private Double myHealthFrequency;
 	private Integer myHealthReps;
-	
-	/** The is final. */
-	private boolean isFinal;
-	
-	/** The my duration. */
-	private long myDuration;
 
-	/**
-	 * Instantiates a new effect.
-	 */
 	public Effect(){
 		
 	}
@@ -111,5 +97,9 @@ public class Effect extends GameObject{
 	@MethodAnnotation(editor = true, name = "HealtReps", type = "textfield", gsType = "getter") 
 	public Integer getHealthReps(){
 		return myHealthReps;
+	}
+	
+	public int getSpeedReps(){
+		return mySpeedReps;
 	}
 }

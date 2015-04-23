@@ -1,10 +1,15 @@
 package gae.editorComponents;
 
+import gae.model.Receiver;
+
+import java.lang.reflect.Method;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.HBox;
 
 /**
  * This class is used to customize sliders for integer inputs Possible
@@ -13,13 +18,25 @@ import javafx.scene.control.Slider;
  * @author ReyinaSenatus
  *
  */
-public class SliderEditor {// TODO: Set up with editor component
+public class SliderEditor extends EditorComponent{
 	private double myMin;
 	private double myMax;
 	private double myCur;
 	private Slider mySlider = new Slider();
 
-	public SliderEditor(double min, double max) {
+	public SliderEditor(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
+		super(receiver, setMethod, getMethod, objectName);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void setUpEditor() {
+		// TODO Auto-generated method stub
+		HBox h = new HBox();
+		h.getChildren().add(sliderSetUp());
+	}
+	
+	public void SliderEditorParams(double min, double max) {
 		myMin = min;
 		myMax = max;
 		myCur = (max - min) / 2;

@@ -34,14 +34,6 @@ public class Base extends GridObject implements Collidable{
 
 	/** The my location. */
 	private Point myLocation;
-		
-	/**
-	 * Instantiates a new base.
-	 */
-	public Base(){
-		
-	}
-	
 
 	/**
 	 * Instantiates a new base.
@@ -50,7 +42,6 @@ public class Base extends GridObject implements Collidable{
 	 * @param health the health
 	 * 
 	 */
-	
 	public Base(String imageString, Integer health){
 		myImagePath = imageString;
 		myHealth = health;
