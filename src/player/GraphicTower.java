@@ -1,6 +1,8 @@
 package player;
 
 import javafx.event.EventHandler;
+import javafx.scene.ImageCursor;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.input.DragEvent;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -54,37 +57,99 @@ public class GraphicTower implements Observer{
         currentImage.setId(this.getClass().getSimpleName() + System.currentTimeMillis());
         currentImage.setFitHeight(IMAGESIZE);
 		currentImage.setFitWidth(IMAGESIZE);
-        currentImage.setOnMouseDragged((MouseEvent event) -> {
-            activate();
+		
+		 currentImage.setOnDragDetected((MouseEvent event) -> {
+			 //orgSceneX = event.getSceneX();
+	           // orgSceneY = event.getSceneY();
+	            //orgTranslateX = ((ImageView)(event.getSource())).getTranslateX();
+	            //orgTranslateY = ((ImageView)(event.getSource())).getTranslateY();
+	        	
+	            //activate();
+			 	System.out.println("Drage Detected");
+	            Dragboard db = currentImage.startDragAndDrop(TransferMode.MOVE);
+	            ClipboardContent content = new ClipboardContent();
+	            // Store node ID in order to know what is dragged.
+	            content.putString(currentImage.getId());
+	           
+	            //Image myimage = new Image(images, IMAGESIZE,IMAGESIZE,false,false); 
+	            //ImageCursor myCursor = new ImageCursor(myimage);
+	            //myCursor.getBestSize(IMAGESIZE, IMAGESIZE);
+	            //((Node) event.getSource()).setCursor(myCursor);
+	            //((Node)event.getSource()).set
+	            db.setDragView(images,7,7);
+	            db.setContent(content);
+	            event.consume();
+	            //movingImage();
+	        });
+		 
+		 currentImage.setOnDragOver((DragEvent event) -> {
+			 //System.out.println("Drage over");
+			 //double offsetX = event.getSceneX() - orgSceneX;
+	            //double offsetY = event.getSceneY() - orgSceneY;
+	            //double newTranslateX = orgTranslateX + offsetX;
+	            //double newTranslateY = orgTranslateY + offsetY;
+	            //currentImage.setOpacity(0.7);
+	            //currentImage.setTranslateX(newTranslateX);
+	            //currentImage.setTranslateY(newTranslateY);
+	           // if (event.getGestureSource() != itemPane &&
+	           //         event.getDragboard().hasString()) {
+	            //    event.acceptTransferModes(TransferMode.MOVE);
+	            //}
+	            event.consume();
+	        });  
+	        
+		 
+		 currentImage.setOnDragDropped((DragEvent event) -> {
+	            //activate();
+			 	System.out.println("Drage drop");
+	            Dragboard db = currentImage.startDragAndDrop(TransferMode.MOVE);
+	            ClipboardContent content = new ClipboardContent();
+	            // Store node ID in order to know what is dragged.
+	            content.putString(currentImage.getId());
+	            db.setContent(content);
+	            event.consume();
+	        });
+	        
+		 /*
+       
+        currentImage.setOnMouseMoved((MouseEvent event) -> {
+        	System.out.println("mouse moving");
+            //activate();
             double offsetX = event.getSceneX() - orgSceneX;
             double offsetY = event.getSceneY() - orgSceneY;
             double newTranslateX = orgTranslateX + offsetX;
             double newTranslateY = orgTranslateY + offsetY;
-            //currentImage.setFitHeight(100);
-            currentImage.setOpacity(0.5);
-            //currentImage.toFront();
-            //currentImage.setMouseTransparent(true);
-            //currentImage.setVisible(true);
-            currentImage.setTranslateX(newTranslateX);
-            currentImage.setTranslateY(newTranslateY);
-            //currentImage.relocate(
-            		//(int) event.getSceneX()-currentImage.getBoundsInLocal().getWidth()/2,
-            		//(int) event.getSceneY()-currentImage.getBoundsInLocal().getHeight()/2);
-            // Store node ID in order to know what is dragged.
-            Dragboard db = currentImage.startDragAndDrop(TransferMode.MOVE);
-            ClipboardContent content = new ClipboardContent();
-            content.putString(currentImage.getId());
-            db.setContent(content);
-            event.consume();
+            currentImage.setOpacity(0.7);
+            //currentImage.setTranslateX(newTranslateX);
+            //currentImage.setTranslateY(newTranslateY);
+           
         });
-        currentImage.setOnMousePressed((MouseEvent t) ->{
-        	orgSceneX = t.getSceneX();
-            orgSceneY = t.getSceneY();
-            orgTranslateX = ((ImageView)(t.getSource())).getTranslateX();
-            orgTranslateY = ((ImageView)(t.getSource())).getTranslateY();
-        	
-        }
-        		);
+        */
+        
+        //currentImage.setOnMouseDragExited();
+       // currentImage.seton
+//        
+//      currentImage.setOnMouseDragReleased((MouseEvent t) -> {
+//        	//System.out.println("finished drag");
+//     //   	currentImage.setTranslateX(orgTranslateX);
+//     //       currentImage.setTranslateY(orgTranslateY);
+//        	
+//        });
+//        currentImage.setOnMouseReleased((MouseEvent t) -> {
+//        	System.out.println("finished drag");
+//        	currentImage.setTranslateX(orgTranslateX);
+//            currentImage.setTranslateY(orgTranslateY);
+//        	
+//        });
+//        
+//        currentImage.setOnMousePressed((MouseEvent t) -> {
+//        	orgSceneX = t.getSceneX();
+//            orgSceneY = t.getSceneY();
+//            orgTranslateX = ((ImageView)(t.getSource())).getTranslateX();
+//            orgTranslateY = ((ImageView)(t.getSource())).getTranslateY();
+//        	
+//        }
+//        		);
         /*
         currentImage.setOnMouseDragged(new EventHandler<MouseEvent>(){
         	public void handle(MouseEvent mouseEvent){
@@ -95,6 +160,37 @@ public class GraphicTower implements Observer{
         */
         
     }
+
+	private void movingImage() {
+		
+		  currentImage.setOnMouseMoved((MouseEvent event) -> {
+	        	System.out.println("mouse moving");
+	            //activate();
+	            double offsetX = event.getSceneX() - orgSceneX;
+	            double offsetY = event.getSceneY() - orgSceneY;
+	            double newTranslateX = orgTranslateX + offsetX;
+	            double newTranslateY = orgTranslateY + offsetY;
+	            currentImage.setOpacity(0.7);
+	            //currentImage.setTranslateX(newTranslateX);
+	            //currentImage.setTranslateY(newTranslateY);
+	           
+	        });
+		  /*
+		 currentImage.setOnMouseDragged((MouseEvent event) -> {
+	        	System.out.println("mouse dragging");
+	            //activate();
+	            double offsetX = event.getSceneX() - orgSceneX;
+	            double offsetY = event.getSceneY() - orgSceneY;
+	            double newTranslateX = orgTranslateX + offsetX;
+	            double newTranslateY = orgTranslateY + offsetY;
+	            currentImage.setOpacity(0.7);
+	            //currentImage.setTranslateX(newTranslateX);
+	            //currentImage.setTranslateY(newTranslateY);
+	           
+	        });
+	        */
+		
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {
