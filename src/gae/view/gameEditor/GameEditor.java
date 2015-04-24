@@ -6,12 +6,14 @@ import java.util.ArrayList;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
@@ -108,76 +110,55 @@ public class GameEditor {
 				checkOutSelected(node);
 			}
 		});
-		
-		node.getMyOut().isSelected().addListener(e -> {
-			if(node.getMyIn().isSelected().getValue()){
-				checkInSelected(node);
-			}
-		});
-			
 	}
-
-	//TODO: these two methods can be combined?
 	
 	/**
 	 * goes through all of my nodes and checks for other selected outs. Ignores same node.
 	 * @param node
 	 */
 	private void checkOutSelected(GameNode inNode) {
-		for(GameNode n : myNodes){
-			if(n.getMyOut().isSelected().getValue() && !n.equals(inNode)){
+		for(GameNode outNode : myNodes){
+			//A connection was drawn
+			// 1) Draw Line between Nodes showing Connection was Made [DONE[
+			// 2) Update Out Node's Children
+			if(outNode.getMyOut().isSelected().getValue() && !outNode.equals(inNode)){
 				//draw line
-				Rectangle nBody = n.getMyOut().getOutBody();
+				Rectangle outNodeBody = outNode.getMyOut().getOutBody();
 				Rectangle inNodeBody = inNode.getMyIn().getInBody();
 				DoubleProperty startX = new SimpleDoubleProperty();
 			    DoubleProperty startY = new SimpleDoubleProperty();
 			    DoubleProperty endX   = new SimpleDoubleProperty();
 			    DoubleProperty endY   = new SimpleDoubleProperty();
-			    startX.bind(nBody.translateXProperty());
-			    startY.bind(nBody.translateYProperty());
+			    startX.bind(outNodeBody.translateXProperty());
+			    startY.bind(outNodeBody.translateYProperty());
 			    endX.bind(inNodeBody.translateXProperty());
 			    endY.bind(inNodeBody.translateYProperty());
 				Line line = new BoundLine(startX, startY, 
 						endX, endY);
-				
 				myRoot.getChildren().add(line);
-				n.getMyOut().setSelected();
+				
+				//If line is double clicked, we delete it
+				// 1) First remove it from the scene [DONE]
+				// 2) Second update children of outNode
+				line.setOnMouseEntered(new EventHandler<MouseEvent>() {
+					
+					@Override
+					public void handle(MouseEvent event) {
+						if(event.isShiftDown()){
+							myRoot.getChildren().remove(line);
+						}
+						
+					}
+					
+				});
+				
+				//unselect the two selected nodes
+				outNode.getMyOut().setSelected();
 				inNode.getMyIn().setSelected();
 			}
 		}
 		
 	}
-
-	/**
-	 * goes through all of my nodes and checks for other selected ins. Ignores same node.
-	 * @param node
-	 */
-	private void checkInSelected(GameNode outNode) {
-		for(GameNode n : myNodes){
-			if(n.getMyIn().isSelected().getValue() && !n.equals(outNode)){
-				//draw line
-				Rectangle nBody = n.getMyIn().getInBody();
-				Rectangle outNodeBody = outNode.getMyOut().getOutBody();
-				Line line = new Line(nBody.getTranslateX(), nBody.getTranslateY(), 
-						outNodeBody.getTranslateX(), outNodeBody.getTranslateY());
-				n.getMyOut().setSelected();
-				myRoot.getChildren().add(line);
-				n.getMyIn().setSelected();
-				outNode.getMyOut().setSelected();
-			}
-		}
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
