@@ -69,8 +69,8 @@ public class GraphicTower implements Observer{
 	            Dragboard db = currentImage.startDragAndDrop(TransferMode.MOVE);
 	            ClipboardContent content = new ClipboardContent();
 	            // Store node ID in order to know what is dragged.
-	            content.putString(currentImage.getId());
-	           
+	            //content.putString(currentImage.getId());
+	            content.putImage(images);
 	            //Image myimage = new Image(images, IMAGESIZE,IMAGESIZE,false,false); 
 	            //ImageCursor myCursor = new ImageCursor(myimage);
 	            //myCursor.getBestSize(IMAGESIZE, IMAGESIZE);

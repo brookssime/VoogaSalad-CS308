@@ -45,8 +45,9 @@ public class GraphicGrid implements Observer{
 			for (int column = 0; column < grid[0].length; column++)
 			{
 				ImageView myImage = new ImageView();
-				System.out.println(screenWidth);
-				System.out.println(screenHeight);
+				//System.out.println(screenWidth);
+				//System.out.println(screenHeight);
+				
 				myImage.setFitWidth((80*screenWidth/1436));
 				myImage.setFitHeight((80*(screenHeight/877)));
 				String filename = "";
@@ -54,10 +55,11 @@ public class GraphicGrid implements Observer{
 				if(grid[row][column]==2) filename = "../images/port.png";
 				if(grid[row][column]==3) filename = "../images/home.png";
 				if(grid[row][column]==0) filename = "../images/path.png";
+				GridCell c = new GridCell(new  Image(getClass().getResourceAsStream(filename)),row,column );
+				c.setSize(80*screenWidth/1436, 80*(screenHeight/877));
+				//myImage.setImage(new  Image(getClass().getResourceAsStream(filename)));
 				
-				myImage.setImage(new  Image(getClass().getResourceAsStream(filename)));
-				
-				myGrid.add(myImage, column, row);
+				myGrid.add(c.getView(), column, row);
 			}
 		}
 		return myGrid;
