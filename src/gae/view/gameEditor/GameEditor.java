@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
@@ -49,17 +50,28 @@ public class GameEditor {
 	public Parent drawGameEditor(){
 		myRoot = new Pane();
 		
+		HBox buttons = new HBox(25);
+		buttons.setPadding(new Insets(10));
 		Button addGameNode = addNodeButton();
+		Button addAcceptButton = addAcceptButton();
 		
-		myRoot.getChildren().addAll(addGameNode);
+		buttons.getChildren().addAll(addGameNode, addAcceptButton);
+		myRoot.getChildren().add(buttons);
 		return myRoot;
+	}
+
+	private Button addAcceptButton() {
+		Button acceptButton = new Button("Accept");
+		acceptButton.setOnAction(e -> {
+			//export myNodes in whatever format
+		});
+		return acceptButton;
 	}
 
 	private Button addNodeButton() {
 		//+ Button
-		Button addGameNode = new Button("+");
+		Button addGameNode = new Button("+ Node");
 		addGameNode.setTextAlignment(TextAlignment.CENTER);
-		addGameNode.setPrefSize(30, 30);
 		addGameNode.setOnAction(e -> {
 			nodeChooseDialog();
 		});
@@ -67,6 +79,7 @@ public class GameEditor {
 	}
 
 
+	//TODO: extract to its own class?
 	private void nodeChooseDialog(){
 		
 		Stage nodeDialog = new Stage();
@@ -120,7 +133,7 @@ public class GameEditor {
 		for(GameNode outNode : myNodes){
 			//A connection was drawn
 			// 1) Draw Line between Nodes showing Connection was Made [DONE[
-			// 2) Update Out Node's Children
+			// 2) Update Out Node's Children [DONE]
 			if(outNode.getMyOut().isSelected().getValue() && !outNode.equals(inNode)){
 				//draw line
 				Rectangle outNodeBody = outNode.getMyOut().getOutBody();
@@ -137,17 +150,19 @@ public class GameEditor {
 						endX, endY);
 				myRoot.getChildren().add(line);
 				
+				outNode.addChild(inNode);
+				
 				//If line is double clicked, we delete it
 				// 1) First remove it from the scene [DONE]
-				// 2) Second update children of outNode
+				// 2) Second update children of outNode [DONE]
 				line.setOnMouseEntered(new EventHandler<MouseEvent>() {
 					
 					@Override
 					public void handle(MouseEvent event) {
 						if(event.isShiftDown()){
 							myRoot.getChildren().remove(line);
+							outNode.removeChild(inNode);
 						}
-						
 					}
 					
 				});
@@ -159,8 +174,6 @@ public class GameEditor {
 		}
 		
 	}
-	
-	
 	
 	
 }

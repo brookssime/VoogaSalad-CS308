@@ -1,5 +1,7 @@
 package gae.view.gameEditor;
 
+import java.util.ArrayList;
+
 import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -14,10 +16,12 @@ public abstract class GameNode {
 	protected Rectangle myBody;
 	private In myIn;
 	private Out myOut;
+	private ArrayList<GameNode> myChildren;
 
 	public GameNode() {
 		myGroup = new Group();
 		myText = new Label("");
+		myChildren = new ArrayList<>();
 	}
 	
 	protected void commonNodeInteraction() {
@@ -91,6 +95,22 @@ public abstract class GameNode {
 
 	public Out getMyOut() {
 		return myOut;
+	}
+	
+	public void addChild(GameNode node){
+		if(!myChildren.contains(node)){
+			myChildren.add(node);
+		}
+	}
+	
+	public void removeChild(GameNode node){
+		if(myChildren.contains(node)){
+			myChildren.remove(node);
+		}
+	}
+	
+	public String getText(){
+		return myText.toString();
 	}
  
 	/**
