@@ -1,23 +1,24 @@
 package gae.view.gameEditor;
 
-import reflection.Reflection;
-import gae.model.Model;
 import gae.model.Receiver;
-import javafx.application.Application;
+
+import java.util.ArrayList;
+
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import reflection.Reflection;
 
 /**
  * 
@@ -31,9 +32,12 @@ public class GameEditor {
 	private static final int CHOICE_SPACING = 10;
 	private Receiver myReceiver;
 	private Pane myRoot;
+	private ArrayList<GameNode> myNodes;
+	
 	
 	public GameEditor(Receiver receiver){
 		myReceiver = receiver;
+		myNodes = new ArrayList<>();
 	}
 
 	/**
@@ -78,10 +82,11 @@ public class GameEditor {
 			RadioButton r = (RadioButton) group.getSelectedToggle();
 			
 			GameNode gameNode = (GameNode) Reflection.createInstance("gae.view.gameEditor." + r.getText().replaceAll("\\s",""));
+			myNodes.add(gameNode);
+			addSelectListener(gameNode);
 			myRoot.getChildren().add(gameNode.getGroup());
 			nodeDialog.close();
 		});
-		
 		
 		VBox choice = new VBox(CHOICE_SPACING);
 		choice.setPadding(new Insets(CHOICE_SPACING));
@@ -92,4 +97,89 @@ public class GameEditor {
 		nodeDialog.show();
 		 
 	}
+	
+	/**
+	 * adds a listener to the node to see if it was selcted. This listener then looks for other selected of
+	 * the opposite type 
+	 */
+	private void addSelectListener(GameNode node){
+		node.getMyIn().isSelected().addListener(e -> {
+			if(node.getMyIn().isSelected().getValue()){
+				checkOutSelected(node);
+			}
+		});
+		
+		node.getMyOut().isSelected().addListener(e -> {
+			if(node.getMyIn().isSelected().getValue()){
+				checkInSelected(node);
+			}
+		});
+			
+	}
+
+	//TODO: these two methods can be combined?
+	
+	/**
+	 * goes through all of my nodes and checks for other selected outs. Ignores same node.
+	 * @param node
+	 */
+	private void checkOutSelected(GameNode inNode) {
+		for(GameNode n : myNodes){
+			if(n.getMyOut().isSelected().getValue() && !n.equals(inNode)){
+				//draw line
+				Rectangle nBody = n.getMyOut().getOutBody();
+				Rectangle inNodeBody = inNode.getMyIn().getInBody();
+				DoubleProperty startX = new SimpleDoubleProperty();
+			    DoubleProperty startY = new SimpleDoubleProperty();
+			    DoubleProperty endX   = new SimpleDoubleProperty();
+			    DoubleProperty endY   = new SimpleDoubleProperty();
+			    startX.bind(nBody.translateXProperty());
+			    startY.bind(nBody.translateYProperty());
+			    endX.bind(inNodeBody.translateXProperty());
+			    endY.bind(inNodeBody.translateYProperty());
+				Line line = new BoundLine(startX, startY, 
+						endX, endY);
+				
+				myRoot.getChildren().add(line);
+				n.getMyOut().setSelected();
+				inNode.getMyIn().setSelected();
+			}
+		}
+		
+	}
+
+	/**
+	 * goes through all of my nodes and checks for other selected ins. Ignores same node.
+	 * @param node
+	 */
+	private void checkInSelected(GameNode outNode) {
+		for(GameNode n : myNodes){
+			if(n.getMyIn().isSelected().getValue() && !n.equals(outNode)){
+				//draw line
+				Rectangle nBody = n.getMyIn().getInBody();
+				Rectangle outNodeBody = outNode.getMyOut().getOutBody();
+				Line line = new Line(nBody.getTranslateX(), nBody.getTranslateY(), 
+						outNodeBody.getTranslateX(), outNodeBody.getTranslateY());
+				n.getMyOut().setSelected();
+				myRoot.getChildren().add(line);
+				n.getMyIn().setSelected();
+				outNode.getMyOut().setSelected();
+			}
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
