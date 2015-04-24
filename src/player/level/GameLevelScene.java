@@ -1,5 +1,6 @@
 package player.level;
 
+import engine.gameScreens.LevelNode;
 import player.GraphicGameScene;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -31,7 +32,7 @@ public class GameLevelScene implements GraphicGameScene{
 	// spaces out the bottom menu
 	private static final int MENU_SPACING = 50;
 	private static final int SLIDER_SPACING = 10;
-	
+	private LevelNode mylevelnode;
 	//private double infoBoxWidthPct = .6;
 	//private double infoBoxHeightPct = .7;
 	private Slider animationSpeedSlider;
@@ -68,12 +69,7 @@ public class GameLevelScene implements GraphicGameScene{
 		//double infoBoxWidth = infoBoxWidthPct * screenWidth;
 		//double infoBoxHeight = infoBoxHeightPct * screenHeight;
 		
-		BorderPane root = new BorderPane();
-        // must be first since other panels may refer to page
-        root.setCenter(makeGridDisplay());
-        root.setTop(makeControlPanel());
-        root.setRight(makeTowerInfo());
-        root.setBottom(makeInformationPanel());
+		BorderPane root = makePane();
         // control the navigation
        // enableButtons();
         // create scene to hold UI
@@ -81,6 +77,21 @@ public class GameLevelScene implements GraphicGameScene{
 		//root.getChildren().add(gameChoiceBox);
 		//root.getChildren().add(gameInfoBox);
 		
+	}
+	
+	public void loadLevel(LevelNode level){
+		mylevelnode = level;
+		
+	}
+	
+	private BorderPane makePane(){
+		BorderPane root = new BorderPane();
+        // must be first since other panels may refer to page
+        root.setCenter(makeGridDisplay());
+        root.setTop(makeControlPanel());
+        root.setRight(makeTowerInfo());
+        root.setBottom(makeInformationPanel());
+        return root;
 	}
 	
 	private Node makeTowerInfo() {
