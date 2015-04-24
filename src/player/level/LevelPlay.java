@@ -1,4 +1,4 @@
-package player;
+package player.level;
 
 public interface LevelPlay {
 	public void loadLevel();

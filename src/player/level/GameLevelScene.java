@@ -1,5 +1,6 @@
-package player;
+package player.level;
 
+import player.GraphicGameScene;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -86,7 +87,7 @@ public class GameLevelScene implements GraphicGameScene{
 		// TODO Auto-generated method stub
 		towerInfo = new VBox();
 		Label myLabel = new Label("Towers: ");
-		TowerInfo t = new TowerInfo("../images/tower.jpg", "bacis", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
+		TowerInfo t = new TowerInfo("../../images/tower.jpg", "bacis", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
 		towerInfo.getChildren().addAll(myLabel,t.getDisplay());
 		return towerInfo;
 	}

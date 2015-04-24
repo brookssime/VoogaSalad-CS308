@@ -1,6 +1,7 @@
-package player;
+package player.level;
 
 
+import player.RunGamePlayer;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;

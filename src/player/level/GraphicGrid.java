@@ -1,4 +1,4 @@
-package player;
+package player.level;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -51,12 +51,15 @@ public class GraphicGrid implements Observer{
 				myImage.setFitWidth((80*screenWidth/1436));
 				myImage.setFitHeight((80*(screenHeight/877)));
 				String filename = "";
-				if(grid[row][column]==1) filename = "../images/wall.png";
-				if(grid[row][column]==2) filename = "../images/port.png";
-				if(grid[row][column]==3) filename = "../images/home.png";
-				if(grid[row][column]==0) filename = "../images/path.png";
+				if(grid[row][column]==1) filename = "../../images/wall.png";
+				if(grid[row][column]==2) filename = "../../images/port.png";
+				if(grid[row][column]==3) filename = "../../images/home.png";
+				if(grid[row][column]==0) filename = "../../images/path.png";
 				GridCell c = new GridCell(new  Image(getClass().getResourceAsStream(filename)),row,column );
 				c.setSize(80*screenWidth/1436, 80*(screenHeight/877));
+				if(grid[row][column]==1) {
+					c.setDropable(true);
+				};
 				//myImage.setImage(new  Image(getClass().getResourceAsStream(filename)));
 				
 				myGrid.add(c.getView(), column, row);

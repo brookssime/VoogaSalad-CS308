@@ -1,4 +1,4 @@
-package player;
+package player.level;
 
 import javafx.event.EventHandler;
 import javafx.scene.ImageCursor;
@@ -16,6 +16,8 @@ import javafx.scene.input.DragEvent;
 
 import java.util.Observable;
 import java.util.Observer;
+
+import player.RunGamePlayer;
 
 public class GraphicTower implements Observer{
 	private final Image previewImage;
