@@ -4,7 +4,7 @@ import java.util.List;
 
 import engine.gameLogic.GameObject;
 
-public abstract class GridObject extends GameObject{
+public abstract class Sprite extends GameObject{
 	
 	protected String myImagePath;
 	protected List<String> myAccessNames;
@@ -24,4 +24,6 @@ public abstract class GridObject extends GameObject{
 	public List<String> getAccessNames(){
 		return myAccessNames;
 	}
+	
+	public abstract boolean isDead();
 }

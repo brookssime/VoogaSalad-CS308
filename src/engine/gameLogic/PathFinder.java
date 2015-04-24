@@ -5,6 +5,7 @@ import interfaces.Shootable;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -13,6 +14,7 @@ import java.util.Random;
 
 import engine.EnemyMovement;
 import engine.Grid;
+import engine.Path;
 import engine.sprites.Enemy;
 import engine.sprites.Projectile;
 import engine.sprites.Tile;
@@ -53,56 +55,51 @@ public class PathFinder {
 	
 
 	private Path convertToPath(LinkedList<Tile> tiles, Enemy enemy){
-		Tile[] tileArray = (Tile[]) tiles.toArray();
 		
-		List<Placement> myMovements = new LinkedList<Placement>();
+		return enemy.getMovement().generatePath(tiles);
 		
-		Tile lastStraight = tileArray[0];
 		
-		for (int i = 2; i < tileArray.length; i++){
-			if(tileArray[i-2].getX() != tileArray[i].getX() && tileArray[i-2].getY() != tileArray[i].getY()){
-				myMovements.addAll(generateStretch(lastStraight.getLocation(), tileArray[i-2].getLocation(), enemy.getMovement()));
-				myMovements.addAll(generateTurn(tileArray[i-2].getLocation(), tileArray[i].getLocation(), enemy.getMovement()));
-				lastStraight = tileArray[i];	
-			}
-		}
 		
-		// MAKE SURE THIS CAST WORKS
-		return new Path((LinkedList<Placement>) myMovements); 
 	}
 	
-	
-	// Given two points which represent two tiles on the ends of a straightaway
-	List<Placement> generateStretch(Point2D.Double Start, Point2D.Double End, EnemyMovement m){
-		Start = (Point2D.Double) Start;
+	/*// Given two points which represent two tiles on the ends of a straightaway
+	List<Placement> generateStretch(Placement p1, Placement p2, EnemyMovement m){
+		
+		Point2D.Double start = (Point2D.Double) p1.getLocation().clone(); // TODO MAKE SURE THE UPDATES BELOW...
+		Point2D.Double end = (Point2D.Double) p2.getLocation().clone();
+		
 		int myCoordProperty = 0;
 	
 		// 1. Adjust actual coordinates as necessary from Tile Locations
 		
-		if(Start.x != End.x){
-			Start.setLocation(Start.x + (myGrid.getTiles()[(int)Start.x][(int)Start.y].getWidth())*((Start.x < End.x)?1:0) , Start.y); 
-			End.setLocation(End.x + (myGrid.getTiles()[(int)End.x][(int)End.y].getWidth())*((Start.x < End.x)?0:1), End.y);
+		if(start.x != end.x){
+			start.setLocation(start.x + (myGrid.getTiles()[(int)start.x][(int)start.y].getWidth())*((start.x < end.x)?1:0) , start.y); 
+			end.setLocation(end.x + (myGrid.getTiles()[(int)end.x][(int)end.y].getWidth())*((start.x < end.x)?0:1), end.y);
 			myCoordProperty = 0;
 		}
 		
-		else if(Start.y != End.y){
-			Start.setLocation(Start.x, Start.y + (myGrid.getTiles()[(int)Start.x][(int)Start.y].getWidth())*((Start.y < End.y)?1:0));
-			End.setLocation(End.x, End.y + (myGrid.getTiles()[(int)End.x][(int)End.y].getWidth())*((Start.y < End.y)?0:1));
+		else if(start.y != end.y){
+			start.setLocation(start.x, start.y + (myGrid.getTiles()[(int)start.x][(int)start.y].getWidth())*((start.y < end.y)?1:0));
+			end.setLocation(end.x, end.y + (myGrid.getTiles()[(int)end.x][(int)end.y].getWidth())*((start.y < end.y)?0:1));
 			myCoordProperty = 1;
 		}
 		
+		// ...RESULT IN p1 and p2 BEING UPDATED HERE^^ TODO
 		// calculate Placements based on points and coordinate property
 		
-		List<Placement> stretch = m.makeStretch(Start, End, myCoordProperty);
+		List<Placement> stretch = m.makeStretch(p1, p2, myCoordProperty);
 		return stretch;
+		
 
-	}
+	}*/
 	
 	// Given two points which represent Tiles on either side of a Corner Tile
-	List<Placement> generateTurn(Point2D.Double Start, Point2D.Double End, EnemyMovement m){
+	/*List<Placement> generateTurn(Placement start, Placement end, EnemyMovement m){
 		// TODO 
-		return null;
-	}
+		
+		List<Placement> turn = m.makeTurn(start, end);
+		return turn;
+	}*/
 	
 	
 
@@ -150,7 +147,7 @@ public class PathFinder {
 	public void generateProjectile(Projectile projectile, Path path) {
 		Projectile newP = new Projectile(projectile);
 		newP.setPath(path);
-		myGrid.placeGridObjectAt(projectile, path.getNext());
+		myGrid.placeSpriteAt(projectile, path.getNext());
 	}
 
 }

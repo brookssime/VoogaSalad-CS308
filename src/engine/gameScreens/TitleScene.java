@@ -6,7 +6,7 @@ package engine.gameScreens;
  *
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class TitleScene extends GameScene{
+public class TitleScene extends GameNode{
 	
 	//private String myName; Do we need this?
 	private String myTitlePicturePath;

@@ -8,7 +8,7 @@ import java.awt.Shape;
 import java.util.List;
 
 import engine.gameLogic.Effect;
-import engine.gameLogic.Path;
+import engine.Path;
 import engine.gameLogic.Placement;
 
 /**
@@ -16,7 +16,7 @@ import engine.gameLogic.Placement;
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class Projectile extends GridObject implements Collidable, Movable{
+public class Projectile extends Sprite implements Collidable, Movable{
 
 	/** The my name. */
 	private String myName;

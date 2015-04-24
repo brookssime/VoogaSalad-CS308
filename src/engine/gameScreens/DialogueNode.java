@@ -17,7 +17,7 @@ import java.util.Queue;
  * @author Brooks, Patrick, Robert, and Sid.
  * 
  */
-public class DialogueScene extends GameScene{
+public class DialogueNode extends GameNode{
 
 	/** The my name. */
 	private String myName;
@@ -38,11 +38,11 @@ public class DialogueScene extends GameScene{
 	/**
 	 * Instantiates a new dialogue scene.
 	 */
-	public DialogueScene(){
+	public DialogueNode(){
 		
 	}
 
-	public DialogueScene(String backgroundImagePath, Queue<DialogueBox> dialogueBoxes) {
+	public DialogueNode(String backgroundImagePath, Queue<DialogueBox> dialogueBoxes) {
 		myBackgroundImagePath = backgroundImagePath;
 		myDialogueBoxes = dialogueBoxes;
 	}

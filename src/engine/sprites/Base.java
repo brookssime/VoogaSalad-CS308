@@ -12,7 +12,7 @@ import java.awt.Shape;
  * The Class Base.
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class Base extends GridObject implements Collidable{
+public class Base extends Sprite implements Collidable{
 	
 	/** The my name. */
 	private String myName;

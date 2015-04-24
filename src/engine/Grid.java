@@ -9,7 +9,7 @@ import javafx.beans.Observable;
 import engine.gameLogic.GameObject;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Wave;
-import engine.sprites.GridObject;
+import engine.sprites.Sprite;
 import engine.sprites.Tile;
 
 /**
@@ -29,7 +29,7 @@ public class Grid extends GameObject implements Observable{
 
 	/** The my grid manager. */
 	private GridManager myGridManager;
-	private Map<GridObject, Placement> myGridObjectMap;	
+	private Map<Sprite, Placement> mySpriteMap;	
 	private List<Tile> myPorts;
 	
 
@@ -51,7 +51,7 @@ public class Grid extends GameObject implements Observable{
 	public Grid(Grid grid, GridManager gm){
 		myName = grid.myName;
 		myTiles = grid.myTiles;
-		myGridObjectMap = grid.myGridObjectMap;
+		mySpriteMap = grid.mySpriteMap;
 		myPorts = grid.myPorts;
 		myGridManager = gm;
 	}
@@ -59,8 +59,8 @@ public class Grid extends GameObject implements Observable{
 		return myTiles;
 	}
 
-	public Map<GridObject, Placement> getGridObjectMap(){
-		return myGridObjectMap;
+	public Map<Sprite, Placement> getSpriteMap(){
+		return mySpriteMap;
 	}
 
 	private void init(){
@@ -80,15 +80,15 @@ public class Grid extends GameObject implements Observable{
 
 	public void update(){
 		myGridManager.update();
-		myGridManager.checkComplete();
+		//myGridManager.checkComplete();
 	}
 
 	public void setTiles(Tile[][] tiles){
 		myTiles = tiles;
 	}
 
-	public void placeGridObjectAt(GridObject o, Placement p){
-		myGridObjectMap.put(o, p);
+	public void placeSpriteAt(Sprite o, Placement p){
+		mySpriteMap.put(o, p);
 	}
 
 
@@ -150,9 +150,9 @@ public class Grid extends GameObject implements Observable{
 
 	public Tile getPortFor(Wave w) {
 		Placement p = new Placement();
-		for(GridObject o : myGridObjectMap.keySet()){
+		for(Sprite o : mySpriteMap.keySet()){
 			if(o.getName().equals(w.getPortName()))
-					p = myGridObjectMap.get(o);	
+					p = mySpriteMap.get(o);	
 		}
 		
 		return getTileForPlacement(p);
