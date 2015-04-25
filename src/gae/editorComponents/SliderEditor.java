@@ -27,6 +27,10 @@ public class SliderEditor extends EditorComponent{
 	public SliderEditor(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
 		super(receiver, setMethod, getMethod, objectName);
 		// TODO Auto-generated constructor stub
+		//In case the sliderEditorParams method is not called
+		myMin = 0;
+		myMax = 50;
+		myCur = 25;
 	}
 
 	@Override
@@ -36,10 +40,10 @@ public class SliderEditor extends EditorComponent{
 		h.getChildren().add(sliderSetUp());
 	}
 	
-	public void SliderEditorParams(double min, double max) {
+	public void sliderEditorParams(double min, double max) {
 		myMin = min;
 		myMax = max;
-		myCur = (max - min) / 2;
+		myCur = Math.floor((max-min)/2);
 	}
 
 	public Node sliderSetUp() {
@@ -47,8 +51,6 @@ public class SliderEditor extends EditorComponent{
 		mySlider.setMin(myMin);
 		mySlider.setValue(myCur);
 		mySlider.setShowTickLabels(true);
-		mySlider.setShowTickMarks(true);
-		mySlider.setSnapToTicks(true);
 		mySlider.setMajorTickUnit(myCur);
 
 		final Label sliderVal = new Label(Double.toString(mySlider.getValue()));
@@ -56,15 +58,18 @@ public class SliderEditor extends EditorComponent{
 		mySlider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov,
 					Number old_val, Number new_val) {
-				sliderVal.setText(String.format("%.2f", new_val));
+				//sliderVal.setText(String.format("%.0f", new_val));
+				Integer myVal = (int) mySlider.getValue();
+                sliderVal.setText(myVal.toString());
 			}
 		});
 
 		return mySlider;
 	}
 
-	public double value() {// This is to be used on save event
-		return mySlider.getValue();
+	public Integer value() {// This is to be used on save event
+		int myVal = (int) mySlider.getValue();
+		return myVal;
 	}
 
 }
