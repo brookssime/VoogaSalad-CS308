@@ -1,15 +1,9 @@
 package gae.view.editorpane;
 
+import java.util.List;
+
 import gae.view.GAEPane;
 import gae.view.menupane.MenuAdder;
-
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -37,13 +31,47 @@ import javafx.stage.Stage;
  *
  */
 public class TileEditor extends GAEPane{
-
-	//TODO: FileImagePath -> String
-	//TODO: Name -> String
+	private String myImagePath;
+	private HelperEditor myHelper;
 	
 	public TileEditor(String className, MenuAdder adder) {
 		super(className, adder);
-		// TODO Auto-generated constructor stub
+		myHelper = new HelperEditor();
+		GridPane myGridPane = new GridPane();
+		setContent(myGridPane);
+		myRoot.getChildren().add(myGridPane);
+		}
+	
+	private void setContent(GridPane myPane){
+		double titleSize = 25;
+		double textSize = 20;
+		String[] labels = {"Edit your tile here", "Set Image: ", "Set Name: "};
+		
+		myHelper.paneSetUp(myPane);
+		Text myTitle = myHelper.setText(labels[0], titleSize);
+		myPane.add(myTitle, 0, 0);
+		
+		for(int i=1; i<labels.length; i++){
+			int y = 2; //location of the text label
+			Text myText = myHelper.setText(labels[i], textSize);
+			myPane.add(myText, 0, y);
+			y += 2;
+		}
+		
+		//TODO: FileImagePath -> String
+		//TODO: Name -> String
+		HBox myImageBox = myHelper.addImageButton("Choose Image: ");
+		myPane.add(myImageBox, 1, 2);
+		//TODO: Figure out how to use editor components
+		
+		Button save = myHelper.saveButton();
+		myPane.add(save,  1, 12);
+		save.setOnAction(new EventHandler<ActionEvent>() {
+        	@Override
+            public void handle(ActionEvent e) {
+                //TODO: Make this close the editor instead
+            }
+        });
 	}
 	
 

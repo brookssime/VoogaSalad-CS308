@@ -19,7 +19,6 @@ import gae.view.menupane.MenuAdder;
  */
 
 public class EnemyEditor extends GAEPane{
-	
 	private String myImagePath;
 	private HelperEditor myHelper;
 	
@@ -41,7 +40,7 @@ public class EnemyEditor extends GAEPane{
 		double titleSize = 25;
 		double textSize = 20;
 		String[] myLabels = {"Edit your enemy here", "Set Image: ", "Set Name: ",
-				"Set Health: ", "Set Walkable Tiles: ", "Set Speed: ", "Set Damage to base: "};
+				"Set Health: ", "Names of Walkable Tiles: ", "Set Speed: ", "Set Damage to base: "};
 		
 		myHelper.paneSetUp(myPane); //TODO:Make sure this works or make it return a node
 		Text myTitle = myHelper.setText(myLabels[0], titleSize);
