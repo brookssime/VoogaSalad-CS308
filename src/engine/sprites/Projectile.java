@@ -7,7 +7,9 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.util.List;
 
-import engine.gameLogic.Effect;
+import org.codehaus.groovy.runtime.callsite.GetEffectivePogoFieldSite;
+
+import engine.gameLogic.ProjectileEffect;
 import engine.Path;
 import engine.gameLogic.Placement;
 
@@ -31,7 +33,7 @@ public class Projectile extends Sprite implements Collidable, Movable{
 	private Integer mySpeed; 
 	
 	/** The my effect. */
-	public Effect myEffect;
+	public ProjectileEffect myEffect;
 	
 	/** The my rad. */
 	private int myRadius;
@@ -50,23 +52,6 @@ public class Projectile extends Sprite implements Collidable, Movable{
 		
 	}
 	
-	/**
-	 * Instantiates a new projectile.
-	 *
-	 * @param location the location
-	 * @param speed the speed
-	 * @param damage the damage
-	 * @param duration the duration
-	 * @param effect the effect
-	 */
-	public Projectile(Point location, Integer speed, Integer damage, Integer duration, Effect effect){
-		
-		mySpeed = speed; 
-		myEffect = effect;
-		myRadius = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
-		setCollisionBounds();
-	}
-	
 	public Projectile(Projectile projectile) {
 		this.myName = projectile.myName;
 		this.myImageString = projectile.myImageString;
@@ -77,7 +62,6 @@ public class Projectile extends Sprite implements Collidable, Movable{
 		this.myAccessNames = projectile.myAccessNames;
 		this.myName = projectile.myName;
 		this.myAccessNames = projectile.myAccessNames;
-		
 	}
 	
 	public void setPath(Path p){
@@ -134,6 +118,10 @@ public class Projectile extends Sprite implements Collidable, Movable{
 	@Override
 	public Shape getCollisionBounds() {
 		return myCollisionBounds;
+	}
+	
+	public ProjectileEffect getEffect(){
+		return myEffect;
 	}
 
 	/* (non-Javadoc)

@@ -9,26 +9,21 @@ import java.util.ArrayList;
 
 import engine.sprites.Enemy;
 
-/**
- * The Class Range.
- * @author Brooks, Patrick, Robert, and Sid.
- * 
- */
 public class Range implements Collidable{
 
 	private ArrayList<Collidable> objectsInRange = new ArrayList<Collidable>();
 	private Shape myCollisionBounds;
 	private Point myLocation;
-	private int myRad;
+	private int myRadius;
 
 	public Range(int x, int y, int r){
 		myCollisionBounds = new Ellipse2D.Double(x, y, r, r);
 	}
 
 	public ArrayList<Collidable> getObjectsInRange(){
-		ArrayList<Collidable> a =  objectsInRange;
+		ArrayList<Collidable> newObjectsInRange =  objectsInRange;
 		objectsInRange.clear();
-		return a;		
+		return newObjectsInRange;		
 	}
 
 	//TODO: REFACTOR THIS to allow for use by BOTH ENEMIES AND TOWERS--ie discriminate based on ID, name, etc.
@@ -50,7 +45,7 @@ public class Range implements Collidable{
 	}
 
 	public void setCollisionBounds() {
-		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRad*2, myRad*2);
+		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRadius*2, myRadius*2);
 	}
 
 	@Override
@@ -63,5 +58,4 @@ public class Range implements Collidable{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }
