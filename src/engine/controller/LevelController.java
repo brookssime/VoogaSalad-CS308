@@ -1,7 +1,14 @@
 package engine.controller;
 
+import engine.Environment;
+import engine.Grid;
+import engine.GridManager;
+import engine.gameLogic.GameStats;
 import engine.gameLogic.Placement;
 
+
+//TODO NEED TO WRITE STRING TO SPRITE CLASS
+//TODO SPRITE NEEDS getWorth() METHOD AND getInfo() [total info about sprite] METHOD
 public class LevelController extends Controller {
 
 	/**
@@ -12,7 +19,9 @@ public class LevelController extends Controller {
 	 */
 	
 	public void placeSprite(String spriteID, Placement spritePlacement){
-		
+		Environment e = new Environment();
+		Grid myGrid = e.getGrid();
+		myGrid.placeSpriteAt(sprite, spritePlacement);
 	}
 	
 	/**
@@ -23,12 +32,15 @@ public class LevelController extends Controller {
 	 */
 	public void examineSprite(String spriteID){
 		
+		return sprite.getInfo();
+		
 	}
 	
 	/**
 	 * Starts gameplay (and timeline, etc.)
 	 */
 	public void play(){
+		//should be in the view
 		
 	}
 	
@@ -36,20 +48,21 @@ public class LevelController extends Controller {
 	 * Pauses gameplay (and timeline, etc.)
 	 */
 	public void pause(){
-		
+		//should be in the view
 	}
 	
 	/**
 	 * Allows for player to double the speed of gameplay
 	 */
 	public void increaseGameSpeed(){
-	
+		//should be in the view
 	}
 	
 	/**
 	 * Allows for player to cut the speed of gameplay in half
 	 */
 	public void decreaseGameSpeed(){
+		//should be in the view
 		
 	}
 	
@@ -57,6 +70,8 @@ public class LevelController extends Controller {
 	 * Takes in spriteID and makes necessary changes to money, HUD, and Store
 	 */
 	public void purchaseObject(String spriteID){
+		GameStats myGameStats = new GameStats();
+		myGameStats.updateMoney(sprite.getWorth());
 		
 	}
 	
@@ -68,6 +83,12 @@ public class LevelController extends Controller {
 	 * @param spritePlacement
 	 */
 	public void sellObject(String spriteID, Placement spritePlacement){
+		GameStats myGameStats = new GameStats();
+		Environment e = new Environment();
+		Grid myGrid = e.getGrid();
+		myGrid.placeSpriteAt(tile, spritePlacement);
+		myGameStats.updateMoney(sprite.getWorth() * -1);
+		
 		
 	}
 	
@@ -75,6 +96,7 @@ public class LevelController extends Controller {
 	 * Displays the help page for players
 	 */
 	public void showHelpPage(){
+		//should be in the view
 		
 	}
 	
