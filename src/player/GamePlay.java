@@ -1,9 +1,9 @@
 package player;
 
-public interface GamePlay {
+public class GamePlay {
 	public int getMoney();
 	public int getScore();
 	public void updateMoney();
 	public void updateScore();
-	//public Level loadLevel(int level);
+	public Level loadLevel(int level);
 }

@@ -62,7 +62,7 @@ public class GraphicGrid implements Observer{
 				};
 				//myImage.setImage(new  Image(getClass().getResourceAsStream(filename)));
 				
-				myGrid.add(c.getView(), column, row);
+				myGrid.add(c.getPane(), column, row);
 			}
 		}
 		return myGrid;

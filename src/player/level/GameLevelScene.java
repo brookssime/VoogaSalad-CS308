@@ -81,7 +81,7 @@ public class GameLevelScene implements GraphicGameScene{
 	
 	public void loadLevel(LevelNode level){
 		mylevelnode = level;
-		
+		 myScene = new Scene(makePane(), screenWidth, screenHeight);
 	}
 	
 	private BorderPane makePane(){
@@ -98,7 +98,8 @@ public class GameLevelScene implements GraphicGameScene{
 		// TODO Auto-generated method stub
 		towerInfo = new VBox();
 		Label myLabel = new Label("Towers: ");
-		TowerInfo t = new TowerInfo("../../images/tower.jpg", "bacis", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
+		//sample TowerInfo
+		TowerInfo t = new TowerInfo("../../images/tower.jpg", "basic", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
 		towerInfo.getChildren().addAll(myLabel,t.getDisplay());
 		return towerInfo;
 	}

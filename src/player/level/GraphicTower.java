@@ -25,6 +25,7 @@ public class GraphicTower implements Observer{
     private final Image equippedImage;
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
+    //private boolean placed;
     private static final double IMAGESIZE =  80*(RunGamePlayer.screenHeight/877);
     
     private final ImageView currentImage;
@@ -59,7 +60,7 @@ public class GraphicTower implements Observer{
         currentImage.setId(this.getClass().getSimpleName() + System.currentTimeMillis());
         currentImage.setFitHeight(IMAGESIZE);
 		currentImage.setFitWidth(IMAGESIZE);
-		
+		//placed =false;
 		 currentImage.setOnDragDetected((MouseEvent event) -> {
 			 //orgSceneX = event.getSceneX();
 	           // orgSceneY = event.getSceneY();
@@ -73,6 +74,7 @@ public class GraphicTower implements Observer{
 	            // Store node ID in order to know what is dragged.
 	            //content.putString(currentImage.getId());
 	            content.putImage(images);
+	            content.putString("Tower 1");
 	            //Image myimage = new Image(images, IMAGESIZE,IMAGESIZE,false,false); 
 	            //ImageCursor myCursor = new ImageCursor(myimage);
 	            //myCursor.getBestSize(IMAGESIZE, IMAGESIZE);
@@ -104,11 +106,12 @@ public class GraphicTower implements Observer{
 		 currentImage.setOnDragDropped((DragEvent event) -> {
 	            //activate();
 			 	System.out.println("Drage drop");
-	            Dragboard db = currentImage.startDragAndDrop(TransferMode.MOVE);
-	            ClipboardContent content = new ClipboardContent();
+	            //Dragboard db = currentImage.startDragAndDrop(TransferMode.MOVE);
+	            //ClipboardContent content = new ClipboardContent();
 	            // Store node ID in order to know what is dragged.
-	            content.putString(currentImage.getId());
-	            db.setContent(content);
+	            //content.putString(currentImage.getId());
+	            //db.setContent(content);
+			 	//placed = true;
 	            event.consume();
 	        });
 	        
