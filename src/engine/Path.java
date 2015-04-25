@@ -7,25 +7,31 @@ import engine.gameLogic.Placement;
 
 public class Path {
 	
-	LinkedList<Placement> myPlacements;
+	//LinkedList<Placement> myPlacements;
+	LinkedList<Movement> myMovements;
 	
-	public Path(){
-		
+	public Path(LinkedList<Movement> movements){
+		myMovements = movements;
 	}
 	
-	public Path(LinkedList<Placement> placements){
-		myPlacements = placements;
+	public Placement getNextPlacement(){
+		if (myMovements.getFirst().getNext() == null)
+			myMovements.pop();
+		return myMovements.getFirst().getNext();
 	}
 	
-	public Placement getNext(){
+	public void setNextMovement(Movement m){
+		myMovements.pop();
+		myMovements.addFirst(m);
+	}
+	
+	
+	
+	/*public Placement getNext(){
 		return myPlacements.pop();
 	}
 
-	
-	//creates a new instance of this Path, including modifying for randomness
-	public Path generateNew(){
-		return null;
-	}
+
 	
 	Placement intersects(Path p){
 		
@@ -35,11 +41,6 @@ public class Path {
 	
 	LinkedList<Placement> getPlacements(){
 		return myPlacements;
-	}
-	
-	
-	
-	
-	//TODO: come back to this
+	}*/
 
 }

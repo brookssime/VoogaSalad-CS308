@@ -10,11 +10,13 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.sun.scenario.effect.Effect;
+
 import engine.Path;
 import engine.gameLogic.Placement;
+import engine.gameLogic.ProjectileEffect;
 
 public class Enemy extends Sprite implements Collidable, Movable {
-
 
 	private Integer mySpeed;
 	private MovementStrategy myMovement;
@@ -23,7 +25,7 @@ public class Enemy extends Sprite implements Collidable, Movable {
 	private Shape myCollisionBounds;
 	private LinkedList<Tile> myTilePath;
 	//private int myRad; //TODO: Purpose of this?
-	private Timer timer; //TODO: Do we need this in the EnemyClass?
+	private Timer myTimer; //TODO: Do we need this in the EnemyClass?
 	//private Double distanceWalked; //TODO: Purpose of this?
 	private Path myPath;
 
@@ -57,18 +59,19 @@ public class Enemy extends Sprite implements Collidable, Movable {
 	
 	//TODO: Fix this with new projectile info
 	public void executeEffect(Projectile projectile) {
-	/*	// change stuff
-		mySpeed -= projectile.myEffect.getSpeedDamage();
-		// if its not final do stuff
-		if (!projectile.myEffect.isFinal()) {
-			timer = new Timer();
-			timer.schedule(
-					new reverseEffect(projectile.myEffect.getSpeedDamage()),
-					projectile.myEffect.getDuration());
+		ProjectileEffect currentEffect = projectile.getEffect();
+		if(currentEffect.isFinal()){
+			mySpeed -= currentEffect.getSpeedDamage();
+			myHealth -= currentEffect.getHealthDamage();
 		}
-		*/
+		
+	/*	else{
+			myTimer = new Timer();
+			myTimer.schedule(
+					new reverseEffect(currentEffect.getSpeedDamage()),
+					currentEffect.getDuration());
+		}*/	
 	}
-
 	
 	public void setSteps(LinkedList<Tile> steps) {
 		myTilePath = steps;
@@ -79,7 +82,7 @@ public class Enemy extends Sprite implements Collidable, Movable {
 	}
 
 	public void setPath(Path p) {
-		myPath = p.generateNew();
+		myPath = p;
 	}
 
 	public List<Tile> getTilePath() {
@@ -106,16 +109,13 @@ public class Enemy extends Sprite implements Collidable, Movable {
 
 		public void run() {
 			mySpeed += speedChange;
-			timer.cancel();
+			myTimer.cancel();
 		}
 	}
 
 	@Override
 	public boolean isDead() {
-		if (myHealth <= 0) {
-			return true;
-		}
-		return false;
+		return myHealth <= 0;
 	}
 
 	public Shape getCollisionBounds() {
@@ -137,7 +137,7 @@ public class Enemy extends Sprite implements Collidable, Movable {
 
 	@Override
 	public Placement move() {
-		return myPath.getNext();
+		return myPath.getNextPlacement();
 	}
 
 	@Override

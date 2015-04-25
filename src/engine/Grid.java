@@ -12,42 +12,20 @@ import engine.gameLogic.Wave;
 import engine.sprites.Sprite;
 import engine.sprites.Tile;
 
-/**
- * The Class Grid.
- * 
- * @author Brooks, Patrick, Robert, and Sid.
- * 
- */
 public class Grid extends GameObject implements Observable{
 
-
-	/** The my name. */
 	private String myName;
-
-	/** The my tiles. */
 	public Tile[][] myTiles;
-
-	/** The my grid manager. */
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;	
 	private List<Tile> myPorts;
 	
-
-	/**
-	 * Instantiates a new grid.
-	 *
-	 * @param width the width
-	 * @param height the height
-	 */
 	public Grid(int width, int height){
 		myTiles = new Tile[width][height];
 		myGridManager = new GridManager(this);
 		init();
 	}
 
-	/**
-	 * Instantiates a grid that connects to the gridmanager
-	 */
 	public Grid(Grid grid, GridManager gm){
 		myName = grid.myName;
 		myTiles = grid.myTiles;
@@ -55,6 +33,7 @@ public class Grid extends GameObject implements Observable{
 		myPorts = grid.myPorts;
 		myGridManager = gm;
 	}
+	
 	public Tile[][] getTiles(){
 		return myTiles;
 	}
@@ -91,44 +70,18 @@ public class Grid extends GameObject implements Observable{
 		mySpriteMap.put(sprite, spritePlacement);
 	}
 
-
-	/**
-	 * Adds the tile.
-	 *
-	 * @param t the t
-	 * @param x the x
-	 * @param y the y
-	 */
 	public void addTile(Tile t, int x, int y){
 		myTiles[x][y] = t;
 	}
 
-
-	/**
-	 * Sets the port.
-	 *
-	 *
-	 */
 	public void setPort(List<Tile> t){
 		myPorts = t;
 	}
 
-	/**
-	 * Gets the port.
-	 *
-	 * @return the port
-	 */
 	public List<Tile> getPort(){
 		return myPorts;
 	}
 
-	/**
-	 * Gets the tile.
-	 *
-	 * @param x the x
-	 * @param y the y
-	 * @return the tile
-	 */
 	public Tile getTile(int x, int y){
 		return myTiles[x][y];
 	}

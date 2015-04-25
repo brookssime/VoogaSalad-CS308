@@ -1,6 +1,6 @@
 package engine.gameLogic;
 
-public class Effect extends GameObject{
+public class ProjectileEffect extends GameObject{
 
 	private Integer mySpeedDamage;
 	private Double mySpeedFrequency;
@@ -10,8 +10,10 @@ public class Effect extends GameObject{
 	private Integer myHealthDamage;
 	private Double myHealthFrequency;
 	private Integer myHealthReps;
+	
+	private boolean myIsFinal;
 
-	public Effect(){
+	public ProjectileEffect(){
 		
 	}
 	
@@ -69,5 +71,9 @@ public class Effect extends GameObject{
 	
 	public int getSpeedReps(){
 		return mySpeedReps;
+	}
+
+	public boolean isFinal() {
+		return myIsFinal;
 	}
 }
