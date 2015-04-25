@@ -12,7 +12,7 @@ public class GameChoiceScreen {
 	private double infoBoxHeightPct = .7;
 	
 	private double choiceBoxWidthPct = .2;
-	private double choiceBoxHeightPct = 7;
+	private double choiceBoxHeightPct = .7;
 	
 	Group root;
 	Scene scene;
@@ -43,7 +43,7 @@ public class GameChoiceScreen {
 		gameChoiceBox.setLayoutY(.15 * screenHeight);
 		
 		root.getChildren().add(gameChoiceBox);
-		root.getChildren().add(gameInfoBox);
+		//root.getChildren().add(gameInfoBox);
 		
 				
 		
