@@ -1,7 +1,6 @@
 package player;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -58,9 +57,6 @@ public class GameInfoBox extends AbstractOverlay{
 		
 	}
 	
-
-	
-
 
 	public void addPlayButton(){
 		Button playButton = new Button("Play Game");
