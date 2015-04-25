@@ -29,28 +29,39 @@ public class LevelController extends Controller {
 	 * Starts gameplay (and timeline, etc.)
 	 */
 	public void play(){
-		
+		//myTimeline.play();
 	}
 	
 	/**
 	 * Pauses gameplay (and timeline, etc.)
 	 */
 	public void pause(){
-		
+		//myTimeline.stop();
 	}
 	
 	/**
 	 * Allows for player to double the speed of gameplay
 	 */
 	public void increaseGameSpeed(){
-	
+/*		myTimeline.stop();
+		myTimeline.getKeyFrames().clear();
+		myFrameRate = 2*myFrameRate;
+		myTimeline.getKeyFrames().add(getKeyFrame(myFrameRate));
+		myTimeline.play();*/
 	}
 	
 	/**
 	 * Allows for player to cut the speed of gameplay in half
 	 */
 	public void decreaseGameSpeed(){
-		
+	/*	myTimeline.stop();
+		myTimeline.getKeyFrames().clear();
+		myFrameRate = myFrameRate/2;
+		if(myFrameRate == 0){
+			myFrameRate = 1;
+		}
+		myTimeline.getKeyFrames().add(getKeyFrame(myFrameRate));
+		myTimeline.play();*/
 	}
 	
 	/**

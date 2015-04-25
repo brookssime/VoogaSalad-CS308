@@ -29,7 +29,4 @@ public class DialogueController extends Controller {
 	public String updateDialogueText(){
 		return d.peek().getText();
 	}
-	
-	
-	
 }

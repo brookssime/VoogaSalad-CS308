@@ -1,5 +1,6 @@
 package engine.controller;
 
+
 public abstract class Controller {
 
 	/**
@@ -12,7 +13,5 @@ public abstract class Controller {
 	public void moveToNode(String nodeID){
 		
 	}
-	
-	
 	
 }

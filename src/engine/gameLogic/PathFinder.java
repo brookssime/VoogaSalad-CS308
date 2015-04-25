@@ -12,7 +12,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import engine.EnemyMovement;
 import engine.Grid;
 import engine.Path;
 import engine.sprites.Enemy;
