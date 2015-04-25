@@ -62,44 +62,7 @@ public class PathFinder {
 		
 	}
 	
-	/*// Given two points which represent two tiles on the ends of a straightaway
-	List<Placement> generateStretch(Placement p1, Placement p2, EnemyMovement m){
-		
-		Point2D.Double start = (Point2D.Double) p1.getLocation().clone(); // TODO MAKE SURE THE UPDATES BELOW...
-		Point2D.Double end = (Point2D.Double) p2.getLocation().clone();
-		
-		int myCoordProperty = 0;
 	
-		// 1. Adjust actual coordinates as necessary from Tile Locations
-		
-		if(start.x != end.x){
-			start.setLocation(start.x + (myGrid.getTiles()[(int)start.x][(int)start.y].getWidth())*((start.x < end.x)?1:0) , start.y); 
-			end.setLocation(end.x + (myGrid.getTiles()[(int)end.x][(int)end.y].getWidth())*((start.x < end.x)?0:1), end.y);
-			myCoordProperty = 0;
-		}
-		
-		else if(start.y != end.y){
-			start.setLocation(start.x, start.y + (myGrid.getTiles()[(int)start.x][(int)start.y].getWidth())*((start.y < end.y)?1:0));
-			end.setLocation(end.x, end.y + (myGrid.getTiles()[(int)end.x][(int)end.y].getWidth())*((start.y < end.y)?0:1));
-			myCoordProperty = 1;
-		}
-		
-		// ...RESULT IN p1 and p2 BEING UPDATED HERE^^ TODO
-		// calculate Placements based on points and coordinate property
-		
-		List<Placement> stretch = m.makeStretch(p1, p2, myCoordProperty);
-		return stretch;
-		
-
-	}*/
-	
-	// Given two points which represent Tiles on either side of a Corner Tile
-	/*List<Placement> generateTurn(Placement start, Placement end, EnemyMovement m){
-		// TODO 
-		
-		List<Placement> turn = m.makeTurn(start, end);
-		return turn;
-	}*/
 	
 	
 
