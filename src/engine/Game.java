@@ -64,6 +64,8 @@ public class Game {
 	public KeyFrame startGame(){
 		return new KeyFrame(Duration.millis(FRAME_RATE * 10), e -> update());
 	}
+	
+
 
 
 	/**
