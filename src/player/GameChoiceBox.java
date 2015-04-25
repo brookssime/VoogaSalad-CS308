@@ -3,6 +3,7 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 
+import engine.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -23,7 +24,7 @@ public class GameChoiceBox extends AbstractOverlay {
 		this.setMaxHeight(overlayHeight);
 		this.setPrefSize(overlayWidth, overlayHeight);
 
-		// Entirely for testing, this will be populated by some game data
+		// Entirely for testing, this will be populated by some game data		
 		List<String> games = new ArrayList<String>();
 		games.add("Game 1");
 		games.add("Game 2");
@@ -38,6 +39,10 @@ public class GameChoiceBox extends AbstractOverlay {
 		games.add("Game 11");
 		games.add("Game 12");
 		games.add("Game 13");
+		
+		//Get Array of existing Games from somewhere
+		
+		//List<Game> existingGame = new ArrayList<Game>();
 
 		createGameButtons(games);
 
@@ -57,7 +62,7 @@ public class GameChoiceBox extends AbstractOverlay {
 			String nextButtonLabel = null;
 
 			try {
-				nextButtonLabel = games.get(i);
+				nextButtonLabel = games.get(i); //in reality will be games.get(i).getName();
 			} catch (Exception e) {
 				System.out
 						.println("AlgorithmOverlay.numButtons is set to be too large. "
@@ -82,6 +87,7 @@ public class GameChoiceBox extends AbstractOverlay {
 		v.setTranslateX(overlayHeight / 3);
 
 		Button b = new Button(label);
+		b.getStylesheets().add("playerStyle.css");
 		b.setPrefWidth(overlayWidth * .8);
 		b.setPrefHeight(buttonHeight);
 		b.getStyleClass().add("button-settings");

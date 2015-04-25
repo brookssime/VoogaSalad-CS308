@@ -45,7 +45,7 @@ public class GameChoiceScreen {
 		root.getChildren().add(gameInfoBox);
 		
 		//gameChoiceBox.setLayoutX(10);
-		//gameChoiceBox.setLayoutY(.15 * screenHeight);
+		gameChoiceBox.setLayoutY(.15 * screenHeight);
 		
 				
 		
