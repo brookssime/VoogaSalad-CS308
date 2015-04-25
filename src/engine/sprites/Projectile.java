@@ -2,13 +2,7 @@ package engine.sprites;
 
 import interfaces.Collidable;
 import interfaces.Movable;
-
-import java.awt.Point;
 import java.awt.Shape;
-import java.util.List;
-
-import org.codehaus.groovy.runtime.callsite.GetEffectivePogoFieldSite;
-
 import engine.gameLogic.ProjectileEffect;
 import engine.Path;
 import engine.gameLogic.Placement;
@@ -26,9 +20,6 @@ public class Projectile extends Sprite implements Collidable, Movable{
 	/** The my image string. */
 	private String myImageString;
 	
-	/** The my access i ds. */
-	private List<Integer> myAccessIDs;
-	
 	/** The my speed. */
 	private Integer mySpeed; 
 	
@@ -37,9 +28,6 @@ public class Projectile extends Sprite implements Collidable, Movable{
 	
 	/** The my rad. */
 	private int myRadius;
-	
-	/** The my direction. */
-	private double myDirection;
 	
 	/** The my collision bounds. */
 	private Shape myCollisionBounds;
@@ -74,8 +62,6 @@ public class Projectile extends Sprite implements Collidable, Movable{
 
 	@Override
 	public Placement move() {
-		/*myLocation.x += mySpeed * Math.cos(myDirection);
-		myLocation.y += mySpeed * Math.sin(myDirection);	*/	
 		return myPath.getNextPlacement();
 	}
 

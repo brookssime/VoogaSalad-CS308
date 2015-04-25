@@ -24,5 +24,9 @@ public class Movement {
 	public Placement getLast() {
 		return myPlacements.getLast();
 	}
+	
+	public Integer size(){
+		return myPlacements.size();
+	}
 
 }

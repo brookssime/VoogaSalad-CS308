@@ -3,19 +3,14 @@ package engine.gameLogic;
 import interfaces.MovementStrategy;
 
 import java.awt.Point;
-import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 import engine.Movement;
 import engine.Path;
 import engine.sprites.Tile;
 
 public class EnemyMovement implements MovementStrategy{
-	
-	// should describe the EQUATION that describes movement
 	
 	private int mySpeed; // dx in path direction
 	private double myAmplitude;
@@ -104,7 +99,6 @@ public Movement makeTurn(Tile t0, Tile t1, Tile t2, Placement p1) {
 	}
 
 	public Placement findStart(List<Tile> tiles){
-		Tile[] tileArray = (Tile[]) tiles.toArray();
 	
 		int x0 = (int) (tiles.get(0).getCenterLocation().x + Math.cos(Math.atan2(tiles.get(1).getCenterLocation().y - tiles.get(0).getCenterLocation().y, 
 				tiles.get(1).getCenterLocation().x - tiles.get(0).getCenterLocation().x)));

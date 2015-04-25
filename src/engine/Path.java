@@ -1,13 +1,11 @@
 package engine;
 
 import java.util.LinkedList;
-import java.util.Random;
 
 import engine.gameLogic.Placement;
 
 public class Path {
-	
-	//LinkedList<Placement> myPlacements;
+
 	LinkedList<Movement> myMovements;
 	
 	public Path(LinkedList<Movement> movements){
@@ -25,22 +23,12 @@ public class Path {
 		myMovements.addFirst(m);
 	}
 	
-	
-	
-	/*public Placement getNext(){
-		return myPlacements.pop();
+	public Integer size(){
+		int c = 0;
+		for (Movement m : myMovements){
+			c+= m.size();
+		}
+		return c;
 	}
-
-
-	
-	Placement intersects(Path p){
-		
-		return null;
-		
-	}
-	
-	LinkedList<Placement> getPlacements(){
-		return myPlacements;
-	}*/
 
 }

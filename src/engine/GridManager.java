@@ -5,7 +5,6 @@ import interfaces.Movable;
 import interfaces.Shootable;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -29,7 +28,6 @@ import engine.sprites.Projectile;
 public class GridManager {
 
 	private Grid myGrid;
-	private HashMap<String, Path> myEnemyPaths;
 	private List<Movable> myMovables;
 	private List<Shootable> myShootables;
 	private List<Collidable> myCollidables;
@@ -42,7 +40,7 @@ public class GridManager {
 	private boolean myGameWon; //remove these
 
 	public GridManager(Grid g){
-		//myGrid = g;
+		myGrid = g;
 		sortObjects(g.getSpriteMap());
 		myPathFinder = new PathFinder(g);
 	}
@@ -132,7 +130,7 @@ public class GridManager {
 
 	private void moveSprites() {
 		for (Movable sprite : myMovables) {
-			sprite.move();
+			// myGrid.move(sprite, sprite.move()); TODO figure this out -- how to we add objects to the Grid?
 		}
 	}
 

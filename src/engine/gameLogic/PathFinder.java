@@ -2,16 +2,10 @@ package engine.gameLogic;
 
 import interfaces.Collidable;
 import interfaces.Shootable;
-
-import java.awt.Point;
-import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
-
 import engine.Grid;
 import engine.Path;
 import engine.sprites.Enemy;
@@ -57,8 +51,6 @@ public class PathFinder {
 		
 		return enemy.getMovement().generatePath(tiles);
 		
-		
-		
 	}
 	
 	
@@ -78,10 +70,8 @@ public class PathFinder {
 	}
 	
 	public List<Tile> getTileNeighbors(Tile t){
-		if (t == null)
-			System.out.println("Grid.getTileNeighbors called with null Tile");
-		int x = t.getX();
-		int y = t.getY();
+		int x = t.getGridLocation().x;
+		int y = t.getGridLocation().y;
 		List<Tile> neighbors = new ArrayList<Tile>();
 		int[] dx = {1, -1, 0, 0};
 		int[] dy = {0, 0, 1, -1};
@@ -93,8 +83,6 @@ public class PathFinder {
 					y + dy[i] >= 0){
 				Tile temp = (myGrid.getTiles()[x + dx[i]][y + dy[i]]);
 				neighbors.add(temp);
-				//System.out.println(temp.getX() + ", " + temp.getY());
-				
 			}
 		}
 

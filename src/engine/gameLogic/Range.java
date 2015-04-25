@@ -41,7 +41,7 @@ public class Range implements Collidable{
 	 * TODO: Finish this
 	 */
 	private void refreshObjects(){
-		objectsInRange.clear();
+		objectsInRange.clear(); // TODO figure out where this gets called in the loop -- currently nowhere
 	}
 
 	public void setCollisionBounds() {

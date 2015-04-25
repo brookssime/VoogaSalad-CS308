@@ -23,7 +23,6 @@ public class Tower extends Sprite implements Shootable, Movable{
 
 	private String myName;
 	private Integer myFireRate;
-	private Point2D myLocation; //TODO: Is this necessary? Or have we changed it to Placements?
 	private Integer myHealth;
 	private Projectile myProjectile;
 	private Range myRangeObject;
@@ -38,10 +37,6 @@ public class Tower extends Sprite implements Shootable, Movable{
 	public Tower() {
 		
 	}
-
-/*	public Tower(int x, int y, int radius){ //default constructor for circular radius
-		myRangeObject = new Range(x, y, radius);	
-	}*/
 
 	public Tower (XStream serializer, String data, Point2D location) {
 		Tower incomplete = (Tower)serializer.fromXML(data);
@@ -87,17 +82,7 @@ public class Tower extends Sprite implements Shootable, Movable{
 		myTargetRotation = targetAngle;
 	}
 	
-	//public Double calculateShot(Collidable c){
 
-		// TODO: implement this
-		// math involving the enemy's path, speed, projectile speed, rotation speed, current angle
-		// this will be the FIRE RATE implementation as well
-		
-		// perhaps make turret rotation speed variable based on the time at which an enemy can be 
-		// shot (based on fire rate, which will NOT be changing but instead fixed per type of tower)
-		
-		//return Math.toDegrees(Math.atan2(myLocation.y-e.getLocation().y, myLocation.x-e.getLocation().x));	
-	//}
 	
 	@SuppressWarnings("unchecked")
 	@Override

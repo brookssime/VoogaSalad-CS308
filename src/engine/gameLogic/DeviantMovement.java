@@ -2,7 +2,6 @@ package engine.gameLogic;
 
 import interfaces.MovementStrategy;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import engine.Path;

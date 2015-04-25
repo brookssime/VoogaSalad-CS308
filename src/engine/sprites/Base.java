@@ -1,22 +1,14 @@
-/*
- * 
- */
+
 package engine.sprites;
 
 import interfaces.Collidable;
-
-import java.awt.Point;
 import java.awt.Shape;
 
 public class Base extends Sprite implements Collidable{
-	
-	private String myName;
-	private String myImageString;
+
 	private Integer myHealth;
-	private Integer myBaseID; //not sure when/if this will be used yet
 	private int myRadius;
 	private Shape myCollisionBounds;
-	private Point myLocation;
 
 	public Base(String imageString, Integer health){
 		myImagePath = imageString;
@@ -57,19 +49,14 @@ public class Base extends Sprite implements Collidable{
 
 	public void setCollisionBounds() {
 		//myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRad*2, myRad*2);
-
+		// TODO
 	}
 
 	@Override
 	public Shape getCollisionBounds() {
 		return myCollisionBounds;
 	}
-
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub

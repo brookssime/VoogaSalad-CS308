@@ -1,7 +1,6 @@
 package engine.sprites;
 
 import java.awt.Point;
-import java.awt.geom.Point2D;
 
 
 /**
@@ -58,14 +57,6 @@ public class Tile{
 		return myName;
 	}
 
-	public int getX() {
-		return (int) myGridLocation.x;
-	}
-	
-	public int getY(){
-		return (int) myGridLocation.y;
-
-	}
 	
 	public void setWidth(int width){
 		myWidth = width;

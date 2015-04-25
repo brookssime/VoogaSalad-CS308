@@ -1,8 +1,6 @@
 package engine.gameScreens;
 
-import interfaces.GameObject;
 
-import java.util.List;
 import java.util.Queue;
 
 import javafx.animation.KeyFrame;
@@ -16,13 +14,12 @@ import engine.gameLogic.Wave;
  * @author Brooks, Patrick, Robert, and Sid.
  * 
  */
-public class LevelNode extends GameNode implements GameObject {
+public class LevelNode extends GameNode  {
 
-	private String myName;
-	private String myLevelTitle; 
+	//private String myLevelTitle; TODO - why
 	private Store myStore;
 	private Grid myGrid;
-	private GridManager myGridManager;
+	//private GridManager myGridManager; TODO - why
 
 	public LevelNode() {
 		super();
@@ -78,9 +75,4 @@ public class LevelNode extends GameNode implements GameObject {
 		return myName;
 	}
 
-	//TODO: Purpose of this?
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-	}
 }

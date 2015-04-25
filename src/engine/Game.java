@@ -1,7 +1,6 @@
 package engine;
 
-import javafx.animation.KeyFrame;
-import javafx.util.Duration;
+
 import engine.gameScreens.GameNode;
 import engine.gameScreens.LevelNode;
 import engine.gameScreens.Store;

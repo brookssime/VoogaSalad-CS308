@@ -3,15 +3,11 @@ package engine.sprites;
 import interfaces.Collidable;
 import interfaces.Movable;
 import interfaces.MovementStrategy;
-
 import java.awt.Shape;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import com.sun.scenario.effect.Effect;
-
 import engine.Path;
 import engine.gameLogic.Placement;
 import engine.gameLogic.ProjectileEffect;
@@ -23,14 +19,12 @@ public class Enemy extends Sprite implements Collidable, Movable {
 	private Integer myDamage;
 	private Integer myHealth;
 	private Shape myCollisionBounds;
-	private LinkedList<Tile> myTilePath;
-	//private int myRad; //TODO: Purpose of this?
+	private List<Tile> myTilePath;
 	private Timer myTimer; //TODO: Do we need this in the EnemyClass?
-	//private Double distanceWalked; //TODO: Purpose of this?
 	private Path myPath;
 
 	public Enemy(){
-		myTilePath = new LinkedList<Tile>();
+		
 	}
 
 	public void setHealth(int x){
@@ -72,10 +66,6 @@ public class Enemy extends Sprite implements Collidable, Movable {
 					currentEffect.getDuration());
 		}*/	
 	}
-	
-	public void setSteps(LinkedList<Tile> steps) {
-		myTilePath = steps;
-	}
 
 	public List<String> getWalkables() {
 		return myAccessNames;
@@ -86,7 +76,7 @@ public class Enemy extends Sprite implements Collidable, Movable {
 	}
 
 	public List<Tile> getTilePath() {
-		return myTilePath;
+	return myTilePath;
 
 	}
 
@@ -124,15 +114,13 @@ public class Enemy extends Sprite implements Collidable, Movable {
 
 	@Override
 	public void setCollisionBounds() {
-		// myCollisionBounds = new Ellipse2D.Double(myLocation.x,
-		// myLocation.y,myRad * 2, myRad * 2);
+		// TODO FIX THIS bc enemies no longer know where they are
 
 	}
 
 	@Override
 	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
+		return (this.myPath.size().compareTo(((Enemy) o).myPath.size()));
 	}
 
 	@Override

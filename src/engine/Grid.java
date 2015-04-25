@@ -38,6 +38,10 @@ public class Grid extends GameObject implements Observable{
 		return myTiles;
 	}
 
+	public void moveSprite(Sprite s, Placement p){
+		mySpriteMap.put(s, p);
+	}
+	
 	public Map<Sprite, Placement> getSpriteMap(){
 		return mySpriteMap;
 	}
