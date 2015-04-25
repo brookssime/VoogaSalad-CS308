@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import engine.gameLogic.Placement;
 
@@ -8,8 +9,8 @@ public class Movement {
 	
 	LinkedList<Placement> myPlacements;
 	
-	public Movement(LinkedList<Placement> placements){
-		myPlacements = placements;
+	public Movement(List<Placement> placementList){
+		myPlacements = (LinkedList<Placement>) placementList;
 	}
 	
 	public Placement getNext(){

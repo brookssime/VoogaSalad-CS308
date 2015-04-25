@@ -20,7 +20,7 @@ public class EnemyMovement implements MovementStrategy{
 	private int mySpeed; // dx in path direction
 	private double myAmplitude;
 	private double myFrequency;
-	private double turnSharpness;
+	
 	
 	public EnemyMovement(){
 		
@@ -32,9 +32,11 @@ public class EnemyMovement implements MovementStrategy{
 		Tile[] tileArray = (Tile[]) tiles.toArray();
 		
 		LinkedList<Movement> movements = new LinkedList<Movement>();
+		
+		//TODO fix the findStart method
 		Placement start = findStart(tiles);
 		
-		// TODO set this to the initial position on the grid
+		
 		Tile lastStraight = tileArray[0];
 		
 		
@@ -43,7 +45,7 @@ public class EnemyMovement implements MovementStrategy{
 					tileArray[i-2].getCenterLocation().y != tileArray[i].getCenterLocation().y){
 				
 				movements.add(makeStretch(lastStraight, tileArray[i-2], start));
-				movements.add(makeTurn(tileArray[i-2], tileArray[i], movements.getLast().getLast()));
+				movements.add(makeTurn(tileArray[i-2], tileArray[i-1], tileArray[i], movements.getLast().getLast()));
 				
 				lastStraight = tileArray[i]; 
 				start = movements.getLast().getLast();
@@ -54,20 +56,51 @@ public class EnemyMovement implements MovementStrategy{
 		return new Path(movements); 
 	}
 	
-public Movement makeTurn(Tile t1, Tile t2, Placement p1) {
+public Movement makeTurn(Tile t0, Tile t1, Tile t2, Placement p1) {
 		
-		// TODO
-		// Determine, based on coords, which quadrant end is in wrt start
-		// determine which kind of turn this is and what that means about our incrementing of the orientations
-		// based on this, accurately surmise the diagonal and find an accurate end location
-		
-		// USE A SEQUENCE OF SMALL STRETCHES AND COMBINE THEM
+	
 		
 		List<Placement> PlacementList = new LinkedList<Placement>();
 		
-		//PlacementList.addAll()
+		int xpivot = t0.getGridLocation().x + ((t0.getGridLocation().x < t2.getGridLocation().x)?t0.getWidth():0);
+		int ypivot = t0.getGridLocation().y + ((t0.getGridLocation().y < t2.getGridLocation().y)?t0.getWidth():0);
 		
-		return null;
+		Point pivot = new Point (xpivot, ypivot);
+		
+		int rotationDir = isRightTurn(t0.getCenterLocation(), t1.getCenterLocation(), t2.getCenterLocation())?1:-1; // gets 1 if a right turn
+		int arcLength = (int) Math.sqrt(2*Math.pow(p1.getLocation().distance(pivot),2)); 
+		// basic Pythagorean for purpose of conceptualizing the distance needed to travel. this will mess with speed, but it should be negligible
+		int numSegments = (arcLength / mySpeed) +1;
+		int dtheta = (90/numSegments)*rotationDir;
+		
+		for(int i = 0; i < numSegments; i += 1){
+			Placement p = new Placement(rotatePoint(p1.getLocation(), pivot, dtheta));
+			p.setHeading(p1.getHeading() + dtheta);
+			PlacementList.add(p);
+			dtheta += dtheta;
+		}
+		
+		
+		PlacementList.add(new Placement(rotatePoint(p1.getLocation(), pivot, 90*rotationDir), p1.getHeading() + 90*rotationDir));
+		// THIS ^ should add a correctly rotated placement to the end of the list, ensuring that the next stretch has a valid starting point
+		return new Movement(PlacementList);
+		
+	}
+
+	private boolean isRightTurn(Point p0, Point p1, Point p2){
+		int x0 = p0.x; 
+		int x2 = p2.x; 
+		int y0 = p0.y; 
+		int y2 = p2.y;
+		
+		int h = (int) Math.toDegrees(Math.atan2(p1.y - p0.y, p1.x - p0.x));
+		
+		return(x2>x0&&h==0 || 
+				x2<x0 && h == 180 || 
+				y2>y0 && h == 90 || 
+				y2<y0 && h == 270);
+		
+		// TODO ^^ this will be buggy, consider weirdness in calculations and/or what to do if atan2 returns a negative value
 	}
 
 	public Placement findStart(List<Tile> tiles){
@@ -98,6 +131,7 @@ public Movement makeTurn(Tile t1, Tile t2, Placement p1) {
 	}
 	
 	public Movement makeStretch(Tile t1, Tile t2, Placement p1){
+		
 		// make initial calculations
 		double distance = t2.distanceToEdge(p1.getLocation());
 		double pathHeading = 90 - Math.atan2((t2.getCenterLocation().y- t1.getCenterLocation().y), 
@@ -117,7 +151,9 @@ public Movement makeTurn(Tile t1, Tile t2, Placement p1) {
 		while(distance > 0){
 			int yNew = cur.getLocation().y + mySpeed;
 			int xNew = (int) (myAmplitude*Math.sin(myFrequency*yNew + c));
-			double thetaNew = myAmplitude*myFrequency*Math.cos(myFrequency*yNew + c); 
+			double slope = myAmplitude*myFrequency*Math.cos(myFrequency*yNew + c);
+			double thetaNew = 90.0 - Math.toDegrees(Math.atan2(1, slope));
+					
 			Placement p = new Placement(new Point(xNew, yNew), thetaNew);
 			pList.add(p);
 			cur = p;
@@ -126,13 +162,15 @@ public Movement makeTurn(Tile t1, Tile t2, Placement p1) {
 		
 		// rotate
 		
-		double sin = Math.sin(Math.toRadians(pathHeading));
-		double cos = Math.cos(Math.toRadians(pathHeading));
+		/*double sin = Math.sin(Math.toRadians(pathHeading));
+		double cos = Math.cos(Math.toRadians(pathHeading));*/
+		Point origin = new Point(0,0);
 		
 		for(Placement p: pList){
-			int xNew = (int) ((p.getLocation().x)*cos - p.getLocation().y*sin);
-			int yNew = (int) ((p.getLocation().x)*sin + p.getLocation().y*cos);
-			p.setLocation(new Point(xNew, yNew));
+			/*int xNew = (int) ((p.getLocation().x)*cos - p.getLocation().y*sin);
+			int yNew = (int) ((p.getLocation().x)*sin + p.getLocation().y*cos);*/
+			p.setLocation(rotatePoint(p.getLocation(), origin, pathHeading));
+			//p.setLocation(new Point(xNew, yNew));
 			p.setHeading(p.getHeading() + pathHeading);
 		}
 		
@@ -144,6 +182,28 @@ public Movement makeTurn(Tile t1, Tile t2, Placement p1) {
 		}
 		
 		return new Movement(pList);
+	}
+	
+	public Point rotatePoint(Point p1, Point pivot, double angle){	
+		
+		  double sin = Math.sin(Math.toRadians(angle));
+		  double cos = Math.cos(Math.toRadians(angle));
+		  
+		  Point end = new Point(p1.x, p1.y);
+
+		  // translate point back to origin:
+		  end.x -= pivot.x;
+		  end.y -= pivot.y;
+
+		  // rotate point
+		  double xnew = end.x*cos - end.y*sin;
+		  double ynew = end.x*sin + end.y*cos;
+
+		  // translate point back:
+		  end.x = (int) (xnew + pivot.x);
+		  end.y = (int) (ynew + pivot.y);
+		  
+		  return end;	
 	}
 
 
