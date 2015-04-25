@@ -64,7 +64,7 @@ public class Tower extends Sprite implements Shootable, Movable{
 		if(myCurRotation == myTargetRotation){
 			isReady = true;
 		}
-		return myPath.getNext();
+		return myPath.getNextPlacement();
 	}
 	
 	@Override

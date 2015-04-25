@@ -76,7 +76,7 @@ public class Projectile extends Sprite implements Collidable, Movable{
 	public Placement move() {
 		/*myLocation.x += mySpeed * Math.cos(myDirection);
 		myLocation.y += mySpeed * Math.sin(myDirection);	*/	
-		return myPath.getNext();
+		return myPath.getNextPlacement();
 	}
 
 	/**

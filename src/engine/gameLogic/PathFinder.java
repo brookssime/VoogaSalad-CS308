@@ -21,8 +21,8 @@ import engine.sprites.Tile;
 public class PathFinder {
 	
 	private Grid myGrid;
-	private HashMap<String, Path> myEnemyPaths; 
-	// this will be an issue when multiple enemies of the same type require different paths..
+	private HashMap<String, LinkedList<Tile>> myEnemyPaths; 
+	// TODO this will be an issue when multiple enemies of the same type require different paths..
 	// ie multiple different ports with the same waves
 	
 	public PathFinder(Grid grid){
@@ -34,10 +34,10 @@ public class PathFinder {
 		if(!myEnemyPaths.containsKey(enemy.getName()))
 			myEnemyPaths.put(enemy.getName(), findEnemyPath(enemy, myGrid.getPortFor(w)));
 		
-		enemy.setPath(myEnemyPaths.get(enemy.getName()));
+		enemy.setPath(convertToPath(myEnemyPaths.get(enemy), enemy));
 	}
 	
-	public Path findEnemyPath(Enemy enemy, Tile port){
+	public LinkedList<Tile> findEnemyPath(Enemy enemy, Tile port){
 		Tile current = port;
 		LinkedList<Tile> path = new LinkedList<Tile>();
 		boolean pathFound = false;
@@ -49,7 +49,7 @@ public class PathFinder {
 				
 			}
 		}
-		return convertToPath(path, enemy);
+		return path;
 	}
 	
 
@@ -109,7 +109,7 @@ public class PathFinder {
 	public void generateProjectile(Projectile projectile, Path path) {
 		Projectile newP = new Projectile(projectile);
 		newP.setPath(path);
-		myGrid.placeSpriteAt(projectile, path.getNext());
+		myGrid.placeSpriteAt(projectile, path.getNextPlacement());
 	}
 
 }

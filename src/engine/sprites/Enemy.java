@@ -82,7 +82,7 @@ public class Enemy extends Sprite implements Collidable, Movable {
 	}
 
 	public void setPath(Path p) {
-		myPath = p.generateNew();
+		myPath = p;
 	}
 
 	public List<Tile> getTilePath() {
@@ -137,7 +137,7 @@ public class Enemy extends Sprite implements Collidable, Movable {
 
 	@Override
 	public Placement move() {
-		return myPath.getNext();
+		return myPath.getNextPlacement();
 	}
 
 	@Override
