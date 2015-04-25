@@ -1,10 +1,11 @@
-package engine;
+package engine.gameLogic;
+
+import interfaces.MovementStrategy;
 
 import java.util.LinkedList;
 
+import engine.Path;
 import engine.sprites.Tile;
-import engine.gameLogic.Placement;
-import interfaces.MovementStrategy;
 
 public class DeviantMovement implements MovementStrategy{
 

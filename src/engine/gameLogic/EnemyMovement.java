@@ -1,4 +1,4 @@
-package engine;
+package engine.gameLogic;
 
 import interfaces.MovementStrategy;
 
@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import engine.gameLogic.Placement;
+import engine.Path;
 import engine.sprites.Tile;
 
 public class EnemyMovement implements MovementStrategy{

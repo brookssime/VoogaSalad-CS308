@@ -7,32 +7,13 @@ import engine.gameScreens.LevelNode;
 import engine.gameScreens.Store;
 
 
-/**
- * The Class Game.
- * 
- * @author Brooks, Patrick, Robert, and Sid.
- * 
- */
 public class Game {
-	
-	/** The my name. */
-	private String myName;
 
-	private final int FRAME_RATE = 10;
-	
-	/** The my head. */
+	private String myName;
+	private final int FRAME_RATE = 10;	
 	private GameNode myStartNode;
-	
-	/** The my store. */
 	private Store myStore;
 	
-	
-	
-	/**
-	 * Instantiates a new game.
-	 *
-	 * @param head the head
-	 */
 	public Game(GameNode head){
 		myStartNode = head;
 		addStoreToLevel();
@@ -48,7 +29,7 @@ public class Game {
 	
 	/**
 	 * This is pretty awful design
-	 * Any ideas?.
+	 * Any ideas? Maybe a try/catch
 	 */
 	public void addStoreToLevel(){
 		if(myStartNode instanceof LevelNode){
@@ -56,21 +37,14 @@ public class Game {
 		}
 	}
 	
-	/**
-	 * Start game.
-	 *
-	 * @return the key frame
-	 */
-	public KeyFrame startGame(){
+	//TODO: Can this all be removed with our new framework of KeyFrame/game loop?
+	//Fangyi will handle the game loop and creating the key frames
+	//then he will call a method in the controller that calls the loop method in model
+	
+/*	public KeyFrame startGame(){
 		return new KeyFrame(Duration.millis(FRAME_RATE * 10), e -> update());
 	}
-
-
-	/**
-	 * Update.
-	 *
-	 * @return the key frame
-	 */
+	
 	public KeyFrame update(){
 		if(sceneComplete()){
 			myStartNode = myStartNode.getNextNode();
@@ -78,13 +52,8 @@ public class Game {
 			return myStartNode.start(FRAME_RATE);
 		}
 		return myStartNode.getCurScene();
-	}
-	
-	/**
-	 * Scene complete.
-	 *
-	 * @return true, if successful
-	 */
+	}*/
+
 	public boolean sceneComplete(){
 		return myStartNode.isComplete();
 	}
