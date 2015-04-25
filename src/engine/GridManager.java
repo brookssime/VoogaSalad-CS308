@@ -1,7 +1,6 @@
 package engine;
 
 import interfaces.Collidable;
-import interfaces.Movable;
 import interfaces.Shootable;
 
 import java.util.Arrays;
@@ -16,8 +15,8 @@ import engine.gameLogic.Placement;
 import engine.gameLogic.Wave;
 import engine.sprites.Base;
 import engine.sprites.Enemy;
-import engine.sprites.Sprite;
 import engine.sprites.Projectile;
+import engine.sprites.Sprite;
 
 /**
  * The Class GridManager.
@@ -28,11 +27,10 @@ import engine.sprites.Projectile;
 public class GridManager {
 
 	private Grid myGrid;
-	private List<Movable> myMovables;
 	private List<Shootable> myShootables;
 	private List<Collidable> myCollidables;
 	private Set<Sprite> mySpritesToRemove;
-	private List<Sprite> mySprites; //consider this replacing myCollidables
+	private List<Sprite> mySprites;
 	private Queue<Wave> myWaves;
 	private long myStartTime;
 	private PathFinder myPathFinder;
@@ -47,9 +45,6 @@ public class GridManager {
 
 	public void sortObjects(Map<Sprite, Placement> map){
 		for (Sprite o : map.keySet()){
-			if(Arrays.asList(o.getClass().getClasses()).contains(Movable.class)){
-				myMovables.add((Movable) o);
-			}
 			if(Arrays.asList(o.getClass().getClasses()).contains(Collidable.class)){
 				myCollidables.add((Collidable) o);
 			}
@@ -129,8 +124,8 @@ public class GridManager {
 	}
 
 	private void moveSprites() {
-		for (Movable sprite : myMovables) {
-			// myGrid.move(sprite, sprite.move()); TODO figure this out -- how to we add objects to the Grid?
+		for (Sprite sprite : mySprites) {
+			//myGrid.move(sprite, sprite.move()); //TODO figure this out -- how to we add objects to the Grid?
 		}
 	}
 
@@ -151,7 +146,7 @@ public class GridManager {
 				myPathFinder.setEnemyPath(e, w);
 			}
 			while (spawnedEnemies != null) {
-				myMovables.addAll(spawnedEnemies);
+				mySprites.addAll(spawnedEnemies);
 				myCollidables.addAll(spawnedEnemies);
 			}
 		}

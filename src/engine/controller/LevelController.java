@@ -17,7 +17,6 @@ public class LevelController extends Controller {
 	 * @param spriteID
 	 * @param spritePlacement
 	 */
-	
 	public void placeSprite(String spriteID, Placement spritePlacement){
 		Environment e = new Environment();
 		Grid myGrid = e.getGrid();
@@ -31,63 +30,15 @@ public class LevelController extends Controller {
 	 * @param spriteID
 	 */
 	public void examineSprite(String spriteID){
-		
-		return sprite.getInfo();
-		
+		return sprite.getInfo();	
 	}
-	
-	/**
-	 * Starts gameplay (and timeline, etc.)
-	 */
-	public void play(){
-		//myTimeline.play();
 
-	}
-	
-	/**
-	 * Pauses gameplay (and timeline, etc.)
-	 */
-	public void pause(){
-
-		//myTimeline.stop();
-	}
-	
-	/**
-	 * Allows for player to double the speed of gameplay
-	 */
-	public void increaseGameSpeed(){
-
-/*		myTimeline.stop();
-		myTimeline.getKeyFrames().clear();
-		myFrameRate = 2*myFrameRate;
-		myTimeline.getKeyFrames().add(getKeyFrame(myFrameRate));
-		myTimeline.play();*/
-
-	}
-	
-	/**
-	 * Allows for player to cut the speed of gameplay in half
-	 */
-	public void decreaseGameSpeed(){
-
-	/*	myTimeline.stop();
-		myTimeline.getKeyFrames().clear();
-		myFrameRate = myFrameRate/2;
-		if(myFrameRate == 0){
-			myFrameRate = 1;
-		}
-		myTimeline.getKeyFrames().add(getKeyFrame(myFrameRate));
-		myTimeline.play();*/
-
-	}
-	
 	/**
 	 * Takes in spriteID and makes necessary changes to money, HUD, and Store
 	 */
 	public void purchaseObject(String spriteID){
 		GameStats myGameStats = new GameStats();
 		myGameStats.updateMoney(sprite.getWorth());
-		
 	}
 	
 	/**
@@ -102,18 +53,6 @@ public class LevelController extends Controller {
 		Environment e = new Environment();
 		Grid myGrid = e.getGrid();
 		myGrid.placeSpriteAt(tile, spritePlacement);
-		myGameStats.updateMoney(sprite.getWorth() * -1);
-		
-		
-	}
-	
-	/**
-	 * Displays the help page for players
-	 */
-	public void showHelpPage(){
-		//should be in the view
-		
-	}
-	
-	
+		myGameStats.updateMoney(sprite.getWorth() * -1);	
+	}	
 }

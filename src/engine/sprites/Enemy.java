@@ -1,18 +1,19 @@
 package engine.sprites;
 
 import interfaces.Collidable;
-import interfaces.Movable;
 import interfaces.MovementStrategy;
+
 import java.awt.Shape;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import engine.Path;
 import engine.gameLogic.Placement;
 import engine.gameLogic.ProjectileEffect;
 
-public class Enemy extends Sprite implements Collidable, Movable {
+public class Enemy extends Sprite implements Collidable {
 
 	private Integer mySpeed;
 	private MovementStrategy myMovement;

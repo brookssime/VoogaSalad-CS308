@@ -2,7 +2,10 @@
 package engine.sprites;
 
 import interfaces.Collidable;
+
 import java.awt.Shape;
+
+import engine.gameLogic.Placement;
 
 public class Base extends Sprite implements Collidable{
 
@@ -61,5 +64,11 @@ public class Base extends Sprite implements Collidable{
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Placement move() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

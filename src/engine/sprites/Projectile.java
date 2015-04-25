@@ -1,18 +1,19 @@
 package engine.sprites;
 
 import interfaces.Collidable;
-import interfaces.Movable;
+
 import java.awt.Shape;
-import engine.gameLogic.ProjectileEffect;
+
 import engine.Path;
 import engine.gameLogic.Placement;
+import engine.gameLogic.ProjectileEffect;
 
 /**
  * The Class Projectile.
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class Projectile extends Sprite implements Collidable, Movable{
+public class Projectile extends Sprite implements Collidable{
 
 	/** The my name. */
 	private String myName;

@@ -1,5 +1,7 @@
 package engine.sprites;
 
+import engine.gameLogic.Placement;
+
 /**
  * The Class Port.
  * 
@@ -18,5 +20,11 @@ public class Port extends Sprite{
 	@Override
 	public boolean isDead() {
 		return false;
+	}
+
+	@Override
+	public Placement move() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

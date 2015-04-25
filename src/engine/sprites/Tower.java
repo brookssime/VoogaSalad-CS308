@@ -1,7 +1,6 @@
 package engine.sprites;
 
 import interfaces.Collidable;
-import interfaces.Movable;
 import interfaces.Shootable;
 
 import java.util.Collections;
@@ -19,8 +18,9 @@ import engine.gameLogic.Range;
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class Tower extends Sprite implements Shootable, Movable{
+public class Tower extends Sprite implements Shootable{
 
+	//TODO: Many instance variables. are all necessary?
 	private String myName;
 	private Integer myFireRate;
 	private Integer myHealth;
@@ -33,6 +33,7 @@ public class Tower extends Sprite implements Shootable, Movable{
 	private Integer myRad;
 	private boolean isReady;
 	private Path myPath;
+	private Integer myPrice;
 	
 	public Tower() {
 		
@@ -134,5 +135,13 @@ public class Tower extends Sprite implements Shootable, Movable{
 	@Override
 	public Range getRangeObject() {
 		return myRangeObject;
+	}
+
+	public Integer getMyPrice() {
+		return myPrice;
+	}
+
+	public void setMyPrice(Integer price) {
+		myPrice = price;
 	}
 }
