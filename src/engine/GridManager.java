@@ -37,10 +37,10 @@ public class GridManager {
 	private Base myBase;
 	private boolean myGameWon; //remove these
 
-	public GridManager(Grid g){
-		myGrid = g;
-		sortObjects(g.getSpriteMap());
-		myPathFinder = new PathFinder(g);
+	public GridManager(Grid grid){
+		myGrid = grid;
+		sortObjects(grid.getSpriteMap());
+		myPathFinder = new PathFinder(grid);
 	}
 
 	public void sortObjects(Map<Sprite, Placement> map){
@@ -50,6 +50,8 @@ public class GridManager {
 			}
 			if(Arrays.asList(o.getClass().getClasses()).contains(Shootable.class)){
 				myShootables.add((Shootable) o);
+				myCollidables.add(((Shootable) o).getRangeObject()); //add a shootable's range object to collidables
+				
 			}
 			if(Arrays.asList(o.getClass().getClasses()).contains(Sprite.class)){
 				mySprites.add((Sprite) o);

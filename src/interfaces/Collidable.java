@@ -43,7 +43,7 @@ public interface Collidable extends Comparable{
 	 * @return true, if is collision
 	 */
 	default boolean isCollision(Collidable c){
-		Shape shapeA = c.getCollisionBounds();
+		Shape shapeA = c.getCollisionBounds(); //doesn't work without location
 		Shape shapeB = this.getCollisionBounds();
 		Area areaA = new Area(shapeA);
 		areaA.intersect(new Area(shapeB));
