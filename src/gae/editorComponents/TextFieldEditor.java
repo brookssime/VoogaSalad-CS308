@@ -41,6 +41,11 @@ public class TextFieldEditor extends EditorComponent {
 	 *            the method used to modify the object
 	 */
 
+//<<<<<<< HEAD
+//	public TextFieldEditor(Receiver receiver, Method setMethod,
+//			Method getMethod, String objectName) {
+//		super(receiver, setMethod, getMethod, objectName);
+//=======
 	public TextFieldEditor(Receiver receiver, Method method, String objectName) {
 		super(receiver, method, objectName);
 	}
@@ -65,12 +70,29 @@ public class TextFieldEditor extends EditorComponent {
 		}
 
 		textFields = new TextField[parametersLength];
-
+		//TODO make fetchValue work for an array of objects. 
 		for (int index = 0; index < parametersLength; index++) {
-			Label label = new Label(parameterNames.get(index));
-			TextField textField = new TextField();
-			myBox.getChildren().addAll(label, textField);
-			textFields[index] = textField;
+//<<<<<<< HEAD
+//			Label label = new Label("");
+//			if (parameterNames.size() > index) {
+//				label = new Label(parameterNames.get(index));
+//			} 
+//			TextField textField = new TextField();
+//			System.out.println(myReceiver.getFromObject(myObject, myGetMethod,
+//					(Object[]) null));
+//			textField.setText((String) myReceiver.getFromObject(myObject,
+//					myGetMethod, (Object[]) null));
+//			myBox.getChildren().addAll(label, textField);
+//			textFields[index] = textField;
+//=======
+				Label label = new Label(parameterNames.get(index));
+				String value = "";
+				if (myFetchedValue!= null){
+					value = myFetchedValue.toString();
+				}
+				TextField textField = new TextField(value);
+				myBox.getChildren().addAll(label, textField);
+				textFields[index] = textField;
 		}
 
 		setButton = new Button("Set");

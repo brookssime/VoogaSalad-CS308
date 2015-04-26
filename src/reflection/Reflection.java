@@ -196,7 +196,8 @@ public class Reflection {
 	 */
 	public static List<Method> getEditorMethods(String classname) {
 		try {
-			Method[] allMethods = Class.forName(classname).getDeclaredMethods();
+			Object classRep = createInstance(classname);
+			List<Method> allMethods = getEditorMethods(classRep);
 			List<Method> targetMethods = new ArrayList<>();
 			for (Method method : allMethods) {
 				MethodAnnotation methodAnnotation = method

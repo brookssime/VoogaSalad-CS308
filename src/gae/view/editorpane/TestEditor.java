@@ -56,10 +56,10 @@ public class TestEditor extends Application{
         
         //Code for the fields
         Text title = new Text("Edit your enemy here");
-        title.setFont(Font.font("Times New Roman", FontWeight.BOLD, 25));
-        myPane.add(title, 0, 1, 2, 1);
+        title.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 25));
+        myPane.add(title, 0, 0);
         
-        Label image = new Label("Set Image");
+        Text image = new Text("Set Image");
         image.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
         myPane.add(image, 0, 2);
         
@@ -132,19 +132,20 @@ public class TestEditor extends Application{
         //TODO: Print the slider values as you slide
         //TODO: Set the distance between ticks/when you slide
         double min = 0;
-        double max = 10;
-        double cur = (max-min)/2;
+        double max = 50;
+        double cur = Math.floor((max-min)/2);
         Slider mySlider = new Slider(min, max, cur);
         mySlider.setShowTickLabels(true);
-        mySlider.setShowTickMarks(true);
-        mySlider.setSnapToTicks(true);
         mySlider.setMajorTickUnit(cur);
         final Label sliderVal = new Label(Double.toString(mySlider.getValue()));
         
         mySlider.valueProperty().addListener(new ChangeListener<Number>(){
         	public void changed(ObservableValue<? extends Number> ov,
                     Number old_val, Number new_val) {
-                        sliderVal.setText(String.format("%.2f", new_val));
+                        //sliderVal.setText(String.format("%.0f", new_val));
+                        Integer myVal = (int) mySlider.getValue();
+                        sliderVal.setText(myVal.toString());
+                        System.out.println("My val: " + myVal);
                 }
         });
         
