@@ -1,5 +1,7 @@
 package engine.gameScreens;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import engine.gameLogic.GameObject;
@@ -14,6 +16,8 @@ import javafx.util.Duration;
  * 
  */
 public abstract class GameNode extends GameObject{
+	
+	private List<NodeButton> myNodeButtons;
 
 	private Map<Double, GameNode> nextNodes;
 	
@@ -34,7 +38,7 @@ public abstract class GameNode extends GameObject{
 	 * Instantiates a new game scene.
 	 */
 	public GameNode(){
-		//myGameLost = false;
+		myNodeButtons = new ArrayList<NodeButton>();
 	}
 
 	/**

@@ -2,8 +2,6 @@ package engine;
 
 import java.util.Map;
 import java.util.Queue;
-
-import engine.Environment;
 import engine.gameLogic.GameStats;
 import engine.gameLogic.Placement;
 import engine.gameScreens.DialogueBox;
@@ -40,8 +38,7 @@ public class Controller {
 	
 	/********** From DialogueController **********/
 	
-	DialogueNode myDialogueNoe;
-	Queue<DialogueBox> myDialogueBoxes = myDialogueNode.getDialogueBoxes();
+	DialogueNodeQueue<DialogueBox> myDialogueBoxes = myDialogueNode.getDialogueBoxes();
 	
 	public void showNextDialogue(){
 		updateDialogueImage();

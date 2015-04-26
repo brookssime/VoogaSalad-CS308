@@ -130,4 +130,9 @@ public class Grid extends GameObject{
 		}
 		return null; //TODO: Throw an error?
 	}
+
+	public void move(Sprite sprite, Placement move) {
+		mySpriteMap.put(sprite, move);
+		
+	}
 }
