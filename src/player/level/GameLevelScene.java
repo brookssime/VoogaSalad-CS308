@@ -141,10 +141,11 @@ public class GameLevelScene implements GraphicGameScene{
 	private void updateStore(Store store) {
 		towerInfo.getChildren().clear();
 		Label myLabel = new Label("Towers: ");
-		//sample TowerInfo
+
 		Set<Tower> myTowersOnSale = store.getTowersOnSale();
 		for(Tower tower : myTowersOnSale){
 			TowerInfo t = new TowerInfo(tower);
+			//sample TowerInfo
 			//TowerInfo t = new TowerInfo("../../images/tower.jpg", "basic", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
 			towerInfo.getChildren().addAll(myLabel,t.getDisplay());
 		}
@@ -154,7 +155,6 @@ public class GameLevelScene implements GraphicGameScene{
 	}
 
 	private void updateHUD(HeadsUpDisplay hud) {
-		// TODO Auto-generated method stub
 		healthLabel.setText(Integer.toString(hud.displayHealth()));
 		scoreLabel.setText(Integer.toString(hud.displayScore()));
 		moneyLabel.setText(Integer.toString(hud.displayMoney()));
@@ -163,7 +163,6 @@ public class GameLevelScene implements GraphicGameScene{
 	}
 
 	private void updateGrid(Grid grid) {
-		// TODO Auto-generated method stub
 		Map<Sprite, Placement> myMap =grid.getSpriteMap();
 		myGrid.updateSprite(myMap);
 		
@@ -185,7 +184,6 @@ public class GameLevelScene implements GraphicGameScene{
 
 	private BorderPane makePane(){
 		BorderPane root = new BorderPane();
-        // must be first since other panels may refer to page
         root.setCenter(makeGridDisplay());
         root.setTop(makeControlPanel());
         root.setRight(makeTowerInfo());
@@ -195,7 +193,6 @@ public class GameLevelScene implements GraphicGameScene{
 	}
 	
 	private Node makeTowerInfo() {
-		// TODO Auto-generated method stub
 		towerInfo = new VBox();
 		Label myLabel = new Label("Towers: ");
 		//sample TowerInfo
@@ -205,7 +202,7 @@ public class GameLevelScene implements GraphicGameScene{
 	}
 
 	private Node makeInformationPanel() {
-		// TODO Auto-generated method stub
+		//nothing in it rightnow
 		return null;
 	}
 
@@ -230,8 +227,6 @@ public class GameLevelScene implements GraphicGameScene{
 		moneyLabel = new Label("Money: " + moneyNum);
 		scoreLabel = new Label("score: " + scoreNum);
 		healthLabel = new Label("Health: " + healthNum);
-		//resetButton = makeButton(RESET);
-		//stepButton = makeButton(STEP);
 		result.getChildren().addAll(levelLabel, moneyLabel, scoreLabel, healthLabel, pausePlayButton, speedUpButton, slowDownButton);
 		return result;
 	}
@@ -360,6 +355,14 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void startNextWave(){
+		
+	}
+
+	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud) {
+		// TODO Auto-generated method stub
+		updateGrid(grid);
+		updateStore(store);
+		updateHUD(hud);
 		
 	}
 

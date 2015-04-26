@@ -1,6 +1,7 @@
 package player.dialogue;
 
 import engine.controller.Controller;
+import engine.gameScreens.DialogueBox;
 import player.GraphicGameScene;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -31,6 +32,11 @@ public class DialogScene implements GraphicGameScene{
 	}
 	public void nextDialog(){
 		curr.updateDialog(myController.updateDialogueImage(), myController.updateDialogueText());
+	}
+	public void displayDialog(DialogueBox dialog) {
+		// TODO Auto-generated method stub
+		curr.updateDialog(dialog.getImagePath(), dialog.getText());
+		
 	}
 	
 }

@@ -10,40 +10,88 @@ import engine.sprites.Tower;
 import player.dialogue.DialogScene;
 import player.level.GameLevelScene;
 
+
+/**
+ * For controller to use, can be casted as interface updateview
+ * @author Fangyi Chen
+ *
+ */
 public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	private GameLevelScene myLevel;
 	private DialogScene myDialog;
 	private Controller myController;
-	public void SceneManager(){
-		
+	public void SceneManager(GameLevelScene level, DialogScene dialog, Controller controller){
+		myLevel = level;
+		myDialog = dialog;
+		myController = controller;
 	}
 	public void init(){
 		
 	}
+	//for controller
 	@Override
 	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud){
-		
+		myLevel.updateLevel(grid, store, hud);
 	}
 	@Override
 	public void updateDialogue(DialogueBox dialog){
+		myDialog.displayDialog(dialog);
+	}
+	@Override
+	public void displayError(String errormessage) {
+		myLevel.displayError(errormessage);
 		
 	}
 	
+	//for level scene
+
 	@Override
-	public void placeTower(String spriteID, Placement place) {
-		myController.placeSprite(spriteID, place);
+	public void sellObject(String spriteID, Placement place) {
+		Object[] params = {spriteID, place};
+		myController.doSomething("sellObject", params);
+		
+		
+	}
+	@Override
+	public void placeSprite(String spriteID, Placement place) {
+		Object[] params = {spriteID, place};
+		myController.doSomething("placeSprite", params);
+		
+	}
+	@Override
+	public void examinSprite(String spriteID, Placement place) {
+		Object[] params = {spriteID, place};
+		myController.doSomething("examinSprite", params);
+		
+	}
+	@Override
+	public void increaseGameSpeed() {
+		Object[] params = {};
+		myController.doSomething("increaseGameSpeed", params);
+		
+	}
+	@Override
+	public void decreaseGameSpeed() {
+		Object[] params = {};
+		myController.doSomething("decreaseGameSpeed", params);
 		
 	}
 	@Override
 	public void purchaseObject(String spriteID) {
-		myController.purchaseObject(spriteID);
-		
+		Object[] params = {spriteID};
+		myController.doSomething("purchaseObject", params);
 	}
 	@Override
-	public void sellObject(String spriteID, Placement place) {
-		myController.sellObject(spriteID, place);
+	public void showNextDialogue() {
+		Object[] params = {};
+		myController.doSomething("showNextDialogue", params);
 		
 	}
+	
+	
+	//for dialog scene use
+	
+	/*
 	@Override
 	public String getNextDialogueText() {
 		return myController.updateDialogueText();
@@ -52,6 +100,9 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	public String getNextDialogueImage() {
 		return myController.updateDialogueImage();
 	}
+	*/
+
 	
+
 	
 }
