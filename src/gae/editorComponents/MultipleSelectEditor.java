@@ -38,7 +38,7 @@ public class MultipleSelectEditor extends EditorComponent{
 
 	public MultipleSelectEditor(Receiver receiver, Method setMethod, Method getMethod,
 			String objectName) {
-		super(receiver, setMethod, getMethod, objectName);
+		super(receiver, setMethod, objectName);
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class MultipleSelectEditor extends EditorComponent{
 		ObservableList<GameObject> data = FXCollections.observableArrayList();
 		ArrayList<Integer> list = null;
 		try{
-			list = ((ArrayList<Integer>) myReceiver.getFromObject(myObject, myGetMethod, (Object[]) null));
+			//list = ((ArrayList<Integer>) myReceiver.getFromObject(myObject, myGetMethod, (Object[]) null));
 		} catch (Exception e) {
 			System.err.println("Cannot convert Object to ArrayList");
 			e.printStackTrace();
@@ -111,7 +111,7 @@ public class MultipleSelectEditor extends EditorComponent{
 				}
 			}
 			// update backend inventory
-			myReceiver.runOnObject(myObject, mySetMethod, accessArray);
+			myReceiver.runOnObject(myObject, myMethod, accessArray);
 		});
 
 		VBox vb = new VBox();

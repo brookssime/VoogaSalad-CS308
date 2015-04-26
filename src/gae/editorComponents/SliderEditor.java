@@ -25,7 +25,7 @@ public class SliderEditor extends EditorComponent{
 	private Slider mySlider = new Slider();
 
 	public SliderEditor(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
-		super(receiver, setMethod, getMethod, objectName);
+		super(receiver, setMethod, objectName);
 		// TODO Auto-generated constructor stub
 		//In case the sliderEditorParams method is not called
 		myMin = 0;

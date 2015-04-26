@@ -4,12 +4,9 @@ import interfaces.MethodAnnotation;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javafx.scene.Group;
-import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -32,7 +29,6 @@ public class Editor extends GAEPane {
 	private HBox myLayout;
 	private Group myView;
 	private VBox myForm;
-	private Button exportObject;
 	private EditorComponentFactory myFactory;
 	private Receiver myReceiver;
 
@@ -43,25 +39,23 @@ public class Editor extends GAEPane {
 		myObj = obj;
 		myReceiver = receiver;
 
+		// TODO - changed getType(obj) to obj for testing.
 		ArrayList<Method> objMethods = new ArrayList<Method>(
-				Reflection.getEditorMethods("engine.gameLogic."
+				Reflection.getEditorMethods("engine.sprites."
 						+ myReceiver.getType(obj)));
 		System.out.println(objMethods);
 
-		Map<Method, Method> methodMap = new HashMap<Method, Method>();
-
-		for (Method m1 : objMethods) {
-			MethodAnnotation ma = m1.getAnnotation(MethodAnnotation.class);
-			if (ma.gsType().equals("setter")) {
-				String str = ma.name();
-				for (Method m2 : objMethods) {
-					MethodAnnotation ma2 = m2.getAnnotation(MethodAnnotation.class);
-					if ((ma2.gsType().equals("getter")) && (ma2.name().equals(str))) {
-						methodMap.put(m1, m2);
-					}
-				}
-			}
-		}
+		/*
+		 * Map<Method, Method> methodMap = new HashMap<Method, Method>();
+		 * 
+		 * for (Method m1 : objMethods) { MethodAnnotation ma =
+		 * m1.getAnnotation(MethodAnnotation.class); if
+		 * (ma.gsType().equals("setter")) { String str = ma.name(); for (Method
+		 * m2 : objMethods) { MethodAnnotation ma2 =
+		 * m2.getAnnotation(MethodAnnotation.class); if
+		 * ((ma2.gsType().equals("getter")) && (ma2.name().equals(str))) {
+		 * methodMap.put(m1, m2); } } } }
+		 */
 
 		myLayout = new HBox();
 		myView = new Group();
@@ -70,13 +64,12 @@ public class Editor extends GAEPane {
 		myRoot.getChildren().add(myLayout);
 
 		myFactory = new EditorComponentFactory();
-		for (Method setMethod : methodMap.keySet()) {
-			MethodAnnotation methodAnnotation = setMethod
+		for (Method method : objMethods) {
+			MethodAnnotation methodAnnotation = method
 					.getAnnotation(MethodAnnotation.class);
 			String componentType = methodAnnotation.type();
-			System.out.println(setMethod.getName() + ", " + methodMap.get(setMethod).getName());
 			EditorComponent fieldEditor = myFactory.generateComponent(
-					componentType, myReceiver, setMethod, methodMap.get(setMethod), myObj);
+					componentType, myReceiver, method, myObj);
 			myForm.getChildren().add(fieldEditor);
 		}
 

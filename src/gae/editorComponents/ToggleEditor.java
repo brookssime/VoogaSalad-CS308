@@ -25,7 +25,7 @@ public class ToggleEditor extends EditorComponent{
 	private String[] texts;
 	
 	public ToggleEditor(Receiver receiver, Method setMethod, Method getMethod,String objectName) {
-		super(receiver, setMethod, getMethod, objectName);
+		super(receiver, setMethod, objectName);
 		// TODO Auto-generated constructor stub
 	}
 

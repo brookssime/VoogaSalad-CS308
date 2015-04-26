@@ -7,6 +7,7 @@ import exceptions.ObjectDoesntExistException;
 import gae.view.inventorypane.UpdateListener;
 import engine.gameLogic.GameObject;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -50,6 +51,7 @@ public class Inventory {
 	}
 
 	private ObservableMap<String, GameObject> getMap(String obj) {
+		
 		for (String type : TYPES) {
 			if (myMaps.get(type).containsKey(obj)) {
 				return myMaps.get(type);
@@ -71,8 +73,9 @@ public class Inventory {
 	 */
 	public void addObject(String type) {
 		ObservableMap<String, GameObject> map = myMaps.get(type);
-		GameObject newThing = (GameObject) Reflection.createInstance("engine.gameLogic."
+		GameObject newThing = (GameObject) Reflection.createInstance("engine.sprites."
 				+ type);
+		System.out.println("created "+type);
 		String newName = "New" + type;
 		int vrsNum = 0;
 		while (map.containsKey(newName)) {
@@ -92,11 +95,11 @@ public class Inventory {
 	 *            the params
 	 */
 	public void runOnObject(String obj, Method method, Object... params) {
-		System.out.println(obj);
+		System.out.println("runOnObject: "+obj);
 		ObservableMap<String, GameObject> map = getMap(obj);
 		GameObject object = map.get(obj);
 		try {
-			System.out.println(obj + ", " + params.toString());
+			System.out.println(obj + ", " + params);
 			method.invoke(object, params);
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
@@ -110,7 +113,17 @@ public class Inventory {
 		}
 	}
 
-	public Object getFromObject(String obj, Method method, Object... params) {
+	public Object getFromObject(String obj, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		ObservableMap<String, GameObject> map = getMap(obj);
+		GameObject object = map.get(obj);
+		Object returnValue = null;
+		
+		Field field = engine.sprites.Tower.class.getDeclaredField(fieldName);
+		field.setAccessible(true);
+		returnValue = field.get(object);
+		
+		return returnValue;
+		/*
 		ObservableMap<String, GameObject> map = getMap(obj);
 		GameObject object = map.get(obj);
 		Object ret;
@@ -123,6 +136,7 @@ public class Inventory {
 		}
 		System.out.println(ret);
 		return ret;
+		*/
 	}
 
 	public GameObject getObject(String type, String obj) {

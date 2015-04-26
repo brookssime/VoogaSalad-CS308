@@ -32,7 +32,7 @@ public class ButtonEditor extends EditorComponent {
 	private static final int MINOR_TICK_COUNT = 4;
 
 	public ButtonEditor(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
-		super(receiver, setMethod, getMethod, objectName);
+		super(receiver, setMethod, objectName);
 	}
 
 	// @Override

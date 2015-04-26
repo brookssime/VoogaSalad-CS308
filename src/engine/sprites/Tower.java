@@ -1,7 +1,9 @@
 package engine.sprites;
 
 import interfaces.Collidable;
+import interfaces.MethodAnnotation;
 import interfaces.Movable;
+import interfaces.ParameterAnnotation;
 import interfaces.Shootable;
 
 import java.util.Collections;
@@ -196,7 +198,8 @@ public class Tower extends GridObject implements Shootable, Movable{
 		return (myHealth <= 0);
 	}
 
-	public void setFireRate(Integer fireRate) {
+	@MethodAnnotation(editor=true, name = "FireRate", type = "textfield", fieldName = "myFireRate")
+	public void setFireRate(@ParameterAnnotation(name="FireRate: ") Integer fireRate) {
 		myFireRate = fireRate;
 	}
 	
