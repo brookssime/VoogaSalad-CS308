@@ -29,7 +29,7 @@ public class GridManager {
 	private Grid myGrid;
 	private List<Shootable> myShootables;
 	private List<Collidable> myCollidables;
-	private Set<Sprite> mySpritesToRemove;
+	private Set<Sprite> myDeadSprites;
 	private List<Sprite> mySprites;
 	private Queue<Wave> myWaves;
 	private long myStartTime;
@@ -37,10 +37,10 @@ public class GridManager {
 	private Base myBase;
 	private boolean myGameWon; //remove these
 
-	public GridManager(Grid g){
-		myGrid = g;
-		sortObjects(g.getSpriteMap());
-		myPathFinder = new PathFinder(g);
+	public GridManager(Grid grid){
+		myGrid = grid;
+		sortObjects(grid.getSpriteMap());
+		myPathFinder = new PathFinder(grid);
 	}
 
 	public void sortObjects(Map<Sprite, Placement> map){
@@ -50,6 +50,8 @@ public class GridManager {
 			}
 			if(Arrays.asList(o.getClass().getClasses()).contains(Shootable.class)){
 				myShootables.add((Shootable) o);
+				myCollidables.add(((Shootable) o).getRangeObject()); //add a shootable's range object to collidables
+				
 			}
 			if(Arrays.asList(o.getClass().getClasses()).contains(Sprite.class)){
 				mySprites.add(o);
@@ -94,12 +96,10 @@ public class GridManager {
 	private void checkCollidables() {
 		for (Collidable sprite : myCollidables) {
 			for (Collidable collider : myCollidables) {
-				if (!(sprite.equals(collider))
-						&& mySpritesToRemove.contains(collider)
-						&& sprite.evaluateCollision(collider)
-						&& collider.getClass().isAssignableFrom(
-								Projectile.class)) {
-					mySpritesToRemove.add((Sprite) collider);
+				if (!(sprite.equals(collider) 
+						&& isCollision(sprite, collider))){
+					//evaluate collision
+					//if sprite or collider isDead, add to spritesToRemove
 				}
 			}
 		}
@@ -131,12 +131,12 @@ public class GridManager {
 	}
 
 	private void clearSprites() {
-		mySpritesToRemove.addAll(mySprites.stream().filter(s -> s.isDead())
+		myDeadSprites.addAll(mySprites.stream().filter(s -> s.isDead())
 				.collect(Collectors.toSet())); // filter to find dead objects
-		for (Sprite sprite : mySpritesToRemove) {
+		for (Sprite sprite : myDeadSprites) {
 			myCollidables.remove(sprite);
 		}
-		mySpritesToRemove.clear();
+		myDeadSprites.clear();
 	}
 
 	private void spawnEnemies() {
@@ -156,5 +156,10 @@ public class GridManager {
 
 	public Queue<Wave> getWaves() {
 		return myWaves;
+	}
+	
+	private boolean isCollision(Collidable spriteCollidedWith, Collidable spriteCollider){
+		
+		return false;
 	}
 }
