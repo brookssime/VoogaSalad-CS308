@@ -20,6 +20,8 @@ import javafx.scene.layout.VBox;
  */
 public class TitleScreenEditor implements IButton{
 	
+	private static final int BUTTON_PADDING = 40;
+	private static final int BUTTON_SPACING = 30;
 	private static final int SCROLLPANE_HEIGHT = 80;
 	private static final int VBOX_PADDING = 25;
 	private static final int VBOX_SPACING = 10;
@@ -47,8 +49,8 @@ public class TitleScreenEditor implements IButton{
 		//ADD BUTTONS
 		ScrollPane buttonPane = new ScrollPane();
 		buttonPane.setPrefHeight(200);
-		myButtons = new VBox(50);
-		myButtons.setPadding(new Insets(70));
+		myButtons = new VBox(BUTTON_SPACING);
+		myButtons.setPadding(new Insets(BUTTON_PADDING));
 		myButtons.setAlignment(Pos.CENTER);
 		buttonPane.setContent(myButtons);
 		Button addButton = new Button("Add Button");

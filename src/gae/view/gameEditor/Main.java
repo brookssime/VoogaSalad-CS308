@@ -12,14 +12,13 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Receiver model = new Model();
-		TitleScreenEditor e = new TitleScreenEditor();
-		primaryStage.setScene(new Scene(e.getPane()));
-//		GameEditor e = new GameEditor(model);
-//		primaryStage.setScene(new Scene(e.drawGameEditor()));
+//		TitleScreenEditor e = new TitleScreenEditor();
+//		primaryStage.setScene(new Scene(e.getPane()));
+		GameEditor e = new GameEditor(model);
+		primaryStage.setScene(new Scene(e.drawGameEditor()));
 		primaryStage.setHeight(600);
 		primaryStage.setWidth(600);
 		primaryStage.show();
-		
 	}
 	
 	public static void main(String[] args) {

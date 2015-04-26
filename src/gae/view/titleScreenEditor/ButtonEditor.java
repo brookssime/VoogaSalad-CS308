@@ -12,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -37,6 +36,13 @@ public class ButtonEditor {
 		myEditor = editor;
 	}
 
+	//if we are editing an existing button
+	public ButtonEditor(IButton editor, GameButton button){
+		myEditor = editor;
+		myButton = button;
+		//GameButton has all the information, should also have have new information
+		
+	}
 
 	public void setUpEditor() {
 		button();
@@ -78,15 +84,15 @@ public class ButtonEditor {
 		scaleSlider.setShowTickLabels(true);
 		scaleSlider.setShowTickMarks(true);
 		scaleSlider.setPrefWidth(300);
-		scaleSlider.setValue(SCALE_SLIDER_MAX);
+		scaleSlider.setValue(myButton.getScale());
 		sliderBox.getChildren().addAll(new Text("Scale: "), scaleSlider);
 
 		// Textfield for Text on button
 		TextField buttonText = new TextField();
-		buttonText.setText("Default");
+		buttonText.setText(myButton.getText());
 
 		// add Square as visual with text
-		Label visual = new Label("Default");
+		Label visual = new Label(buttonText.getText());
 		visual.setScaleX(scaleSlider.getValue());
 		visual.setScaleY(scaleSlider.getValue());
 		visual.setStyle(BUTTON_CSS);
@@ -119,11 +125,12 @@ public class ButtonEditor {
 		HBox returnButtons = new HBox(HBOX_SPACING);
 		Button accept = new Button("Accept");
 		accept.setOnAction(e -> {
-			//construct new Button with information
 			//THIS ASSUMES STUFF WAS TYPED
 			//TODO: FIX THE ABOVE
-			myButton = new GameButton(Double.parseDouble(xPos.getText()), Double.parseDouble(yPos.getText()), 
-							scaleSlider.getValue(), buttonText.getText());
+			myButton.setX(Double.parseDouble(xPos.getText()));
+			myButton.setY(Double.parseDouble(yPos.getText()));
+			myButton.setScale(scaleSlider.getValue());
+			myButton.setText(buttonText.getText());
 			myEditor.addButton(myButton);
 			stage.close();
 		});
