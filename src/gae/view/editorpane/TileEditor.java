@@ -1,11 +1,9 @@
 package gae.view.editorpane;
 
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 
+import gae.view.GAEPane;
+import gae.view.menupane.MenuAdder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,6 +12,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -31,107 +30,56 @@ import javafx.stage.Stage;
  * Allows the game designer to edit the tile in the Editor Pane.
  *
  */
-public class TileEditor {
-	private Stage myStage;
-	private Desktop desktop = Desktop.getDesktop();
-	//TODO: Make sure what goes in the fields is saved
+public class TileEditor extends GAEPane{
+	private String myImagePath;
+	private HelperEditor myHelper;
 	
-	public void TileEditor(Stage s){
-		myStage = new Stage();
-		myStage = s;
-	}
+	public TileEditor(String className, MenuAdder adder) {
+		super(className, adder);
+		myHelper = new HelperEditor();
+		GridPane myGridPane = new GridPane();
+		setContent(myGridPane);
+		myRoot.getChildren().add(myGridPane);
+		}
 	
-	public void edit(){
-    	
-        myStage.setTitle("Tile Editor");
-        Group root = new Group();
-        GridPane myPane = new GridPane();
-        myPane.setAlignment(Pos.CENTER);
-        myPane.setHgap(15);
-        myPane.setVgap(25);
-        myPane.setPadding(new Insets(25, 25, 25, 25));
-        //myPane.setGridLinesVisible(true);
-        
-        //Code for the fields
-        Text title = new Text("Edit your tile here");
-        title.setFont(Font.font("Times New Roman", FontWeight.BOLD, 25));
-        myPane.add(title, 0, 1, 2, 1);
-        
-        Label image = new Label("Set Image");
-        image.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(image, 0, 2);
-      
-        Label name = new Label("Set Name"); 
-        name.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(name, 0, 4);
-        TextField nameField = new TextField();
-        myPane.add(nameField, 1, 4);
-       
-        //Code for the button
-        Button finishBtn = new Button("Save");
-        HBox finishHB = new HBox(10);
-        finishHB.setAlignment(Pos.BOTTOM_CENTER);
-        finishHB.getChildren().add(finishBtn);
-        myPane.add(finishHB, 1, 12);
-        
-      //Displaying messages for save button
-        final Text action = new Text();
-        myPane.add(action, 1, 13);
-        
-      //Event Handling of save button
-        finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+	private void setContent(GridPane myPane){
+		double titleSize = 25;
+		double textSize = 20;
+		String[] labels = {"Edit your tile here", "Set Image: ", "Set Name: "};
+		
+		myHelper.paneSetUp(myPane);
+		Text myTitle = myHelper.setText(labels[0], titleSize);
+		myPane.add(myTitle, 0, 0);
+		
+		for(int i=1; i<labels.length; i++){
+			int y = 2; //location of the text label
+			Text myText = myHelper.setText(labels[i], textSize);
+			myPane.add(myText, 0, y);
+			y += 2;
+		}
+		
+		//TODO: FileImagePath -> String
+		//TODO: Name -> String
+		HBox myImageBox = myHelper.addImageButton("Choose Image: ");
+		myPane.add(myImageBox, 1, 2);
+		//TODO: Figure out how to use editor components
+		
+		Button save = myHelper.saveButton();
+		myPane.add(save,  1, 12);
+		save.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
             public void handle(ActionEvent e) {
-                action.setFill(Color.GREEN);
-                action.setText("You saved your tile!");
                 //TODO: Make this close the editor instead
             }
         });
-        
-      //Choosing a file button
-        Button fileBtn = new Button("Choose Image");
-        HBox fileHB = new HBox(10);
-        fileHB.setAlignment(Pos.CENTER);
-        fileHB.getChildren().add(fileBtn);
-        myPane.add(fileHB, 1, 2);
-        
-        //File Chooser event
-        //TODO: Output the file path
-        //TODO: Make sure it chooses image files
-        final FileChooser chooser = new FileChooser();
-        fileBtn.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(final ActionEvent e) {
-                        File file = chooser.showOpenDialog(myStage);
-                        if (file != null) {
-                            openFile(file);
-                        }
-                    }
-                });
-        
-        Scene scene = new Scene(myPane, 800, 800); //this will depend on the GAE's main interface
-        BorderPane borderPane = new BorderPane();
-        
-        // bind to take available space
-        borderPane.prefHeightProperty().bind(scene.heightProperty());
-        borderPane.prefWidthProperty().bind(scene.widthProperty());
-        //borderPane.setCenter(tabPane);
-        root.getChildren().add(borderPane);
-        myStage.setScene(scene);
-        myStage.show();
-    }
-    
-    private void openFile(java.io.File file) {
-   	 try {
-            desktop.open(file);
-        } catch (IOException ex) {
-            Logger.getLogger(
-                EnemyEditor.class.getName()).log(
-                    Level.SEVERE, null, ex
-                );
-        }
-    }
-    
+	}
+	
+
+	@Override
+	public List<Menu> getMenus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
 

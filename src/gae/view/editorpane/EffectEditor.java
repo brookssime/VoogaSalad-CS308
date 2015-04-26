@@ -13,29 +13,30 @@ import gae.view.GAEPane;
 import gae.view.menupane.MenuAdder;
 
 /**
- * 
+ * Editor for Effects of the Bases
  * @author ReyinaSenatus
- * An editor for setting up the projectile object. Allows the game designer to set up different
- * properties of the projectile object and save them.
  *
  */
-public class ProjectileEditor extends GAEPane{
+
+public class EffectEditor extends GAEPane{
 	private String myImagePath;
 	private HelperEditor myHelper;
 	
-	public ProjectileEditor(String className, MenuAdder adder) {
+	public EffectEditor(String className, MenuAdder adder) {
 		super(className, adder);
 		myHelper = new HelperEditor();
 		GridPane myGridPane = new GridPane();
 		setContent(myGridPane);
 		myRoot.getChildren().add(myGridPane);
 	}
-	
+
 	private void setContent(GridPane myPane){
 		double titleSize = 25;
 		double textSize = 20;
-		String[] labels = {"Edit your projectile here", "Set Image: ", "Set Name: ",
-				"Set Radius of Attack: ", "Names of flyable tiles: "};
+		String[] labels = {"Edit your effect here", "Set Name: ",
+				"Set Speed Damage: ", "Set Speed Frequenct: ", "Set Speed Reps: ",
+				"Hold Speed Damage for (0 is forever): ", "Set Health Damage: ",
+				"Set Health Frequency: ", "Set Health Reps: "};
 		
 		myHelper.paneSetUp(myPane);
 		Text myTitle = myHelper.setText(labels[0], titleSize);
@@ -48,12 +49,13 @@ public class ProjectileEditor extends GAEPane{
 			y += 2;
 		}
 		
-		//TODO: (String) Image File Path
-		//TODO: (String) Name
-		//TODO: (int) Radius
-		//TODO: (String[]) Name ID’s for type IDs of flyable / traversable tiles
-		HBox myImageBox = myHelper.addImageButton("Choose Image: ");
-		myPane.add(myImageBox, 1, 2);
+		//TODO: (int) Speed Damage
+		//TODO: (Double) speedFrequency
+		//TODO: (int) speedReps
+		//TODO: (Double) holdSpeedDamageFor (0== Forever)
+		//TODO: (int) Health Damage
+		//TODO: (Double) healthFrequency
+		//TODO: (int) healthReps
 		//TODO: Figure out how to use editor components
 		
 		Button save = myHelper.saveButton();
@@ -71,6 +73,5 @@ public class ProjectileEditor extends GAEPane{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 
 }

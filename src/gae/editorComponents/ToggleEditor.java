@@ -20,12 +20,12 @@ import javafx.scene.layout.HBox;
  *
  */
 
-public class Toggle extends EditorComponent{
+public class ToggleEditor extends EditorComponent{
 	private String text;
 	private String[] texts;
 	
-	public Toggle(Receiver receiver, Method setMethod, Method getMethod,String objectName) {
-		super(receiver, setMethod, getMethod, objectName);
+	public ToggleEditor(Receiver receiver, Method setMethod, Method getMethod,String objectName) {
+		super(receiver, setMethod, objectName);
 		// TODO Auto-generated constructor stub
 	}
 

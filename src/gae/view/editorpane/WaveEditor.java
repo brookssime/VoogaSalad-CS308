@@ -1,5 +1,6 @@
 package gae.view.editorpane;
 
+import gae.model.Receiver;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -22,10 +23,10 @@ public class WaveEditor extends Pane{
 	
 	
 	
-	public WaveEditor(String waveName){
+	public WaveEditor(String waveName, Receiver myReceiver){
 		myFields = new VBox();
 		myWaveName = new Label(waveName);
-		myEnemys = new ListField("Enemys");
+		myEnemys = new ListField("Enemys", myReceiver);
 		myDelays = new DelayFieldEditor();
 		export = new Button("Add Wave");
 		export.setOnAction(e->{
