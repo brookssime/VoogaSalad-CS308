@@ -31,7 +31,6 @@ public class GameInfoBox extends AbstractOverlay{
 		description.setLayoutY(overlayHeight * .3);
 		
 		
-		
 		// Set pref sizes
 		
 		//Create a title area for the game name
