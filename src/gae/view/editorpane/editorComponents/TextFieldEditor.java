@@ -1,7 +1,7 @@
 /*
  * 
  */
-package gae.editorComponents;
+package gae.view.editorpane.editorComponents;
 
 import interfaces.ParameterAnnotation;
 
