@@ -22,6 +22,8 @@ public class Projectile extends Sprite implements Collidable{
 	private int myRadius;
 	private Shape myCollisionBounds;
 	private Path myPath;
+	private Integer myCollisionHeight;
+	private Integer myCollisionWidth;
 	
 	public Projectile(){
 		
@@ -60,8 +62,8 @@ public class Projectile extends Sprite implements Collidable{
 	 */
 	
 	@Override
-	public boolean evaluateCollision(Collidable collider) {
-		return isCollision(collider);
+	public void evaluateCollision(Collidable collider) {
+		
 	}
 
 	/**
@@ -75,18 +77,10 @@ public class Projectile extends Sprite implements Collidable{
 		return false;
 	}
 	
-	public void setCollisionBounds() {
-		// myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRadius*2, myRadius*2);		
-	}
-	
 	public int getRadius(){
 		return myRadius;
 	}
 
-	@Override
-	public Shape getCollisionBounds() {
-		return myCollisionBounds;
-	}
 	
 	public ProjectileEffect getEffect(){
 		return myEffect;
@@ -102,5 +96,25 @@ public class Projectile extends Sprite implements Collidable{
 	public void fillSpriteInfo() {
 		mySpriteInfo.put("Name", myName);
 		mySpriteInfo.put("Speed", mySpeed.toString());
+	}
+
+	@Override
+	public void setCollisionHeight(Integer height) {
+		myCollisionHeight = height;
+	}
+
+	@Override
+	public void setCollisionWidth(Integer width) {
+		myCollisionWidth = width;	
+	}
+
+	@Override
+	public Integer getCollisionHeight() {
+		return myCollisionHeight;
+	}
+
+	@Override
+	public Integer getCollisionWidth() {
+		return myCollisionWidth;
 	}
 }

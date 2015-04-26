@@ -2,20 +2,16 @@ package engine.gameLogic;
 
 import interfaces.Collidable;
 
-import java.awt.Point;
-import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
 public class Range implements Collidable{
 
 	private ArrayList<Collidable> objectsInRange = new ArrayList<Collidable>();
-	private Shape myCollisionBounds;
-	private Point myLocation;
-	private int myRadius;
+	private Integer myCollisionHeight;
+	private Integer myCollisionWidth;
 
-	public Range(int x, int y, int r){
-		myCollisionBounds = new Ellipse2D.Double(x, y, r, r);
+	public Range(){
+		
 	}
 
 	public ArrayList<Collidable> getObjectsInRange(){
@@ -25,25 +21,12 @@ public class Range implements Collidable{
 	}
 
 	@Override
-	public boolean evaluateCollision(Collidable collider) {
-		if((isCollision(collider))){
-			objectsInRange.add(collider); 
-			return true;
-		}
-		return false;
+	public void evaluateCollision(Collidable collider) {
+		objectsInRange.add(collider); 
 	}
 
 	public void refreshObjects(){
 		objectsInRange.clear();
-	}
-
-	public void setCollisionBounds() {
-		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRadius*2, myRadius*2);
-	}
-
-	@Override
-	public Shape getCollisionBounds() {
-		return myCollisionBounds;
 	}
 
 	@Override
@@ -56,5 +39,25 @@ public class Range implements Collidable{
 	public boolean isDead() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void setCollisionHeight(Integer height) {
+		myCollisionHeight = height;
+	}
+
+	@Override
+	public void setCollisionWidth(Integer width) {
+		myCollisionWidth = width;	
+	}
+
+	@Override
+	public Integer getCollisionHeight() {
+		return myCollisionHeight;
+	}
+
+	@Override
+	public Integer getCollisionWidth() {
+		return myCollisionWidth;
 	}
 }
