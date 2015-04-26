@@ -24,6 +24,8 @@ public class SliderEditor extends EditorComponent{
 	private double myCur;
 	private Slider mySlider = new Slider();
 
+	//TODO: Cast fecthValue
+	//TODO: Check to see if fetchValue is null or not
 	public SliderEditor(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
 		super(receiver, setMethod, objectName);
 		// TODO Auto-generated constructor stub
@@ -58,17 +60,22 @@ public class SliderEditor extends EditorComponent{
 		mySlider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov,
 					Number old_val, Number new_val) {
-				//sliderVal.setText(String.format("%.0f", new_val));
-				Integer myVal = (int) mySlider.getValue();
-                sliderVal.setText(myVal.toString());
+				sliderVal.setText(String.format("%.1f", new_val));
+				//Integer myVal = (int) mySlider.getValue();
+                //sliderVal.setText(myVal.toString());
 			}
 		});
 
 		return mySlider;
 	}
 
-	public Integer value() {// This is to be used on save event
+	public Integer intValue() {// This is to be used on save event
 		int myVal = (int) mySlider.getValue();
+		return myVal;
+	}
+	
+	public Double doubleValue() {// This is to be used on save event
+		double myVal = mySlider.getValue();
 		return myVal;
 	}
 

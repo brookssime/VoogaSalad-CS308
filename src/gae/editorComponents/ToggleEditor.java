@@ -26,15 +26,12 @@ public class ToggleEditor extends EditorComponent{
 	
 	public ToggleEditor(Receiver receiver, Method setMethod, Method getMethod,String objectName) {
 		super(receiver, setMethod, objectName);
-		// TODO Auto-generated constructor stub
 	}
 
 	//@Override
 	public void setUpEditor() {//TODO: Find a way to do this with string
-			// TODO Auto-generated method stub
 			HBox h = new HBox();
 			h.getChildren().add(toggleButton());
-			
 	}
 	
 	public void toggleButtonParam(String myText){
@@ -71,4 +68,5 @@ public class ToggleEditor extends EditorComponent{
 		return myGroupButtons;
 	}
 
+	//TODO: Make method to get the boolean status of the toggle buttons 
 }
