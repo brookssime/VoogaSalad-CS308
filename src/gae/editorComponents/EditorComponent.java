@@ -16,21 +16,37 @@ import javafx.scene.layout.VBox;
 public abstract class EditorComponent extends VBox {
 
 	protected Label fieldLabel;
-	protected Method mySetMethod;
-	protected Method myGetMethod;
+	protected Method myMethod;
+	protected String myFieldName;
 	protected Receiver myReceiver;
+	protected Object myFetchedValue;
 
 	protected String myObject;
 
-	public EditorComponent(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
+	public EditorComponent(Receiver receiver, Method method, String objectName) {
 		myReceiver = receiver;
-		mySetMethod = setMethod;
-		myGetMethod = getMethod;
+		myMethod = method;
 		myObject = objectName;
-		MethodAnnotation methodAnnotation = setMethod
+		myFetchedValue = null;
+		MethodAnnotation methodAnnotation = myMethod
 				.getAnnotation(MethodAnnotation.class);
 		String methodName = methodAnnotation.name();
+		myFieldName = methodAnnotation.fieldName();
 		fieldLabel = new Label(methodName);
+
+		try {
+			try {
+				myFetchedValue = myReceiver.getFromObject(myObject, myFieldName);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (IllegalArgumentException | IllegalAccessException
+				| NoSuchFieldException | SecurityException e1) {
+			System.out.println("Failed to fetch field value");
+			e1.printStackTrace();
+		}
+		
 		this.getChildren().add(fieldLabel);
 		setUpEditor();
 	}
