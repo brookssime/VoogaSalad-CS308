@@ -15,6 +15,7 @@ public class HeadsUpDisplay {
 	/**
 	 * GameData object
 	 */
+	
 	private GameStats data;
 	
 	public int displayMoney(){
@@ -36,4 +37,6 @@ public class HeadsUpDisplay {
 		int score = data.getScore();
 		return score;
 	}
+	
+	
 }

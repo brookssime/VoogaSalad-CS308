@@ -20,6 +20,7 @@ import java.util.Queue;
 public class DialogueNode extends GameNode{
 
 	
+
 	/** The my dialogue. */
 	private Queue<DialogueBox> myDialogueBoxes;
 	
@@ -51,8 +52,13 @@ public class DialogueNode extends GameNode{
 	
 	@Override
 	public void render() {
-		// TODO Fill in with appropriate calls as we get a Player API
+		// TODO PUT APPROPRIATE CALLS FOR DIALOGUESCENE WHEN WE HAVE UNIFIED GUI CLASS
 		
+	}
+	
+	public void showNextDialogue(){
+		myDialogueBoxes.poll();
+		render();
 	}
 	
 	public void setImagePath(String imagePath){

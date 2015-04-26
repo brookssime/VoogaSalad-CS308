@@ -6,6 +6,7 @@ import java.util.Queue;
 import engine.Grid;
 import engine.GridManager;
 import engine.HeadsUpDisplay;
+import engine.gameLogic.GameStats;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Wave;
 
@@ -16,42 +17,50 @@ public class LevelNode extends GameNode  {
 	private Grid myGrid;
 	private HeadsUpDisplay myHUD;
 	private GridManager myGridManager;
+	private GameStats myGameStats;
 	//private GridManager myGridManager; TODO - why
 
 	public LevelNode() {
 		super();
 	}
 	
-
-
 	@Override
 	public void render() {
-		// TODO Fill in with appropriate calls as we get a Player API
+		// TODO FILL IN WITH APPROPRIATE CALLS FOR LEVELNODE ONCE AVAILABLE
 		
 	}
 	
-	void placeSprite(String SpriteID, Placement spritePlacement){
-		myGrid.placeSpriteAt(myGrid, spritePlacement);
+	// increment money appropriately and place on grid
+	void purchaseSprite(String SpriteID, Placement spritePlacement){
+		myGameStats.updateMoney(-1*myStore.getTowerCost(myStore.getFromID(SpriteID)));
+		myGrid.placeSpriteAt(myStore.getFromID(SpriteID), spritePlacement);
+		render();
 		
 	}
 	
-	void examineSprite(String SpriteID, Placement spritePlacement){
-		
-	}
-	
+	// TODO should the value when sold be different from the value when purchased? Currently, it is not.
+	// increment money appropriately and remove from Grid
 	void sellObject(String SpriteID, Placement spritePlacement){
-		
-	}
-	void purchaseObject(String SpriteID){
-		
+		myGameStats.updateMoney(myStore.getTowerCost(myStore.getFromID(SpriteID)));
+		myGrid.removeSpriteAt(myStore.getFromID(SpriteID), spritePlacement);
+		render();
+	
 	}
 	
+	// TODO make sure that the Player displays the range correctly in addition to the model updating the HUD
+	// TODO make sure that the player can accurately display a popup with the enemy's data
+	void examineSprite(String SpriteID, Placement spritePlacement){
+		render();
+	}
+	
+	
+
 	void increaseGameSpeed(){
-		
+		// TODO not sure why this is in the API
 	}
 	
 	void decreaseGameSpeed(){
-		
+		// TODO not sure why this is in the API
 	}
 	
 	
@@ -102,6 +111,10 @@ public class LevelNode extends GameNode  {
 
 	public boolean isComplete(){
 		return myGrid.isComplete();
+	}
+	
+	public void setGameStats(GameStats gamestats){
+		myGameStats = gamestats;
 	}
 
 
