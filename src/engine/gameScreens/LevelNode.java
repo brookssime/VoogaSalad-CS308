@@ -3,17 +3,10 @@ package engine.gameScreens;
 
 import java.util.Queue;
 
-import javafx.animation.KeyFrame;
 import engine.Grid;
 import engine.GridManager;
 import engine.gameLogic.Wave;
 
-/**
- * The Class LevelScene.
- * 
- * @author Brooks, Patrick, Robert, and Sid.
- * 
- */
 public class LevelNode extends GameNode  {
 
 	//private String myLevelTitle; TODO - why
@@ -25,12 +18,6 @@ public class LevelNode extends GameNode  {
 		super();
 	}
 	
-	@Override
-	public KeyFrame start(double frameRate){
-		myGrid.start();
-		return super.start(frameRate);
-	}
-
 	public void setStore(Store store){
 		myStore = store;
 	}
@@ -65,14 +52,5 @@ public class LevelNode extends GameNode  {
 		return myGrid.isComplete();
 	}
 
-	@Override
-	public void setName(String name) {
-		myName = name;
-	}
-
-	@Override
-	public String getName() {
-		return myName;
-	}
 
 }

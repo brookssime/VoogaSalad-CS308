@@ -1,13 +1,16 @@
 package engine.controller;
 
+import java.util.Map;
+
 import engine.Environment;
 import engine.Grid;
-import engine.GridManager;
 import engine.gameLogic.GameStats;
 import engine.gameLogic.Placement;
 import engine.gameScreens.Store;
 
 
+//TODO Where do we get the store, environment, grid, game stats, etc. from?
+//We need to actually get those in here properly
 
 public class LevelController extends Controller {
 
@@ -28,10 +31,14 @@ public class LevelController extends Controller {
 	 * Takes in SpriteID
 	 * Will display information about the sprite on screen
 	 * Useful for looking at cost and health of towers, etc.
+	 * TODO: Is this okay that it returns the Sprite info directly to view?
 	 * @param spriteID
+	 * @return 
 	 */
-	public void examineSprite(String spriteID){
-		return sprite.getInfo();	
+	public Map<String, String> examineSprite(String spriteID){
+		Environment myEnvironment = new Environment();
+		Grid myGrid = myEnvironment.getGrid();
+		return myGrid.getFromID(spriteID).getSpriteInfo();	
 	}
 
 	/**

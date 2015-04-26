@@ -3,12 +3,15 @@ package engine.sprites;
 import interfaces.Collidable;
 import interfaces.Shootable;
 
+import java.awt.Point;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.sun.javafx.geom.Point2D;
 import com.thoughtworks.xstream.XStream;
 
+import engine.Movement;
 import engine.Path;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Range;
@@ -21,16 +24,14 @@ import engine.gameLogic.Range;
 public class Tower extends Sprite implements Shootable{
 
 	//TODO: Many instance variables. are all necessary?
-	private String myName;
 	private Integer myFireRate;
 	private Integer myHealth;
 	private Projectile myProjectile;
 	private Range myRangeObject;
 	private int myRange; // <<--only for Xstream purposes
-	private Double myCurRotation;
-	private Double myTargetRotation;
+	// private Double myCurRotation;
+	// private Double myTargetRotation;
 	private Double myRotationSpeed;
-	private Integer myRad;
 	private boolean isReady;
 	private Path myPath;
 	private Integer myPrice;
@@ -42,50 +43,35 @@ public class Tower extends Sprite implements Shootable{
 
 	public Tower (XStream serializer, String data, Point2D location) {
 		Tower incomplete = (Tower)serializer.fromXML(data);
-		init(incomplete.myName, incomplete.myImagePath, incomplete.myAccessNames, incomplete.myRange, incomplete.myHealth, incomplete.myRad, incomplete.myFireRate, location);
+		init(incomplete.myName, incomplete.myImagePath, incomplete.myAccessNames, incomplete.myRange, incomplete.myHealth, incomplete.myFireRate, location);
 	}
 
-	public void init(String name, String imagePath,  List<String> accessNames, int range, int health, int radius, int fireRate, Point2D location){
+	public void init(String name, String imagePath,  List<String> accessNames, int range, int health, int fireRate, Point2D location){
 		myImagePath = imagePath;
 		myName = name;
 		myAccessNames = accessNames;
 		myRange = range;
 		myFireRate = fireRate;		
 		myHealth = health;
-		myRad = radius;
 	}
 	
 	@Override
 	public Placement move() {
-		rotate();
-		if(myCurRotation == myTargetRotation){
-			isReady = true;
-		}
 		return myPath.getNextPlacement();
 	}
 	
 	@Override
 	public void update() {
-		// TODO set myPath up here
+		// TODO set myPath up here, including checking for firing and whatnot
+		
 	}
 	
-	private void rotate(){
-		// TODO
-		// increment myCurRotation based on targetRotation
-		myCurRotation = myCurRotation + myRotationSpeed;
-	}
+
 	
 	public Projectile fire(){
 		return myProjectile;
 		
 	}
-	
-	private void setTargetRotation(double targetAngle){
-		myTargetRotation = targetAngle;
-	}
-	
-
-	
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collidable selectTarget(List<Collidable> targets) {
@@ -144,6 +130,49 @@ public class Tower extends Sprite implements Shootable{
 	}
 
 	public void setMyPrice(Integer price) {
+
 		myPrice = price;
 	}
+
+	
+	/*
+	 * Takes target location and assigns it a path based on the projectile's MovementStrategy  
+	 * 
+	 * (non-Javadoc)
+	 * @see interfaces.Shootable#setFirePath(engine.gameLogic.Placement, engine.gameLogic.Placement)
+	 */
+
+	public void setFirePath(Placement target, Placement cur) {
+		//target angle in absolute bearing
+		
+		List<Placement> pList = new LinkedList<Placement>();
+		double targetDirection = 90.0 - Math.toDegrees(Math.atan2(target.getLocation().x - cur.getLocation().x, 
+				target.getLocation().y - cur.getLocation().y));
+		// these are correct, but
+		// TODO ensure that the Placements' headings get properly refreshed in Grid to standard (0-360, inclusive)
+		boolean clockwise = true;
+		if(targetDirection < cur.getHeading())
+			clockwise = false;
+		
+		pList.add(cur);
+		
+		while((pList.get(pList.size() -1).getHeading() < targetDirection) == clockwise){ // double-check this control flow
+			pList.add(new Placement(new Point(cur.getLocation().x, cur.getLocation().y), 
+					pList.get(pList.size()-1).getHeading()+(myRotationSpeed*((clockwise)?1:-1))));
+		}
+		
+		pList.add(new Placement(new Point(cur.getLocation().x, cur.getLocation().y), targetDirection));
+		
+		myPath.setNextMovement(new Movement(pList));
+		
+	}
+
+	@Override
+	public void fillSpriteInfo() {
+		mySpriteInfo.put("Name", myName);
+		mySpriteInfo.put("Health", myHealth.toString());
+		mySpriteInfo.put("Firing Rate", myFireRate.toString());
+		mySpriteInfo.put("Price", myPrice.toString());
+	}
+
 }

@@ -108,8 +108,9 @@ public class GridManager {
 	private void checkShootables(){
 		for (Shootable s : myShootables){
 			s.update();
-			if(s.isReady())
+			if(s.isReady()){
 				fireSequence(s);
+			}	
 		}
 	}
 

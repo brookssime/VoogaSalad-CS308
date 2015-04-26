@@ -27,4 +27,9 @@ public class Port extends Sprite{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void fillSpriteInfo() {
+		mySpriteInfo.put("Name", myName);
+	}
 }

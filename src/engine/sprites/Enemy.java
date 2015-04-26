@@ -138,4 +138,13 @@ public class Enemy extends Sprite implements Collidable {
 	public MovementStrategy getMovement() {
 		return myMovement;
 	}
+
+	//TODO: Find a better way to do this?
+	@Override
+	public void fillSpriteInfo() {
+		mySpriteInfo.put("Name", myName);
+		mySpriteInfo.put("Health", myHealth.toString());
+		mySpriteInfo.put("Speed", mySpeed.toString());
+		mySpriteInfo.put("Damage", myDamage.toString());
+	}
 }

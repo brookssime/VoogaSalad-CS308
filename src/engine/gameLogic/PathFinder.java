@@ -17,7 +17,7 @@ public class PathFinder {
 	private Grid myGrid;
 	private HashMap<String, LinkedList<Tile>> myEnemyPaths; 
 	// TODO this will be an issue when multiple enemies of the same type require different paths..
-	// ie multiple different ports with the same waves
+	// ie multiple different ports with the same waves-MAKE SURE that the same enemy out of different waves has a different name
 	
 	public PathFinder(Grid grid){
 		myGrid = grid;
