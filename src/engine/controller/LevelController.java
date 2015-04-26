@@ -65,6 +65,17 @@ public class LevelController extends Controller {
 		myGrid.removeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
 		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice() * -1);	
 	}
+	
+	/**
+	 * Error message if there isn't enough money to purchase
+	 * returns true if there is money, otherwise false
+	 */
+	public boolean notEnoughMoney(String spriteID){
+		GameStats myGameStats = new GameStats();
+		Store myStore = new Store();
+		return (myGameStats.getMoney() > myStore.getFromID(spriteID).getMyPrice());
+	}
+	
 
 	@Override
 	public void update() {
