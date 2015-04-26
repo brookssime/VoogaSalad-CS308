@@ -33,6 +33,16 @@ public class Controller {
 		
 	}
 	
+	public void doSomething(String action, Object[] params){
+		Class[] paramTypes = new Class[params.length];
+		for(int i = 0; i < params.length ; i++){
+			paramTypes[i] = params[i].getClass();
+		}
+		java.lang.reflect.Method method = myGame.getCurNode().getClass().
+				getMethod(action, paramTypes);
+		
+		method.invoke(myGame.getCurNode(), params);
+	}
 	
 	
 	

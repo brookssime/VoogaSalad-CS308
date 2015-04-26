@@ -135,4 +135,8 @@ public class Grid extends GameObject{
 		mySpriteMap.put(sprite, move);
 		
 	}
+	
+	public void placeSpriteIDAt(String SpriteID, Placement p){
+		
+	}
 }
