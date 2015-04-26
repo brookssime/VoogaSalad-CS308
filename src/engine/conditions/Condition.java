@@ -7,9 +7,9 @@ import engine.gameScreens.Store;
 
 public abstract class Condition {
 	
-	private GridManager myGridManager;
-	private Grid myGrid;
-	private Store myStore;
+	protected GridManager myGridManager;
+	protected Grid myGrid;
+	protected Store myStore;
 	
 	public Condition (Environment gameData){
 		gameData.getGridManager();

@@ -51,12 +51,14 @@ public abstract class GameNode extends GameObject{
 	/**
 	 * Update.
 	 */
-	public abstract void update();
+	public abstract void update(); // this gets called in a loop
 	
 	/**
 	 * Check complete.
 	 */
 	public abstract boolean isComplete();
+	
+	public abstract void render();
 
 	/**
 	 * Gets the next scene.
@@ -84,4 +86,6 @@ public abstract class GameNode extends GameObject{
 	public void addNewNode(Double key, GameNode gameNode){
 		nextNodes.put(key, gameNode);
 	}
+	
+	
 }
