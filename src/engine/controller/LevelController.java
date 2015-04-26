@@ -88,6 +88,11 @@ public class LevelController extends Controller {
 	public void showHelpPage(){
 		
 	}
+
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

@@ -17,7 +17,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		stage.setTitle("Tuff Wizard");
-		myPlayer = new GamePlay();
+		myPlayer = new GamePlay( stage,1400,800);
 		stage.setScene(myPlayer.getScene()); //Fangyi: will this work?
 		stage.setResizable(false);
 		stage.show();

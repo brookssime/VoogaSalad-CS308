@@ -1,5 +1,18 @@
-package player;
+package player.level;
 
+import java.util.Map;
+
+import engine.*;
+import engine.controller.LevelController;
+import engine.gameLogic.Placement;
+import engine.gameScreens.LevelNode;
+import engine.gameScreens.Store;
+import engine.sprites.Sprite;
+import engine.sprites.Tile;
+import player.GraphicGameScene;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -17,8 +30,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+import javafx.util.Duration;
 /**
  * This class is to display the level
  */
@@ -30,13 +45,17 @@ public class GameLevelScene implements GraphicGameScene{
 	// spaces out the bottom menu
 	private static final int MENU_SPACING = 50;
 	private static final int SLIDER_SPACING = 10;
-	
+	private static final int NUM_FRAMES_PER_SECOND = 60;
+	private LevelController myController;
+	private LevelNode mylevelnode;
 	//private double infoBoxWidthPct = .6;
 	//private double infoBoxHeightPct = .7;
 	private Slider animationSpeedSlider;
 	//private double choiceBoxWidthPct = .2;
 	//private double choiceBoxHeightPct = 7;
 	private double adjustrate = 0;
+	private int gamespeed = 6;
+	private int currentTime = 0;
 	
 	//Group root;
 	private Scene myScene;
@@ -54,9 +73,15 @@ public class GameLevelScene implements GraphicGameScene{
 	private Label healthLabel;
 	private double healthNum;
 	private VBox towerInfo;
-	private GridPane myGrid;
+	//private GridPane myGrid;
+	private GraphicGrid myGrid;
+	private Stage primaryStage;
+	private KeyFrame frame;
+	private Timeline animation;
+	//private int currentTime
 	public GameLevelScene(Stage stage, double screenWidth, double screenHeight){
 		//this.root = new Group();
+		primaryStage = stage;
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
 		levelNum = 0;
@@ -66,26 +91,97 @@ public class GameLevelScene implements GraphicGameScene{
 		//double infoBoxWidth = infoBoxWidthPct * screenWidth;
 		//double infoBoxHeight = infoBoxHeightPct * screenHeight;
 		
-		BorderPane root = new BorderPane();
-        // must be first since other panels may refer to page
-        root.setCenter(makeGridDisplay());
-        root.setTop(makeControlPanel());
-        root.setRight(makeTowerInfo());
-        root.setBottom(makeInformationPanel());
+		BorderPane root = makePane();
+		
         // control the navigation
        // enableButtons();
         // create scene to hold UI
         myScene = new Scene(root, screenWidth, screenHeight);
 		//root.getChildren().add(gameChoiceBox);
 		//root.getChildren().add(gameInfoBox);
+        displayError("here is the error");
+        initTimeLine();
+	}
+	
+	private void initTimeLine() {
+		animation = new Timeline();
+		frame = start(NUM_FRAMES_PER_SECOND);
+		animation.setCycleCount(Animation.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();
+	}
+	
+	
+
+	private KeyFrame start(int framerate) {
+		// TODO Auto-generated method stub
 		
+		return new KeyFrame(Duration.millis(1000/framerate), e -> {
+			currentTime +=1;
+			if(currentTime % gamespeed == 0){
+				updateLevel();
+			}
+		});
+	}
+
+	public void loadLevel(LevelNode level){
+		mylevelnode = level;
+		 myScene = new Scene(makePane(), screenWidth, screenHeight);
+	}
+	public void updateEnvironment(Environment environment){
+		updateGrid(environment.getGrid());
+		updateHUD(environment.getHUD());
+		updateStore(environment.getStore());
+	}
+	
+	private void updateStore(Store store) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void updateHUD(HeadsUpDisplay hud) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void updateGrid(Grid grid) {
+		// TODO Auto-generated method stub
+		Map<Sprite, Placement> myMap =grid.getSpriteMap();
+		myGrid.updateSprite(myMap);
+		
+		
+	}
+
+	public void displayError(String errorMessage){
+		final Stage dialog = new Stage();
+		dialog.initModality(Modality.NONE);
+		dialog.initOwner(primaryStage);
+		VBox dialogVbox = new VBox(20);
+		dialogVbox.setPadding(new Insets(60,10,10,10));
+		dialogVbox.getChildren().add(new Text("Error: "+errorMessage));
+		Scene dialogScene = new Scene(dialogVbox, 300, 200);
+		dialog.setScene(dialogScene);
+		dialog.show();
+	}
+
+
+	private BorderPane makePane(){
+		BorderPane root = new BorderPane();
+        // must be first since other panels may refer to page
+        root.setCenter(makeGridDisplay());
+        root.setTop(makeControlPanel());
+        root.setRight(makeTowerInfo());
+        root.setBottom(makeInformationPanel());
+        
+        return root;
 	}
 	
 	private Node makeTowerInfo() {
 		// TODO Auto-generated method stub
 		towerInfo = new VBox();
 		Label myLabel = new Label("Towers: ");
-		TowerInfo t = new TowerInfo("../images/tower.jpg", "bacis", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
+		//sample TowerInfo
+		TowerInfo t = new TowerInfo("../../images/tower.jpg", "basic", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
 		towerInfo.getChildren().addAll(myLabel,t.getDisplay());
 		return towerInfo;
 	}
@@ -96,46 +192,8 @@ public class GameLevelScene implements GraphicGameScene{
 	}
 
 	private Node makeGridDisplay() {
-		myGrid = new GridPane();
-		int grid[][] = {
-				{1,1,2,1,1,1,1,1,1,1,1,1,1,1,1},
-				{1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
-				{1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
-				{1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
-				{1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
-				{1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
-				{1,1,0,0,0,0,0,0,0,0,0,0,1,1,1},
-				{1,1,1,1,1,1,1,1,1,1,1,0,1,1,1},
-				{1,1,1,1,1,1,1,1,1,1,1,0,1,1,1},
-				{1,1,1,1,1,1,1,1,1,1,1,3,1,1,1},
-
-				
-				
-				
-				
-				
-		};
-		for (int row = 0; row < grid.length; row++)
-		{
-			for (int column = 0; column < grid[0].length; column++)
-			{
-				ImageView myImage = new ImageView();
-				System.out.println(screenWidth);
-				System.out.println(screenHeight);
-				myImage.setFitWidth((80*screenWidth/1436));
-				myImage.setFitHeight((80*(screenHeight/877)));
-				String filename = "";
-				if(grid[row][column]==1) filename = "../images/wall.png";
-				if(grid[row][column]==2) filename = "../images/port.png";
-				if(grid[row][column]==3) filename = "../images/home.png";
-				if(grid[row][column]==0) filename = "../images/path.png";
-				
-				myImage.setImage(new  Image(getClass().getResourceAsStream(filename)));
-				
-				myGrid.add(myImage, column, row);
-			}
-		}
-		return myGrid;
+		myGrid = new GraphicGrid(screenWidth, screenHeight);
+		return myGrid.getNode();
 	}
 
 	private Node makeControlPanel()
@@ -235,7 +293,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void speedUp(){
-		
+		gamespeed = gamespeed/2;
 	}
 	
 	/**
@@ -243,7 +301,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void slowDown(){
-		
+		gamespeed = gamespeed*2;
 	}
 	
 	/**
@@ -267,7 +325,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void updateLevel(){
-		
+		myController.update();
 	}
 	
 	/**
