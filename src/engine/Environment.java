@@ -40,6 +40,19 @@ public class Environment extends Observable {
 		clearChanged();
 	}
 	
+	public Grid getGrid(){
+		return myGrid;
+	}
+	
+	public Store getStore(){
+		return myStore;
+	}
+	
+	public HeadsUpDisplay getHUD(){
+		return myHUD;
+	}
+	
+	
 	/**
 	 * Initializes the environment
 	 */
@@ -48,4 +61,6 @@ public class Environment extends Observable {
 		myStore  = new Store();
 		myHUD = new HeadsUpDisplay();
 	}
+
+	
 }

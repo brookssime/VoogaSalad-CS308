@@ -30,7 +30,7 @@ public class TowerInfo{
 	private Label rangeLabel;
 	private Label damageLabel;
 	private static final int LABELSPACING = 5;
-	private static final double IMAGESIZE =  80*(RunGamePlayer.screenHeight/877);
+	private static final double IMAGESIZE =  80*(1400/877);
 	
 	public TowerInfo(Tower t){
 		
