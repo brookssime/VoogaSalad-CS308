@@ -14,6 +14,8 @@ public class EditorComponentFactory {
 			return (new ImageSelector(receiver, setMethod, objName));
 		} else if (editorType.equalsIgnoreCase("slider")) {
 //			return (new SliderEditor(receiver, nethod, objName));
+		} else if (editorType.equalsIgnoreCase("queueeditor")) {
+			return (new QueueEditor(receiver, setMethod, objName));
 		}
 
 		// we should implement a better error handling here.

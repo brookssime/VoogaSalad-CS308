@@ -211,7 +211,6 @@ public class Inventory {
 				} catch (SecurityException e1) {
 					System.out.println("Failed to fetch field:  "+fieldName);
 				}
-				e.printStackTrace();
 			}
 		}
 		

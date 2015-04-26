@@ -39,12 +39,10 @@ public abstract class EditorComponent extends VBox {
 				myFetchedValue = myReceiver.getFromObject(myObject, myFieldName);
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		} catch (IllegalArgumentException | IllegalAccessException
 				| NoSuchFieldException | SecurityException e1) {
 			System.out.println("Failed to fetch field value");
-			e1.printStackTrace();
 		}
 		
 		this.getChildren().add(fieldLabel);
