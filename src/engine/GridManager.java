@@ -52,7 +52,7 @@ public class GridManager {
 				myShootables.add((Shootable) o);
 			}
 			if(Arrays.asList(o.getClass().getClasses()).contains(Sprite.class)){
-				mySprites.add((Sprite) o);
+				mySprites.add(o);
 			}
 		}
 	}
@@ -72,10 +72,10 @@ public class GridManager {
 	public boolean isComplete() {
 		if (myBase.isDead()) {
 			return true;
-		} else if (myGameWon == true) {
-			return true;
-		} 
-		return false;
+		} else
+			return (myGameWon);
+		
+	
 		
 	}
 

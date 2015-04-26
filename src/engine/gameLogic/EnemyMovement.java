@@ -133,8 +133,8 @@ public Movement makeTurn(Tile t0, Tile t1, Tile t2, Placement p1) {
 		
 		// normalize to vertical from (0,0)
 		double relativeHeading = p1.getHeading()-pathHeading;
-		int xNorm = (int) (p1.getLocation().x - t1.getCenterLocation().x);
-		int yNorm = (int) (p1.getLocation().y - t1.getCenterLocation().y);
+		int xNorm = (p1.getLocation().x - t1.getCenterLocation().x);
+		int yNorm = (p1.getLocation().y - t1.getCenterLocation().y);
 		int c = 0 - yNorm; // TODO make sure this is the right way to handle c -- suspect it is not
 		Placement pNorm = new Placement(new Point(xNorm, yNorm), relativeHeading);
 		
