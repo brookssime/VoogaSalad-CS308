@@ -65,14 +65,5 @@ public class LevelNode extends GameNode  {
 		return myGrid.isComplete();
 	}
 
-	@Override
-	public void setName(String name) {
-		myName = name;
-	}
-
-	@Override
-	public String getName() {
-		return myName;
-	}
 
 }

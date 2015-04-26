@@ -72,6 +72,7 @@ public class Projectile extends Sprite implements Collidable{
 	 * @param collider the collider
 	 * @return true, if successful
 	 */
+	
 	@Override
 	public boolean evaluateCollision(Collidable collider) {
 		return isCollision(collider);
