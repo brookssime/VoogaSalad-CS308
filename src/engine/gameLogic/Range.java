@@ -29,7 +29,7 @@ public class Range implements Collidable{
 	//TODO: REFACTOR THIS to allow for use by BOTH ENEMIES AND TOWERS--ie discriminate based on ID, name, etc.
 	@Override
 	public boolean evaluateCollision(Collidable collider) {
-		if(!(collider.getClass() == Enemy.class)){
+		if((isCollision(collider))){
 			objectsInRange.add(collider); 
 			return true;
 		}

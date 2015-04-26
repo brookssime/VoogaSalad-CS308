@@ -29,4 +29,10 @@ public class DialogueController extends Controller {
 	public String updateDialogueText(){
 		return myDialogueBoxes.peek().getText();
 	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 }

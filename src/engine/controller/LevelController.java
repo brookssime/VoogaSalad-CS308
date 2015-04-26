@@ -8,8 +8,7 @@ import engine.gameLogic.Placement;
 import engine.gameScreens.Store;
 
 
-//TODO NEED TO WRITE STRING TO SPRITE CLASS
-//TODO SPRITE NEEDS getWorth() METHOD AND getInfo() [total info about sprite] METHOD
+
 public class LevelController extends Controller {
 
 	/**
@@ -58,5 +57,11 @@ public class LevelController extends Controller {
 		Grid myGrid = myEnvironment.getGrid();
 		myGrid.removeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
 		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice() * -1);	
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}	
 }
