@@ -96,7 +96,7 @@ public class InventoryPane extends GAEPane {
 	public List<Menu> getMenus() {
 		List<Menu> menus = new ArrayList<Menu>();
 
-		Menu menuInventory = new Menu("New...");
+		Menu menuInventory = new Menu("New Object");
 
 		for (String type : TYPES) {
 			MenuItem newMenuItem = new MenuItem("New " + type);

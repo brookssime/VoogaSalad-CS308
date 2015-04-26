@@ -20,6 +20,13 @@ public class TitleScene extends GameNode{
 	public void update() {
 		myButtonClicked = false;
 	}
+	
+
+	@Override
+	public void render() {
+		// TODO Fill in with appropriate calls as we get a Player API
+		
+	}
 
 	@Override
 	public boolean isComplete(){
@@ -42,4 +49,5 @@ public class TitleScene extends GameNode{
 	public void setTitlePicturePath(String path){
 		myTitlePicturePath = path;
 	}
+
 }

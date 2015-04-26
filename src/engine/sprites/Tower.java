@@ -1,6 +1,8 @@
 package engine.sprites;
 
 import interfaces.Collidable;
+import interfaces.MethodAnnotation;
+import interfaces.ParameterAnnotation;
 import interfaces.Shootable;
 
 import java.awt.Point;
@@ -29,8 +31,6 @@ public class Tower extends Sprite implements Shootable{
 	private Projectile myProjectile;
 	private Range myRangeObject;
 	private int myRange; // <<--only for Xstream purposes
-	// private Double myCurRotation;
-	// private Double myTargetRotation;
 	private Double myRotationSpeed;
 	private boolean isReady;
 	private Path myPath;
@@ -63,7 +63,7 @@ public class Tower extends Sprite implements Shootable{
 	@Override
 	public void update() {
 		// TODO set myPath up here, including checking for firing and whatnot
-		
+		myPath.elongate();
 	}
 	
 
@@ -94,7 +94,8 @@ public class Tower extends Sprite implements Shootable{
 		return (myHealth <= 0);
 	}
 
-	public void setFireRate(Integer fireRate) {
+	@MethodAnnotation(editor=true, name = "Set FireRate", type = "textfield", fieldName = "myFireRate")
+	public void setFireRate(@ParameterAnnotation(name=" FireRate ") Integer fireRate) {
 		myFireRate = fireRate;
 	}
 	
@@ -103,7 +104,8 @@ public class Tower extends Sprite implements Shootable{
 		return myFireRate;
 	}
 
-	public void setHealth(Integer health) {
+	@MethodAnnotation(editor=true, name = "Set Health", type = "textfield", fieldName = "myHealth")
+	public void setHealth(@ParameterAnnotation(name=" Health ") Integer health) {
 		myHealth = health;
 	}
 

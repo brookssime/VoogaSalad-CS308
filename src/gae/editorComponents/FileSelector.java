@@ -1,5 +1,6 @@
 package gae.editorComponents;
 
+import image_drawer.Drawer;
 import interfaces.ParameterAnnotation;
 
 import java.io.File;
@@ -7,6 +8,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import gae.model.Receiver;
 import javafx.scene.control.Button;
@@ -26,23 +28,21 @@ public class FileSelector extends EditorComponent {
 	private HBox myBox;
 	private ImageView myDisplay;
 	private Button selectButton;
+	private Button drawButton;
 	private File selectedFile;
 
 	private final String defaultImagePath = "/images/addImage.png";
 	private final static Double displayWidth = 100.0;
 	private final static Double displayHeight = 100.0;
 
-	public FileSelector(Receiver receiver, Method method, String objectName) {
-		super(receiver, method, objectName);
+	public FileSelector(Receiver receiver, Method setMethod, String objectName) {
+		super(receiver, setMethod, objectName);
 
 	}
 
 	@Override
 	public void setUpEditor() {
-		// TODO type of file (with error correction and filetering needs to be
-		// added
-		// TODO ?multiple select button in case multiple select files
-
+		
 		Annotation[][] Annotations = myMethod.getParameterAnnotations();
 		Annotation[] annotationList = Annotations[0];
 		ParameterAnnotation parameterAnnotation = (ParameterAnnotation) annotationList[0];
@@ -54,11 +54,15 @@ public class FileSelector extends EditorComponent {
 
 		this.getChildren().add(myBox);
 		selectButton = new Button(parameterName);
-		myBox.getChildren().addAll(selectButton, myDisplay);
+		drawButton = new Button("Draw Image");
+		myBox.getChildren().addAll(selectButton, drawButton, myDisplay);
 
 		selectButton.setOnAction(e -> {
 			JFileChooser fileChooser = new JFileChooser(System.getProperties()
 					.getProperty("user.dir") + "/src/images");
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(
+			        "PNG, JPG & GIF Images", "jpg", "gif", "png");
+			fileChooser.setFileFilter(filter);
 			fileChooser
 					.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 			int retval = fileChooser.showOpenDialog(null);
@@ -68,6 +72,11 @@ public class FileSelector extends EditorComponent {
 			selectedFile = fileChooser.getSelectedFile();
 			myDisplay.setImage(new Image(selectedFile.toURI().toString()));
 			myReceiver.runOnObject(myObject, myMethod, selectedFile);
+		});
+		
+		drawButton.setOnAction(e->{
+			Drawer d = new Drawer();
+			//TODO - add an image fetch to drawer.
 		});
 
 	}

@@ -15,12 +15,16 @@ public class Path {
 	public Placement getNextPlacement(){
 		if (myMovements.getFirst().getNext() == null)
 			myMovements.pop();
-		return myMovements.getFirst().getNext();
+		return getNextPlacement();
 	}
 	
 	public void setNextMovement(Movement m){
 		myMovements.pop();
 		myMovements.addFirst(m);
+	}
+	
+	public void elongate(){ // add the last, such that the path is never empty
+		myMovements.getLast().append(myMovements.getLast().getLast());
 	}
 	
 	public Integer size(){

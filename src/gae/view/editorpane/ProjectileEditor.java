@@ -1,156 +1,76 @@
 package gae.view.editorpane;
 
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.Menu;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import gae.view.GAEPane;
+import gae.view.menupane.MenuAdder;
 
 /**
  * 
- * @author ?
+ * @author ReyinaSenatus
  * An editor for setting up the projectile object. Allows the game designer to set up different
  * properties of the projectile object and save them.
  *
  */
-public class ProjectileEditor {
-	private Stage myStage;
-	private Desktop desktop = Desktop.getDesktop();
-	//TODO: Make sure what goes in the fields is saved
+public class ProjectileEditor extends GAEPane{
+	private String myImagePath;
+	private HelperEditor myHelper;
 	
-	public void ProjectileEditor(Stage s){
-		myStage = new Stage();
-		myStage = s;
+	public ProjectileEditor(String className, MenuAdder adder) {
+		super(className, adder);
+		myHelper = new HelperEditor();
+		GridPane myGridPane = new GridPane();
+		setContent(myGridPane);
+		myRoot.getChildren().add(myGridPane);
 	}
 	
-    public void edit(){
-    	
-        myStage.setTitle("Projectile Editor");
-        Group root = new Group();
-        GridPane myPane = new GridPane();
-        myPane.setAlignment(Pos.CENTER);
-        myPane.setHgap(15);
-        myPane.setVgap(25);
-        myPane.setPadding(new Insets(25, 25, 25, 25));
-        //myPane.setGridLinesVisible(true);
-        
-        //Code for the fields
-        Text title = new Text("Edit your projectile here");
-        title.setFont(Font.font("Times New Roman", FontWeight.BOLD, 25));
-        myPane.add(title, 0, 1, 2, 1);
-        
-        Label image = new Label("Set Image");
-        image.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(image, 0, 2);
-      
-        
-        Label name = new Label("Set Name"); 
-        name.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(name, 0, 4);
-        TextField nameField = new TextField();
-        myPane.add(nameField, 1, 4);
-        
-        Label speed = new Label("Set Speed");
-        speed.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(speed, 0, 6);
-        TextField speedField = new TextField();
-        myPane.add(speedField, 1, 6);
-        
-        Label damage = new Label("Set Damage"); 
-        damage.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(damage, 0, 8);
-        TextField damageField = new TextField();
-        myPane.add(damageField, 1, 8);
-        
-        Label duration = new Label("Set Duration");
-        duration.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
-        myPane.add(duration, 0, 10);
-        TextField durationField = new TextField();
-        myPane.add(durationField, 1, 10);
-        
-        //Code for the button
-        Button finishBtn = new Button("Save");
-        HBox finishHB = new HBox(10);
-        finishHB.setAlignment(Pos.BOTTOM_CENTER);
-        finishHB.getChildren().add(finishBtn);
-        myPane.add(finishHB, 1, 12);
-        
-      //Displaying messages for save button
-        final Text action = new Text();
-        myPane.add(action, 1, 13);
-        
-      //Event Handling of save button
-        finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+	private void setContent(GridPane myPane){
+		double titleSize = 25;
+		double textSize = 20;
+		String[] labels = {"Edit your projectile here", "Set Image: ", "Set Name: ",
+				"Set Radius of Attack: ", "Names of flyable tiles: "};
+		
+		myHelper.paneSetUp(myPane);
+		Text myTitle = myHelper.setText(labels[0], titleSize);
+		myPane.add(myTitle, 0, 0);
+		
+		for(int i=1; i<labels.length; i++){
+			int y = 2; //location of the text label
+			Text myText = myHelper.setText(labels[i], textSize);
+			myPane.add(myText, 0, y);
+			y += 2;
+		}
+		
+		//TODO: (String) Image File Path
+		//TODO: (String) Name
+		//TODO: (int) Radius
+		//TODO: (String[]) Name ID’s for type IDs of flyable / traversable tiles
+		HBox myImageBox = myHelper.addImageButton("Choose Image: ");
+		myPane.add(myImageBox, 1, 2);
+		//TODO: Figure out how to use editor components
+		
+		Button save = myHelper.saveButton();
+		myPane.add(save,  1, 12);
+		save.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
             public void handle(ActionEvent e) {
-                action.setFill(Color.GREEN);
-                action.setText("You saved your projectile!");
                 //TODO: Make this close the editor instead
             }
         });
-        
-      //Choosing a file button
-        Button fileBtn = new Button("Choose Image");
-        HBox fileHB = new HBox(10);
-        fileHB.setAlignment(Pos.CENTER);
-        fileHB.getChildren().add(fileBtn);
-        myPane.add(fileHB, 1, 2);
-        
-        //File Chooser event
-        //TODO: Output the file path
-        //TODO: Make sure it chooses image files
-        final FileChooser chooser = new FileChooser();
-        fileBtn.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(final ActionEvent e) {
-                        File file = chooser.showOpenDialog(myStage);
-                        if (file != null) {
-                            openFile(file);
-                        }
-                    }
-                });
-        
-        Scene scene = new Scene(myPane, 800, 800); //this will depend on the GAE's main interface
-        BorderPane borderPane = new BorderPane();
-        
-        // bind to take available space
-        borderPane.prefHeightProperty().bind(scene.heightProperty());
-        borderPane.prefWidthProperty().bind(scene.widthProperty());
-        //borderPane.setCenter(tabPane);
-        root.getChildren().add(borderPane);
-        myStage.setScene(scene);
-        myStage.show();
-    }
-    
-    private void openFile(java.io.File file) {
-   	 try {
-            desktop.open(file);
-        } catch (IOException ex) {
-            Logger.getLogger(
-                EnemyEditor.class.getName()).log(
-                    Level.SEVERE, null, ex
-                );
-        }
-    }
-    
+	}
+	
+	@Override
+	public List<Menu> getMenus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
 }

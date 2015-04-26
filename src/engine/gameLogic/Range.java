@@ -26,7 +26,6 @@ public class Range implements Collidable{
 		return newObjectsInRange;		
 	}
 
-	//TODO: REFACTOR THIS to allow for use by BOTH ENEMIES AND TOWERS--ie discriminate based on ID, name, etc.
 	@Override
 	public boolean evaluateCollision(Collidable collider) {
 		if((isCollision(collider))){

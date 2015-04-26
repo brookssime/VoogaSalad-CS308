@@ -28,5 +28,9 @@ public class Movement {
 	public Integer size(){
 		return myPlacements.size();
 	}
+	
+	public void append(Placement p){
+		myPlacements.addToEnd(p);
+	}
 
 }
