@@ -7,8 +7,6 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
-import engine.sprites.Enemy;
-
 public class Range implements Collidable{
 
 	private ArrayList<Collidable> objectsInRange = new ArrayList<Collidable>();
@@ -35,12 +33,8 @@ public class Range implements Collidable{
 		return false;
 	}
 
-	/**
-	 * Refresh enemies.
-	 * TODO: Finish this
-	 */
-	private void refreshObjects(){
-		objectsInRange.clear(); // TODO figure out where this gets called in the loop -- currently nowhere
+	public void refreshObjects(){
+		objectsInRange.clear();
 	}
 
 	public void setCollisionBounds() {
@@ -56,5 +50,11 @@ public class Range implements Collidable{
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean isDead() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

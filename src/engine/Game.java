@@ -10,22 +10,22 @@ public class Game {
 	
 	private String myName;
 	private final int FRAME_RATE = 10;	
-	private GameNode myStartNode;
+	private GameNode myCurNode;
 	private Store myStore;
 	
 	public Game(GameNode head){
-		myStartNode = head;
+		myCurNode = head;
 		addStoreToLevel();
 	}
 	
 	
 	
 	public void setHead(GameNode head){
-		myStartNode = head;
+		myCurNode = head;
 	}
 	
-	public GameNode getHead(){
-		return myStartNode;
+	public GameNode getCurNode(){
+		return myCurNode;
 	}
 	
 	/**
@@ -33,8 +33,8 @@ public class Game {
 	 * Any ideas? Maybe a try/catch
 	 */
 	public void addStoreToLevel(){
-		if(myStartNode instanceof LevelNode){
-			((LevelNode) myStartNode).setStore(myStore);
+		if(myCurNode instanceof LevelNode){
+			((LevelNode) myCurNode).setStore(myStore);
 		}
 	}
 	
@@ -48,15 +48,15 @@ public class Game {
 	
 	public KeyFrame update(){
 		if(sceneComplete()){
-			myStartNode = myStartNode.getNextNode();
+			myCurNode = myCurNode.getNextNode();
 			addStoreToLevel();
-			return myStartNode.start(FRAME_RATE);
+			return myCurNode.start(FRAME_RATE);
 		}
-		return myStartNode.getCurScene();
+		return myCurNode.getCurScene();
 	}*/
 
 	public boolean sceneComplete(){
-		return myStartNode.isComplete();
+		return myCurNode.isComplete();
 	}
 
 	

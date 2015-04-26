@@ -30,7 +30,9 @@ public class Movement {
 	}
 	
 	public void append(Placement p){
-		myPlacements.addToEnd(p);
+		myPlacements.add(p);
+		// REVIEW make sure this effectively keeps the list from ending 
+		// by keeping the object still if nothing else is added
 	}
 
 }
