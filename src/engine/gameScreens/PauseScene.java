@@ -7,6 +7,12 @@ public class PauseScene extends GameNode{
 	}
 
 	@Override
+	public void render() {
+		// TODO FILL IN WITH APPROPRIATE CALL WHEN AVAILABLE FROM GUI
+		
+	}
+	
+	@Override
 	public void update() {
 		// TODO Auto-generated method stub
 		
@@ -18,10 +24,6 @@ public class PauseScene extends GameNode{
 		return false;
 	}
 
-	@Override
-	public void render() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

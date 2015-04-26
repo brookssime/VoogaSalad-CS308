@@ -128,23 +128,23 @@ public class GameLevelScene implements GraphicGameScene{
 		mylevelnode = level;
 		 myScene = new Scene(makePane(), screenWidth, screenHeight);
 	}
-	public void updateEnvironment(Environment environment){
+/*	public void updateEnvironment(Environment environment){
 		updateGrid(environment.getGrid());
 		updateHUD(environment.getHUD());
 		updateStore(environment.getStore());
-	}
+	}*/
 	
-	private void updateStore(Store store) {
+	public void updateStore(Store store) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void updateHUD(HeadsUpDisplay hud) {
+	public void updateHUD(HeadsUpDisplay hud) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void updateGrid(Grid grid) {
+	public void updateGrid(Grid grid) {
 		// TODO Auto-generated method stub
 		Map<Sprite, Placement> myMap =grid.getSpriteMap();
 		myGrid.updateSprite(myMap);
@@ -325,7 +325,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void updateLevel(){
-		myController.update();
+		//myController.update();
 	}
 	
 	/**

@@ -17,6 +17,8 @@ import javafx.util.Duration;
  */
 public abstract class GameNode extends GameObject{
 	
+	// TODO INITIALIZE THE GUI ONCE WE HAVE THE IMPLEMENTATION FROM FANGYI + SAJAL
+	
 	private List<NodeButton> myNodeButtons;
 
 	private Map<Double, GameNode> nextNodes;
@@ -73,15 +75,7 @@ public abstract class GameNode extends GameObject{
 		return nextNodes.get(key);
 	}
 	
-	/**
-	 * Gets the cur scene.
-	 *
-	 * @return the cur scene
-	 */
-	public KeyFrame getCurScene(){
-		return myScene;
-	}
-		
+
 	/**
 	 * Sets the next scene.
 	 *
