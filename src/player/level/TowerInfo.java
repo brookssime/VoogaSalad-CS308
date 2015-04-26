@@ -35,6 +35,9 @@ public class TowerInfo{
 	public TowerInfo(Tower t){
 		
 	}
+	public TowerInfo(){
+		
+	}
 	
 	public TowerInfo(String imageFile, String name,int price,  int range, int damage ){
 		image = new StackPane();

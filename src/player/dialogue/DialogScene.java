@@ -1,6 +1,6 @@
 package player.dialogue;
 
-import engine.controller.DialogueController;
+import engine.controller.Controller;
 import player.GraphicGameScene;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -10,14 +10,14 @@ import javafx.scene.layout.BorderPane;
 /*
  * display the dialogs which are designed by GAE
  */
-public class DialogScreen implements GraphicGameScene{
+public class DialogScene implements GraphicGameScene{
 	private Scene scene;
 	private BorderPane root;
 	private double Width = 1400;
 	private double Height=800;
-	private DialogueController myController;
+	private Controller myController;
 	private Dialog curr;
-	public DialogScreen(DialogueController controller){
+	public DialogScene(Controller controller){
 		root = new BorderPane();
 		myController = controller;
 		curr = new Dialog();

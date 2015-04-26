@@ -1,15 +1,16 @@
 package player.level;
 
 import java.util.Map;
+import java.util.Set;
 
 import engine.*;
 import engine.controller.Controller;
-import engine.controller.LevelController;
 import engine.gameLogic.Placement;
 import engine.gameScreens.LevelNode;
 import engine.gameScreens.Store;
 import engine.sprites.Sprite;
 import engine.sprites.Tile;
+import engine.sprites.Tower;
 import player.GraphicGameScene;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -47,7 +48,7 @@ public class GameLevelScene implements GraphicGameScene{
 	private static final int MENU_SPACING = 50;
 	private static final int SLIDER_SPACING = 10;
 	private static final int NUM_FRAMES_PER_SECOND = 60;
-	private LevelController myController = new LevelController();
+	private Controller myController = new  Controller();
 	private LevelNode mylevelnode;
 	//private double infoBoxWidthPct = .6;
 	//private double infoBoxHeightPct = .7;
@@ -102,7 +103,7 @@ public class GameLevelScene implements GraphicGameScene{
         myScene = new Scene(root, screenWidth, screenHeight);
 		//root.getChildren().add(gameChoiceBox);
 		//root.getChildren().add(gameInfoBox);
-        displayError("here is the error");
+        //displayError("here is the error");
         initTimeLine();
 	}
 	
@@ -138,12 +139,26 @@ public class GameLevelScene implements GraphicGameScene{
 	}
 	
 	private void updateStore(Store store) {
-		// TODO Auto-generated method stub
+		towerInfo.getChildren().clear();
+		Label myLabel = new Label("Towers: ");
+		//sample TowerInfo
+		Set<Tower> myTowersOnSale = store.getTowersOnSale();
+		for(Tower tower : myTowersOnSale){
+			TowerInfo t = new TowerInfo(tower);
+			//TowerInfo t = new TowerInfo("../../images/tower.jpg", "basic", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
+			towerInfo.getChildren().addAll(myLabel,t.getDisplay());
+		}
+		
+		
 		
 	}
 
 	private void updateHUD(HeadsUpDisplay hud) {
 		// TODO Auto-generated method stub
+		healthLabel.setText(Integer.toString(hud.displayHealth()));
+		scoreLabel.setText(Integer.toString(hud.displayScore()));
+		moneyLabel.setText(Integer.toString(hud.displayMoney()));
+		
 		
 	}
 
@@ -284,7 +299,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void pause(){
-		myController.pause();
+		animation.pause();
 	}
 	
 	/**
@@ -292,7 +307,9 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void resume(){
-		myController.play();
+		//animation
+		animation.play();
+		
 	}
 	
 	/**
@@ -302,6 +319,7 @@ public class GameLevelScene implements GraphicGameScene{
 	public void speedUp(){
 		//animation.stop();
 		gamespeed = gamespeed/2;
+		if(gamespeed == 0) gamespeed = 1;
 	}
 	
 	/**
@@ -310,6 +328,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 */
 	public void slowDown(){
 		gamespeed = gamespeed*2;
+		if(gamespeed > 60) gamespeed = 60;
 	}
 	
 	/**
@@ -317,7 +336,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void win(){
-		
+		System.out.println("win");
 	}
 	
 	/**
@@ -325,7 +344,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void lose(){
-		
+		System.out.println("lose");
 	}
 	
 	/**
@@ -333,7 +352,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void updateLevel(){
-		myController.update();
+		//myController.update();
 	}
 	
 	/**
