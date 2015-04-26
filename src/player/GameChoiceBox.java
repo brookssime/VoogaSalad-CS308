@@ -32,13 +32,6 @@ public class GameChoiceBox extends AbstractOverlay {
 		games.add("Game 4");
 		games.add("Game 5");
 		games.add("Game 6");
-		games.add("Game 7");
-		games.add("Game 8");
-		games.add("Game 9");
-		games.add("Game 10");
-		games.add("Game 11");
-		games.add("Game 12");
-		games.add("Game 13");
 		
 		//Get Array of existing Games from somewhere
 		

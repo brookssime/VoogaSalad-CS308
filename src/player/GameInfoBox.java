@@ -52,6 +52,7 @@ public class GameInfoBox extends AbstractOverlay{
 		this.getChildren().add(gameImage);
 		this.getChildren().add(description);
 		this.getChildren().add(title);
+		this.getStylesheets().add("playerStyle.css");
 		addPlayButton();
 		
 		
@@ -62,6 +63,7 @@ public class GameInfoBox extends AbstractOverlay{
 		Button playButton = new Button("Play Game");
 		playButton.setLayoutX(overlayWidth * .4);
 		playButton.setLayoutY(overlayHeight * .6);
+		playButton.getStylesheets().add("playerStyle.css");
 		this.getChildren().add(playButton);
 	}
 
