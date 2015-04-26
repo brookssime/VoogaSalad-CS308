@@ -1,8 +1,11 @@
 package gae.model;
 
+import engine.gameLogic.GameObject;
 import gae.model.inventory.Inventory;
 import gae.view.inventorypane.UpdateListener;
+import game_data.XMLWriter;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Set;
 
@@ -58,9 +61,13 @@ public class Model implements Receiver {
 	}
 
 	@Override
-	public void exportFile(String game) {
-		// TODO Auto-generated method stub
-
+	public void exportFile(String obj) {
+		GameObject object = myInventory.getObject(obj);
+		try {
+			XMLWriter.SaveGameData(object);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// might not be used

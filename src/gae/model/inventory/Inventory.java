@@ -73,6 +73,7 @@ public class Inventory {
 	 */
 	public void addObject(String type) {
 		ObservableMap<String, GameObject> map = myMaps.get(type);
+		//TODO only addes engine.sprites classes. needs to expand.
 		GameObject newThing = (GameObject) Reflection.createInstance("engine.sprites."
 				+ type);
 		String newName = "New" + type;
@@ -139,8 +140,8 @@ public class Inventory {
 		*/
 	}
 
-	public GameObject getObject(String type, String obj) {
-		ObservableMap<String, GameObject> map = myMaps.get(type);
+	public GameObject getObject(String obj) {
+		ObservableMap<String, GameObject> map = getMap(obj);
 		GameObject object = map.get(obj);
 		return object;
 	}
@@ -210,7 +211,6 @@ public class Inventory {
 				} catch (SecurityException e1) {
 					System.out.println("Failed to fetch field:  "+fieldName);
 				}
-				e.printStackTrace();
 			}
 		}
 		
