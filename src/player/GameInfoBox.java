@@ -19,31 +19,18 @@ public class GameInfoBox extends AbstractOverlay{
 		super(overlayWidth, overlayHeight);
 		
 		this.gameData = gameData;
-		
-		//create a textArea for the description
-		//GameData class, will be replaced by calls to an API from data class, exists now for testing/appearance
-		//TextArea decriptionArea = new TextArea(gameData.gameDescription);
-		
+				
 		//MAGIC VALUES
 		this.description = new Text(10,50, gameData.gameDescription);
 		description.setFont(new Font(20));
 		description.setLayoutX(overlayWidth * .1);
 		description.setLayoutY(overlayHeight * .3);
-		
-		
-		// Set pref sizes
-		
-		//Create a title area for the game name
-		//GameData class to be replaced by API calls
-		//TextArea gameTitleArea = new TextArea(gameData.gameName);
+
 		this.title = new Text(10,50, gameData.gameName);
 		title.setFont(new Font(20));
 		title.setLayoutX(overlayWidth * .1);
 		title.setLayoutY(overlayHeight * .1);
 		
-		
-		// Set pref sizes
-		// imageView for the image
 		this.gameImage = new ImageView();
 		gameImage.setImage(gameData.getImage());
 		gameImage.setFitWidth(overlayWidth * .15);
@@ -53,18 +40,12 @@ public class GameInfoBox extends AbstractOverlay{
 		gameImage.setLayoutX(overlayWidth * .7);
 		gameImage.setLayoutY(overlayHeight * .1);
 		
-		
-		// Set locations 
-		//this.getChildren().add(decriptionArea);
-		//this.getChildren().add(gameTitleArea);
-		
 		this.getChildren().add(gameImage);
 		this.getChildren().add(description);
 		this.getChildren().add(title);
 		this.getStylesheets().add("playerStyle.css");
 		addPlayButton();
 		addLoadButton();
-		
 		
 	}
 	
@@ -73,7 +54,6 @@ public class GameInfoBox extends AbstractOverlay{
 	}
 	
 	public void setGameData(GameData gameData){
-		
 		this.gameData = gameData;
 		updateGameInformation();
 		
@@ -84,7 +64,6 @@ public class GameInfoBox extends AbstractOverlay{
 		updateImage();
 		updateTitle();
 		updateDescription();
-		
 	}
 
 	private void updateDescription() {
@@ -127,8 +106,7 @@ public class GameInfoBox extends AbstractOverlay{
 		
 		loadButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-
-				//Set the selected game at the active game within the information box
+				
 				System.out.println("Do Something to Load available Games");
 				
 			}

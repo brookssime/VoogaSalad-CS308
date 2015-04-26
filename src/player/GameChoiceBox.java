@@ -2,8 +2,6 @@ package player;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import engine.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -36,13 +34,7 @@ public class GameChoiceBox extends AbstractOverlay {
 		games.add("Game 4");
 		games.add("Game 5");
 		games.add("Game 6");
-		
-		//Get Array of existing Games from somewhere
-		
-		//List<Game> existingGame = new ArrayList<Game>();
-
 		createGameButtons(availGames);
-
 	}
 
 	void createGameButtons(List<GameData> availGames) {
@@ -67,13 +59,10 @@ public class GameChoiceBox extends AbstractOverlay {
 								+ "You were just protected from a crash.");
 				break;
 			}
-
 			createButtonWithLabelWithCenterXWithWidth(nextButtonLabel,
 					nextButtonCenter, buttonHeight, i);
 			nextButtonCenter += fractionHeight;
 		}
-		
-
 	}
 
 
@@ -91,7 +80,6 @@ public class GameChoiceBox extends AbstractOverlay {
 		b.getStyleClass().add("button-settings");
 
 		setRespectiveButtonActionWithAlgorithmName(b, label, i);
-
 		v.getChildren().add(b);
 		this.getChildren().add(v);
 

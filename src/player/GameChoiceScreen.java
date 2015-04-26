@@ -48,13 +48,10 @@ public class GameChoiceScreen {
 		double choiceBoxWidth = choiceBoxWidthPct * screenWidth;
 		double choiceBoxHeight = choiceBoxHeightPct * screenHeight; 
 		
-		Map<GameData, GameInfoBox> gameInfoScreensMap = new HashMap<GameData, GameInfoBox>();
+		//Map<GameData, GameInfoBox> gameInfoScreensMap = new HashMap<GameData, GameInfoBox>();
 		
 		generateGameInfoScreensMap(availGames);
-		
 		GameChoiceBox gameChoiceBox = new GameChoiceBox(choiceBoxWidth, choiceBoxHeight, gameInfoBox, availGames);
-		
-		
 		root.getChildren().add(gameChoiceBox);
 		root.getChildren().add(gameInfoBox);
 		
@@ -67,19 +64,14 @@ public class GameChoiceScreen {
 	private void generateGameInfoScreensMap(List<GameData> availGames) {
 		
 		Map<GameData, GameInfoBox> gameInfoScreensMap = new HashMap<GameData, GameInfoBox>();
-		
-		for(GameData gameData: availGames){
-			
+		for(GameData gameData: availGames){	
 			GameInfoBox gameInfoBox = new GameInfoBox(stage, infoBoxWidth, infoBoxHeight, gameData);
-			gameInfoScreensMap.put(gameData, gameInfoBox);
-			
+			gameInfoScreensMap.put(gameData, gameInfoBox);	
 		}
-		
 	}
 
 	public Scene getScene(){
 		scene = new Scene(root,screenWidth, screenHeight);
 		return scene;
 	}
-
 }
