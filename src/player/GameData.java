@@ -1,7 +1,6 @@
 package player;
 
-import java.util.Objects;
-
+import engine.Game;
 import javafx.scene.image.Image;
 
 public class GameData {
@@ -9,6 +8,7 @@ public class GameData {
 	protected String gameName;
 	protected String gameDescription;
 	protected String gameImagePath;
+	protected Game game;
 	
 	//possibly add other things if this is a suitable class 
 	
@@ -21,7 +21,8 @@ public class GameData {
 	}
 
 	public Image getImage() {
-		Image image = new Image((getClass().getResourceAsStream("../resources/tower-defense-games.png")));
+		
+		Image image = new Image((getClass().getResourceAsStream(gameImagePath)));
 		//Image image = new Image(gameImagePath);
 		return image;
 	}

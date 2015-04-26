@@ -12,11 +12,14 @@ import java.util.Set;
  */
 public interface Receiver {
 
+	//not using
 	public void addObject(String type);
 
+	//obj is name of object, method is actual method (set), param is what goes into method
 	public void runOnObject(String obj, Method method, Object... params);
 
-	public Object getFromObject(String obj, Method method, Object... params);
+	//get version of above //still check for null
+	public Object getFromObject(String obj, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException;
 
 	public void removeObject(String obj);
 

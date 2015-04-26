@@ -19,14 +19,14 @@ import java.util.Queue;
  */
 public class DialogueNode extends GameNode{
 
-	/** The my name. */
-	private String myName;
 	
 	/** The my dialogue. */
 	private Queue<DialogueBox> myDialogueBoxes;
 	
 	/** The my background image path. */
 	private String myBackgroundImagePath;
+	
+	
 	
 	/** The my image path list. */
 	private List<String> myImagePathList; // contains all image paths of talking
@@ -42,9 +42,17 @@ public class DialogueNode extends GameNode{
 		
 	}
 
+	
+	
 	public DialogueNode(String backgroundImagePath, Queue<DialogueBox> dialogueBoxes) {
 		myBackgroundImagePath = backgroundImagePath;
 		myDialogueBoxes = dialogueBoxes;
+	}
+	
+	@Override
+	public void render() {
+		// TODO Fill in with appropriate calls as we get a Player API
+		
 	}
 	
 	public void setImagePath(String imagePath){
@@ -76,4 +84,6 @@ public class DialogueNode extends GameNode{
 	public DialogueBox getNextDialogueBox(){
 		return myDialogueBoxes.poll();
 	}
+
+	
 }

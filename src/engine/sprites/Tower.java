@@ -1,15 +1,19 @@
 package engine.sprites;
 
 import interfaces.Collidable;
-import interfaces.Movable;
+import interfaces.MethodAnnotation;
+import interfaces.ParameterAnnotation;
 import interfaces.Shootable;
 
+import java.awt.Point;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.sun.javafx.geom.Point2D;
 import com.thoughtworks.xstream.XStream;
 
+import engine.Movement;
 import engine.Path;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Range;
@@ -19,86 +23,55 @@ import engine.gameLogic.Range;
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class Tower extends Sprite implements Shootable, Movable{
+public class Tower extends Sprite implements Shootable{
 
-	private String myName;
+	//TODO: Many instance variables. are all necessary?
 	private Integer myFireRate;
-	private Point2D myLocation; //TODO: Is this necessary? Or have we changed it to Placements?
 	private Integer myHealth;
 	private Projectile myProjectile;
 	private Range myRangeObject;
 	private int myRange; // <<--only for Xstream purposes
-	private Double myCurRotation;
-	private Double myTargetRotation;
 	private Double myRotationSpeed;
-	private Integer myRad;
 	private boolean isReady;
 	private Path myPath;
+	private Integer myPrice;
+
 	
 	public Tower() {
 		
 	}
 
-/*	public Tower(int x, int y, int radius){ //default constructor for circular radius
-		myRangeObject = new Range(x, y, radius);	
-	}*/
-
 	public Tower (XStream serializer, String data, Point2D location) {
 		Tower incomplete = (Tower)serializer.fromXML(data);
-		init(incomplete.myName, incomplete.myImagePath, incomplete.myAccessNames, incomplete.myRange, incomplete.myHealth, incomplete.myRad, incomplete.myFireRate, location);
+		init(incomplete.myName, incomplete.myImagePath, incomplete.myAccessNames, incomplete.myRange, incomplete.myHealth, incomplete.myFireRate, location);
 	}
 
-	public void init(String name, String imagePath,  List<String> accessNames, int range, int health, int radius, int fireRate, Point2D location){
+	public void init(String name, String imagePath,  List<String> accessNames, int range, int health, int fireRate, Point2D location){
 		myImagePath = imagePath;
 		myName = name;
 		myAccessNames = accessNames;
 		myRange = range;
 		myFireRate = fireRate;		
 		myHealth = health;
-		myRad = radius;
 	}
 	
 	@Override
 	public Placement move() {
-		rotate();
-		if(myCurRotation == myTargetRotation){
-			isReady = true;
-		}
-		return myPath.getNext();
+		return myPath.getNextPlacement();
 	}
 	
 	@Override
 	public void update() {
-		// TODO set myPath up here
+		// TODO set myPath up here, including checking for firing and whatnot
+		myPath.elongate();
 	}
 	
-	private void rotate(){
-		// TODO
-		// increment myCurRotation based on targetRotation
-		myCurRotation = myCurRotation + myRotationSpeed;
-	}
+
 	
 	public Projectile fire(){
 		return myProjectile;
 		
 	}
-	
-	private void setTargetRotation(double targetAngle){
-		myTargetRotation = targetAngle;
-	}
-	
-	//public Double calculateShot(Collidable c){
-
-		// TODO: implement this
-		// math involving the enemy's path, speed, projectile speed, rotation speed, current angle
-		// this will be the FIRE RATE implementation as well
-		
-		// perhaps make turret rotation speed variable based on the time at which an enemy can be 
-		// shot (based on fire rate, which will NOT be changing but instead fixed per type of tower)
-		
-		//return Math.toDegrees(Math.atan2(myLocation.y-e.getLocation().y, myLocation.x-e.getLocation().x));	
-	//}
-	
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collidable selectTarget(List<Collidable> targets) {
@@ -121,15 +94,18 @@ public class Tower extends Sprite implements Shootable, Movable{
 		return (myHealth <= 0);
 	}
 
-	public void setFireRate(Integer fireRate) {
+	@MethodAnnotation(editor=true, name = "Set FireRate", type = "textfield", fieldName = "myFireRate")
+	public void setFireRate(@ParameterAnnotation(name=" FireRate ") Integer fireRate) {
 		myFireRate = fireRate;
 	}
+	
 	
 	public Integer getFireRate(){
 		return myFireRate;
 	}
 
-	public void setHealth(Integer health) {
+	@MethodAnnotation(editor=true, name = "Set Health", type = "textfield", fieldName = "myHealth")
+	public void setHealth(@ParameterAnnotation(name=" Health ") Integer health) {
 		myHealth = health;
 	}
 
@@ -150,4 +126,55 @@ public class Tower extends Sprite implements Shootable, Movable{
 	public Range getRangeObject() {
 		return myRangeObject;
 	}
+
+	public Integer getMyPrice() {
+		return myPrice;
+	}
+
+	public void setMyPrice(Integer price) {
+
+		myPrice = price;
+	}
+
+	
+	/*
+	 * Takes target location and assigns it a path based on the projectile's MovementStrategy  
+	 * 
+	 * (non-Javadoc)
+	 * @see interfaces.Shootable#setFirePath(engine.gameLogic.Placement, engine.gameLogic.Placement)
+	 */
+
+	public void setFirePath(Placement target, Placement cur) {
+		//target angle in absolute bearing
+		
+		List<Placement> pList = new LinkedList<Placement>();
+		double targetDirection = 90.0 - Math.toDegrees(Math.atan2(target.getLocation().x - cur.getLocation().x, 
+				target.getLocation().y - cur.getLocation().y));
+		// these are correct, but
+		// TODO ensure that the Placements' headings get properly refreshed in Grid to standard (0-360, inclusive)
+		boolean clockwise = true;
+		if(targetDirection < cur.getHeading())
+			clockwise = false;
+		
+		pList.add(cur);
+		
+		while((pList.get(pList.size() -1).getHeading() < targetDirection) == clockwise){ // double-check this control flow
+			pList.add(new Placement(new Point(cur.getLocation().x, cur.getLocation().y), 
+					pList.get(pList.size()-1).getHeading()+(myRotationSpeed*((clockwise)?1:-1))));
+		}
+		
+		pList.add(new Placement(new Point(cur.getLocation().x, cur.getLocation().y), targetDirection));
+		
+		myPath.setNextMovement(new Movement(pList));
+		
+	}
+
+	@Override
+	public void fillSpriteInfo() {
+		mySpriteInfo.put("Name", myName);
+		mySpriteInfo.put("Health", myHealth.toString());
+		mySpriteInfo.put("Firing Rate", myFireRate.toString());
+		mySpriteInfo.put("Price", myPrice.toString());
+	}
+
 }

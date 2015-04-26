@@ -1,6 +1,7 @@
 package engine.gameScreens;
 
 import java.util.Map;
+import java.util.Set;
 
 import engine.gameLogic.GameObject;
 import engine.sprites.Tower;
@@ -12,14 +13,11 @@ import engine.sprites.Tower;
  */
 public class Store extends GameObject {
 
-	/** The my towers on sale. */
+	
 	private Map<Tower, Integer> myTowersOnSale;
-	
-	/** The my money. */
 	private Integer myMoney;
-	
-	/** The my background image path. */
 	private String myBackgroundImagePath;
+	private Map<String, Tower> myTowerNames;
 	
 	/**
 	 * Instantiates a new store.
@@ -40,21 +38,11 @@ public class Store extends GameObject {
 	}
 	
 	/**
-	 * Adds the money.
-	 *
-	 * @param moneyToBeAdded the money to be added
+	 * Is that OK to add method for get the whole list of towers on sale
+	 * @return a set of towers
 	 */
-	public void addMoney(Integer moneyToBeAdded){
-		myMoney += moneyToBeAdded;
-	}
-	
-	/**
-	 * Gets the money.
-	 *
-	 * @return the money
-	 */
-	public Integer getMoney(){
-		return myMoney;
+	public Set<Tower> getTowersOnSale(){
+		return myTowersOnSale.keySet();
 	}
 	
 	/**
@@ -74,5 +62,14 @@ public class Store extends GameObject {
 	 */
 	public String getImagePath(){
 		return myBackgroundImagePath;
+	}
+	
+	public Tower getFromID(String TowerID){
+		for (String myTower: myTowerNames.keySet()){
+			if (myTower == TowerID){
+				return myTowerNames.get(myTower);
+			}
+		}
+		return null;
 	}
 }

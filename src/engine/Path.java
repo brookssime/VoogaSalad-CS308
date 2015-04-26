@@ -1,45 +1,39 @@
 package engine;
 
 import java.util.LinkedList;
-import java.util.Random;
 
 import engine.gameLogic.Placement;
 
 public class Path {
+
+	LinkedList<Movement> myMovements;
 	
-	LinkedList<Placement> myPlacements;
-	
-	public Path(){
-		
+	public Path(LinkedList<Movement> movements){
+		myMovements = movements;
 	}
 	
-	public Path(LinkedList<Placement> placements){
-		myPlacements = placements;
+	public Placement getNextPlacement(){
+		if (myMovements.getFirst().getNext() == null)
+			myMovements.pop();
+		return getNextPlacement();
 	}
 	
-	public Placement getNext(){
-		return myPlacements.pop();
+	public void setNextMovement(Movement m){
+		myMovements.pop();
+		myMovements.addFirst(m);
+	}
+	
+	public void elongate(){ // add the last, such that the path is never empty
+		myMovements.getLast().append(myMovements.getLast().getLast());
+	}
+	
+	public Integer size(){
+		int c = 0;
+		for (Movement m : myMovements){
+			c+= m.size();
+		}
+		return c;
 	}
 
-	
-	//creates a new instance of this Path, including modifying for randomness
-	public Path generateNew(){
-		return null;
-	}
-	
-	Placement intersects(Path p){
-		
-		return null;
-		
-	}
-	
-	LinkedList<Placement> getPlacements(){
-		return myPlacements;
-	}
-	
-	
-	
-	
-	//TODO: come back to this
 
 }

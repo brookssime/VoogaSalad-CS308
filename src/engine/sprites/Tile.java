@@ -1,6 +1,6 @@
 package engine.sprites;
 
-import java.awt.geom.Point2D;
+import java.awt.Point;
 
 
 /**
@@ -15,24 +15,30 @@ public class Tile{
 	
 	/** The my image path. */
 	private String myImagePath;
+	
+	private int myWidth;
 
 
-	private Point2D.Double myLocation = new Point2D.Double();
+	private Point myGridLocation = new Point();
 
 	
 	public Tile(int x, int y, String imagePath){
-		myLocation.x = (double)x;
-		myLocation.y = (double)y;
+		myGridLocation.x = x;
+		myGridLocation.y = y;
 		myImagePath = imagePath;
 	}
 	
 	public Tile(int x, int y){
-		myLocation.x = x;
-		myLocation.y = y;
+		myGridLocation.x = x;
+		myGridLocation.y = y;
 	}
 	
-	public Point2D.Double getLocation(){
-		return myLocation;
+	public Point getCenterLocation(){
+		return new Point(myGridLocation.x + myWidth/2, myGridLocation.y + myWidth/2); // TODO THIS ASSUMES (0,0) is bottom-left on the Grid
+	}
+	
+	public Point getGridLocation(){
+		return myGridLocation;
 	}
 	
 	public void setImagePath(String imagePath){
@@ -51,18 +57,37 @@ public class Tile{
 		return myName;
 	}
 
-	public int getX() {
-		return (int) myLocation.x;
-	}
 	
-	public int getY(){
-		return (int) myLocation.y;
-
+	public void setWidth(int width){
+		myWidth = width;
 	}
 
 	public int getWidth() {
 		// TODO change if we ever need to consider Tiles of width != 1
-		return 1;
+		return myWidth;
 
+	}
+	
+	public boolean isWithin(Point point){
+		return (point.x > this.myGridLocation.x &&
+				point.x < this.myGridLocation.x + (double)this.myWidth &&
+				point.y > this.myGridLocation.y &&
+				point.y < this.myGridLocation.y + (double)this.myWidth);
+	}
+	
+	// TODO untested
+	
+	public double distanceToEdge(Point p){
+		Point c = this.getCenterLocation();
+		double d1 = p.distance(c);
+		double theta = Math.atan2(p.y-c.y, p.x-c.x);
+		
+		if(Math.cos(theta) == 0)
+			theta = 0.0;
+		double adjust = Math.abs(myWidth/2 / Math.cos(theta));
+		
+		
+		return d1 - Math.abs(adjust);
+		
 	}
 }

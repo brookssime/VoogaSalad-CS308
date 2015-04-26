@@ -1,14 +1,13 @@
 package engine;
 
-import javafx.animation.KeyFrame;
-import javafx.util.Duration;
 import engine.gameScreens.GameNode;
 import engine.gameScreens.LevelNode;
 import engine.gameScreens.Store;
-
+import javafx.animation.KeyFrame;
+import javafx.util.Duration;
 
 public class Game {
-
+	
 	private String myName;
 	private final int FRAME_RATE = 10;	
 	private GameNode myStartNode;
@@ -18,6 +17,8 @@ public class Game {
 		myStartNode = head;
 		addStoreToLevel();
 	}
+	
+	
 	
 	public void setHead(GameNode head){
 		myStartNode = head;
@@ -57,4 +58,6 @@ public class Game {
 	public boolean sceneComplete(){
 		return myStartNode.isComplete();
 	}
+
+	
 }

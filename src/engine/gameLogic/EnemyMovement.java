@@ -2,159 +2,205 @@ package engine.gameLogic;
 
 import interfaces.MovementStrategy;
 
-import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
+import java.awt.Point;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
+import engine.Movement;
 import engine.Path;
 import engine.sprites.Tile;
 
 public class EnemyMovement implements MovementStrategy{
 	
-	// should describe the EQUATION that describes movement
-	
-	private double mySpeed; // dx in path direction
+	private int mySpeed; // dx in path direction
 	private double myAmplitude;
 	private double myFrequency;
+	
 	
 	public EnemyMovement(){
 		
 	}
 
 	@Override
-	public Path generatePath(LinkedList<Tile> tiles) {
+	public Path generatePath(List<Tile> tiles) {
 		
 		Tile[] tileArray = (Tile[]) tiles.toArray();
-		Placement[] placementArray = new Placement[tiles.size()];
-		for (int i = 0; i < tiles.size(); i++)
-			placementArray[i] = new Placement(tileArray[i].getLocation());
 		
-		List<Placement> myMovements = new LinkedList<Placement>();
-		Placement lastStraight = new Placement();
-		lastStraight = placementArray[0];
+		LinkedList<Movement> movements = new LinkedList<Movement>();
 		
-		for (int i = 2; i < placementArray.length; i++){
-			if(placementArray[i-2].getLocation().x != placementArray[i].getLocation().x && placementArray[i-2].getLocation().y != placementArray[i].getLocation().y){
-				myMovements.addAll(generateStretch(lastStraight, placementArray[i-2]));
-				myMovements.addAll(generateTurn(myMovements.get(myMovements.size()-1), placementArray[i]));
-				lastStraight = myMovements.get(myMovements.size()-1); // TODO MAKE SURE this gets the right Placement coming out of the turn	
+		//TODO fix the findStart method
+		Placement start = findStart(tiles);
+		
+		
+		Tile lastStraight = tileArray[0];
+		
+		
+		for (int i = 2; i < tileArray.length; i++){
+			if(tileArray[i-2].getCenterLocation().x != tileArray[i].getCenterLocation().x &&  // if this one is removed in both dimensions from the one two previous -- indicates an elbow
+					tileArray[i-2].getCenterLocation().y != tileArray[i].getCenterLocation().y){
+				
+				movements.add(makeStretch(lastStraight, tileArray[i-2], start));
+				movements.add(makeTurn(tileArray[i-2], tileArray[i-1], tileArray[i], movements.getLast().getLast()));
+				
+				lastStraight = tileArray[i]; 
+				start = movements.getLast().getLast();
+				
 			}
 		}
-		
-		// TODO MAKE SURE THIS CAST WORKS
-		return new Path((LinkedList<Placement>) myMovements); 
-		
-		
-	
-	}
-	
-	List<Placement> generateTurn(Placement start, Placement end){
-		// TODO 
-		
-		List<Placement> turn = makeTurn(start, end);
-		return turn;
-	}
-	
-	// Given two points which represent two tiles on the ends of a straightaway
-	List<Placement> generateStretch(Placement p1, Placement p2){
-			
-			Point2D.Double start = (Point2D.Double) p1.getLocation().clone(); // TODO MAKE SURE THE UPDATES BELOW...
-			Point2D.Double end = (Point2D.Double) p2.getLocation().clone();
-			
-			int myCoordProperty = 0;
-		
-			// 1. Adjust actual coordinates as necessary from Tile Locations
-			
-			if(start.x != end.x){
-				start.setLocation(start.x + ((start.x < end.x)?1:0) , start.y); 
-				end.setLocation(end.x + ((start.x < end.x)?0:1), end.y);
-				myCoordProperty = 0;
-			}
-			
-			else if(start.y != end.y){
-				start.setLocation(start.x, start.y + ((start.y < end.y)?1:0));
-				end.setLocation(end.x, end.y + ((start.y < end.y)?0:1));
-				myCoordProperty = 1;
-			}
-			
-			// ...RESULT IN p1 and p2 BEING UPDATED HERE^^ TODO
-			// calculate Placements based on points and coordinate property
-			
-			List<Placement> stretch = makeStretch(p1, p2, myCoordProperty);
-			return stretch;
-			
 
+		return new Path(movements); 
+	}
+	
+public Movement makeTurn(Tile t0, Tile t1, Tile t2, Placement p1) {
+		
+	
+		
+		List<Placement> PlacementList = new LinkedList<Placement>();
+		
+		int xpivot = t0.getGridLocation().x + ((t0.getGridLocation().x < t2.getGridLocation().x)?t0.getWidth():0);
+		int ypivot = t0.getGridLocation().y + ((t0.getGridLocation().y < t2.getGridLocation().y)?t0.getWidth():0);
+		
+		Point pivot = new Point (xpivot, ypivot);
+		
+		int rotationDir = isRightTurn(t0.getCenterLocation(), t1.getCenterLocation(), t2.getCenterLocation())?1:-1; // gets 1 if a right turn
+		int arcLength = (int) Math.sqrt(2*Math.pow(p1.getLocation().distance(pivot),2)); 
+		// basic Pythagorean for purpose of conceptualizing the distance needed to travel. this will mess with speed, but it should be negligible
+		int numSegments = (arcLength / mySpeed) +1;
+		int dtheta = (90/numSegments)*rotationDir;
+		
+		for(int i = 0; i < numSegments; i += 1){
+			Placement p = new Placement(rotatePoint(p1.getLocation(), pivot, dtheta));
+			p.setHeading(p1.getHeading() + dtheta);
+			PlacementList.add(p);
+			dtheta += dtheta;
 		}
+		
+		
+		PlacementList.add(new Placement(rotatePoint(p1.getLocation(), pivot, 90*rotationDir), p1.getHeading() + 90*rotationDir));
+		// THIS ^ should add a correctly rotated placement to the end of the list, ensuring that the next stretch has a valid starting point
+		return new Movement(PlacementList);
+		
+	}
+
+	private boolean isRightTurn(Point p0, Point p1, Point p2){
+		int x0 = p0.x; 
+		int x2 = p2.x; 
+		int y0 = p0.y; 
+		int y2 = p2.y;
+		
+		int h = (int) Math.toDegrees(Math.atan2(p1.y - p0.y, p1.x - p0.x));
+		
+		return(x2>x0&&h==0 || 
+				x2<x0 && h == 180 || 
+				y2>y0 && h == 90 || 
+				y2<y0 && h == 270);
+		
+		// TODO ^^ this will be buggy, consider weirdness in calculations and/or what to do if atan2 returns a negative value
+	}
+
+	public Placement findStart(List<Tile> tiles){
 	
-	public LinkedList<Placement> makeStretch(Placement p1, Placement p2, int directionProperty){
+		int x0 = (int) (tiles.get(0).getCenterLocation().x + Math.cos(Math.atan2(tiles.get(1).getCenterLocation().y - tiles.get(0).getCenterLocation().y, 
+				tiles.get(1).getCenterLocation().x - tiles.get(0).getCenterLocation().x)));
+		int y0 = (int) (tiles.get(0).getCenterLocation().y + Math.sin(Math.atan2(tiles.get(1).getCenterLocation().y - tiles.get(0).getCenterLocation().y, 
+				tiles.get(1).getCenterLocation().x - tiles.get(0).getCenterLocation().x)));
+		//x0 += 0;
+		//y0 += 0;
+		
+		double slope = myAmplitude*myFrequency*Math.cos(0);
+		double theta = 90 - (Math.toDegrees(Math.atan2(tiles.get(1).getCenterLocation().y - tiles.get(0).getCenterLocation().y, 
+				tiles.get(1).getCenterLocation().x - tiles.get(0).getCenterLocation().x) + Math.atan2(slope,1)));
+		
+		//double theta = (45.0 - Math.atan2(tiles.get(1).getCenterLocation().y - tiles.get(0).getCenterLocation().y, 
+				//tiles.get(1).getCenterLocation().x - tiles.get(0).getCenterLocation().x));
+		
+		// TODO (once testable in Player) fix this to return a randomly-generated start location and angle based on the tiles...
+		// currently: does NOT have a random shift, so each simply starts in the center of the appropriate side, instead of being offset...
+		// and the angle is hard-coded, instead of being adjustable based on offset
+		
+		
+		return new Placement(new Point(x0, y0), theta);
+		
+		
+	}
 	
-		Point2D.Double start;
-		Point2D.Double end;
+	public Movement makeStretch(Tile t1, Tile t2, Placement p1){
 		
-		start = p1.getLocation();
-		end = p2.getLocation();
+		// make initial calculations
+		double distance = t2.distanceToEdge(p1.getLocation());
+		double pathHeading = 90 - Math.atan2((t2.getCenterLocation().y- t1.getCenterLocation().y), 
+				(t2.getCenterLocation().x - t2.getCenterLocation().x));
 		
-		LinkedList<Placement> path = new LinkedList<Placement>();
+		// normalize to vertical from (0,0)
+		double relativeHeading = p1.getHeading()-pathHeading;
+		int xNorm = (p1.getLocation().x - t1.getCenterLocation().x);
+		int yNorm = (p1.getLocation().y - t1.getCenterLocation().y);
+		int c = 0 - yNorm; // TODO make sure this is the right way to handle c -- suspect it is not
+		Placement pNorm = new Placement(new Point(xNorm, yNorm), relativeHeading);
 		
-		Random freqRandom = new Random((long) (2*(1/myFrequency)));
-		double c = freqRandom.nextDouble()-1/myFrequency;
-		double zeroLoc = getCoordProperty(start, directionProperty); // baseline in direction we care about
-		double distance = getCoordProperty(start, directionProperty) - getCoordProperty(end,directionProperty); // distance in direction we care about
+		Placement cur = pNorm;
+		LinkedList<Placement> pList = new LinkedList<Placement>();
 		
-		// if current is less than target, increment positively; else, increment negatively
-		int modifier  = ((getCoordProperty(start, directionProperty)) < (getCoordProperty(end, directionProperty))?1:-1);
-		
-		// initializes actual start location
-		setCoordProperty(start, directionProperty, getCoordProperty(start, directionProperty)+c);
-		Point2D.Double cur = new Point2D.Double(start.x, start.y);
-		
-		// find where start intersects graph
-		
+		// build path vertically
 		while(distance > 0){
-			// find slope at current spot
-			double slope = myAmplitude*myFrequency*(Math.cos(myFrequency*((getCoordProperty(cur, directionProperty) - zeroLoc))) + c);
-			//slope = Math.toDegrees(slope);
-			double orientationPolar = Math.toDegrees(Math.atan2(slope, 1.0)); // polar degrees representation from horizontal
-			double orientationHeading = -1*orientationPolar + 90; // heading degrees representation from vertical
-			double orientationVert = orientationHeading + ((modifier > 0)?0:180) + ((directionProperty == 0)?0:90);
-			// make a new Placement out of the current spot
-			Placement place = new Placement(cur, orientationVert); 
-			path.add(place);
-			// calculate and set new coord location based on speed
-			setCoordProperty(cur, directionProperty, (getCoordProperty(cur, directionProperty) + (modifier)*mySpeed));
-			// calculate new dependent location based on new coord location
-			double newPos = myAmplitude*Math.sin(myFrequency*(getCoordProperty(cur, directionProperty) - zeroLoc) + c);
-			// set dependent location
-			setCoordProperty(cur, directionProperty^1, newPos);
-			distance -= mySpeed;
-			
+			int yNew = cur.getLocation().y + mySpeed;
+			int xNew = (int) (myAmplitude*Math.sin(myFrequency*yNew + c));
+			double slope = myAmplitude*myFrequency*Math.cos(myFrequency*yNew + c);
+			double thetaNew = 90.0 - Math.toDegrees(Math.atan2(1, slope));
+					
+			Placement p = new Placement(new Point(xNew, yNew), thetaNew);
+			pList.add(p);
+			cur = p;
+			distance -=yNew;
 		}
 		
-		return path;
+		// rotate
 		
+		/*double sin = Math.sin(Math.toRadians(pathHeading));
+		double cos = Math.cos(Math.toRadians(pathHeading));*/
+		Point origin = new Point(0,0);
+		
+		for(Placement p: pList){
+			/*int xNew = (int) ((p.getLocation().x)*cos - p.getLocation().y*sin);
+			int yNew = (int) ((p.getLocation().x)*sin + p.getLocation().y*cos);*/
+			p.setLocation(rotatePoint(p.getLocation(), origin, pathHeading));
+			//p.setLocation(new Point(xNew, yNew));
+			p.setHeading(p.getHeading() + pathHeading);
+		}
+		
+		// shift back
+		
+		for (Placement p: pList){
+			p.setLocation(new Point(p.getLocation().x + t1.getCenterLocation().x,
+					p.getLocation().y + t1.getCenterLocation().y));
+		}
+		
+		return new Movement(pList);
 	}
 	
-	public List<Placement> makeTurn(Placement start, Placement end) {
-		// TODO
-		// Determine, based on coords, which quadrant end is in wrt start
-		// determine which kind of turn this is and what that means about our incrementing of the orientations
-		// based on this, accurately surmise the diagonal and find an accurate end location
-		return null;
+	public Point rotatePoint(Point p1, Point pivot, double angle){	
+		
+		  double sin = Math.sin(Math.toRadians(angle));
+		  double cos = Math.cos(Math.toRadians(angle));
+		  
+		  Point end = new Point(p1.x, p1.y);
+
+		  // translate point back to origin:
+		  end.x -= pivot.x;
+		  end.y -= pivot.y;
+
+		  // rotate point
+		  double xnew = end.x*cos - end.y*sin;
+		  double ynew = end.x*sin + end.y*cos;
+
+		  // translate point back:
+		  end.x = (int) (xnew + pivot.x);
+		  end.y = (int) (ynew + pivot.y);
+		  
+		  return end;	
 	}
+
+
 	
-	private double getCoordProperty(Point2D.Double p, int i){
-		if(i == 0)
-			return p.x;
-		return p.y;
-	}
-	
-	private void setCoordProperty(Point2D.Double p, int i, double D){
-		if(i == 0)
-			p.x = D;
-		else
-			p.y = D;	
-	}
 
 }

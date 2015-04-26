@@ -1,8 +1,9 @@
 package gae.view.editorpane;
 
+import java.awt.Dialog;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Set;
 
 import gae.model.Receiver;
@@ -20,20 +21,36 @@ public class ComponentsDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private Set<String> myOptions;
 	private String myReturnElement;
-	private Receiver model; //no idea how to access this model yet. 
+	private Receiver myReceiver; 
+	
+	private int defWidth = 500;
+	private int defHeight = 500;
 
-	public ComponentsDialog(String type) {
-		myReturnElement = null;
-//		myOptions = model.getList(type);
+
+	public ComponentsDialog(String type, Receiver model) {
+		setModalityType(Dialog.ModalityType.TOOLKIT_MODAL);
+		setTitle("List of "+type+" in inventory");
+		setLayout(new FlowLayout());
+		myReturnElement = "";
+		myReceiver = model;
+		myOptions = myReceiver.getList(type);
+		JButton[] button = new JButton[myOptions.size()];
+		int loop = 0;
 		for (String option : myOptions) {
-			JButton b = new JButton(option);
-			b.addActionListener(new ActionListener() {
+			button[loop] = new JButton(option);
+			button[loop].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					System.out.println("button clicked for: "+option);
 					myReturnElement = option;
 					dispose();
 				}
 			});
+			add(button[loop]);
+			loop++;
 		}
+
+		setSize(defWidth, defHeight);
+		setVisible(true);
 	}
 	
 	public String getElement(){
