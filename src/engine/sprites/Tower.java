@@ -128,7 +128,6 @@ public class Tower extends Sprite implements Shootable{
 	}
 
 	public void setMyPrice(Integer price) {
-
 		myPrice = price;
 	}
 
@@ -136,10 +135,7 @@ public class Tower extends Sprite implements Shootable{
 	/*
 	 * Takes target location and assigns it a path based on the projectile's MovementStrategy  
 	 * 
-	 * (non-Javadoc)
-	 * @see interfaces.Shootable#setFirePath(engine.gameLogic.Placement, engine.gameLogic.Placement)
 	 */
-
 	public void setFirePath(Placement target, Placement cur) {
 		//target angle in absolute bearing
 		

@@ -51,4 +51,10 @@ public class Range implements Collidable{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public boolean isDead() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

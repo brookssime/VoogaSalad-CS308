@@ -68,7 +68,6 @@ public class Base extends Sprite implements Collidable{
 
 	@Override
 	public Placement move() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

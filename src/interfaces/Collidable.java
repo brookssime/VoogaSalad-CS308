@@ -10,6 +10,7 @@ public interface Collidable extends Comparable{
 	boolean evaluateCollision(Collidable collider);
 	void setCollisionBounds();
 	Shape getCollisionBounds();
+	abstract boolean isDead();
 	
 	default boolean isCollision(Collidable c){
 		Shape shapeA = c.getCollisionBounds(); //doesn't work without location

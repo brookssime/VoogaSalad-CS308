@@ -29,7 +29,6 @@ public abstract class Sprite extends GameObject{
 	}
 
 	public abstract Placement move();
-	public abstract boolean isDead();
 	
 	public abstract void fillSpriteInfo();
 	
