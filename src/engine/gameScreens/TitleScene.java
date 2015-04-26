@@ -6,7 +6,7 @@ package engine.gameScreens;
  *
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class TitleScene extends GameScene{
+public class TitleScene extends GameNode{
 	
 	//private String myName; Do we need this?
 	private String myTitlePicturePath;
@@ -19,6 +19,13 @@ public class TitleScene extends GameScene{
 	@Override
 	public void update() {
 		myButtonClicked = false;
+	}
+	
+
+	@Override
+	public void render() {
+		// TODO Fill in with appropriate calls as we get a Player API
+		
 	}
 
 	@Override
@@ -42,4 +49,5 @@ public class TitleScene extends GameScene{
 	public void setTitlePicturePath(String path){
 		myTitlePicturePath = path;
 	}
+
 }

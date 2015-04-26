@@ -2,6 +2,7 @@ package player;
 
 import java.util.List;
 
+import player.level.GameLevelScene;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -66,6 +67,8 @@ public class RunGamePlayer extends Application{
 		    
 		    screenHeight = bounds.getHeight();
 		    screenWidth = bounds.getWidth();
+		    System.out.println(screenHeight);
+		    System.out.println(screenWidth);
 		    adjustRate = screenHeight/877;
 		    stage.setWidth(screenWidth);
 		    stage.setHeight(screenHeight);

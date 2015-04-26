@@ -4,7 +4,7 @@ package engine.gameLogic;
  * TODO: Is it okay that this is basically just geters and setters?
  * @author Brooks and Sid
  */
-public class GameScoreboard {
+public class GameStats {
 	
 	private int myMoney;
 	private int myBaseHealth;

@@ -17,16 +17,16 @@ import java.util.Queue;
  * @author Brooks, Patrick, Robert, and Sid.
  * 
  */
-public class DialogueScene extends GameScene{
+public class DialogueNode extends GameNode{
 
-	/** The my name. */
-	private String myName;
 	
 	/** The my dialogue. */
 	private Queue<DialogueBox> myDialogueBoxes;
 	
 	/** The my background image path. */
 	private String myBackgroundImagePath;
+	
+	
 	
 	/** The my image path list. */
 	private List<String> myImagePathList; // contains all image paths of talking
@@ -38,13 +38,21 @@ public class DialogueScene extends GameScene{
 	/**
 	 * Instantiates a new dialogue scene.
 	 */
-	public DialogueScene(){
+	public DialogueNode(){
 		
 	}
 
-	public DialogueScene(String backgroundImagePath, Queue<DialogueBox> dialogueBoxes) {
+	
+	
+	public DialogueNode(String backgroundImagePath, Queue<DialogueBox> dialogueBoxes) {
 		myBackgroundImagePath = backgroundImagePath;
 		myDialogueBoxes = dialogueBoxes;
+	}
+	
+	@Override
+	public void render() {
+		// TODO Fill in with appropriate calls as we get a Player API
+		
 	}
 	
 	public void setImagePath(String imagePath){
@@ -76,4 +84,6 @@ public class DialogueScene extends GameScene{
 	public DialogueBox getNextDialogueBox(){
 		return myDialogueBoxes.poll();
 	}
+
+	
 }

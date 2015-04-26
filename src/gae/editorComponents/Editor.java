@@ -71,6 +71,7 @@ public class Editor extends GAEPane {
 			String componentType = methodAnnotation.type();
 			EditorComponent fieldEditor = myFactory.generateComponent(
 					componentType, myReceiver, method, myObj);
+			System.out.println(componentType);
 			myForm.getChildren().add(fieldEditor);
 		}
 

@@ -2,7 +2,7 @@ package engine.testing;
 
 import java.util.List;
 
-import engine.sprites.GridObject;
+import engine.sprites.Sprite;
 
 public class FiringPattern {
 	
@@ -15,7 +15,7 @@ public class FiringPattern {
 		
 	}
 	
-	public List<GridObject> selectTargets(List <GridObject> targets){
+	public List<Sprite> selectTargets(List <Sprite> targets){
 		
 		
 		return null;
