@@ -4,14 +4,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import engine.gameLogic.GameObject;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Wave;
 import engine.sprites.Sprite;
 import engine.sprites.Tile;
-import engine.sprites.Tower;
 
 public class Grid extends GameObject{
 
@@ -44,6 +41,12 @@ public class Grid extends GameObject{
 		mySpriteMap.put(s, p);
 	}
 	
+	public void refreshHeadings(){
+		for(Sprite s : mySpriteMap.keySet()){
+			mySpriteMap.get(s).normalize();
+		}
+	}
+	
 	public Map<Sprite, Placement> getSpriteMap(){
 		return mySpriteMap;
 	}
@@ -64,6 +67,7 @@ public class Grid extends GameObject{
 	}
 
 	public void update(){
+		refreshHeadings();
 		myGridManager.update();
 		//myGridManager.checkComplete();
 	}
