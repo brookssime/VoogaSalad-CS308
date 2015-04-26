@@ -80,9 +80,8 @@ public class ImageSelector extends EditorComponent {
 		drawButton.setOnAction(e->{
 			Drawer d = new Drawer();
 			d.getImageFile();
-			//TODO - add an image fetch to drawer.
 		});
-
+		
 	}
 
 	private void setupImageView() {
