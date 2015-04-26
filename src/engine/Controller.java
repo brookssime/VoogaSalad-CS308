@@ -1,10 +1,7 @@
-package engine.controller;
+package engine;
 
 import java.util.Map;
 import java.util.Queue;
-
-import engine.Environment;
-import engine.Grid;
 import engine.gameLogic.GameStats;
 import engine.gameLogic.Placement;
 import engine.gameScreens.DialogueBox;
@@ -21,14 +18,27 @@ public class Controller {
 	 * The player should also be able to know the ID of the node that they are going to 
 	 * @param screenID
 	 */
+	
+	private Store myStore;
+	
+	private Game myGame;
+	
+	public Controller(Game game){
+		myGame = game;
+		
+	}
+
+	
 	public void moveToNode(String nodeID){
 		
 	}
 	
+	
+	
+	
 	/********** From DialogueController **********/
 	
-	DialogueNode myDialogueNode;
-	Queue<DialogueBox> myDialogueBoxes = myDialogueNode.getDialogueBoxes();
+	DialogueNodeQueue<DialogueBox> myDialogueBoxes = myDialogueNode.getDialogueBoxes();
 	
 	public void showNextDialogue(){
 		updateDialogueImage();
@@ -111,11 +121,7 @@ public class Controller {
 	
 	/*********** From TitleController ***********/
 	
-/*	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}*/
+
 	
 
 

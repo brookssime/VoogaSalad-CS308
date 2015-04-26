@@ -18,6 +18,8 @@ public class Game {
 		addStoreToLevel();
 	}
 	
+	
+	
 	public void setHead(GameNode head){
 		myStartNode = head;
 	}
