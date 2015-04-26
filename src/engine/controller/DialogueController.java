@@ -13,20 +13,26 @@ import engine.gameScreens.DialogueNode;
 
 public class DialogueController extends Controller {
 
-	DialogueNode myDN = new DialogueNode(); //needs to be THE dialoguenode, not just an instance
-	Queue<DialogueBox> d = myDN.getDialogueBoxes();
+	DialogueNode myDialogueNode;
+	Queue<DialogueBox> myDialogueBoxes = myDialogueNode.getDialogueBoxes();
 	
 	public void showNextDialogue(){
 		updateDialogueImage();
 		updateDialogueText();
-		d.poll();
+		myDialogueBoxes.poll();
 	}
 	
 	public String updateDialogueImage(){
-		return d.peek().getImagePath();
+		return myDialogueBoxes.peek().getImagePath();
 	}
 	
 	public String updateDialogueText(){
-		return d.peek().getText();
+		return myDialogueBoxes.peek().getText();
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }
