@@ -14,29 +14,15 @@ import engine.gameLogic.ProjectileEffect;
  * @author Brooks, Patrick, Robert, and Sid.
  */
 public class Projectile extends Sprite implements Collidable{
-
-	/** The my name. */
+	
 	private String myName;
-	
-	/** The my image string. */
 	private String myImageString;
-	
-	/** The my speed. */
 	private Integer mySpeed; 
-	
-	/** The my effect. */
-	public ProjectileEffect myEffect;
-	
-	/** The my rad. */
+	private ProjectileEffect myEffect;
 	private int myRadius;
-	
-	/** The my collision bounds. */
 	private Shape myCollisionBounds;
 	private Path myPath;
 	
-	/**
-	 * Instantiates a new projectile.
-	 */
 	public Projectile(){
 		
 	}
@@ -88,9 +74,6 @@ public class Projectile extends Sprite implements Collidable{
 		return false;
 	}
 	
-	/* (non-Javadoc)
-	 * @see interfaces.Collidable#setCollisionBounds()
-	 */
 	public void setCollisionBounds() {
 		// myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRadius*2, myRadius*2);		
 	}
@@ -99,9 +82,6 @@ public class Projectile extends Sprite implements Collidable{
 		return myRadius;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Collidable#getCollisionBounds()
-	 */
 	@Override
 	public Shape getCollisionBounds() {
 		return myCollisionBounds;
@@ -111,12 +91,15 @@ public class Projectile extends Sprite implements Collidable{
 		return myEffect;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#setName(java.lang.String)
-	 */
 	@Override
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void fillSpriteInfo() {
+		mySpriteInfo.put("Name", myName);
+		mySpriteInfo.put("Speed", mySpeed.toString());
 	}
 }

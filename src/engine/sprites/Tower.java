@@ -144,4 +144,12 @@ public class Tower extends Sprite implements Shootable{
 	public void setMyPrice(Integer price) {
 		myPrice = price;
 	}
+
+	@Override
+	public void fillSpriteInfo() {
+		mySpriteInfo.put("Name", myName);
+		mySpriteInfo.put("Health", myHealth.toString());
+		mySpriteInfo.put("Firing Rate", myFireRate.toString());
+		mySpriteInfo.put("Price", myPrice.toString());
+	}
 }

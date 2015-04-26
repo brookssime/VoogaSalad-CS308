@@ -10,7 +10,7 @@ public abstract class Sprite extends GameObject{
 	
 	protected String myImagePath;
 	protected List<String> myAccessNames;
-
+	protected Map<String, String> mySpriteInfo;
 	
 	public void setImagePath(String imagePath){
 		myImagePath = imagePath;
@@ -28,8 +28,8 @@ public abstract class Sprite extends GameObject{
 		return myAccessNames;
 	}
 
-	
 	public abstract Placement move();
-	
 	public abstract boolean isDead();
+	
+	public abstract void fillSpriteInfo();
 }

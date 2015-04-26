@@ -71,4 +71,10 @@ public class Base extends Sprite implements Collidable{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void fillSpriteInfo() {
+		mySpriteInfo.put("Name", myName);
+		mySpriteInfo.put("Health", myHealth.toString());
+	}
 }
