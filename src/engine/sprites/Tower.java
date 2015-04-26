@@ -35,6 +35,7 @@ public class Tower extends Sprite implements Shootable{
 	private boolean isReady;
 	private Path myPath;
 	private Integer myPrice;
+
 	
 	public Tower() {
 		
@@ -97,6 +98,7 @@ public class Tower extends Sprite implements Shootable{
 		myFireRate = fireRate;
 	}
 	
+	
 	public Integer getFireRate(){
 		return myFireRate;
 	}
@@ -133,6 +135,7 @@ public class Tower extends Sprite implements Shootable{
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void setFirePath(Placement target, Placement cur) {
 		//target angle in absolute bearing
 		
@@ -158,4 +161,12 @@ public class Tower extends Sprite implements Shootable{
 		
 	}
 
+=======
+	public void fillSpriteInfo() {
+		mySpriteInfo.put("Name", myName);
+		mySpriteInfo.put("Health", myHealth.toString());
+		mySpriteInfo.put("Firing Rate", myFireRate.toString());
+		mySpriteInfo.put("Price", myPrice.toString());
+	}
+>>>>>>> 32454d38214261d03750750a9f0baa1cdf69af69
 }

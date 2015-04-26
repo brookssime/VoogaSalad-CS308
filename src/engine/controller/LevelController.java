@@ -1,14 +1,15 @@
 package engine.controller;
 
+import java.util.Map;
+
 import engine.Environment;
 import engine.Grid;
-import engine.GridManager;
 import engine.gameLogic.GameStats;
 import engine.gameLogic.Placement;
+import engine.gameScreens.Store;
 
-
-//TODO NEED TO WRITE STRING TO SPRITE CLASS
-//TODO SPRITE NEEDS getWorth() METHOD AND getInfo() [total info about sprite] METHOD
+//TODO Where do we get the store, environment, grid, game stats, etc. from?
+//We need to actually get those in here properly
 public class LevelController extends Controller {
 
 	/**
@@ -18,19 +19,24 @@ public class LevelController extends Controller {
 	 * @param spritePlacement
 	 */
 	public void placeSprite(String spriteID, Placement spritePlacement){
-		Environment e = new Environment();
-		Grid myGrid = e.getGrid();
-		myGrid.placeSpriteAt(sprite, spritePlacement);
+		Store myStore = new Store();
+		Environment myEnvironment = new Environment();
+		Grid myGrid = myEnvironment.getGrid();
+		myGrid.placeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
 	}
 	
 	/**
 	 * Takes in SpriteID
 	 * Will display information about the sprite on screen
 	 * Useful for looking at cost and health of towers, etc.
+	 * TODO: Is this okay that it returns the Sprite info directly to view?
 	 * @param spriteID
+	 * @return 
 	 */
-	public void examineSprite(String spriteID){
-		return sprite.getInfo();	
+	public Map<String, String> examineSprite(String spriteID){
+		Environment myEnvironment = new Environment();
+		Grid myGrid = myEnvironment.getGrid();
+		return myGrid.getFromID(spriteID).getSpriteInfo();	
 	}
 
 	/**
@@ -38,7 +44,8 @@ public class LevelController extends Controller {
 	 */
 	public void purchaseObject(String spriteID){
 		GameStats myGameStats = new GameStats();
-		myGameStats.updateMoney(sprite.getWorth());
+		Store myStore = new Store();
+		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice());
 	}
 	
 	/**
@@ -49,10 +56,11 @@ public class LevelController extends Controller {
 	 * @param spritePlacement
 	 */
 	public void sellObject(String spriteID, Placement spritePlacement){
+		Environment myEnvironment = new Environment();
 		GameStats myGameStats = new GameStats();
-		Environment e = new Environment();
-		Grid myGrid = e.getGrid();
-		myGrid.placeSpriteAt(tile, spritePlacement);
-		myGameStats.updateMoney(sprite.getWorth() * -1);	
+		Store myStore = new Store();
+		Grid myGrid = myEnvironment.getGrid();
+		myGrid.removeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
+		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice() * -1);	
 	}	
 }
