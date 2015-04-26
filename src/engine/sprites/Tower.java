@@ -34,6 +34,7 @@ public class Tower extends Sprite implements Shootable{
 	private boolean isReady;
 	private Path myPath;
 	private Integer myPrice;
+
 	
 	public Tower() {
 		
@@ -110,6 +111,7 @@ public class Tower extends Sprite implements Shootable{
 	public void setFireRate(Integer fireRate) {
 		myFireRate = fireRate;
 	}
+	
 	
 	public Integer getFireRate(){
 		return myFireRate;

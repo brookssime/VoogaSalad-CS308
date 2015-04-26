@@ -5,6 +5,7 @@ import engine.Grid;
 import engine.GridManager;
 import engine.gameLogic.GameStats;
 import engine.gameLogic.Placement;
+import engine.gameScreens.Store;
 
 
 //TODO NEED TO WRITE STRING TO SPRITE CLASS
@@ -18,9 +19,10 @@ public class LevelController extends Controller {
 	 * @param spritePlacement
 	 */
 	public void placeSprite(String spriteID, Placement spritePlacement){
-		Environment e = new Environment();
-		Grid myGrid = e.getGrid();
-		myGrid.placeSpriteAt(sprite, spritePlacement);
+		Store myStore = new Store();
+		Environment myEnvironment = new Environment();
+		Grid myGrid = myEnvironment.getGrid();
+		myGrid.placeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
 	}
 	
 	/**
@@ -38,7 +40,8 @@ public class LevelController extends Controller {
 	 */
 	public void purchaseObject(String spriteID){
 		GameStats myGameStats = new GameStats();
-		myGameStats.updateMoney(sprite.getWorth());
+		Store myStore = new Store();
+		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice());
 	}
 	
 	/**
@@ -49,10 +52,11 @@ public class LevelController extends Controller {
 	 * @param spritePlacement
 	 */
 	public void sellObject(String spriteID, Placement spritePlacement){
+		Environment myEnvironment = new Environment();
 		GameStats myGameStats = new GameStats();
-		Environment e = new Environment();
-		Grid myGrid = e.getGrid();
-		myGrid.placeSpriteAt(tile, spritePlacement);
-		myGameStats.updateMoney(sprite.getWorth() * -1);	
+		Store myStore = new Store();
+		Grid myGrid = myEnvironment.getGrid();
+		myGrid.removeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
+		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice() * -1);	
 	}	
 }

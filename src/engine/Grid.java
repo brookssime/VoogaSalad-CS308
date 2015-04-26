@@ -73,7 +73,11 @@ public class Grid extends GameObject implements Observable{
 	public void placeSpriteAt(Sprite sprite, Placement spritePlacement){
 		mySpriteMap.put(sprite, spritePlacement);
 	}
-
+	
+	public void removeSpriteAt(Sprite sprite, Placement spritePlacement){
+		mySpriteMap.remove(sprite, spritePlacement);
+	}
+	
 	public void addTile(Tile t, int x, int y){
 		myTiles[x][y] = t;
 	}
