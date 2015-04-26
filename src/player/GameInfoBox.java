@@ -1,5 +1,6 @@
 package player;
 
+import player.level.GameLevelScene;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -14,11 +15,13 @@ public class GameInfoBox extends AbstractOverlay{
 	protected Text description;
 	protected Text title;
 	protected ImageView gameImage;
+	protected Stage stage;
 
 	public GameInfoBox(Stage stage, double overlayWidth, double overlayHeight, GameData gameData) {
 		super(overlayWidth, overlayHeight);
 		
 		this.gameData = gameData;
+		this.stage = stage;
 				
 		//MAGIC VALUES
 		this.description = new Text(10,50, gameData.gameDescription);
@@ -91,6 +94,12 @@ public class GameInfoBox extends AbstractOverlay{
 
 				//Open the level screen of Game Player and start a new game
 				System.out.println("Open The Level and Load The Game");
+				double screenHeight = stage.getHeight();
+				double screenWidth = stage.getWidth();
+				
+				GameLevelScene gameLevelScene = new GameLevelScene(stage, screenWidth, screenHeight);
+				stage.setScene(gameLevelScene.getScene());
+				
 				
 			}
 		});
