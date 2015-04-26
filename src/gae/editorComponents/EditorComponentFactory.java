@@ -7,13 +7,15 @@ import java.lang.reflect.Method;
 public class EditorComponentFactory {
 
 	public EditorComponent generateComponent(String editorType,
-			Receiver receiver, Method setMethod, Method getMethod, String objName) {
+			Receiver receiver, Method setMethod, String objName) {
 		if (editorType.equalsIgnoreCase("textfield")) {
-			return (new TextFieldEditor(receiver, setMethod, getMethod, objName));
-		} else if (editorType.equalsIgnoreCase("fileselect")) {
-			return (new FileSelector(receiver, setMethod, getMethod, objName));
+			return (new TextFieldEditor(receiver, setMethod, objName));
+		} else if (editorType.equalsIgnoreCase("imageselect")) {
+			return (new ImageSelector(receiver, setMethod, objName));
 		} else if (editorType.equalsIgnoreCase("slider")) {
 //			return (new SliderEditor(receiver, nethod, objName));
+		} else if (editorType.equalsIgnoreCase("queueeditor")) {
+			return (new QueueEditor(receiver, setMethod, objName));
 		}
 
 		// we should implement a better error handling here.

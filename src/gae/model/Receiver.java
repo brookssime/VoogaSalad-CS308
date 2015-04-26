@@ -19,7 +19,7 @@ public interface Receiver {
 	public void runOnObject(String obj, Method method, Object... params);
 
 	//get version of above //still check for null
-	public Object getFromObject(String obj, Method method, Object... params);
+	public Object getFromObject(String obj, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException;
 
 	public void removeObject(String obj);
 

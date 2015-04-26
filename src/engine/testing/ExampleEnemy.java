@@ -43,7 +43,7 @@ public class ExampleEnemy {
 	 * @param width the width
 	 * @param height the height
 	 */
-	@MethodAnnotation(editor=true, name="Size", type="textfield", gsType = "setter")
+	@MethodAnnotation(editor=true, name="Size", type="textfield", fieldName = "")
 	public void SetSize(@ParameterAnnotation(name="Width") Double width, @ParameterAnnotation(name="Height") Double height){
 		myImage.setFitWidth(width);
 		myImage.setFitHeight(height);
@@ -55,7 +55,7 @@ public class ExampleEnemy {
 	 * @param x the x
 	 * @param y the y
 	 */
-	@MethodAnnotation(editor=true, name = "Position", type = "textfield", gsType = "setter")
+	@MethodAnnotation(editor=true, name = "Position", type = "textfield", fieldName = "")
 	public void SetPosition(@ParameterAnnotation(name="X Location") Double x, @ParameterAnnotation(name="Y Location")Double y){
 		myImage.setTranslateX(x);
 		myImage.setTranslateY(y);
@@ -66,15 +66,19 @@ public class ExampleEnemy {
 	 *
 	 * @param health the health
 	 */
-	@MethodAnnotation(editor=true, name = "Health", type = "textfield", gsType = "setter")
+	@MethodAnnotation(editor=true, name = "Health", type = "textfield", fieldName = "myHealthCapacity")
 	public void SetHealthCapacity(@ParameterAnnotation(name="Health Capacity") Double health){
 		this.setMyHealthCapacity(health);
 	}
 	
+	//@MethodAnnotation(editor=true, name = "")
+	public Double getMyHealthCapacity() {
+		return myHealthCapacity;
+	}
 	/**
 	 * Change image.
 	 */
-	@MethodAnnotation(editor=true, name = "Image File", type = "fileselect", gsType = "setter")
+	@MethodAnnotation(editor=true, name = "Image File", type = "fileselect", fieldName = "")
 	public void ChangeImage(@ParameterAnnotation(name="Select Image") File file) {
 		this.changeImage(new Image(file.toURI().toString()));
 	}
@@ -121,14 +125,8 @@ public class ExampleEnemy {
 		return null;
 	}
 
-	/**
-	 * Gets the my health capacity.
-	 *
-	 * @return the my health capacity
-	 */
-	public Double getMyHealthCapacity() {
-		return myHealthCapacity;
-	}
+
+
 
 	/**
 	 * Sets the my health capacity.

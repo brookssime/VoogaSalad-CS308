@@ -41,7 +41,6 @@ public class ButtonEditor {
 		myEditor = editor;
 		myButton = button;
 		//GameButton has all the information, should also have have new information
-		
 	}
 
 	public void setUpEditor() {
