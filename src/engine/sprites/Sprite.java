@@ -32,4 +32,8 @@ public abstract class Sprite extends GameObject{
 	public abstract boolean isDead();
 	
 	public abstract void fillSpriteInfo();
+	
+	public Map<String, String> getSpriteInfo(){
+		return mySpriteInfo;
+	}
 }
