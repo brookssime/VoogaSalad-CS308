@@ -198,8 +198,8 @@ public class Tower extends GridObject implements Shootable, Movable{
 		return (myHealth <= 0);
 	}
 
-	@MethodAnnotation(editor=true, name = "FireRate", type = "textfield", fieldName = "myFireRate")
-	public void setFireRate(@ParameterAnnotation(name="FireRate: ") Integer fireRate) {
+	@MethodAnnotation(editor=true, name = "Set FireRate", type = "textfield", fieldName = "myFireRate")
+	public void setFireRate(@ParameterAnnotation(name=" FireRate ") Integer fireRate) {
 		myFireRate = fireRate;
 	}
 	
@@ -207,7 +207,8 @@ public class Tower extends GridObject implements Shootable, Movable{
 		return myFireRate;
 	}
 
-	public void setHealth(Integer health) {
+	@MethodAnnotation(editor=true, name = "Set Health", type = "textfield", fieldName = "myHealth")
+	public void setHealth(@ParameterAnnotation(name=" Health ") Integer health) {
 		myHealth = health;
 	}
 

@@ -32,7 +32,7 @@ public class Model implements Receiver {
 	}
 
 	@Override
-	public Object getFromObject(String obj, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+	public Object getFromObject(String obj, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException {
 		return myInventory.getFromObject(obj, fieldName);
 	}
 

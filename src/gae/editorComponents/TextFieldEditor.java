@@ -65,19 +65,12 @@ public class TextFieldEditor extends EditorComponent {
 		}
 
 		textFields = new TextField[parametersLength];
+		//TODO make fetchValue work for an array of objects. 
 		for (int index = 0; index < parametersLength; index++) {
 				Label label = new Label(parameterNames.get(index));
 				String value = "";
-				try {
-					Object fetchedValue = myReceiver.getFromObject(myObject, myFieldName);
-					if (fetchedValue!= null){
-						value = fetchedValue.toString();
-					}
-				} catch (IllegalArgumentException | IllegalAccessException
-						| NoSuchFieldException | SecurityException e1) {
-					System.out.println("Failed to fetch field value");
-					value = "";
-					e1.printStackTrace();
+				if (myFetchedValue!= null){
+					value = myFetchedValue.toString();
 				}
 				TextField textField = new TextField(value);
 				myBox.getChildren().addAll(label, textField);
