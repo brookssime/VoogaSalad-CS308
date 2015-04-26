@@ -13,7 +13,7 @@ public class EditorComponentFactory {
 		} else if (editorType.equalsIgnoreCase("fileselect")) {
 			return (new FileSelector(receiver, setMethod, getMethod, objName));
 		} else if (editorType.equalsIgnoreCase("slider")) {
-//			return (new SliderEditor(receiver, nethod, objName));
+			return (new SliderEditor(receiver, setMethod, getMethod, objName));
 		}
 
 		// we should implement a better error handling here.

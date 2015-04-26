@@ -19,20 +19,20 @@ import javafx.scene.layout.HBox;
  *
  */
 public class SliderEditor extends EditorComponent{
-	private double myMin;
-	private double myMax;
-	private double myCur;
-	private Slider mySlider = new Slider();
+	private double myMin = 0;
+	private double myMax = 50;
+	private Double myCur;
+	private Slider mySlider;
 
 	public SliderEditor(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
 		super(receiver, setMethod, getMethod, objectName);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void setUpEditor() {
 		// TODO Auto-generated method stub
 		HBox h = new HBox();
+		mySlider = new Slider();
 		h.getChildren().add(sliderSetUp());
 	}
 	
@@ -45,11 +45,15 @@ public class SliderEditor extends EditorComponent{
 	public Node sliderSetUp() {
 		mySlider.setMax(myMax);
 		mySlider.setMin(myMin);
+		myCur = (Double) myReceiver.getFromObject(myObject, myGetMethod, (Object[]) null);
+		if (myCur == null) {
+			myCur = myMax / 2;
+		}
 		mySlider.setValue(myCur);
 		mySlider.setShowTickLabels(true);
 		mySlider.setShowTickMarks(true);
 		mySlider.setSnapToTicks(true);
-		mySlider.setMajorTickUnit(myCur);
+		mySlider.setMajorTickUnit(5);
 
 		final Label sliderVal = new Label(Double.toString(mySlider.getValue()));
 
