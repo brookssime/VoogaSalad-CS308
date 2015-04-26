@@ -1,28 +1,26 @@
-package gae.editorComponents;
-
-import gae.model.Receiver;
-
-import java.lang.reflect.Method;
+package gae.view.titleScreenEditor;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ButtonEditor extends EditorComponent {
+public class ButtonEditor {
 
+	private static final String BUTTON_CSS = "-fx-background-color: white;  "
+			+ "-fx-padding: 30; -fx-border-color: black; -fx-font-size: 30px";
 	private static final int HBOX_SPACING = 5;
 	private static final int VBOX_SPACING = 20;
 	private static final double TITLE_SIZE = 30;
@@ -30,30 +28,34 @@ public class ButtonEditor extends EditorComponent {
 	private static final double SCALE_SLIDER_MAX = 2;
 	private static final double SCALE_SLIDER_MAJOR_TICK = 1;
 	private static final int MINOR_TICK_COUNT = 4;
+	private GameButton myButton;
+	private IButton myEditor;
 
-	public ButtonEditor(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
-		super(receiver, setMethod, objectName);
+	public ButtonEditor(IButton editor) {
+		myButton = new GameButton();
+		myEditor = editor;
 	}
 
-	// @Override
+	//if we are editing an existing button
+	public ButtonEditor(IButton editor, GameButton button){
+		myEditor = editor;
+		myButton = button;
+		//GameButton has all the information, should also have have new information
+	}
+
 	public void setUpEditor() {
-		VBox v = new VBox();
-		v.getChildren().add(button());
+		button();
 	}
 
-	private Parent button() {
-		Button buttonEditor = new Button("Button Editor");
-		buttonEditor.setOnAction(e -> {
-			Stage stage = new Stage();
-			stage.setHeight(700);
-			stage.setWidth(400);
-			stage.setScene(new Scene(addButtonEditor()));
-			stage.show();
-		});
-		return buttonEditor;
+	private void button() {
+		Stage stage = new Stage();
+		stage.setHeight(700);
+		stage.setWidth(400);
+		stage.setScene(new Scene(addButtonEditor(stage)));
+		stage.show();
 	}
 
-	private Parent addButtonEditor() {
+	private Parent addButtonEditor(Stage stage) {
 		VBox buttonEditor = new VBox(VBOX_SPACING);
 		buttonEditor.setPadding(new Insets(VBOX_SPACING));
 
@@ -81,44 +83,30 @@ public class ButtonEditor extends EditorComponent {
 		scaleSlider.setShowTickLabels(true);
 		scaleSlider.setShowTickMarks(true);
 		scaleSlider.setPrefWidth(300);
-		scaleSlider.setValue(SCALE_SLIDER_MAX);
+		scaleSlider.setValue(myButton.getScale());
 		sliderBox.getChildren().addAll(new Text("Scale: "), scaleSlider);
 
 		// Textfield for Text on button
 		TextField buttonText = new TextField();
-		buttonText.setText("Default");
+		buttonText.setText(myButton.getText());
 
 		// add Square as visual with text
-		Rectangle visual = new Rectangle(100, 100);
+		Label visual = new Label(buttonText.getText());
 		visual.setScaleX(scaleSlider.getValue());
 		visual.setScaleY(scaleSlider.getValue());
-		visual.setTranslateX(130);
-		visual.setFill(Color.WHITE);
-		visual.setStroke(Color.BLACK);
-
-		Text text = new Text();
-		text.setText(buttonText.getText());
-		text.setFont(new Font(20));
-		text.setScaleX(scaleSlider.getValue());
-		text.setScaleY(scaleSlider.getValue());
-		text.setTranslateX(visual.getTranslateX()
-				+ visual.getBoundsInLocal().getWidth() * 1 / 7);
-		text.setTranslateY(visual.getTranslateY()
-				- visual.getBoundsInLocal().getHeight() * 4 / 5);
+		visual.setStyle(BUTTON_CSS);
 
 		scaleSlider.valueProperty().addListener(e -> {
 			visual.setScaleX(scaleSlider.getValue());
 			visual.setScaleY(scaleSlider.getValue());
-			text.setScaleX(scaleSlider.getValue());
-			text.setScaleY(scaleSlider.getValue());
 		});
 
 		buttonText.textProperty().addListener(e -> {
-			text.setText(buttonText.getText());
+			visual.setText(buttonText.getText());
 		});
-
+		v.setAlignment(Pos.CENTER);
 		v.getChildren().addAll(sliderBox, buttonText, new Rectangle(),
-				new Rectangle(), visual, text);
+				new Rectangle(), visual);
 
 		// Location Specifier
 		StackPane location = new StackPane();
@@ -126,9 +114,9 @@ public class ButtonEditor extends EditorComponent {
 		location.setAlignment(Pos.CENTER);
 		VBox pos = new VBox(VBOX_SPACING);
 		TextField xPos = new TextField();
-		xPos.setText("X Location");
+		xPos.setPromptText("X Location");
 		TextField yPos = new TextField();
-		yPos.setText("Y Location");
+		yPos.setPromptText("Y Location");
 		pos.getChildren().addAll(xPos, yPos);
 		location.getChildren().addAll(pos);
 
@@ -136,14 +124,21 @@ public class ButtonEditor extends EditorComponent {
 		HBox returnButtons = new HBox(HBOX_SPACING);
 		Button accept = new Button("Accept");
 		accept.setOnAction(e -> {
-			// return all information
+			//THIS ASSUMES STUFF WAS TYPED
+			//TODO: FIX THE ABOVE
+			myButton.setX(Double.parseDouble(xPos.getText()));
+			myButton.setY(Double.parseDouble(yPos.getText()));
+			myButton.setScale(scaleSlider.getValue());
+			myButton.setText(buttonText.getText());
+			myEditor.addButton(myButton);
+			stage.close();
 		});
 
 		// Cancel button
 		Button quit = new Button("Quit");
 		quit.setOnAction(e -> {
-			// ignore all information
-			System.exit(1);
+			stage.close();
+			
 		});
 
 		returnButtons.getChildren().addAll(accept, quit);
