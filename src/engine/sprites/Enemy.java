@@ -1,7 +1,6 @@
 package engine.sprites;
 
 import interfaces.Collidable;
-import interfaces.Movable;
 import interfaces.MovementStrategy;
 
 import java.awt.Shape;
@@ -12,23 +11,21 @@ import java.util.TimerTask;
 
 import engine.Path;
 import engine.gameLogic.Placement;
+import engine.gameLogic.ProjectileEffect;
 
-public class Enemy extends Sprite implements Collidable, Movable {
-
+public class Enemy extends Sprite implements Collidable {
 
 	private Integer mySpeed;
 	private MovementStrategy myMovement;
 	private Integer myDamage;
 	private Integer myHealth;
 	private Shape myCollisionBounds;
-	private LinkedList<Tile> myTilePath;
-	//private int myRad; //TODO: Purpose of this?
-	private Timer timer; //TODO: Do we need this in the EnemyClass?
-	//private Double distanceWalked; //TODO: Purpose of this?
+	private List<Tile> myTilePath;
+	private Timer myTimer; //TODO: Do we need this in the EnemyClass?
 	private Path myPath;
 
 	public Enemy(){
-		myTilePath = new LinkedList<Tile>();
+		
 	}
 
 	public void setHealth(int x){
@@ -57,21 +54,18 @@ public class Enemy extends Sprite implements Collidable, Movable {
 	
 	//TODO: Fix this with new projectile info
 	public void executeEffect(Projectile projectile) {
-	/*	// change stuff
-		mySpeed -= projectile.myEffect.getSpeedDamage();
-		// if its not final do stuff
-		if (!projectile.myEffect.isFinal()) {
-			timer = new Timer();
-			timer.schedule(
-					new reverseEffect(projectile.myEffect.getSpeedDamage()),
-					projectile.myEffect.getDuration());
+		ProjectileEffect currentEffect = projectile.getEffect();
+		if(currentEffect.isFinal()){
+			mySpeed -= currentEffect.getSpeedDamage();
+			myHealth -= currentEffect.getHealthDamage();
 		}
-		*/
-	}
-
-	
-	public void setSteps(LinkedList<Tile> steps) {
-		myTilePath = steps;
+		
+	/*	else{
+			myTimer = new Timer();
+			myTimer.schedule(
+					new reverseEffect(currentEffect.getSpeedDamage()),
+					currentEffect.getDuration());
+		}*/	
 	}
 
 	public List<String> getWalkables() {
@@ -79,11 +73,11 @@ public class Enemy extends Sprite implements Collidable, Movable {
 	}
 
 	public void setPath(Path p) {
-		myPath = p.generateNew();
+		myPath = p;
 	}
 
 	public List<Tile> getTilePath() {
-		return myTilePath;
+	return myTilePath;
 
 	}
 
@@ -106,16 +100,13 @@ public class Enemy extends Sprite implements Collidable, Movable {
 
 		public void run() {
 			mySpeed += speedChange;
-			timer.cancel();
+			myTimer.cancel();
 		}
 	}
 
 	@Override
 	public boolean isDead() {
-		if (myHealth <= 0) {
-			return true;
-		}
-		return false;
+		return myHealth <= 0;
 	}
 
 	public Shape getCollisionBounds() {
@@ -124,20 +115,18 @@ public class Enemy extends Sprite implements Collidable, Movable {
 
 	@Override
 	public void setCollisionBounds() {
-		// myCollisionBounds = new Ellipse2D.Double(myLocation.x,
-		// myLocation.y,myRad * 2, myRad * 2);
+		// TODO FIX THIS bc enemies no longer know where they are
 
 	}
 
 	@Override
 	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
+		return (this.myPath.size().compareTo(((Enemy) o).myPath.size()));
 	}
 
 	@Override
 	public Placement move() {
-		return myPath.getNext();
+		return myPath.getNextPlacement();
 	}
 
 	@Override
@@ -148,5 +137,14 @@ public class Enemy extends Sprite implements Collidable, Movable {
 
 	public MovementStrategy getMovement() {
 		return myMovement;
+	}
+
+	//TODO: Find a better way to do this?
+	@Override
+	public void fillSpriteInfo() {
+		mySpriteInfo.put("Name", myName);
+		mySpriteInfo.put("Health", myHealth.toString());
+		mySpriteInfo.put("Speed", mySpeed.toString());
+		mySpriteInfo.put("Damage", myDamage.toString());
 	}
 }

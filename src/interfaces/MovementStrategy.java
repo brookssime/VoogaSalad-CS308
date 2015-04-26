@@ -1,13 +1,12 @@
 package interfaces;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import engine.Path;
-import engine.gameLogic.Placement;
 import engine.sprites.Tile;
 
 public interface MovementStrategy {
 	
-	Path generatePath(LinkedList<Tile> pathTiles);
+	Path generatePath(List<Tile> pathTiles);
 
 }

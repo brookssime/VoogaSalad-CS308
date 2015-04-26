@@ -1,6 +1,16 @@
 package engine.controller;
 
+import java.util.Map;
+
+import engine.Environment;
+import engine.Grid;
+import engine.gameLogic.GameStats;
 import engine.gameLogic.Placement;
+import engine.gameScreens.Store;
+
+
+//TODO Where do we get the store, environment, grid, game stats, etc. from?
+//We need to actually get those in here properly
 
 public class LevelController extends Controller {
 
@@ -10,65 +20,34 @@ public class LevelController extends Controller {
 	 * @param spriteID
 	 * @param spritePlacement
 	 */
-	
 	public void placeSprite(String spriteID, Placement spritePlacement){
-		
+		Store myStore = new Store();
+		Environment myEnvironment = new Environment();
+		Grid myGrid = myEnvironment.getGrid();
+		myGrid.placeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
 	}
 	
 	/**
 	 * Takes in SpriteID
 	 * Will display information about the sprite on screen
 	 * Useful for looking at cost and health of towers, etc.
+	 * TODO: Is this okay that it returns the Sprite info directly to view?
 	 * @param spriteID
+	 * @return 
 	 */
-	public void examineSprite(String spriteID){
-		
+	public Map<String, String> examineSprite(String spriteID){
+		Environment myEnvironment = new Environment();
+		Grid myGrid = myEnvironment.getGrid();
+		return myGrid.getFromID(spriteID).getSpriteInfo();	
 	}
-	
-	/**
-	 * Starts gameplay (and timeline, etc.)
-	 */
-	public void play(){
-		//myTimeline.play();
-	}
-	
-	/**
-	 * Pauses gameplay (and timeline, etc.)
-	 */
-	public void pause(){
-		//myTimeline.stop();
-	}
-	
-	/**
-	 * Allows for player to double the speed of gameplay
-	 */
-	public void increaseGameSpeed(){
-/*		myTimeline.stop();
-		myTimeline.getKeyFrames().clear();
-		myFrameRate = 2*myFrameRate;
-		myTimeline.getKeyFrames().add(getKeyFrame(myFrameRate));
-		myTimeline.play();*/
-	}
-	
-	/**
-	 * Allows for player to cut the speed of gameplay in half
-	 */
-	public void decreaseGameSpeed(){
-	/*	myTimeline.stop();
-		myTimeline.getKeyFrames().clear();
-		myFrameRate = myFrameRate/2;
-		if(myFrameRate == 0){
-			myFrameRate = 1;
-		}
-		myTimeline.getKeyFrames().add(getKeyFrame(myFrameRate));
-		myTimeline.play();*/
-	}
-	
+
 	/**
 	 * Takes in spriteID and makes necessary changes to money, HUD, and Store
 	 */
 	public void purchaseObject(String spriteID){
-		
+		GameStats myGameStats = new GameStats();
+		Store myStore = new Store();
+		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice());
 	}
 	
 	/**
@@ -79,20 +58,16 @@ public class LevelController extends Controller {
 	 * @param spritePlacement
 	 */
 	public void sellObject(String spriteID, Placement spritePlacement){
-		
-	}
-	
-	/**
-	 * Displays the help page for players
-	 */
-	public void showHelpPage(){
-		
+		Environment myEnvironment = new Environment();
+		GameStats myGameStats = new GameStats();
+		Store myStore = new Store();
+		Grid myGrid = myEnvironment.getGrid();
+		myGrid.removeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
+		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice() * -1);	
 	}
 
+	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
-	
-	
 }

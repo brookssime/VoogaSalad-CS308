@@ -1,39 +1,23 @@
 package engine.gameScreens;
 
-import interfaces.GameObject;
 
-import java.util.List;
 import java.util.Queue;
 
-import javafx.animation.KeyFrame;
 import engine.Grid;
 import engine.GridManager;
 import engine.gameLogic.Wave;
 
-/**
- * The Class LevelScene.
- * 
- * @author Brooks, Patrick, Robert, and Sid.
- * 
- */
-public class LevelNode extends GameNode implements GameObject {
+public class LevelNode extends GameNode  {
 
-	private String myName;
-	private String myLevelTitle; 
+	//private String myLevelTitle; TODO - why
 	private Store myStore;
 	private Grid myGrid;
-	private GridManager myGridManager;
+	//private GridManager myGridManager; TODO - why
 
 	public LevelNode() {
 		super();
 	}
 	
-	@Override
-	public KeyFrame start(double frameRate){
-		myGrid.start();
-		return super.start(frameRate);
-	}
-
 	public void setStore(Store store){
 		myStore = store;
 	}
@@ -68,19 +52,5 @@ public class LevelNode extends GameNode implements GameObject {
 		return myGrid.isComplete();
 	}
 
-	@Override
-	public void setName(String name) {
-		myName = name;
-	}
 
-	@Override
-	public String getName() {
-		return myName;
-	}
-
-	//TODO: Purpose of this?
-	@Override
-	public void updateParams(List<Object> params) {
-		// TODO Auto-generated method stub
-	}
 }
