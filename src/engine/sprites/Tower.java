@@ -29,8 +29,6 @@ public class Tower extends Sprite implements Shootable{
 	private Projectile myProjectile;
 	private Range myRangeObject;
 	private int myRange; // <<--only for Xstream purposes
-	// private Double myCurRotation;
-	// private Double myTargetRotation;
 	private Double myRotationSpeed;
 	private boolean isReady;
 	private Path myPath;
@@ -63,7 +61,7 @@ public class Tower extends Sprite implements Shootable{
 	@Override
 	public void update() {
 		// TODO set myPath up here, including checking for firing and whatnot
-		
+		myPath.elongate();
 	}
 	
 

@@ -54,15 +54,15 @@ public class GridManager {
 				
 			}
 			if(Arrays.asList(o.getClass().getClasses()).contains(Sprite.class)){
-				mySprites.add((Sprite) o);
+				mySprites.add(o);
 			}
 		}
 	}
 
 	public void update(){
 		checkCollidables();
-		moveSprites();
 		checkShootables();
+		moveSprites();
 		clearSprites();
 		spawnEnemies();
 	}
@@ -74,10 +74,10 @@ public class GridManager {
 	public boolean isComplete() {
 		if (myBase.isDead()) {
 			return true;
-		} else if (myGameWon == true) {
-			return true;
-		} 
-		return false;
+		} else
+			return (myGameWon);
+		
+	
 		
 	}
 
@@ -128,7 +128,7 @@ public class GridManager {
 
 	private void moveSprites() {
 		for (Sprite sprite : mySprites) {
-			//myGrid.move(sprite, sprite.move()); //TODO figure this out -- how to we add objects to the Grid?
+			myGrid.move(sprite, sprite.move()); 
 		}
 	}
 
