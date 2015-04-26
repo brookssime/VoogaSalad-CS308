@@ -67,6 +67,8 @@ public class RunGamePlayer extends Application{
 		    
 		    screenHeight = bounds.getHeight();
 		    screenWidth = bounds.getWidth();
+		    System.out.println(screenHeight);
+		    System.out.println(screenWidth);
 		    adjustRate = screenHeight/877;
 		    stage.setWidth(screenWidth);
 		    stage.setHeight(screenHeight);

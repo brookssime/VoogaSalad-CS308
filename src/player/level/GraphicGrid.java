@@ -1,15 +1,20 @@
 package player.level;
 
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import engine.gameLogic.Placement;
+import engine.sprites.Sprite;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 
 public class GraphicGrid implements Observer{
 	private GridPane myGrid;
+	private StackPane myPane;
 	private double screenWidth, screenHeight;
 	@Override
 	public void update(Observable o, Object arg) {
@@ -19,6 +24,7 @@ public class GraphicGrid implements Observer{
 	public GraphicGrid(double screenWidth, double screenHeight){
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
+		myPane = new StackPane();
 	}
 	public Node getNode(){
 		myGrid = new GridPane();
@@ -65,7 +71,24 @@ public class GraphicGrid implements Observer{
 				myGrid.add(c.getPane(), column, row);
 			}
 		}
-		return myGrid;
+		myPane.getChildren().add(myGrid);
+		return myPane;
+	}
+	public void updateSprite(Map<Sprite, Placement> myMap) {
+		myPane.getChildren().clear();
+		myPane.getChildren().add(myGrid);
+		for(Sprite mySprite : myMap.keySet()){
+			setSprite(mySprite, myMap.get(mySprite));
+		}
+		
+	}
+	private void setSprite(Sprite mySprite, Placement placement) {
+		Image image = new Image(mySprite.getImagePath());
+		ImageView sprite = new ImageView(image);
+		myPane.getChildren().add(sprite);
+		sprite.setLayoutX(placement.getLocation().x);
+		sprite.setLayoutY(placement.getLocation().y);
+		
 	}
 
 }
