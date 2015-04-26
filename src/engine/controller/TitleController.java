@@ -7,4 +7,10 @@ package engine.controller;
  */
 public class TitleController extends Controller {
 
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

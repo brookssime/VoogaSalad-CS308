@@ -4,50 +4,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import engine.gameLogic.GameObject;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Wave;
 import engine.sprites.Sprite;
 import engine.sprites.Tile;
 
-/**
- * The Class Grid.
- * 
- * @author Brooks, Patrick, Robert, and Sid.
- * 
- */
-public class Grid extends GameObject implements Observable{
+public class Grid extends GameObject{
 
-
-	/** The my name. */
 	private String myName;
-
-	/** The my tiles. */
 	public Tile[][] myTiles;
-
-	/** The my grid manager. */
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;	
 	private List<Tile> myPorts;
+	private Map<String, Sprite> mySpriteNames; //TODO: This needs to be populated
 	
-
-	/**
-	 * Instantiates a new grid.
-	 *
-	 * @param width the width
-	 * @param height the height
-	 */
 	public Grid(int width, int height){
 		myTiles = new Tile[width][height];
 		myGridManager = new GridManager(this);
 		init();
 	}
 
-	/**
-	 * Instantiates a grid that connects to the gridmanager
-	 */
 	public Grid(Grid grid, GridManager gm){
 		myName = grid.myName;
 		myTiles = grid.myTiles;
@@ -55,10 +32,21 @@ public class Grid extends GameObject implements Observable{
 		myPorts = grid.myPorts;
 		myGridManager = gm;
 	}
+	
 	public Tile[][] getTiles(){
 		return myTiles;
 	}
 
+	public void moveSprite(Sprite s, Placement p){
+		mySpriteMap.put(s, p);
+	}
+	
+	public void refreshHeadings(){
+		for(Sprite s : mySpriteMap.keySet()){
+			mySpriteMap.get(s).normalize();
+		}
+	}
+	
 	public Map<Sprite, Placement> getSpriteMap(){
 		return mySpriteMap;
 	}
@@ -79,6 +67,7 @@ public class Grid extends GameObject implements Observable{
 	}
 
 	public void update(){
+		refreshHeadings();
 		myGridManager.update();
 		//myGridManager.checkComplete();
 	}
@@ -87,61 +76,28 @@ public class Grid extends GameObject implements Observable{
 		myTiles = tiles;
 	}
 
-	public void placeSpriteAt(Sprite o, Placement p){
-		mySpriteMap.put(o, p);
+	public void placeSpriteAt(Sprite sprite, Placement spritePlacement){
+		mySpriteMap.put(sprite, spritePlacement);
 	}
-
-
-	/**
-	 * Adds the tile.
-	 *
-	 * @param t the t
-	 * @param x the x
-	 * @param y the y
-	 */
+	
+	public void removeSpriteAt(Sprite sprite, Placement spritePlacement){
+		mySpriteMap.remove(sprite, spritePlacement);
+	}
+	
 	public void addTile(Tile t, int x, int y){
 		myTiles[x][y] = t;
 	}
 
-
-	/**
-	 * Sets the port.
-	 *
-	 *
-	 */
 	public void setPort(List<Tile> t){
 		myPorts = t;
 	}
 
-	/**
-	 * Gets the port.
-	 *
-	 * @return the port
-	 */
 	public List<Tile> getPort(){
 		return myPorts;
 	}
 
-	/**
-	 * Gets the tile.
-	 *
-	 * @param x the x
-	 * @param y the y
-	 * @return the tile
-	 */
 	public Tile getTile(int x, int y){
 		return myTiles[x][y];
-	}
-
-	@Override
-	public void addListener(InvalidationListener listener) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeListener(InvalidationListener listener) {
-		// TODO Auto-generated method stub
 	}
 
 	public boolean isComplete() {
@@ -164,5 +120,14 @@ public class Grid extends GameObject implements Observable{
 
 	public Queue<Wave> getWaves() {
 		return myGridManager.getWaves();
+	}
+	
+	public Sprite getFromID(String inputSprite){
+		for (String spriteName: mySpriteNames.keySet()){
+			if (spriteName == inputSprite){
+				return mySpriteNames.get(spriteName);
+			}
+		}
+		return null; //TODO: Throw an error?
 	}
 }

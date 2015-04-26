@@ -19,8 +19,6 @@ import java.util.Queue;
  */
 public class DialogueNode extends GameNode{
 
-	/** The my name. */
-	private String myName;
 	
 	/** The my dialogue. */
 	private Queue<DialogueBox> myDialogueBoxes;

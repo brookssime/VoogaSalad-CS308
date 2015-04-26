@@ -2,16 +2,10 @@ package engine.gameLogic;
 
 import interfaces.Collidable;
 import interfaces.Shootable;
-
-import java.awt.Point;
-import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
-
 import engine.Grid;
 import engine.Path;
 import engine.sprites.Enemy;
@@ -21,9 +15,9 @@ import engine.sprites.Tile;
 public class PathFinder {
 	
 	private Grid myGrid;
-	private HashMap<String, Path> myEnemyPaths; 
-	// this will be an issue when multiple enemies of the same type require different paths..
-	// ie multiple different ports with the same waves
+	private HashMap<String, LinkedList<Tile>> myEnemyPaths; 
+	// TODO this will be an issue when multiple enemies of the same type require different paths..
+	// ie multiple different ports with the same waves-MAKE SURE that the same enemy out of different waves has a different name
 	
 	public PathFinder(Grid grid){
 		myGrid = grid;
@@ -34,10 +28,10 @@ public class PathFinder {
 		if(!myEnemyPaths.containsKey(enemy.getName()))
 			myEnemyPaths.put(enemy.getName(), findEnemyPath(enemy, myGrid.getPortFor(w)));
 		
-		enemy.setPath(myEnemyPaths.get(enemy.getName()));
+		enemy.setPath(convertToPath(myEnemyPaths.get(enemy), enemy));
 	}
 	
-	public Path findEnemyPath(Enemy enemy, Tile port){
+	public LinkedList<Tile> findEnemyPath(Enemy enemy, Tile port){
 		Tile current = port;
 		LinkedList<Tile> path = new LinkedList<Tile>();
 		boolean pathFound = false;
@@ -49,7 +43,7 @@ public class PathFinder {
 				
 			}
 		}
-		return convertToPath(path, enemy);
+		return path;
 	}
 	
 
@@ -57,48 +51,9 @@ public class PathFinder {
 		
 		return enemy.getMovement().generatePath(tiles);
 		
-		
-		
 	}
 	
-	/*// Given two points which represent two tiles on the ends of a straightaway
-	List<Placement> generateStretch(Placement p1, Placement p2, EnemyMovement m){
-		
-		Point2D.Double start = (Point2D.Double) p1.getLocation().clone(); // TODO MAKE SURE THE UPDATES BELOW...
-		Point2D.Double end = (Point2D.Double) p2.getLocation().clone();
-		
-		int myCoordProperty = 0;
 	
-		// 1. Adjust actual coordinates as necessary from Tile Locations
-		
-		if(start.x != end.x){
-			start.setLocation(start.x + (myGrid.getTiles()[(int)start.x][(int)start.y].getWidth())*((start.x < end.x)?1:0) , start.y); 
-			end.setLocation(end.x + (myGrid.getTiles()[(int)end.x][(int)end.y].getWidth())*((start.x < end.x)?0:1), end.y);
-			myCoordProperty = 0;
-		}
-		
-		else if(start.y != end.y){
-			start.setLocation(start.x, start.y + (myGrid.getTiles()[(int)start.x][(int)start.y].getWidth())*((start.y < end.y)?1:0));
-			end.setLocation(end.x, end.y + (myGrid.getTiles()[(int)end.x][(int)end.y].getWidth())*((start.y < end.y)?0:1));
-			myCoordProperty = 1;
-		}
-		
-		// ...RESULT IN p1 and p2 BEING UPDATED HERE^^ TODO
-		// calculate Placements based on points and coordinate property
-		
-		List<Placement> stretch = m.makeStretch(p1, p2, myCoordProperty);
-		return stretch;
-		
-
-	}*/
-	
-	// Given two points which represent Tiles on either side of a Corner Tile
-	/*List<Placement> generateTurn(Placement start, Placement end, EnemyMovement m){
-		// TODO 
-		
-		List<Placement> turn = m.makeTurn(start, end);
-		return turn;
-	}*/
 	
 	
 
@@ -115,10 +70,8 @@ public class PathFinder {
 	}
 	
 	public List<Tile> getTileNeighbors(Tile t){
-		if (t == null)
-			System.out.println("Grid.getTileNeighbors called with null Tile");
-		int x = t.getX();
-		int y = t.getY();
+		int x = t.getGridLocation().x;
+		int y = t.getGridLocation().y;
 		List<Tile> neighbors = new ArrayList<Tile>();
 		int[] dx = {1, -1, 0, 0};
 		int[] dy = {0, 0, 1, -1};
@@ -130,8 +83,6 @@ public class PathFinder {
 					y + dy[i] >= 0){
 				Tile temp = (myGrid.getTiles()[x + dx[i]][y + dy[i]]);
 				neighbors.add(temp);
-				//System.out.println(temp.getX() + ", " + temp.getY());
-				
 			}
 		}
 
@@ -146,7 +97,7 @@ public class PathFinder {
 	public void generateProjectile(Projectile projectile, Path path) {
 		Projectile newP = new Projectile(projectile);
 		newP.setPath(path);
-		myGrid.placeSpriteAt(projectile, path.getNext());
+		myGrid.placeSpriteAt(projectile, path.getNextPlacement());
 	}
 
 }

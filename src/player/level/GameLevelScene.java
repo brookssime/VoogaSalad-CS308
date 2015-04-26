@@ -3,6 +3,7 @@ package player.level;
 import java.util.Map;
 
 import engine.*;
+import engine.controller.Controller;
 import engine.controller.LevelController;
 import engine.gameLogic.Placement;
 import engine.gameScreens.LevelNode;
@@ -46,7 +47,7 @@ public class GameLevelScene implements GraphicGameScene{
 	private static final int MENU_SPACING = 50;
 	private static final int SLIDER_SPACING = 10;
 	private static final int NUM_FRAMES_PER_SECOND = 60;
-	private LevelController myController;
+	private LevelController myController = new LevelController();
 	private LevelNode mylevelnode;
 	//private double infoBoxWidthPct = .6;
 	//private double infoBoxHeightPct = .7;
@@ -78,6 +79,8 @@ public class GameLevelScene implements GraphicGameScene{
 	private Stage primaryStage;
 	private KeyFrame frame;
 	private Timeline animation;
+	private Button speedUpButton;
+	private Button slowDownButton;
 	//private int currentTime
 	public GameLevelScene(Stage stage, double screenWidth, double screenHeight){
 		//this.root = new Group();
@@ -202,6 +205,10 @@ public class GameLevelScene implements GraphicGameScene{
 		result.setSpacing(MENU_SPACING);
 		pausePlayButton = makeButton(PAUSE_PLAY);
 		pausePlayButton.setOnAction((e)->pause());
+		speedUpButton = makeButton("Speed Up");
+		speedUpButton.setOnAction((e)->speedUp());
+		slowDownButton = makeButton("Slow Down");
+		slowDownButton.setOnAction((e)->slowDown());
 		result.setSpacing(100);
 		result.setPadding(new Insets(10,30,10,30));
 		levelLabel = new Label("Level: " + levelNum);
@@ -210,7 +217,7 @@ public class GameLevelScene implements GraphicGameScene{
 		healthLabel = new Label("Health: " + healthNum);
 		//resetButton = makeButton(RESET);
 		//stepButton = makeButton(STEP);
-		result.getChildren().addAll(levelLabel, moneyLabel, scoreLabel, healthLabel, pausePlayButton, initiateSpeedSlider());
+		result.getChildren().addAll(levelLabel, moneyLabel, scoreLabel, healthLabel, pausePlayButton, speedUpButton, slowDownButton);
 		return result;
 	}
 	
@@ -277,7 +284,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void pause(){
-		
+		myController.pause();
 	}
 	
 	/**
@@ -285,7 +292,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void resume(){
-		
+		myController.play();
 	}
 	
 	/**
@@ -293,6 +300,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void speedUp(){
+		//animation.stop();
 		gamespeed = gamespeed/2;
 	}
 	
