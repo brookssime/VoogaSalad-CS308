@@ -52,13 +52,13 @@ public class GameChoiceScreen {
 		
 		generateGameInfoScreensMap(availGames);
 		
-		GameChoiceBox gameChoiceBox = new GameChoiceBox(choiceBoxWidth, choiceBoxHeight, gameInfoBox);
+		GameChoiceBox gameChoiceBox = new GameChoiceBox(choiceBoxWidth, choiceBoxHeight, gameInfoBox, availGames);
 		
 		
 		root.getChildren().add(gameChoiceBox);
 		root.getChildren().add(gameInfoBox);
 		
-		gameChoiceBox.setLayoutX(.1 * screenWidth);
+		//gameChoiceBox.setLayoutX(.1 * screenWidth);
 		gameChoiceBox.setLayoutY(.15 * screenHeight);
 		
 		
