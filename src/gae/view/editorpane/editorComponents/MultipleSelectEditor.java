@@ -1,4 +1,4 @@
-package gae.editorComponents;
+package gae.view.editorpane.editorComponents;
 
 import gae.model.Receiver;
 
@@ -36,7 +36,7 @@ import javafx.util.Callback;
  */
 public class MultipleSelectEditor extends EditorComponent{
 
-	public MultipleSelectEditor(Receiver receiver, Method setMethod, Method getMethod,
+	public MultipleSelectEditor(Receiver receiver, Method setMethod,
 			String objectName) {
 		super(receiver, setMethod, objectName);
 	}
@@ -44,7 +44,7 @@ public class MultipleSelectEditor extends EditorComponent{
 	@Override
 	public void setUpEditor() {
 		//Steps:
-		//1) need to get parameters -> all access ids [not necessary for this component?...DONE?]
+		//1) need to get parameters -> objects of type...but what type...? []
 		//2) then need to construct UI [DONE]
 		//3) then set UI with getFromObject method [DONE]
 		//4) then create button to update inventory [DONE]

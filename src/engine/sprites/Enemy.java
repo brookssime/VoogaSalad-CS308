@@ -1,6 +1,7 @@
 package engine.sprites;
 
 import interfaces.Collidable;
+import interfaces.MethodAnnotation;
 import interfaces.MovementStrategy;
 
 import java.util.LinkedList;
@@ -29,14 +30,17 @@ public class Enemy extends Sprite implements Collidable {
 		
 	}
 
+	@MethodAnnotation(editor=true, name = "Set Health", type = "textfield", fieldName = "myHealth")
 	public void setHealth(int x){
 		myHealth = x;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Speed", type = "textfield", fieldName = "mySpeed")
 	public void setSpeed(int x){
 		mySpeed = x;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Damage", type = "textfield", fieldName = "myDamage")
 	public void setDamage(int x){
 		myDamage = x;
 	}

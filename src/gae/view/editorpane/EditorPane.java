@@ -11,9 +11,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCombination;
-import gae.editorComponents.Editor;
 import gae.model.Receiver;
 import gae.view.GAEPane;
+import gae.view.editorpane.editorComponents.Editor;
 import gae.view.menupane.MenuAdder;
 
 /**
