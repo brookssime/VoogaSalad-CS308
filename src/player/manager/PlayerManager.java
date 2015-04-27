@@ -2,7 +2,7 @@ package player.manager;
 
 import engine.Grid;
 import engine.HeadsUpDisplay;
-import engine.controller.Controller;
+import engine.Controller;
 import engine.gameLogic.Placement;
 import engine.gameScreens.DialogueBox;
 import engine.gameScreens.Store;

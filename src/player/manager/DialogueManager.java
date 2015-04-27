@@ -10,6 +10,7 @@ import engine.gameScreens.DialogueBox;
  *
  */
 public interface DialogueManager {
-	public String getNextDialogueText();
-	public String getNextDialogueImage();
+	//public String getNextDialogueText();
+	//public String getNextDialogueImage();
+	public void showNextDialogue();
 }
