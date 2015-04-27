@@ -156,10 +156,10 @@ public class GridManager {
 	
 	//TODO: THIS IS SOOOO TERRIBLEEEEEE
 	private boolean isCollision(Collidable spriteCollidedWith, Collidable spriteCollider){
-		Integer spriteCollidedWithX = myGrid.getSpriteMap().get(spriteCollidedWith).getLocation().x; 
-		Integer spriteCollidedWithY = myGrid.getSpriteMap().get(spriteCollidedWith).getLocation().y; 
-		Integer spriteColliderX = myGrid.getSpriteMap().get(spriteCollidedWith).getLocation().x; 
-		Integer spriteColliderY = myGrid.getSpriteMap().get(spriteCollidedWith).getLocation().y; 
+		Integer spriteCollidedWithX = myGrid.getPlacement(spriteCollidedWith).getLocation().x;
+		Integer spriteCollidedWithY = myGrid.getPlacement(spriteCollidedWith).getLocation().y;
+		Integer spriteColliderX = myGrid.getPlacement(spriteCollider).getLocation().x;
+		Integer spriteColliderY = myGrid.getPlacement(spriteCollider).getLocation().y;
 		
 		Shape shapeA = (Shape) new Ellipse2D(spriteCollidedWithX, spriteCollidedWithY, spriteCollidedWith.getCollisionHeight(), spriteCollidedWith.getCollisionWidth());
 		Shape shapeB = (Shape) new Ellipse2D(spriteColliderX, spriteColliderY, spriteCollider.getCollisionHeight(), spriteCollider.getCollisionWidth());
