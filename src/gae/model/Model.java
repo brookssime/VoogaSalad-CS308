@@ -1,6 +1,7 @@
 package gae.model;
 
 import engine.gameLogic.GameObject;
+import engine.gameScreens.NodeButton;
 import gae.model.inventory.Inventory;
 import gae.view.inventorypane.UpdateListener;
 import game_data.XMLWriter;
@@ -41,6 +42,16 @@ public class Model implements Receiver {
 	}
 	
 	@Override
+	public void runOnObjectSwap(String obj, Method method, Object... params) {
+		myInventory.runOnObjectSwap(obj, method, params);
+	}
+	
+	@Override
+	public boolean isInvObject(String type) {
+		return myInventory.isInvObject(type);
+	}
+	
+	@Override
 	public List<Method> getEditorMethods(String obj) {
 		return myInventory.getEditorMethods(obj);
 	}
@@ -48,6 +59,11 @@ public class Model implements Receiver {
 	@Override
 	public Object getFromObject(String obj, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException {
 		return myInventory.getFromObject(obj, fieldName);
+	}
+	
+	@Override
+	public List<NodeButton> getButtonList(String obj) {
+		return myInventory.getButtonList(obj);
 	}
 
 	@Override
