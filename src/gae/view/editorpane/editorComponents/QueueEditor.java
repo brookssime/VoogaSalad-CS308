@@ -1,4 +1,4 @@
-package gae.editorComponents;
+package gae.view.editorpane.editorComponents;
 
 import gae.model.Receiver;
 import interfaces.ParameterAnnotation;

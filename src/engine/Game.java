@@ -1,5 +1,6 @@
 package engine;
 
+import interfaces.MethodAnnotation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,7 @@ public class Game extends GameObject {
 		myCurNode.render();
 	}
 
+	@MethodAnnotation(editor=true, name = "Set Head", type = "game", fieldName = "myStartNode")
 	public void setHead(GameNode head) {
 		myStartNode = head;
 	}
