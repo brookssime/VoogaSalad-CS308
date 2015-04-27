@@ -5,16 +5,15 @@ import engine.gameScreens.LevelNode;
 
 public class TimeCondition extends Condition{
 	
-	private boolean isTimed;
 
 	public TimeCondition(LevelNode levelNode) {
-		super(levelNode);
-		isTimed = (myLevelNode.getTotalTime()!=0);
+		super();
 	}
 
 	@Override
-	public NodeState evaluate() {
-		if(isTimed && myLevelNode.calculateRemainingTime()==0){
+	public NodeState evaluate(LevelNode levelNode) {
+		
+		if(levelNode.getTotalTime()!=0 && levelNode.calculateRemainingTime()==0){
 			return NodeState.TIME_UP;
 		}
 		return NodeState.RUNNING;
