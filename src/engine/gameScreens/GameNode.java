@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import engine.NodeState;
 import engine.gameLogic.GameObject;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
@@ -16,6 +17,8 @@ import javafx.util.Duration;
  * 
  */
 public abstract class GameNode extends GameObject{
+	
+	// TODO INITIALIZE THE GUI ONCE WE HAVE THE IMPLEMENTATION FROM FANGYI + SAJAL
 	
 	private List<NodeButton> myNodeButtons;
 
@@ -60,7 +63,7 @@ public abstract class GameNode extends GameObject{
 	/**
 	 * Check complete.
 	 */
-	public abstract boolean isComplete();
+	public abstract NodeState checkState();
 	
 	public abstract void render();
 
@@ -73,15 +76,7 @@ public abstract class GameNode extends GameObject{
 		return nextNodes.get(key);
 	}
 	
-	/**
-	 * Gets the cur scene.
-	 *
-	 * @return the cur scene
-	 */
-	public KeyFrame getCurScene(){
-		return myScene;
-	}
-		
+
 	/**
 	 * Sets the next scene.
 	 *

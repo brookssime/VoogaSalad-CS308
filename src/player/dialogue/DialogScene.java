@@ -1,6 +1,6 @@
 package player.dialogue;
 
-import engine.controller.Controller;
+import engine.Controller;
 import engine.gameScreens.DialogueBox;
 import player.GraphicGameScene;
 import javafx.scene.Group;
