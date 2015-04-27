@@ -36,6 +36,14 @@ public class Store extends GameObject {
 		// TODO make this CLONE the object instead of returning the same instance
 	}
 	
+	public void setBackgroundImagePath(String imagePath){
+		myBackgroundImagePath = imagePath;
+	}
+	
+	public void setSellPercentage(Integer sellPercentage){
+		mySellPercentage = sellPercentage;
+	}
+	
 	public Integer getTowerCost(Tower tower){
 		return myTowersOnSale.get(tower);
 	}

@@ -19,8 +19,6 @@ import javafx.util.Duration;
  */
 public abstract class GameNode extends GameObject {
 
-	
-
 	protected PlayerManager myPlayerManager; 
 	// TODO ensure that this ^^ is set correctly AFTER the node is recreated from Xstream
 	private List<NodeButton> myNodeButtons;
