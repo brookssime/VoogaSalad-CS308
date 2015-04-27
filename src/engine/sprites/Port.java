@@ -1,31 +1,28 @@
 package engine.sprites;
 
+import java.awt.Point;
+
 import engine.gameLogic.Placement;
 
-/**
- * The Class Port.
- * 
- * @author Brooks, Patrick, Robert, and Sid.
- */
 public class Port extends Sprite{
 
+	Point myLocation;
+	
 	public Port(){
 		
 	}
-
-	/**
-	 * Could be a later feature to have ports die
-	 * Towers could kill enemy ports to win a level, for example
-	 */
-	@Override
-	public boolean isDead() {
-		return false;
+	
+	public void setLocation(Point location){
+		myLocation = location;
+	}
+	
+	public Point getLocation(){
+		return myLocation;
 	}
 
 	@Override
 	public Placement move() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Placement(myLocation); // REVIEW: Make sure this doesn't ever need to return an orientation...currently set to null
 	}
 
 	@Override

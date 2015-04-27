@@ -12,8 +12,8 @@ import javafx.stage.Stage;
 
 public class RunGamePlayer extends Application{
 	
-	public static double screenWidth;
-	public static double screenHeight;
+	public static double screenWidth = 1200;
+	public static double screenHeight = 800;
 	public static double adjustRate;
 	
 	private Screen screen;

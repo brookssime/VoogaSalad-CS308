@@ -1,66 +1,78 @@
 package engine.gameScreens;
 
+import java.util.ArrayList;
 import java.util.Queue;
 
 import engine.Grid;
 import engine.GridManager;
 import engine.HeadsUpDisplay;
+import engine.NodeState;
+import engine.conditions.Condition;
+import engine.gameLogic.GameStats;
+import engine.gameLogic.Placement;
 import engine.gameLogic.Wave;
 
 public class LevelNode extends GameNode  {
 
-	//private String myLevelTitle; TODO - why
 	private Store myStore;
-	
-	/** The my grid. */
 	private Grid myGrid;
 	private HeadsUpDisplay myHUD;
-	private GridManager myGridManager;
-	//private GridManager myGridManager; TODO - why
+	private ArrayList<Condition> myConditions;
+	private GameStats myGameStats;
+	private long myStartTime;
 
 	public LevelNode() {
 		super();
+		myStartTime = System.nanoTime();
 	}
 	
-
-
 	@Override
 	public void render() {
-		// TODO Fill in with appropriate calls as we get a Player API
+		// TODO FILL IN WITH APPROPRIATE CALLS FOR LEVELNODE ONCE AVAILABLE
 		
 	}
 	
-	private void init(){
-		//how does this make sense?
-		myGrid = new Grid(myGrid, myGridManager);
-		myStore  = new Store();
-		myHUD = new HeadsUpDisplay();
+	// increment money appropriately and place on grid
+	public void purchaseSprite(String SpriteID, Placement spritePlacement){
+		myGameStats.updateMoney(-1*myStore.getTowerCost(myStore.getFromID(SpriteID)));
+		myGrid.placeSpriteAt(myStore.getFromID(SpriteID), spritePlacement);
+		render();
 	}
-
+	
+	public void placeSprite(String SpriteID, Placement spritePlacement){
+		myGrid.placeSpriteAt(myStore.getTowerFromName(SpriteID), spritePlacement);
+		
+	}
+	
+	public void sellObject(String spriteID, Placement spritePlacement){
+		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice() * -myStore.getSellPercentage());
+		myGrid.removeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
+		myGrid.removeSpriteAt(myStore.getFromID(spriteID).getRangeObject(), spritePlacement);
+		render();
+	}
+	
+	// REVIEW make sure that the Player displays the range correctly in addition to the model updating the HUD
+	// REVIEW make sure that the player can accurately display a popup with the enemy's data
+	void examineSprite(String SpriteID, Placement spritePlacement){
+		render();
+	}
 	
 	public HeadsUpDisplay getHUD(){
 		return myHUD;
 	}
 
-	public GridManager getGridManager() {
-		return myGridManager;
-	}
 	
 	public void setStore(Store store){
 		myStore = store;
 	}
 	
-	//TODO: MAKE SURE this is all that needs to be set up
 	public void setGrid(Grid grid){
 		myGrid = new Grid(grid, new GridManager(myGrid));
-		//myGridManager = new GridManager(grid);
+		
 	}
-	
-	//TODO: make sure this is the right way to handle this
+
 	public void setWaves(Queue<Wave> waves){
 		myGrid.setWaves(waves);
-		//myWaves = waves;
-
 	}
 	
 	public Grid getGrid(){
@@ -75,16 +87,16 @@ public class LevelNode extends GameNode  {
 		return myStore;
 	}
 	
-	/* (non-Javadoc)
-	 * @see engine.GameScene#update()
-	 */
 	public void update(){	
 		myGrid.update();
-		//checkComplete();
+		myGameStats.getTimeElapsed(myStartTime);
 	}
 
-	public boolean isComplete(){
-		return myGrid.isComplete();
+	public NodeState checkState(){
+		return NodeState.RUNNING;
 	}
-
+	
+	public void setGameStats(GameStats gamestats){
+		myGameStats = gamestats;
+	}
 }

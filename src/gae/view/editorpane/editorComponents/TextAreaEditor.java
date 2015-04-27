@@ -44,6 +44,7 @@ public class TextAreaEditor extends EditorComponent{
                     }
                 });
 		myReceiver.runOnObject(myObject, myMethod, contents);	
+		this.getChildren().add(areaField);
 	}
 
 	

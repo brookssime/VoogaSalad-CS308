@@ -1,5 +1,7 @@
 package engine;
 
+import interfaces.Collidable;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -15,8 +17,8 @@ public class Grid extends GameObject{
 	public Tile[][] myTiles;
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;	
-	private List<Tile> myPorts;
-	private Map<String, Sprite> mySpriteNames; //TODO: This needs to be populated
+	//private List<Tile> myPorts;
+	//private Map<String, Sprite> mySpriteNames; //
 	
 	public Grid(int width, int height){
 		myTiles = new Tile[width][height];
@@ -28,7 +30,6 @@ public class Grid extends GameObject{
 		myName = grid.myName;
 		myTiles = grid.myTiles;
 		mySpriteMap = grid.mySpriteMap;
-		myPorts = grid.myPorts;
 		myGridManager = gm;
 	}
 	
@@ -87,14 +88,6 @@ public class Grid extends GameObject{
 		myTiles[x][y] = t;
 	}
 
-	public void setPort(List<Tile> t){
-		myPorts = t;
-	}
-
-	public List<Tile> getPort(){
-		return myPorts;
-	}
-
 	public Tile getTile(int x, int y){
 		return myTiles[x][y];
 	}
@@ -121,17 +114,25 @@ public class Grid extends GameObject{
 		return myGridManager.getWaves();
 	}
 	
-	public Sprite getFromID(String inputSprite){
-		for (String spriteName: mySpriteNames.keySet()){
-			if (spriteName == inputSprite){
-				return mySpriteNames.get(spriteName);
-			}
-		}
-		return null; //TODO: Throw an error?
-	}
-
 	public void move(Sprite sprite, Placement move) {
 		mySpriteMap.put(sprite, move);
 		
+	}
+	
+	public void placeSpriteIDAt(String SpriteID, Placement p){
+		
+	}
+	
+	//maybe we'll need this idk
+//	public Sprite getSpritefromPlacement (Placement p){
+//		for (Sprite mySprite : mySpriteMap.keySet()){
+//			if (mySpriteMap.get(mySprite).equals(p))
+//				return mySprite;
+//		}
+//		return null;
+//	}
+	
+	public Placement getPlacement(Collidable s){
+		return mySpriteMap.get(s);
 	}
 }

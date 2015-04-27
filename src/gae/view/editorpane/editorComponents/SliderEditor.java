@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
@@ -28,9 +27,7 @@ public class SliderEditor extends EditorComponent{
     private Double val;
 
     public SliderEditor(Receiver receiver, Method setMethod, String objectName) {
-        super(receiver, setMethod, objectName);
-        //In case the sliderEditorParams method is not called
-        
+        super(receiver, setMethod, objectName);        
     }
 
     @Override
@@ -45,38 +42,32 @@ public class SliderEditor extends EditorComponent{
             mySlider.setValue(val);
             myCur = val;
         }
-        h.getChildren().add(sliderSetUp());
+        h.getChildren().add(mySlider);
+        sliderSetUp();
         this.getChildren().add(h);
     }
-    
-    public void sliderEditorParams(double min, double max) {
-        myMin = min;
-        myMax = max;
-        myCur = Math.floor((max-min)/2);
-    }
 
-    public Node sliderSetUp() {
+    public void sliderSetUp() {
         System.out.println(myMax + myMin);
         mySlider.setMax(myMax);
         mySlider.setMin(myMin);
         mySlider.setValue(myCur);
+        mySlider.setBlockIncrement(0.25);
         mySlider.setShowTickLabels(true);
         mySlider.setMajorTickUnit(myCur);
 
         final Label sliderVal = new Label(Double.toString(mySlider.getValue()));
+        h.getChildren().add(sliderVal);
 
         mySlider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                     Number old_val, Number new_val) {
-                val = Double.parseDouble(String.format("%.2f", new_val));
-                sliderVal.setText(val.toString());
+                sliderVal.setText(Double.toString(mySlider.getValue()));
                 //Integer myVal = (int) mySlider.getValue();
                 //sliderVal.setText(myVal.toString());
-                myReceiver.runOnObject(myObject, myMethod, val);
+                myReceiver.runOnObject(myObject, myMethod, mySlider.getValue());
             }
         });
-
-        return mySlider;
     }
 
     /*public Integer intValue() {// This is to be used on save event

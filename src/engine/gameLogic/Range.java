@@ -2,22 +2,18 @@ package engine.gameLogic;
 
 import interfaces.Collidable;
 
-import java.awt.Point;
-import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
-import engine.sprites.Enemy;
+import engine.sprites.Sprite;
 
-public class Range implements Collidable{
+public class Range extends Sprite implements Collidable{
 
 	private ArrayList<Collidable> objectsInRange = new ArrayList<Collidable>();
-	private Shape myCollisionBounds;
-	private Point myLocation;
-	private int myRadius;
+	private Integer myCollisionHeight;
+	private Integer myCollisionWidth;
 
-	public Range(int x, int y, int r){
-		myCollisionBounds = new Ellipse2D.Double(x, y, r, r);
+	public Range(){
+		
 	}
 
 	public ArrayList<Collidable> getObjectsInRange(){
@@ -27,34 +23,51 @@ public class Range implements Collidable{
 	}
 
 	@Override
-	public boolean evaluateCollision(Collidable collider) {
-		if((isCollision(collider))){
-			objectsInRange.add(collider); 
-			return true;
-		}
-		return false;
+	public void evaluateCollision(Collidable collider) {
+		objectsInRange.add(collider); 
 	}
 
-	/**
-	 * Refresh enemies.
-	 * TODO: Finish this
-	 */
-	private void refreshObjects(){
-		objectsInRange.clear(); // TODO figure out where this gets called in the loop -- currently nowhere
-	}
-
-	public void setCollisionBounds() {
-		myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRadius*2, myRadius*2);
-	}
-
-	@Override
-	public Shape getCollisionBounds() {
-		return myCollisionBounds;
+	public void refreshObjects(){
+		objectsInRange.clear();
 	}
 
 	@Override
 	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean isDead() {
+		return false;
+	}
+
+	@Override
+	public void setCollisionHeight(Integer height) {
+		myCollisionHeight = height;
+	}
+
+	@Override
+	public void setCollisionWidth(Integer width) {
+		myCollisionWidth = width;	
+	}
+
+	@Override
+	public Integer getCollisionHeight() {
+		return myCollisionHeight;
+	}
+
+	@Override
+	public Integer getCollisionWidth() {
+		return myCollisionWidth;
+	}
+
+	@Override
+	public Placement move() {
+		return null;
+	}
+
+	@Override
+	public void fillSpriteInfo() {
+		
 	}
 }

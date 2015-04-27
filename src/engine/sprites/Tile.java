@@ -2,30 +2,16 @@ package engine.sprites;
 
 import java.awt.Point;
 
+import engine.gameLogic.GameObject;
 
-/**
- * The Class Tile.
- * 
- * @author Brooks, Patrick, Robert, and Sid.
- */
-public class Tile{
+public class Tile extends GameObject{
 
-	/** The my name. */
-	private String myName;
-	
-	/** The my image path. */
 	private String myImagePath;
-	
 	private int myWidth;
-
-
 	private Point myGridLocation = new Point();
 
-	
-	public Tile(int x, int y, String imagePath){
-		myGridLocation.x = x;
-		myGridLocation.y = y;
-		myImagePath = imagePath;
+	public Tile(){
+		
 	}
 	
 	public Tile(int x, int y){
@@ -34,7 +20,7 @@ public class Tile{
 	}
 	
 	public Point getCenterLocation(){
-		return new Point(myGridLocation.x + myWidth/2, myGridLocation.y + myWidth/2); // TODO THIS ASSUMES (0,0) is bottom-left on the Grid
+		return new Point(myGridLocation.x + myWidth/2, myGridLocation.y + myWidth/2);
 	}
 	
 	public Point getGridLocation(){
@@ -45,27 +31,17 @@ public class Tile{
 		myImagePath = imagePath;
 	}
 
-	public void setName(String name) {
-		myName = name;
-	}
 
 	public String getImagePath(){
 		return myImagePath;
 	}
-
-	public String getName() {
-		return myName;
-	}
-
 	
 	public void setWidth(int width){
 		myWidth = width;
 	}
 
 	public int getWidth() {
-		// TODO change if we ever need to consider Tiles of width != 1
 		return myWidth;
-
 	}
 	
 	public boolean isWithin(Point point){
@@ -74,8 +50,6 @@ public class Tile{
 				point.y > this.myGridLocation.y &&
 				point.y < this.myGridLocation.y + (double)this.myWidth);
 	}
-	
-	// TODO untested
 	
 	public double distanceToEdge(Point p){
 		Point c = this.getCenterLocation();
