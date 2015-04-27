@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import player.manager.PlayerManager;
 import engine.NodeState;
 import engine.gameLogic.GameObject;
 import javafx.animation.KeyFrame;
@@ -18,9 +19,8 @@ import javafx.util.Duration;
  */
 public abstract class GameNode extends GameObject {
 
-	// TODO INITIALIZE THE GUI ONCE WE HAVE THE IMPLEMENTATION FROM FANGYI +
-	// SAJAL
-
+	protected PlayerManager myPlayerManager; 
+	// TODO ensure that this ^^ is set correctly AFTER the node is recreated from Xstream
 	private List<NodeButton> myNodeButtons;
 	private Map<Double, GameNode> nextNodes;
 	protected boolean myHasCompleted;
@@ -37,6 +37,10 @@ public abstract class GameNode extends GameObject {
 	public KeyFrame start(double frameRate) {
 		myScene = new KeyFrame(Duration.millis(frameRate * 10), e -> update());
 		return myScene;
+	}
+	
+	public void setNodeButtons(List<NodeButton> nodeButtons){
+		myNodeButtons = nodeButtons;
 	}
 
 	public abstract void update(); // this gets called in a loop

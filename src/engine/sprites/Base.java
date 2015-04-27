@@ -99,4 +99,8 @@ public class Base extends Sprite implements Collidable{
 		myLocation = location;
 	}
 	
+	public void setHealth(Integer health){
+		myHealth = health;
+	}
+	
 }

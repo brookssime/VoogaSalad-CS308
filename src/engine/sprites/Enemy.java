@@ -145,4 +145,8 @@ public class Enemy extends Sprite implements Collidable {
 	public Integer getCollisionWidth() {
 		return myCollisionWidth;
 	}
+	
+	public void setMovement(MovementStrategy movement){
+		myMovement = movement;
+	}
 }

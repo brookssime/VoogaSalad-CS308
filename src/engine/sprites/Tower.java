@@ -91,6 +91,10 @@ public class Tower extends Sprite implements Shootable{
 		myFireRate = fireRate;
 	}
 	
+	public void setProjectile(Projectile projectile){
+		myProjectile = projectile;
+	}
+	
 	public Integer getFireRate(){
 		return myFireRate;
 	}
@@ -108,6 +112,10 @@ public class Tower extends Sprite implements Shootable{
 	public void setRange(Integer range){
 		myRange = range;
 	}
+	
+	public void setRangeObject(Range range){
+		myRangeObject = range;
+	}
 
 	@Override
 	public boolean isReady() {
@@ -119,7 +127,7 @@ public class Tower extends Sprite implements Shootable{
 		return myRangeObject;
 	}
 
-	public Integer getMyPrice() {
+	public Integer getPrice() {
 		return myPrice;
 	}
 
@@ -163,6 +171,10 @@ public class Tower extends Sprite implements Shootable{
 		mySpriteInfo.put("Health", myHealth.toString());
 		mySpriteInfo.put("Firing Rate", myFireRate.toString());
 		mySpriteInfo.put("Price", myPrice.toString());
+		mySpriteInfo.put("Health Damage", myProjectile.getEffect().getHealthDamage().toString());
 	}
-
+	
+	public void setRotationSpeed (double rotationSpeed){
+		myRotationSpeed = rotationSpeed;
+	}
 }

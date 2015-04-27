@@ -40,6 +40,14 @@ public class Game extends GameObject {
 		return myCurNode;
 	}
 
+	public void setAdjacencyList(Map<GameNode, Map<NodeState, GameNode>> adjList){
+		myAdjacencyList = adjList;
+	}
+	
+	public void setIDMap(Map<String, GameNode> idMap){
+		myIDMap = idMap;
+	}
+	
 	public void advanceNode(NodeState state) {
 		myCurNode = myAdjacencyList.get(myCurNode).get(state);
 		myCurNode.render();

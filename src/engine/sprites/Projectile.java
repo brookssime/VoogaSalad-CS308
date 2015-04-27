@@ -17,9 +17,7 @@ import engine.gameLogic.ProjectileEffect;
  */
 public class Projectile extends Sprite implements Collidable{
 	
-	//TODO: WHY ARE THERE NAME AND IMAGE STRING IF YOU EXTEND SPRITE?
-	private String myName;
-	private String myImageString;
+	private String myImageString; //Necessary?
 	private Integer mySpeed; 
 	private ProjectileEffect myEffect;
 	private int myRadius; //RADIUS AND COLLISION HEIGHT/WIDTH?
@@ -31,6 +29,7 @@ public class Projectile extends Sprite implements Collidable{
 	public Projectile(){
 		
 	}
+	
 	
 	public Projectile(Projectile projectile) {
 		this.myName = projectile.myName;
@@ -94,7 +93,7 @@ public class Projectile extends Sprite implements Collidable{
 	public ProjectileEffect getEffect(){
 		return myEffect;
 	}
-
+	
 	@Override
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
@@ -128,4 +127,12 @@ public class Projectile extends Sprite implements Collidable{
 	public Integer getCollisionWidth() {
 		return myCollisionWidth;
 	}
+	
+	public void setImageString(String image){
+		myImageString = image;
+	}
+	
+	public void setSpeed(int speed){
+		mySpeed = speed;
+	}	
 }

@@ -7,11 +7,6 @@ import interfaces.MethodAnnotation;
 import interfaces.SpecialEditorAnnotation;
 import engine.NodeState;
 
-/**
- * Currently a static title screen Animation can be added later.
- *
- * @author Brooks, Patrick, Robert, and Sid.
- */
 public class TitleScene extends GameNode {
 
 	private String myBackgroundPicturePath;
@@ -31,8 +26,7 @@ public class TitleScene extends GameNode {
 
 	@Override
 	public void render() {
-		// TODO FILL IN WITH APPROPRIATE CALLS FOR TITLESCENE ONCE AVAILABLE
-
+		// REVIEW: make sure these having nothing is fully functional
 	}
 
 	@Override
@@ -42,7 +36,7 @@ public class TitleScene extends GameNode {
 
 	@Override
 	public NodeState checkState() {
-		return myState;
+		return NodeState.RUNNING;
 	}
 	
 	public List<NodeButton> getButtons() {
