@@ -2,7 +2,6 @@ package gae.view.editorpane.editorComponents;
 
 import gae.model.Receiver;
 import gae.view.gameEditor.GameEditor;
-import gae.view.titleScreenEditor.TitleScreenEditor;
 
 import java.lang.reflect.Method;
 
@@ -21,7 +20,7 @@ public class EditorComponentFactory {
 		} else if (editorType.equalsIgnoreCase("gameeditor")){
 			return (new GameEditor(receiver, setMethod, objName));
 			//not implemented yet
-		} else if (editorType.equalsIgnoreCase("TitleScreenEditor")){
+		} else if (editorType.equalsIgnoreCase("titlescreeneditor")){
 			return null; //(new TitleScreenEditor(receiver, setMethod, objName));
 		} else if (editorType.equalsIgnoreCase("multiselect")) {
 			return (new MultipleSelectEditor(receiver, setMethod, objName));
