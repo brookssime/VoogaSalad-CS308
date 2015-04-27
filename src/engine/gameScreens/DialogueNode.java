@@ -6,6 +6,8 @@ package engine.gameScreens;
 import java.util.List;
 import java.util.Queue;
 
+import engine.NodeState;
+
 // TODO: Auto-generated Javadoc
 /**
  * DialogueScenes will consist of a background image, several "heads" on top of that, and then a center pane with dialogue
@@ -20,6 +22,7 @@ import java.util.Queue;
 public class DialogueNode extends GameNode{
 
 	
+
 	/** The my dialogue. */
 	private Queue<DialogueBox> myDialogueBoxes;
 	
@@ -51,8 +54,13 @@ public class DialogueNode extends GameNode{
 	
 	@Override
 	public void render() {
-		// TODO Fill in with appropriate calls as we get a Player API
+		// TODO PUT APPROPRIATE CALLS FOR DIALOGUESCENE WHEN WE HAVE UNIFIED GUI CLASS
 		
+	}
+	
+	public void showNextDialogue(){
+		myDialogueBoxes.poll();
+		render();
 	}
 	
 	public void setImagePath(String imagePath){
@@ -72,8 +80,11 @@ public class DialogueNode extends GameNode{
 	}
 		
 	@Override
-	public boolean isComplete() {	
-		return (myDialogueBoxes.size() <= 0);
+	public NodeState checkState() {	
+		if(myDialogueBoxes.size() <= 0){
+			return NodeState.COMPLETE;
+		};
+		return NodeState.RUNNING;
 	}
 
 	@Override

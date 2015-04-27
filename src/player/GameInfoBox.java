@@ -97,8 +97,8 @@ public class GameInfoBox extends AbstractOverlay{
 				double screenHeight = stage.getHeight();
 				double screenWidth = stage.getWidth();
 				
-				GameLevelScene gameLevelScene = new GameLevelScene(stage, screenWidth, screenHeight);
-				stage.setScene(gameLevelScene.getScene());
+				//GameLevelScene gameLevelScene = new GameLevelScene(stage, screenWidth, screenHeight);
+				//stage.setScene(gameLevelScene.getScene());
 				
 				
 			}

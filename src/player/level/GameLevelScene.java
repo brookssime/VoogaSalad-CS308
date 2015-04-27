@@ -122,7 +122,7 @@ public class GameLevelScene implements GraphicGameScene{
 		mylevelnode = level;
 		 myScene = new Scene(makePane(), screenWidth, screenHeight);
 	}
-	
+
 	
 	private void updateStore(Store store) {
 		towerInfo.getChildren().clear();

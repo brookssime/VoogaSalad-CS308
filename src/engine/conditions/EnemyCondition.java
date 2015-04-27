@@ -1,16 +1,19 @@
 package engine.conditions;
 
-import engine.Environment;
+import engine.Grid;
+import engine.GridManager;
+import engine.NodeState;
+import engine.gameScreens.Store;
 
 public class EnemyCondition extends Condition{
 
-	public EnemyCondition(Environment gameData) {
-		super(gameData);
+	public EnemyCondition(Grid grid, GridManager gridManager, Store store) {
+		super(grid, gridManager, store);
 	}
 
 	@Override
-	public boolean evaluate() {
-		return myGridManager.getWaves().isEmpty();
+	public NodeState evaluate() {
+		return NodeState.RUNNING;
 	}
 
 }

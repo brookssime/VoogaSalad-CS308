@@ -18,14 +18,8 @@ import engine.Path;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Range;
 
-/**
- * The Class Tower.
- * 
- * @author Brooks, Patrick, Robert, and Sid.
- */
 public class Tower extends Sprite implements Shootable{
 
-	//TODO: Many instance variables. are all necessary?
 	private Integer myFireRate;
 	private Integer myHealth;
 	private Projectile myProjectile;
@@ -66,12 +60,10 @@ public class Tower extends Sprite implements Shootable{
 		myPath.elongate();
 	}
 	
-
-	
 	public Projectile fire(){
 		return myProjectile;
-		
 	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collidable selectTarget(List<Collidable> targets) {
@@ -98,7 +90,6 @@ public class Tower extends Sprite implements Shootable{
 	public void setFireRate(@ParameterAnnotation(name=" FireRate ") Integer fireRate) {
 		myFireRate = fireRate;
 	}
-	
 	
 	public Integer getFireRate(){
 		return myFireRate;
@@ -135,7 +126,6 @@ public class Tower extends Sprite implements Shootable{
 		myPrice = price;
 	}
 
-	
 	/*
 	 * Takes target location and assigns it a path based on the projectile's MovementStrategy  
 	 * 

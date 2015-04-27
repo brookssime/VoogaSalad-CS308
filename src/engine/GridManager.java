@@ -4,7 +4,7 @@ import interfaces.Collidable;
 import interfaces.Shootable;
 
 import java.awt.Shape;
-import java.awt.image.AreaAveragingScaleFilter;
+import java.awt.geom.Area;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -12,27 +12,15 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
-
-
-
-
-import com.sun.javafx.geom.Area;
+import com.sun.javafx.geom.Ellipse2D;
 
 import engine.gameLogic.PathFinder;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Wave;
 import engine.sprites.Base;
 import engine.sprites.Enemy;
-import engine.sprites.Projectile;
 import engine.sprites.Sprite;
 
-/**
- * The Class GridManager.
- * 
- * @author Brooks, Patrick, Robert, and Sid.
- * 
- */
 public class GridManager {
 
 	private Grid myGrid;
@@ -59,9 +47,8 @@ public class GridManager {
 			}
 			if(Arrays.asList(o.getClass().getClasses()).contains(Shootable.class)){
 				myShootables.add((Shootable) o);
-				myCollidables.add(((Shootable) o).getRangeObject()); //add a shootable's range object to collidables
-				
 			}
+			
 			if(Arrays.asList(o.getClass().getClasses()).contains(Sprite.class)){
 				mySprites.add(o);
 			}
@@ -96,20 +83,17 @@ public class GridManager {
 	}
 
 	/**
-	 * TODO: Clean this up
+	 * TODO: Clean this up??
 	 */
 	private void checkCollidables() {
 		for (Collidable sprite : myCollidables) {
 			for (Collidable collider : myCollidables) {
-				if (!(sprite.equals(collider) 
-						&& isCollision(sprite, collider))){
-					
-					//evaluate collision
-					
-					if(sprite.isDead()){
+				if (!(sprite.equals(collider) && isCollision(sprite, collider))) {
+					sprite.evaluateCollision(collider);
+					if (sprite.isDead()) {
 						myDeadCollidables.add(sprite);
 					}
-					if(collider.isDead()){
+					if (collider.isDead()) {
 						myDeadCollidables.add(collider);
 					}
 				}
@@ -132,8 +116,8 @@ public class GridManager {
 	}
 
 	//TODO: Come back such that we don't have to return the range...then take getRange out of the interface
-	private List<Collidable> getObjectsInRange(Shootable c){
-		return c.getRangeObject().getObjectsInRange();
+	private List<Collidable> getObjectsInRange(Shootable shootable){
+		return shootable.getRangeObject().getObjectsInRange();
 	}
 
 	private void moveSprites() {
@@ -170,14 +154,18 @@ public class GridManager {
 		return myWaves;
 	}
 	
+	//TODO: THIS IS SOOOO TERRIBLEEEEEE
 	private boolean isCollision(Collidable spriteCollidedWith, Collidable spriteCollider){
-		//have author set collision bounds
-		Shape shapeA = spriteCollidedWith.getCollisionBounds();
-		Shape shapeB = spriteCollider.getCollisionBounds();
-		Area areaA = new Area();
-		Area areaB = new Area();
+		Integer spriteCollidedWithX = myGrid.getPlacement(spriteCollidedWith).getLocation().x;
+		Integer spriteCollidedWithY = myGrid.getPlacement(spriteCollidedWith).getLocation().y;
+		Integer spriteColliderX = myGrid.getPlacement(spriteCollider).getLocation().x;
+		Integer spriteColliderY = myGrid.getPlacement(spriteCollider).getLocation().y;
+		
+		Shape shapeA = (Shape) new Ellipse2D(spriteCollidedWithX, spriteCollidedWithY, spriteCollidedWith.getCollisionHeight(), spriteCollidedWith.getCollisionWidth());
+		Shape shapeB = (Shape) new Ellipse2D(spriteColliderX, spriteColliderY, spriteCollider.getCollisionHeight(), spriteCollider.getCollisionWidth());
+		Area areaA = new Area(shapeA);
+		Area areaB = new Area(shapeB);
 		areaA.intersect(areaB);
-		return areaA.isEmpty();
-	
+		return !areaA.isEmpty();
 	}
 }

@@ -1,10 +1,18 @@
 package engine.gameScreens;
 
+
+
+import java.awt.List;
+import java.util.ArrayList;
+
 import java.util.Queue;
 
 import engine.Grid;
 import engine.GridManager;
 import engine.HeadsUpDisplay;
+import engine.NodeState;
+import engine.conditions.Condition;
+import engine.gameLogic.GameStats;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Wave;
 
@@ -17,42 +25,56 @@ public class LevelNode extends GameNode  {
 	private Grid myGrid;
 	private HeadsUpDisplay myHUD;
 	private GridManager myGridManager;
+	private ArrayList<Condition> myConditions;
+	private GameStats myGameStats;
 	//private GridManager myGridManager; TODO - why
 
 	public LevelNode() {
 		super();
 	}
 	
-
-
 	@Override
 	public void render() {
-		// TODO Fill in with appropriate calls as we get a Player API
+		// TODO FILL IN WITH APPROPRIATE CALLS FOR LEVELNODE ONCE AVAILABLE
 		
 	}
 	
+
+	// increment money appropriately and place on grid
+	void purchaseSprite(String SpriteID, Placement spritePlacement){
+		myGameStats.updateMoney(-1*myStore.getTowerCost(myStore.getFromID(SpriteID)));
+		myGrid.placeSpriteAt(myStore.getFromID(SpriteID), spritePlacement);
+		render();
+	}
 	void placeSprite(String SpriteID, Placement spritePlacement){
 		myGrid.placeSpriteAt(myStore.getTowerFromName(SpriteID), spritePlacement);
 		
 	}
 	
-	void examineSprite(String SpriteID, Placement spritePlacement){
-		
-	}
 	
+	// TODO should the value when sold be different from the value when purchased? Currently, it is not.
+	// increment money appropriately and remove from Grid
 	void sellObject(String SpriteID, Placement spritePlacement){
-		
-	}
-	void purchaseObject(String SpriteID){
-		
+		myGameStats.updateMoney(myStore.getTowerCost(myStore.getFromID(SpriteID)));
+		myGrid.removeSpriteAt(myStore.getFromID(SpriteID), spritePlacement);
+		render();
+	
 	}
 	
+	// TODO make sure that the Player displays the range correctly in addition to the model updating the HUD
+	// TODO make sure that the player can accurately display a popup with the enemy's data
+	void examineSprite(String SpriteID, Placement spritePlacement){
+		render();
+	}
+	
+	
+
 	void increaseGameSpeed(){
-		
+		// TODO not sure why this is in the API
 	}
 	
 	void decreaseGameSpeed(){
-		
+		// TODO not sure why this is in the API
 	}
 	
 	
@@ -60,6 +82,7 @@ public class LevelNode extends GameNode  {
 		myGrid = new Grid(myGrid, myGridManager);
 		myStore  = new Store();
 		myHUD = new HeadsUpDisplay();
+		myConditions = new ArrayList<Condition>();
 	}
 
 	
@@ -108,8 +131,12 @@ public class LevelNode extends GameNode  {
 		//checkComplete();
 	}
 
-	public boolean isComplete(){
-		return myGrid.isComplete();
+	public NodeState checkState(){
+		return NodeState.RUNNING;
+	}
+	
+	public void setGameStats(GameStats gamestats){
+		myGameStats = gamestats;
 	}
 
 }

@@ -8,7 +8,7 @@ import java.util.TimerTask;
 public class ProjectileEffect extends GameObject{
 
 	private Integer mySpeedDamage;
- 	private Long mySpeedFrequency;
+	private Long mySpeedFrequency;
 	private Integer mySpeedReps;
 	private Long mySpeedDuration;
 
@@ -74,9 +74,9 @@ public class ProjectileEffect extends GameObject{
 	}
 
 
-//	public Long getSpeedFrequency(){
-//		return mySpeedFrequency;
-//	}
+	public Long getSpeedFrequency(){
+		return mySpeedFrequency;
+	}
 
 	public Long getSpeedDuration(){
 		return mySpeedDuration;
@@ -94,24 +94,20 @@ public class ProjectileEffect extends GameObject{
 		return myIsFinal;
 	}
 
-	class SpeedTask extends TimerTask {
-		public void run() {
-			getSpeedDamage();
-		}
-	}
-
-	class ReverseSpeedTask extends TimerTask {
+	class ReturnOriginalSpeedTask extends TimerTask {
 		public void run() {
 			reverseSpeedDamage();
 		}
 	}
+	
+	//TODO: SPEED POISON?
 	private void speedEffect(){
-		effectTimer.schedule(new SpeedTask(), mySpeedDuration*1000);
-		effectTimer.schedule(new ReverseSpeedTask(), 0);
+		getSpeedDamage();
+		if (!myIsFinal){
+			effectTimer.schedule(new ReturnOriginalSpeedTask(), mySpeedDuration*1000);
+		}
+
 	}
-
-
-
 	class HealthTask extends TimerTask {
 		public void run() {
 			getHealthDamage();
@@ -119,10 +115,10 @@ public class ProjectileEffect extends GameObject{
 	}
 
 	private void healthEffect(){
-		for (int i = 1; i <= myHealthReps; i++){
+		getHealthDamage();
+		for (int i = 1; i <= myHealthReps-1; i++){
 			effectTimer.schedule(new HealthTask(), myHealthFrequency*1000);
 		}
-
 	}
 
 }
