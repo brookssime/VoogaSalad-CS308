@@ -1,5 +1,7 @@
 package gae.view.gameEditor;
 
+import java.util.ArrayList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -13,7 +15,7 @@ import javafx.stage.Stage;
 
 public class ConditionNode extends GameNode{
 	
-	private static final int NODE_BODY_LENGTH = 50;
+	private static final int NODE_BODY_LENGTH = 60;
 	private static final int NODE_BODY_HEIGHT = 60;
 	private Color myColor = Color.YELLOW;
 	private GameNode myNext;
@@ -39,13 +41,14 @@ public class ConditionNode extends GameNode{
 		sceneSelect.show();
 		ListView<String> selection = new ListView<>();
 		ObservableList<String> data = FXCollections.observableArrayList();
-		data.addAll("Game Over", "Game Won", "Button1");
+		data.addAll("ENEMIES_DEAD", "TIME_OUT", "BASE_HEALTH_EQUALS_0");
 		selection.setItems(data);
 		
 		Button accept = new Button("Accept");
 		accept.setOnAction(e -> {
 			//bind text of selection to game node
-			bindText(selection.getSelectionModel().getSelectedItem(), NODE_BODY_LENGTH, NODE_BODY_HEIGHT);
+			bindText(selection.getSelectionModel().getSelectedItem(), 
+					NODE_BODY_LENGTH - 10, NODE_BODY_HEIGHT - 10);
 			sceneSelect.close();
 		});
 		
@@ -70,6 +73,13 @@ public class ConditionNode extends GameNode{
 	@Override
 	public boolean draw() {
 		return myNext == null;
+	}
+
+	@Override
+	public ArrayList<GameNode> getChildren() {
+		ArrayList<GameNode> temp = new ArrayList<GameNode>();
+		temp.add(myNext);
+		return temp;
 	}
 
 }

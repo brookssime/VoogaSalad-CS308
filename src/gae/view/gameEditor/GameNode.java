@@ -1,5 +1,7 @@
 package gae.view.gameEditor;
 
+import java.util.ArrayList;
+
 import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -101,13 +103,14 @@ public abstract class GameNode {
 	
 	protected void bindText(String s, int length, int height){
 		myText.setText(s);
+		myText.setWrapText(true);
 		myText.setPickOnBounds(false);
 		//buffer with binding
 		myText.setPrefSize(length, height);
 		myText.translateXProperty().bind(Bindings.add(5, myBody.translateXProperty()));
 		myText.translateYProperty().bind(myBody.translateYProperty());
 		
-		
+		//TODO: FIX THIS
 		try{
 			myGroup.getChildren().add(myText);
 		} catch(IllegalArgumentException e){
@@ -117,6 +120,11 @@ public abstract class GameNode {
 	
 	private void setHead(boolean bool){
 		isHead = bool;
+	}
+	
+	@Override
+	public String toString(){
+		return myText.getText();
 	}
  
 	/**
@@ -128,16 +136,12 @@ public abstract class GameNode {
 	 * open a dialog that adds respective information to a node on double click of node
 	 */
 	protected abstract void openDialog();
-	
-	/**
-	 * When an item is selected in openDialog(), the item needs to be displayed in the node. This method 
-	 * does this. 
-	 */
-	
 
 	protected abstract void addChild(GameNode node);
 	
 	protected abstract void removeChild(GameNode node);
+	
+	public abstract ArrayList<GameNode> getChildren();
 	
 	public abstract boolean draw();
 }

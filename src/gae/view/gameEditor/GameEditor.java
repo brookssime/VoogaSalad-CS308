@@ -3,6 +3,8 @@ package gae.view.gameEditor;
 import gae.model.Receiver;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -64,8 +66,34 @@ public class GameEditor {
 		Button acceptButton = new Button("Accept");
 		acceptButton.setOnAction(e -> {
 			//export myNodes in whatever format
+			//build two maps:
+			// 1) String to Node
+			// 2) Node to Map<Enum, Node>;
+			printMap();
 		});
 		return acceptButton;
+	}
+
+	private void printMap() {
+		Map<String, Map<String, String>> nodeConditionMap = new HashMap<>();
+		for(int i = 0; i < myNodes.size(); i++){
+			Map<String, String> enumNodeMap = new HashMap<>();
+			GameNode node = myNodes.get(i);
+			//scene node
+			if(i % 2 == 0){
+				for(GameNode conditions: node.getChildren()){
+					String e = conditions.toString();
+					String n = conditions.getChildren() == null ? 
+							null : conditions.getChildren().get(0).toString();
+					enumNodeMap.put(e, n);
+				}
+				nodeConditionMap.put(node.toString(), enumNodeMap);
+			}
+		}
+		for(String node: nodeConditionMap.keySet()){
+			System.out.print(node + ": " + nodeConditionMap.get(node) + "\n");
+		}
+		
 	}
 
 	private Button addNodeButton() {

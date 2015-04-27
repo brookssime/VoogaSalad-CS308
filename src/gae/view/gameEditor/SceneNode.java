@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 public class SceneNode extends GameNode{
 	
 	private static final int NODE_BODY_LENGTH = 60;
-	private static final int NODE_BODY_HEIGHT = 50;
+	private static final int NODE_BODY_HEIGHT = 60;
 	private Color myColor = Color.WHITE;
 	private ArrayList<GameNode> myConditions;
 	
@@ -50,7 +50,8 @@ public class SceneNode extends GameNode{
 		Button accept = new Button("Accept");
 		accept.setOnAction(e -> {
 			//bind text of selection to game node
-			bindText(selection.getSelectionModel().getSelectedItem(), NODE_BODY_LENGTH, NODE_BODY_HEIGHT);
+			bindText(selection.getSelectionModel().getSelectedItem(), 
+					NODE_BODY_LENGTH - 10, NODE_BODY_HEIGHT - 10);
 			sceneSelect.close();
 		});
 		
@@ -77,5 +78,10 @@ public class SceneNode extends GameNode{
 	@Override
 	public boolean draw() {
 		return true;
+	}
+
+	@Override
+	public ArrayList<GameNode> getChildren() {
+		return myConditions;
 	}
 }
