@@ -144,8 +144,8 @@ public class TestEditor extends Application{
         mySlider.valueProperty().addListener(new ChangeListener<Number>(){
         	public void changed(ObservableValue<? extends Number> ov,
                     Number old_val, Number new_val) {
-                        sliderVal.setText(String.format("%.1f", new_val));
-                        Double myVal = Double.parseDouble(String.format("%.1f", new_val));
+                        Double myVal = Double.parseDouble(String.format("%.2f", new_val));
+                        sliderVal.setText(myVal.toString());
                         //sliderVal.setText(myVal.toString());
                         System.out.println("My val: " + myVal);
                 }
