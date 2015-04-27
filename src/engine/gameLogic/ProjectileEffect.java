@@ -100,7 +100,6 @@ public class ProjectileEffect extends GameObject{
 		}
 	}
 	
-	//TODO: SPEED POISON?
 	private void speedEffect(){
 		getSpeedDamage();
 		if (!myIsFinal){

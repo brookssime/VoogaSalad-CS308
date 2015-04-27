@@ -130,7 +130,6 @@ public class Enemy extends Sprite implements Collidable {
 		return myMovement;
 	}
 
-	//TODO: Find a better way to do this?
 	@Override
 	public void fillSpriteInfo() {
 		mySpriteInfo.put("Name", myName);

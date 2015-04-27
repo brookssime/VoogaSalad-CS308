@@ -11,6 +11,7 @@ public class Store extends GameObject {
 	private Map<Tower, Integer> myTowersOnSale;
 	private String myBackgroundImagePath;
 	private Map<String, Tower> myTowerNames;
+	private Integer mySellPercentage;
 	
 	public Store(){
 		
@@ -20,11 +21,7 @@ public class Store extends GameObject {
 		myTowersOnSale = towersOnSale;
 		myBackgroundImagePath = backgroundImagePath;
 	}
-	
-	/**
-	 * Is that OK to add method for get the whole list of towers on sale
-	 * @return a set of towers
-	 */
+
 	public Set<Tower> getTowersOnSale(){
 		return myTowersOnSale.keySet();
 	}
@@ -46,6 +43,10 @@ public class Store extends GameObject {
 
 	public String getImagePath(){
 		return myBackgroundImagePath;
+	}
+	
+	public Integer getSellPercentage(){
+		return mySellPercentage;
 	}
 	
 	public Tower getFromID(String TowerID){
