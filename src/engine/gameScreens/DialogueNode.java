@@ -8,7 +8,6 @@ import java.util.Queue;
 
 import engine.NodeState;
 
-// TODO: Auto-generated Javadoc
 /**
  * DialogueScenes will consist of a background image, several "heads" on top of that, and then a center pane with dialogue
  * The background image will be passed in alone
@@ -21,22 +20,13 @@ import engine.NodeState;
  */
 public class DialogueNode extends GameNode{
 
-
 	private Queue<DialogueBox> myDialogueBoxes;
-
 	private String myBackgroundImagePath;
-	private List<String> myImagePathList; // contains all image paths of talking
-											// heads. gamePlayer can read these
-											// and determine how many spaces to
-											// make in dialogueScene for heads
 
-	
 	public DialogueNode(){
 		super();
 	}
 
-	
-	
 	public DialogueNode(String backgroundImagePath, Queue<DialogueBox> dialogueBoxes) {
 		myBackgroundImagePath = backgroundImagePath;
 		myDialogueBoxes = dialogueBoxes;
@@ -85,6 +75,4 @@ public class DialogueNode extends GameNode{
 	public DialogueBox getNextDialogueBox(){
 		return myDialogueBoxes.poll();
 	}
-
-	
 }

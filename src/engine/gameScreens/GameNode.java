@@ -29,53 +29,26 @@ public abstract class GameNode extends GameObject {
 	protected boolean myGameWon;
 	protected NodeState myState;
 
-	/**
-	 * Instantiates a new game scene.
-	 */
 	public GameNode() {
 		myNodeButtons = new ArrayList<NodeButton>();
 		myState = NodeState.RUNNING;
 	}
 
-	/**
-	 * Start.
-	 *
-	 * @param frameRate
-	 *            the frame rate
-	 * @return the key frame
-	 */
 	public KeyFrame start(double frameRate) {
 		myScene = new KeyFrame(Duration.millis(frameRate * 10), e -> update());
 		return myScene;
 	}
 
-	/**
-	 * Update.
-	 */
 	public abstract void update(); // this gets called in a loop
 
-	/**
-	 * Check complete.
-	 */
 	public abstract NodeState checkState();
 
 	public abstract void render();
 
-	/**
-	 * Gets the next scene.
-	 *
-	 * @return the next scene
-	 */
 	public GameNode getNextNode(Double key) {
 		return nextNodes.get(key);
 	}
 
-	/**
-	 * Sets the next scene.
-	 *
-	 * @param gameNode
-	 *            the new next scene
-	 */
 	public void addNewNode(Double key, GameNode gameNode) {
 		nextNodes.put(key, gameNode);
 	}

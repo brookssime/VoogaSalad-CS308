@@ -2,23 +2,16 @@ package engine;
 
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import engine.gameLogic.GameObject;
 import engine.gameScreens.GameNode;
 import engine.gameScreens.LevelNode;
 import engine.gameScreens.Store;
-import engine.gameScreens.GameNode;
-import engine.gameScreens.LevelNode;
-import engine.gameScreens.Store;
-import javafx.animation.KeyFrame;
-import javafx.util.Duration;
 
 
-public class Game {
+public class Game extends GameObject {
 	
-	private String myName;
-	private final int FRAME_RATE = 10;
 	private GameNode myStartNode;
 	private GameNode myCurNode;
 	private Store myStore;
