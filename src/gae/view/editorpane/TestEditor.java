@@ -3,6 +3,7 @@ package gae.view.editorpane;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -132,19 +133,20 @@ public class TestEditor extends Application{
         //TODO: Print the slider values as you slide
         //TODO: Set the distance between ticks/when you slide
         double min = 0;
-        double max = 50;
+        double max = 51;
         double cur = Math.floor((max-min)/2);
         Slider mySlider = new Slider(min, max, cur);
         mySlider.setShowTickLabels(true);
         mySlider.setMajorTickUnit(cur);
-        final Label sliderVal = new Label(Double.toString(mySlider.getValue()));
+        String val = Double.toString(mySlider.getValue());
+        final Label sliderVal = new Label(val);
         
         mySlider.valueProperty().addListener(new ChangeListener<Number>(){
         	public void changed(ObservableValue<? extends Number> ov,
                     Number old_val, Number new_val) {
-                        //sliderVal.setText(String.format("%.0f", new_val));
-                        Integer myVal = (int) mySlider.getValue();
+                        Double myVal = Double.parseDouble(String.format("%.2f", new_val));
                         sliderVal.setText(myVal.toString());
+                        //sliderVal.setText(myVal.toString());
                         System.out.println("My val: " + myVal);
                 }
         });

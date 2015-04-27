@@ -1,7 +1,6 @@
 package gae.view.editorpane.editorComponents;
 
 import gae.model.Receiver;
-
 import java.lang.reflect.Method;
 
 import javafx.beans.value.ChangeListener;
@@ -19,26 +18,33 @@ import javafx.scene.layout.HBox;
  *
  */
 public class SliderEditor extends EditorComponent{
-	private double myMin = 0;
-	private double myMax = 50;
+	private final static Double DEFAULT_MAX = 50.0;
+	private final static Double DEFAULT_MIN = 0.0;
+	private HBox h;
+	private double myMin;
+	private double myMax;
 	private Double myCur;
 	private Slider mySlider;
+	private Double val;
 
-	public SliderEditor(Receiver receiver, Method setMethod, String objectName) {
+	public SliderEditor(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
 		super(receiver, setMethod, objectName);
-		// TODO Auto-generated constructor stub
 		//In case the sliderEditorParams method is not called
-		myMin = 0;
-		myMax = 50;
-		myCur = (double) 25;
+		myMin = DEFAULT_MIN;
+		myMax = DEFAULT_MAX;
+		myCur = Math.floor((myMax-myMin)/2);
 	}
 
 	@Override
 	public void setUpEditor() {
-		// TODO Auto-generated method stub
-		HBox h = new HBox();
+		h = new HBox();
 		mySlider = new Slider();
+		if (myFetchedValue!= null){
+			val = Double.parseDouble(myFetchedValue.toString()); 
+			mySlider.setValue(val); 
+		}
 		h.getChildren().add(sliderSetUp());
+		myReceiver.runOnObject(myObject, myMethod, val);
 	}
 	
 	public void sliderEditorParams(double min, double max) {
@@ -48,15 +54,14 @@ public class SliderEditor extends EditorComponent{
 	}
 
 	public Node sliderSetUp() {
-		System.out.println(myMax + myMin);
 		mySlider.setMax(myMax);
 		mySlider.setMin(myMin);
-		myCur = Math.floor((myMax - myMin) / 2);
-		if (myFetchedValue != null) {
-			System.out.println(myCur);
-			myCur = (Double) myFetchedValue;
+//		myCur = (Double) myReceiver.getFromObject(myObject, myGetMethod, (Object[]) null);
+		
+		if (myCur == null) {
+			myCur = myMax / 2;
 		}
-		System.out.println(myCur);
+		
 		mySlider.setValue(myCur);
 		mySlider.setShowTickLabels(true);
 		mySlider.setMajorTickUnit(myCur);
@@ -66,18 +71,23 @@ public class SliderEditor extends EditorComponent{
 		mySlider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov,
 					Number old_val, Number new_val) {
-				//sliderVal.setText(String.format("%.0f", new_val));
-				Integer myVal = (int) mySlider.getValue();
-                sliderVal.setText(myVal.toString());
+                val = Double.parseDouble(String.format("%.2f", new_val));
+                sliderVal.setText(val.toString());
+				//Integer myVal = (int) mySlider.getValue();
+                //sliderVal.setText(myVal.toString());
 			}
 		});
 
 		return mySlider;
 	}
 
-	public Integer value() {// This is to be used on save event
+	/*public Integer intValue() {// This is to be used on save event
 		int myVal = (int) mySlider.getValue();
 		return myVal;
+	}*/
+	
+	public Double doubleValue() {// This is to be used on save event
+		return val;
 	}
 
 }
