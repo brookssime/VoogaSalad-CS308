@@ -65,7 +65,7 @@ public class PathFinder {
 			}
 		}
 		return null;
-		// TODO
+		// REVIEW
 		// SHOULD return null if no next tile is found, or if this tile is a base..there is a null check in findPath	
 	}
 	

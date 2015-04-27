@@ -5,15 +5,18 @@ import interfaces.Collidable;
 import interfaces.MethodAnnotation;
 
 import java.awt.Shape;
+import java.awt.Point;
 
+import interfaces.Collidable;
 import engine.gameLogic.Placement;
 
 public class Base extends Sprite implements Collidable{
 
 	private Integer myHealth;
-	private int myRadius;
-	private Shape myCollisionBounds;
-
+	private int myCollisionHeight;
+	private int myCollisionWidth;
+	private Point myLocation;
+	
 	public Base(String imageString, Integer health){
 		myImagePath = imageString;
 		myHealth = health;
@@ -24,28 +27,20 @@ public class Base extends Sprite implements Collidable{
 		myHealth = health;
 	}
 	
-	@MethodAnnotation(editor=true, name = "Set Radius", type = "textfield", fieldName = "myRadius")
-	public void setRadius(int radius){
-		myRadius = radius;
-	}
+//	@MethodAnnotation(editor=true, name = "Set Radius", type = "textfield", fieldName = "myRadius")
+//	public void setRadius(int radius){
+//		myRadius = radius;
+//	}
 	
 	public int getHealth(){
 		return myHealth;
 	}
 	
-	public int getRadius(){
-		return myRadius;
-	}
-
 	@Override
-	public boolean evaluateCollision(Collidable collider){
-		if(isCollision(collider)){
-			if (collider.getClass().isAssignableFrom(Enemy.class)) { 
-				myHealth -= ((Enemy) collider).getEnemyDamage(); 
-			}
-			return true;
+	public void evaluateCollision(Collidable collider){
+		if (collider.getClass().isAssignableFrom(Enemy.class)) {
+			myHealth -= ((Enemy) collider).getEnemyDamage();
 		}
-		return false; 
 	}
 
 	@Override
@@ -53,16 +48,6 @@ public class Base extends Sprite implements Collidable{
 		return (myHealth<=0);
 	}
 
-	public void setCollisionBounds() {
-		//myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRad*2, myRad*2);
-		// TODO
-	}
-
-	@Override
-	public Shape getCollisionBounds() {
-		return myCollisionBounds;
-	}
-	
 
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
@@ -71,7 +56,6 @@ public class Base extends Sprite implements Collidable{
 
 	@Override
 	public Placement move() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -80,4 +64,33 @@ public class Base extends Sprite implements Collidable{
 		mySpriteInfo.put("Name", myName);
 		mySpriteInfo.put("Health", myHealth.toString());
 	}
+
+	@Override
+	public void setCollisionHeight(Integer height) {
+		myCollisionHeight = height;
+	}
+
+	@Override
+	public void setCollisionWidth(Integer width) {
+		myCollisionWidth = width;	
+	}
+
+	@Override
+	public Integer getCollisionHeight() {
+		return myCollisionHeight;
+	}
+
+	@Override
+	public Integer getCollisionWidth() {
+		return myCollisionWidth;
+	}
+	
+	public Point getLocation(){
+		return myLocation;
+	}
+	
+	public void setLocation(Point location){
+		myLocation = location;
+	}
+	
 }
