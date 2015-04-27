@@ -12,6 +12,8 @@ import engine.gameLogic.Placement;
 public abstract class Sprite extends GameObject{
 	
 	protected String myImagePath;
+	private Integer mySpriteHeight;
+	private Integer mySpriteWidth;
 	protected List<String> myAccessNames;
 	protected Map<String, String> mySpriteInfo;
 	
@@ -38,5 +40,13 @@ public abstract class Sprite extends GameObject{
 	
 	public Map<String, String> getSpriteInfo(){
 		return mySpriteInfo;
+	}
+
+	public void setSpriteHeight(int spriteHeight){
+		mySpriteHeight = spriteHeight;
+	}
+	
+	public void setSpriteWidth(int spriteWidth){
+		mySpriteWidth = spriteWidth;
 	}
 }
