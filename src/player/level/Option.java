@@ -10,6 +10,7 @@ public class Option {
 	public Option(){
 		roundButton = new Button();
 		roundButton.setShape(new Circle(30));
+		roundButton.setStyle("-fx-background-color: FFFF99; -fx-text-fill: black;");
 		roundButton.setMaxSize(60, 60);
 		roundButton.setPrefSize(40, 40);
        

@@ -1,5 +1,6 @@
 package gae.view.editorpane;
 
+import gae.model.Receiver;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -13,6 +14,11 @@ import javafx.scene.layout.VBox;
  */
 public class GridTable extends Group{
 	private String[][] myTiles;
+	private Receiver myReceiver;
+	
+	public GridTable(Receiver model){
+		myReceiver = model;
+	}
 	
 	public GridTable (int x, int y){
 		VBox cols = new VBox();
@@ -22,7 +28,7 @@ public class GridTable extends Group{
 			for (int j=0;j<y;j++){
 				Button cell = new Button("Unassigned");
 				cell.setOnAction(e->{
-					ComponentsDialog mydialog = new ComponentsDialog("Tile");
+					ComponentsDialog mydialog = new ComponentsDialog("Tile", myReceiver);
 					String elementName = mydialog.getElement();
 					if (elementName!= null){
 						cell.setText(elementName);

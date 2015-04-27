@@ -1,5 +1,7 @@
 package gae.view.editorpane;
 
+import gae.model.Receiver;
+
 import java.util.ArrayList;
 
 import javafx.scene.control.Button;
@@ -16,11 +18,11 @@ public class ListField extends HBox{
 	private Button myAdder;
 	private ArrayList<String> myList;
 	
-	public ListField(String name){
+	public ListField(String name, Receiver myReceiver){
 		myList = new ArrayList<String>();
 		myAdder = new Button("Add "+name);
 		myAdder.setOnAction(e->{
-			ComponentsDialog mydialog = new ComponentsDialog(name);
+			ComponentsDialog mydialog = new ComponentsDialog(name, myReceiver);
 			String elementName = mydialog.getElement();
 			if (elementName!= null){
 				addLabel(elementName);

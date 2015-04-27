@@ -1,11 +1,15 @@
 package engine.gameScreens;
 
 
+
+import java.util.ArrayList;
 import java.util.Queue;
 
 import engine.Grid;
 import engine.GridManager;
 import engine.HeadsUpDisplay;
+import engine.NodeState;
+import engine.conditions.Condition;
 import engine.gameLogic.GameStats;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Wave;
@@ -15,6 +19,7 @@ public class LevelNode extends GameNode  {
 	private Store myStore;
 	private Grid myGrid;
 	private HeadsUpDisplay myHUD;
+	private ArrayList<Condition> myConditions;
 	private GameStats myGameStats;
 
 	public LevelNode() {
@@ -28,22 +33,26 @@ public class LevelNode extends GameNode  {
 	}
 	
 	// increment money appropriately and place on grid
-	void purchaseSprite(String SpriteID, Placement spritePlacement){
+	public void purchaseSprite(String SpriteID, Placement spritePlacement){
 		myGameStats.updateMoney(-1*myStore.getTowerCost(myStore.getFromID(SpriteID)));
 		myGrid.placeSpriteAt(myStore.getFromID(SpriteID), spritePlacement);
 		render();
+	}
+	
+	public void placeSprite(String SpriteID, Placement spritePlacement){
+		myGrid.placeSpriteAt(myStore.getTowerFromName(SpriteID), spritePlacement);
 		
 	}
 	
 	// REVIEW should the value when sold be different from the value when purchased? Currently, it is not.
 	// increment money appropriately and remove from Grid
-	void sellObject(String SpriteID, Placement spritePlacement){
+	public void sellObject(String SpriteID, Placement spritePlacement){
 		myGameStats.updateMoney(myStore.getTowerCost(myStore.getFromID(SpriteID)));
 		myGrid.removeSpriteAt(myStore.getFromID(SpriteID), spritePlacement);
 		render();
-	
 	}
 	
+
 	// REVIEW make sure that the Player displays the range correctly in addition to the model updating the HUD
 	// REVIEW make sure that the player can accurately display a popup with the enemy's data
 	void examineSprite(String SpriteID, Placement spritePlacement){
@@ -63,7 +72,7 @@ public class LevelNode extends GameNode  {
 		myGrid = new Grid(grid, new GridManager(myGrid));
 		
 	}
-	
+
 	public void setWaves(Queue<Wave> waves){
 		myGrid.setWaves(waves);
 	}
@@ -79,16 +88,17 @@ public class LevelNode extends GameNode  {
 	public Store getStore(){
 		return myStore;
 	}
-
+	
 	public void update(){	
 		myGrid.update();
 	}
 
-	public boolean isComplete(){
-		return myGrid.isComplete();
+	public NodeState checkState(){
+		return NodeState.RUNNING;
 	}
 	
 	public void setGameStats(GameStats gamestats){
 		myGameStats = gamestats;
 	}
+
 }

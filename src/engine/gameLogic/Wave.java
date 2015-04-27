@@ -8,19 +8,11 @@ import engine.sprites.Enemy;
 
 public class Wave extends GameObject{
 	
-	/** The my enemies. */
 	private List<Enemy> myEnemies;
 	private String myPortName; //myPortName NEEDS TO BE UNIQUE FOR EACH PORT
-
-	/** The my delays. */
 	private List<Long> myDelays;
-	
-	/** The my current enemy. */
 	private int myCurrentEnemy;
-	
-	/**
-	 * Instantiates a new wave.
-	 */
+
 	public Wave(){
 		myEnemies = new ArrayList<Enemy>();
 		myDelays = new ArrayList<Long>();
@@ -70,11 +62,6 @@ public class Wave extends GameObject{
 		return toSpawn;
 	}
 
-	/**
-	 * Checks if is complete.
-	 *
-	 * @return true, if is complete
-	 */
 	public boolean isComplete() {
 		if (myCurrentEnemy >= myEnemies.size()) {
 			return true;

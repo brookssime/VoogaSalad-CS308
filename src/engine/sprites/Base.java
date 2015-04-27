@@ -2,16 +2,13 @@
 package engine.sprites;
 
 import interfaces.Collidable;
-
-import java.awt.Shape;
-
 import engine.gameLogic.Placement;
 
 public class Base extends Sprite implements Collidable{
 
 	private Integer myHealth;
-	private int myRadius;
-	private Shape myCollisionBounds;
+	private int myCollisionHeight;
+	private int myCollisionWidth;
 
 	public Base(String imageString, Integer health){
 		myImagePath = imageString;
@@ -22,27 +19,15 @@ public class Base extends Sprite implements Collidable{
 		myHealth = health;
 	}
 	
-	public void setRadius(int radius){
-		myRadius = radius;
-	}
-	
 	public int getHealth(){
 		return myHealth;
 	}
 	
-	public int getRadius(){
-		return myRadius;
-	}
-
 	@Override
-	public boolean evaluateCollision(Collidable collider){
-		if(isCollision(collider)){
-			if (collider.getClass().isAssignableFrom(Enemy.class)) { 
-				myHealth -= ((Enemy) collider).getEnemyDamage(); 
-			}
-			return true;
+	public void evaluateCollision(Collidable collider){
+		if (collider.getClass().isAssignableFrom(Enemy.class)) {
+			myHealth -= ((Enemy) collider).getEnemyDamage();
 		}
-		return false; 
 	}
 
 	@Override
@@ -50,16 +35,6 @@ public class Base extends Sprite implements Collidable{
 		return (myHealth<=0);
 	}
 
-	public void setCollisionBounds() {
-		//myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRad*2, myRad*2);
-		// TODO
-	}
-
-	@Override
-	public Shape getCollisionBounds() {
-		return myCollisionBounds;
-	}
-	
 
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
@@ -75,5 +50,25 @@ public class Base extends Sprite implements Collidable{
 	public void fillSpriteInfo() {
 		mySpriteInfo.put("Name", myName);
 		mySpriteInfo.put("Health", myHealth.toString());
+	}
+
+	@Override
+	public void setCollisionHeight(Integer height) {
+		myCollisionHeight = height;
+	}
+
+	@Override
+	public void setCollisionWidth(Integer width) {
+		myCollisionWidth = width;	
+	}
+
+	@Override
+	public Integer getCollisionHeight() {
+		return myCollisionHeight;
+	}
+
+	@Override
+	public Integer getCollisionWidth() {
+		return myCollisionWidth;
 	}
 }
