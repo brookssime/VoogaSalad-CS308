@@ -2,7 +2,7 @@ package engine;
 
 import interfaces.Collidable;
 
-import java.util.List;
+import java.awt.Point;
 import java.util.Map;
 import java.util.Queue;
 
@@ -77,6 +77,30 @@ public class Grid extends GameObject{
 
 	public void setTiles(Tile[][] tiles){
 		myTiles = tiles;
+		initTiles();
+	}
+	
+	private void initTiles(){
+		 
+		
+		// adjust Tile y locations such that (0,0) is bottom right
+		for (int x = 0; x < myTiles.length; x++)
+			for(int i = 0; i < myTiles[0].length / 2; i++)
+			{
+				Tile temp = myTiles[x][i];
+				myTiles[x][i] = myTiles[x][myTiles.length - i - 1];
+				myTiles[x][myTiles.length - i - 1] = temp;
+			}
+		
+		
+		// clone Tiles and set their locations
+		for (int x = 0; x < myTiles.length; x++)
+			for (int y = 0; y < myTiles[0].length; y++){
+				myTiles[x][y] = myTiles[x][y].clone();
+				myTiles[x][y].setGridLocation(new Point(x,y));
+			}
+		
+		
 	}
 
 	public void placeSpriteAt(Sprite sprite, Placement spritePlacement){

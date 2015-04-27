@@ -5,12 +5,10 @@ import engine.gameScreens.LevelNode;
 
 public abstract class Condition {
 	
-	protected LevelNode myLevelNode;
 	
-	public Condition (LevelNode levelNode) {
-		myLevelNode = levelNode;
+	public Condition () {
 	}
 	
-	public abstract NodeState evaluate();
+	public abstract NodeState evaluate(LevelNode levelNode);
 
 }

@@ -1,6 +1,8 @@
 
 package engine.gameLogic;
 
+import interfaces.MethodAnnotation;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class Wave extends GameObject{
 		return myDelays;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Port", type = "textfield", fieldName = "myPortName")
 	public void setPortName(String portName){
 		myPortName = portName;
 	}
@@ -37,13 +40,17 @@ public class Wave extends GameObject{
 	public void addEnemy(Enemy enemy){
 		myEnemies.add(enemy);
 	}
+	
 	public void addDelay(Long delay){
 		myDelays.add(delay);
 	}
+	
+	@MethodAnnotation(editor=true, name = "Set Enemies", type = "queueeditor", fieldName = "myEnemies")
 	public void setEnemies(List<Enemy> enemies){
 		myEnemies = enemies;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Delays", type = "queueeditor", fieldName = "myDelays")
 	public void setDelays(List<Long> delays){
 		myDelays = delays;
 	}

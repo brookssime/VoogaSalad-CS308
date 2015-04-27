@@ -22,6 +22,7 @@ public abstract class Sprite extends GameObject{
 		myImagePath = imagePath;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Access Names", type = "multiselect", fieldName = "myAccessNames")
 	public void setAccessNames(List<String> accessNames){
 		myAccessNames = accessNames;
 	}

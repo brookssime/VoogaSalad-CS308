@@ -40,5 +40,14 @@ public class NodeButton extends GameObject{
 		myTargetNodeID = target;
 	}
 	
+	public NodeButton clone(){
+		NodeButton b = new NodeButton();
+		b.myInfo = this.myInfo;
+		b.myTargetNodeID = this.myTargetNodeID;
+		b.myName = this.myName;
+		return b;
+		}
+	
+	
 	
 }

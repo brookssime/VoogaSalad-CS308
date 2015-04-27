@@ -1,6 +1,7 @@
 package engine.sprites;
 
 import interfaces.Collidable;
+import interfaces.MethodAnnotation;
 
 import java.awt.Shape;
 
@@ -45,6 +46,7 @@ public class Projectile extends Sprite implements Collidable{
 		myPath = p;
 	}
 
+	@MethodAnnotation(editor=true, name = "Set Radius", type = "textfield", fieldName = "myRadius")
 	public void setRadius(int x){
 		myRadius = x;
 	}

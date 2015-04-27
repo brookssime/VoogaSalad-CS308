@@ -40,6 +40,10 @@ public abstract class GameNode extends GameObject {
 		myScene = new KeyFrame(Duration.millis(frameRate * 10), e -> update());
 		return myScene;
 	}
+	
+	public void setNodeButtons(List<NodeButton> nodeButtons){
+		myNodeButtons = nodeButtons;
+	}
 
 	public abstract void update(); // this gets called in a loop
 
