@@ -17,7 +17,9 @@ public abstract class EditorComponent extends VBox {
 
 	protected Label fieldLabel;
 	protected Method myMethod;
+	protected String myFieldName;
 	protected Receiver myReceiver;
+	protected Object myFetchedValue;
 
 	protected String myObject;
 
@@ -25,10 +27,24 @@ public abstract class EditorComponent extends VBox {
 		myReceiver = receiver;
 		myMethod = method;
 		myObject = objectName;
-		MethodAnnotation methodAnnotation = method
+		myFetchedValue = null;
+		MethodAnnotation methodAnnotation = myMethod
 				.getAnnotation(MethodAnnotation.class);
 		String methodName = methodAnnotation.name();
+		myFieldName = methodAnnotation.fieldName();
 		fieldLabel = new Label(methodName);
+
+		try {
+			try {
+				myFetchedValue = myReceiver.getFromObject(myObject, myFieldName);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+			}
+		} catch (IllegalArgumentException | IllegalAccessException
+				| NoSuchFieldException | SecurityException e1) {
+			System.out.println("Failed to fetch field value");
+		}
+		
 		this.getChildren().add(fieldLabel);
 		setUpEditor();
 	}

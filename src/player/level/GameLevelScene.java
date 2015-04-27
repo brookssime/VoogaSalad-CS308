@@ -1,35 +1,30 @@
 package player.level;
 
 import java.util.Map;
+import java.util.Set;
 
 import engine.*;
-import engine.controller.LevelController;
 import engine.gameLogic.Placement;
 import engine.gameScreens.LevelNode;
 import engine.gameScreens.Store;
 import engine.sprites.Sprite;
-import engine.sprites.Tile;
+import engine.sprites.Tower;
 import player.GraphicGameScene;
+import player.manager.LevelManager;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -46,7 +41,7 @@ public class GameLevelScene implements GraphicGameScene{
 	private static final int MENU_SPACING = 50;
 	private static final int SLIDER_SPACING = 10;
 	private static final int NUM_FRAMES_PER_SECOND = 60;
-	private LevelController myController;
+	//private Controller myController = new  Controller();
 	private LevelNode mylevelnode;
 	//private double infoBoxWidthPct = .6;
 	//private double infoBoxHeightPct = .7;
@@ -78,8 +73,11 @@ public class GameLevelScene implements GraphicGameScene{
 	private Stage primaryStage;
 	private KeyFrame frame;
 	private Timeline animation;
+	private Button speedUpButton;
+	private Button slowDownButton;
+	private LevelManager myManager;
 	//private int currentTime
-	public GameLevelScene(Stage stage, double screenWidth, double screenHeight){
+	public GameLevelScene(Stage stage, double screenWidth, double screenHeight, LevelManager manager){
 		//this.root = new Group();
 		primaryStage = stage;
 		this.screenWidth = screenWidth;
@@ -88,18 +86,8 @@ public class GameLevelScene implements GraphicGameScene{
 		moneyNum = 0;
 		scoreNum = 0;
 		adjustrate = screenWidth/1436;
-		//double infoBoxWidth = infoBoxWidthPct * screenWidth;
-		//double infoBoxHeight = infoBoxHeightPct * screenHeight;
-		
 		BorderPane root = makePane();
-		
-        // control the navigation
-       // enableButtons();
-        // create scene to hold UI
         myScene = new Scene(root, screenWidth, screenHeight);
-		//root.getChildren().add(gameChoiceBox);
-		//root.getChildren().add(gameInfoBox);
-        displayError("here is the error");
         initTimeLine();
 	}
 	
@@ -128,24 +116,33 @@ public class GameLevelScene implements GraphicGameScene{
 		mylevelnode = level;
 		 myScene = new Scene(makePane(), screenWidth, screenHeight);
 	}
-/*	public void updateEnvironment(Environment environment){
-		updateGrid(environment.getGrid());
-		updateHUD(environment.getHUD());
-		updateStore(environment.getStore());
-	}*/
+
 	
-	public void updateStore(Store store) {
-		// TODO Auto-generated method stub
+	private void updateStore(Store store) {
+		towerInfo.getChildren().clear();
+		Label myLabel = new Label("Towers: ");
+
+		Set<Tower> myTowersOnSale = store.getTowersOnSale();
+		for(Tower tower : myTowersOnSale){
+			TowerInfo t = new TowerInfo(tower);
+			//sample TowerInfo
+			//TowerInfo t = new TowerInfo("../../images/tower.jpg", "basic", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
+			towerInfo.getChildren().addAll(myLabel,t.getDisplay());
+		}
+		
+		
 		
 	}
 
-	public void updateHUD(HeadsUpDisplay hud) {
-		// TODO Auto-generated method stub
+	private void updateHUD(HeadsUpDisplay hud) {
+		healthLabel.setText(Integer.toString(hud.displayHealth()));
+		scoreLabel.setText(Integer.toString(hud.displayScore()));
+		moneyLabel.setText(Integer.toString(hud.displayMoney()));
+		
 		
 	}
 
-	public void updateGrid(Grid grid) {
-		// TODO Auto-generated method stub
+	private void updateGrid(Grid grid) {
 		Map<Sprite, Placement> myMap =grid.getSpriteMap();
 		myGrid.updateSprite(myMap);
 		
@@ -167,7 +164,6 @@ public class GameLevelScene implements GraphicGameScene{
 
 	private BorderPane makePane(){
 		BorderPane root = new BorderPane();
-        // must be first since other panels may refer to page
         root.setCenter(makeGridDisplay());
         root.setTop(makeControlPanel());
         root.setRight(makeTowerInfo());
@@ -177,7 +173,6 @@ public class GameLevelScene implements GraphicGameScene{
 	}
 	
 	private Node makeTowerInfo() {
-		// TODO Auto-generated method stub
 		towerInfo = new VBox();
 		Label myLabel = new Label("Towers: ");
 		//sample TowerInfo
@@ -187,7 +182,7 @@ public class GameLevelScene implements GraphicGameScene{
 	}
 
 	private Node makeInformationPanel() {
-		// TODO Auto-generated method stub
+		//nothing in it rightnow
 		return null;
 	}
 
@@ -202,39 +197,42 @@ public class GameLevelScene implements GraphicGameScene{
 		result.setSpacing(MENU_SPACING);
 		pausePlayButton = makeButton(PAUSE_PLAY);
 		pausePlayButton.setOnAction((e)->pause());
+		speedUpButton = makeButton("Speed Up");
+		speedUpButton.setOnAction((e)->speedUp());
+		slowDownButton = makeButton("Slow Down");
+		slowDownButton.setOnAction((e)->slowDown());
 		result.setSpacing(100);
 		result.setPadding(new Insets(10,30,10,30));
 		levelLabel = new Label("Level: " + levelNum);
 		moneyLabel = new Label("Money: " + moneyNum);
 		scoreLabel = new Label("score: " + scoreNum);
 		healthLabel = new Label("Health: " + healthNum);
-		//resetButton = makeButton(RESET);
-		//stepButton = makeButton(STEP);
-		result.getChildren().addAll(levelLabel, moneyLabel, scoreLabel, healthLabel, pausePlayButton, initiateSpeedSlider());
+		result.getChildren().addAll(levelLabel, moneyLabel, scoreLabel, healthLabel, pausePlayButton, speedUpButton, slowDownButton);
 		return result;
 	}
 	
-	/**
-	 * Sets up the animation speed slider with its labels and listeners.
-	 * 
-	 * @return the slider in the form of a Node to be added to the scene
-	 */
-	private Node initiateSpeedSlider()
-	{
-		HBox result = new HBox();
-		result.setSpacing(SLIDER_SPACING);
-		animationSpeedSlider = new Slider(1, 4, 1);
-		Label sliderLabel = new Label("Speed:");
-		result.getChildren().addAll(sliderLabel, animationSpeedSlider);
-		animationSpeedSlider.valueProperty().addListener(new ChangeListener<Number>()
-				{
-					public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue)
-					{
-						speed = newValue.doubleValue();
-					}
-				});
-		return result;
-	}
+//	/**
+//	 * Sets up the animation speed slider with its labels and listeners.
+//	 * 
+//	 * @return the slider in the form of a Node to be added to the scene
+//	 */
+//	private Node initiateSpeedSlider()
+//	{
+//		HBox result = new HBox();
+//		result.setSpacing(SLIDER_SPACING);
+//		animationSpeedSlider = new Slider(1, 4, 1);
+//		Label sliderLabel = new Label("Speed:");
+//		result.getChildren().addAll(sliderLabel, animationSpeedSlider);
+//		animationSpeedSlider.valueProperty().addListener(new ChangeListener<Number>()
+//				{
+//					public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue)
+//					{
+//						speed = newValue.doubleValue();
+//					}
+//				});
+//		return result;
+//	}
+	
 	/**
 	 * Makes a new button with the given label.
 	 * 
@@ -277,7 +275,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void pause(){
-		
+		animation.pause();
 	}
 	
 	/**
@@ -285,6 +283,8 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void resume(){
+		//animation
+		animation.play();
 		
 	}
 	
@@ -293,7 +293,9 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void speedUp(){
+		//animation.stop();
 		gamespeed = gamespeed/2;
+		if(gamespeed == 0) gamespeed = 1;
 	}
 	
 	/**
@@ -302,6 +304,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 */
 	public void slowDown(){
 		gamespeed = gamespeed*2;
+		if(gamespeed > 60) gamespeed = 60;
 	}
 	
 	/**
@@ -309,7 +312,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void win(){
-		
+		System.out.println("win");
 	}
 	
 	/**
@@ -317,7 +320,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void lose(){
-		
+		System.out.println("lose");
 	}
 	
 	/**
@@ -333,6 +336,14 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void startNextWave(){
+		
+	}
+
+	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud) {
+		// TODO Auto-generated method stub
+		updateGrid(grid);
+		updateStore(store);
+		updateHUD(hud);
 		
 	}
 

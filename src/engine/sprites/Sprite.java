@@ -1,5 +1,8 @@
 package engine.sprites;
 
+import interfaces.MethodAnnotation;
+import interfaces.ParameterAnnotation;
+
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +15,8 @@ public abstract class Sprite extends GameObject{
 	protected List<String> myAccessNames;
 	protected Map<String, String> mySpriteInfo;
 	
-	public void setImagePath(String imagePath){
+	@MethodAnnotation(editor=true, name = "Select Image", type = "imageselect", fieldName = "myImagePath")
+	public void setImagePath(@ParameterAnnotation(name="Image File")String imagePath){
 		myImagePath = imagePath;
 	}
 	
