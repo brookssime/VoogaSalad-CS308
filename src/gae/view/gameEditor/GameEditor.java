@@ -131,30 +131,15 @@ public class GameEditor {
 	 */
 	private void checkOutSelected(GameNode inNode) {
 		for(GameNode outNode : myNodes){
-			//A connection was drawn
-			// 1) Draw Line between Nodes showing Connection was Made [DONE[
-			// 2) Update Out Node's Children [DONE]
-			if(outNode.getMyOut().isSelected().getValue() && !outNode.equals(inNode)){
+			
+			//if outnode is selected and outnode is not innode
+			if(outNode.getMyOut().isSelected().getValue() && !outNode.equals(inNode) 
+					&& outNode.draw() &&inNode.draw()){
 				//draw line
-				Rectangle outNodeBody = outNode.getMyOut().getOutBody();
-				Rectangle inNodeBody = inNode.getMyIn().getInBody();
-				DoubleProperty startX = new SimpleDoubleProperty();
-			    DoubleProperty startY = new SimpleDoubleProperty();
-			    DoubleProperty endX   = new SimpleDoubleProperty();
-			    DoubleProperty endY   = new SimpleDoubleProperty();
-			    startX.bind(outNodeBody.translateXProperty());
-			    startY.bind(outNodeBody.translateYProperty());
-			    endX.bind(inNodeBody.translateXProperty());
-			    endY.bind(inNodeBody.translateYProperty());
-				Line line = new BoundLine(startX, startY, 
-						endX, endY);
-				myRoot.getChildren().add(line);
+				Line line = drawLine(inNode, outNode);
 				
 				outNode.addChild(inNode);
 				
-				//If line is double clicked, we delete it
-				// 1) First remove it from the scene [DONE]
-				// 2) Second update children of outNode [DONE]
 				line.setOnMouseEntered(new EventHandler<MouseEvent>() {
 					
 					@Override
@@ -173,6 +158,30 @@ public class GameEditor {
 			}
 		}
 		
+	}
+
+	/**
+	 * creates properties that are bound so that the line will follow the Connectors whereever the node 
+	 * moves.
+	 * @param inNode
+	 * @param outNode
+	 * @return
+	 */
+	private Line drawLine(GameNode inNode, GameNode outNode) {
+		Rectangle outNodeBody = outNode.getMyOut().getBody();
+		Rectangle inNodeBody = inNode.getMyIn().getBody();
+		DoubleProperty startX = new SimpleDoubleProperty();
+		DoubleProperty startY = new SimpleDoubleProperty();
+		DoubleProperty endX   = new SimpleDoubleProperty();
+		DoubleProperty endY   = new SimpleDoubleProperty();
+		startX.bind(outNodeBody.translateXProperty());
+		startY.bind(outNodeBody.translateYProperty());
+		endX.bind(inNodeBody.translateXProperty());
+		endY.bind(inNodeBody.translateYProperty());
+		Line line = new BoundLine(startX, startY, 
+				endX, endY);
+		myRoot.getChildren().add(line);
+		return line;
 	}
 	
 	

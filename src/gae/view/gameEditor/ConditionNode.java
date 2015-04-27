@@ -1,6 +1,5 @@
 package gae.view.gameEditor;
 
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -17,6 +16,7 @@ public class ConditionNode extends GameNode{
 	private static final int NODE_BODY_LENGTH = 50;
 	private static final int NODE_BODY_HEIGHT = 60;
 	private Color myColor = Color.YELLOW;
+	private GameNode myNext;
 	
 	public ConditionNode() {
 		formatNode();
@@ -45,7 +45,7 @@ public class ConditionNode extends GameNode{
 		Button accept = new Button("Accept");
 		accept.setOnAction(e -> {
 			//bind text of selection to game node
-			bindText(selection.getSelectionModel().getSelectedItem());
+			bindText(selection.getSelectionModel().getSelectedItem(), NODE_BODY_LENGTH, NODE_BODY_HEIGHT);
 			sceneSelect.close();
 		});
 		
@@ -56,23 +56,20 @@ public class ConditionNode extends GameNode{
 		
 	}
 
-	//TODO: refactor
 	@Override
-	protected void bindText(String s) {
-		myText.setText(s);
-		myText.setPickOnBounds(false);
-		myText.setPrefSize(NODE_BODY_LENGTH, NODE_BODY_HEIGHT);
-		//buffer with binding
-		myText.translateXProperty().bind(Bindings.add(5, myBody.translateXProperty()));
-		myText.translateYProperty().bind(myBody.translateYProperty());
+	protected void addChild(GameNode node) {
+		myNext = node;
 		
-		
-		try{
-			myGroup.getChildren().add(myText);
-		} catch(IllegalArgumentException e){
-			System.out.println("fix this later");
-		}
-		
+	}
+
+	@Override
+	protected void removeChild(GameNode node) {
+		myNext = null;
+	}
+
+	@Override
+	public boolean draw() {
+		return myNext == null;
 	}
 
 }
