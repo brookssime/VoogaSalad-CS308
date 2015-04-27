@@ -18,13 +18,13 @@ public class EditorComponentFactory {
 			return (new SliderEditor(receiver, setMethod, objName));
 		} else if (editorType.equalsIgnoreCase("queueeditor")) {
 			return (new QueueEditor(receiver, setMethod, objName));
-		} else if (editorType.equalsIgnoreCase("multipleselecteditor")){
-			return (new MultipleSelectEditor(receiver, setMethod, objName));
 		} else if (editorType.equalsIgnoreCase("gameeditor")){
 			return (new GameEditor(receiver, setMethod, objName));
 			//not implemented yet
 		} else if (editorType.equalsIgnoreCase("TitleScreenEditor")){
 			return null; //(new TitleScreenEditor(receiver, setMethod, objName));
+		} else if (editorType.equalsIgnoreCase("multiselect")) {
+			return (new MultipleSelectEditor(receiver, setMethod, objName));
 		}
 
 		// we should implement a better error handling here.
