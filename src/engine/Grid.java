@@ -38,6 +38,9 @@ public class Grid extends GameObject{
 		return myTiles;
 	}
 
+	public int getBaseHealth(){
+		return myGridManager.calculateBaseHealth();
+	}
 	public void moveSprite(Sprite s, Placement p){
 		mySpriteMap.put(s, p);
 	}

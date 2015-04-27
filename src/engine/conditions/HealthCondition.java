@@ -1,20 +1,18 @@
 package engine.conditions;
 
-import engine.Grid;
-import engine.GridManager;
 import engine.NodeState;
-import engine.gameScreens.Store;
+import engine.gameScreens.LevelNode;
 
 public class HealthCondition extends Condition{
 
-	public HealthCondition(Grid grid, GridManager gridManager, Store store) {
-		super(grid, gridManager, store);
+	public HealthCondition() {
+		super();
 	}
 	
 
 	@Override
-	public NodeState evaluate() {
-		if(myGridManager.calculateBaseHealth()==0){
+	public NodeState evaluate(LevelNode levelNode) {
+		if(levelNode.getGrid().getBaseHealth()==0){
 			return NodeState.BASE_DEAD;
 		}
 		else{
