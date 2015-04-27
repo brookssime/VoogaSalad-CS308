@@ -31,7 +31,7 @@ public class GridManager {
 	private Queue<Wave> myWaves;
 	private long myStartTime;
 	private PathFinder myPathFinder;
-	private Base myBase;
+	private List<Base> myBases;
 	private boolean myGameWon; //remove these
 
 	public GridManager(Grid grid){
@@ -68,23 +68,24 @@ public class GridManager {
 	}
 
 	public boolean isComplete() {
-		if (myBase.isDead()) {
+		if (calculateBaseHealth()==0) {
 			return true;
 		}
 		return myGameWon;
+	}
+
+	public int calculateBaseHealth() {
+		return myBases.stream().mapToInt(b -> b.getHealth()).sum();
 	}
 
 	public void setWaves(Queue<Wave> waves){
 		myWaves = waves;
 	}
 
-	public Base getBase(){
-		return myBase;
+	public List<Base> getBases(){
+		return myBases;
 	}
 
-	/**
-	 * TODO: Clean this up??
-	 */
 	private void checkCollidables() {
 		for (Collidable sprite : myCollidables) {
 			for (Collidable collider : myCollidables) {
@@ -114,10 +115,8 @@ public class GridManager {
 		Collidable c = s.selectTarget(getObjectsInRange(s));
 		myPathFinder.generateProjectile(s.fire(), myPathFinder.target(s, c));
 	}
-
-	//TODO: Come back such that we don't have to return the range...then take getRange out of the interface
-	private List<Collidable> getObjectsInRange(Shootable shootable){
-		return shootable.getRangeObject().getObjectsInRange();
+	private List<Collidable> getObjectsInRange(Shootable c){
+		return c.getRangeObject().getObjectsInRange();
 	}
 
 	private void moveSprites() {
@@ -154,7 +153,6 @@ public class GridManager {
 		return myWaves;
 	}
 	
-	//TODO: THIS IS SOOOO TERRIBLEEEEEE
 	private boolean isCollision(Collidable spriteCollidedWith, Collidable spriteCollider){
 		Integer spriteCollidedWithX = myGrid.getPlacement(spriteCollidedWith).getLocation().x;
 		Integer spriteCollidedWithY = myGrid.getPlacement(spriteCollidedWith).getLocation().y;

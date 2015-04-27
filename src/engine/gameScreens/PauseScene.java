@@ -5,24 +5,21 @@ import engine.NodeState;
 public class PauseScene extends GameNode{
 	
 	public PauseScene(){
-		
+		super();
 	}
 
 	@Override
 	public void render() {
-		// TODO FILL IN WITH APPROPRIATE CALL WHEN AVAILABLE FROM GUI
-		
+		// REVIEW: make sure these having nothing is fully functional
 	}
 	
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public NodeState checkState() {
-		// TODO Auto-generated method stub
 		return NodeState.RUNNING;
 	}
 

@@ -18,8 +18,8 @@ public class Grid extends GameObject{
 	public Tile[][] myTiles;
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;	
-	private List<Tile> myPorts;
-	private Map<String, Sprite> mySpriteNames; //TODO: This needs to be populated
+	//private List<Tile> myPorts;
+	//private Map<String, Sprite> mySpriteNames; //
 	
 	public Grid(int width, int height){
 		myTiles = new Tile[width][height];
@@ -31,7 +31,6 @@ public class Grid extends GameObject{
 		myName = grid.myName;
 		myTiles = grid.myTiles;
 		mySpriteMap = grid.mySpriteMap;
-		myPorts = grid.myPorts;
 		myGridManager = gm;
 	}
 	
@@ -39,6 +38,9 @@ public class Grid extends GameObject{
 		return myTiles;
 	}
 
+	public int getBaseHealth(){
+		return myGridManager.calculateBaseHealth();
+	}
 	public void moveSprite(Sprite s, Placement p){
 		mySpriteMap.put(s, p);
 	}
@@ -90,14 +92,6 @@ public class Grid extends GameObject{
 		myTiles[x][y] = t;
 	}
 
-	public void setPort(List<Tile> t){
-		myPorts = t;
-	}
-
-	public List<Tile> getPort(){
-		return myPorts;
-	}
-
 	public Tile getTile(int x, int y){
 		return myTiles[x][y];
 	}
@@ -124,15 +118,6 @@ public class Grid extends GameObject{
 		return myGridManager.getWaves();
 	}
 	
-	public Sprite getFromID(String inputSprite){
-		for (String spriteName: mySpriteNames.keySet()){
-			if (spriteName == inputSprite){
-				return mySpriteNames.get(spriteName);
-			}
-		}
-		return null; //TODO: Throw an error?
-	}
-
 	public void move(Sprite sprite, Placement move) {
 		mySpriteMap.put(sprite, move);
 		

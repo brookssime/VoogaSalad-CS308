@@ -8,7 +8,7 @@ import engine.gameScreens.Store;
 public class EnemyCondition extends Condition{
 
 	public EnemyCondition(Grid grid, GridManager gridManager, Store store) {
-		super(grid, gridManager, store);
+		super(null);
 	}
 
 	@Override

@@ -1,14 +1,14 @@
 package engine.gameLogic;
 
 /**
- * TODO: Is it okay that this is basically just geters and setters?
  * @author Brooks and Sid
  */
-public class GameStats {
+public class LevelStats {
 	
 	private int myMoney;
 	private int myBaseHealth;
 	private int myScore;
+	private long myTimeElapsed;
 	
 	public void updateMoney(int money){
 		myMoney += money;
@@ -32,5 +32,10 @@ public class GameStats {
 	
 	public Integer getScore(){
 		return myScore;
+	}
+	
+	public long getTimeElapsed(long startTime){
+		myTimeElapsed = System.nanoTime() - startTime;
+		return myTimeElapsed;
 	}
 }

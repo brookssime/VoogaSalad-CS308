@@ -1,18 +1,22 @@
 package engine.conditions;
 
-import engine.Grid;
-import engine.GridManager;
 import engine.NodeState;
-import engine.gameScreens.Store;
+import engine.gameScreens.LevelNode;
 
 public class TimeCondition extends Condition{
+	
+	private boolean isTimed;
 
-	public TimeCondition(Grid grid, GridManager gridManager, Store store) {
-		super(grid, gridManager, store);
+	public TimeCondition(LevelNode levelNode) {
+		super(levelNode);
+		isTimed = (myLevelNode.getTotalTime()!=0);
 	}
 
 	@Override
 	public NodeState evaluate() {
+		if(isTimed && myLevelNode.calculateRemainingTime()==0){
+			return NodeState.TIME_UP;
+		}
 		return NodeState.RUNNING;
 	}
 

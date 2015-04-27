@@ -161,6 +161,7 @@ public class Tower extends Sprite implements Shootable{
 		mySpriteInfo.put("Health", myHealth.toString());
 		mySpriteInfo.put("Firing Rate", myFireRate.toString());
 		mySpriteInfo.put("Price", myPrice.toString());
+		mySpriteInfo.put("Health Damage", myProjectile.getEffect().getHealthDamage().toString());
 	}
 
 }

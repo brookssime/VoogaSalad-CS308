@@ -1,11 +1,13 @@
 package player.manager;
 
 import java.lang.reflect.InvocationTargetException;
+
 import java.util.List;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import engine.Game;
+
 import engine.Grid;
 import engine.HeadsUpDisplay;
 import engine.Controller;
@@ -91,14 +93,18 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	@Override
 	public void sellObject(String spriteID, Placement place) {
 		Object[] params = {spriteID, place};
-		try {
-			myController.doSomething("sellObject", params);
-		} catch (NoSuchMethodException | SecurityException
-				| IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		
+			try {
+				myController.doSomething("sellObject", params);
+			} catch (NoSuchMethodException | SecurityException
+					| IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+
 		
 		
 	}

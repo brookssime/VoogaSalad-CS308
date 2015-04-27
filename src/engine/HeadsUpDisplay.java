@@ -1,6 +1,6 @@
 package engine;
 
-import engine.gameLogic.GameStats;
+import engine.gameLogic.LevelStats;
 
 /**
  * TODO: Does this class work? The methods don't seem to make full sense yet.
@@ -16,7 +16,7 @@ public class HeadsUpDisplay {
 	 * GameData object
 	 */
 	
-	private GameStats data;
+	private LevelStats data;
 	
 	public int displayMoney(){
 		int money = data.getMoney();

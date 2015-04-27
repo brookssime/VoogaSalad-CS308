@@ -19,11 +19,12 @@ public class Enemy extends Sprite implements Collidable {
 	private Integer myDamage;
 	private Integer myHealth;
 	private List<Tile> myTilePath;
-	private Timer myTimer; //TODO: Do we need this in the EnemyClass?
+	private Timer myTimer;
 	private Path myPath;
 	private Integer myCollisionHeight;
 	private Integer myCollisionWidth;
-
+	
+	
 	public Enemy(){
 		
 	}
@@ -50,23 +51,18 @@ public class Enemy extends Sprite implements Collidable {
 	
 	public int getDamage(){
 		return myDamage;
-	}
+	}	
 	
-	//TODO: Fix this with new projectile info
 	public void executeEffect(Projectile projectile) {
 		ProjectileEffect currentEffect = projectile.getEffect();
-		if(currentEffect.isFinal()){
-			mySpeed -= currentEffect.getSpeedDamage();
-			myHealth -= currentEffect.getHealthDamage();
+		mySpeed -= currentEffect.getSpeedDamage();
+			if (!currentEffect.isFinal()){
+				currentEffect.reverseSpeedEffect(this);
+			}
+		currentEffect.causeHealthDamage(this);
 		}
 		
-	/*	else{
-			myTimer = new Timer();
-			myTimer.schedule(
-					new reverseEffect(currentEffect.getSpeedDamage()),
-					currentEffect.getDuration());
-		}*/	
-	}
+	
 
 	public List<String> getWalkables() {
 		return myAccessNames;
@@ -89,20 +85,6 @@ public class Enemy extends Sprite implements Collidable {
 		return myDamage;
 	}
 
-	//TODO: Is this class required?
-	class reverseEffect extends TimerTask {
-
-		private Integer speedChange;
-
-		private reverseEffect(Integer speed) {
-			speedChange = speed;
-		}
-
-		public void run() {
-			mySpeed += speedChange;
-			myTimer.cancel();
-		}
-	}
 
 	@Override
 	public boolean isDead() {
@@ -130,7 +112,6 @@ public class Enemy extends Sprite implements Collidable {
 		return myMovement;
 	}
 
-	//TODO: Find a better way to do this?
 	@Override
 	public void fillSpriteInfo() {
 		mySpriteInfo.put("Name", myName);
