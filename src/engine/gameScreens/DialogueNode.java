@@ -61,10 +61,7 @@ public class DialogueNode extends GameNode{
 		
 	@Override
 	public NodeState checkState() {	
-		if(myDialogueBoxes.size() <= 0){
-			return NodeState.COMPLETE;
-		};
-		return NodeState.RUNNING;
+		return myState;
 	}
 
 	@Override
