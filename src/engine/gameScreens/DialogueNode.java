@@ -6,6 +6,8 @@ package engine.gameScreens;
 import java.util.List;
 import java.util.Queue;
 
+import engine.NodeState;
+
 // TODO: Auto-generated Javadoc
 /**
  * DialogueScenes will consist of a background image, several "heads" on top of that, and then a center pane with dialogue
@@ -72,8 +74,11 @@ public class DialogueNode extends GameNode{
 	}
 		
 	@Override
-	public boolean isComplete() {	
-		return (myDialogueBoxes.size() <= 0);
+	public NodeState checkState() {	
+		if(myDialogueBoxes.size() <= 0){
+			return NodeState.COMPLETE;
+		};
+		return NodeState.RUNNING;
 	}
 
 	@Override

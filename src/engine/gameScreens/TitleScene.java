@@ -1,5 +1,7 @@
 package engine.gameScreens;
 
+import engine.NodeState;
+
 /**
  * Currently a static title screen
  * Animation can be added later.
@@ -29,8 +31,8 @@ public class TitleScene extends GameNode{
 	}
 
 	@Override
-	public boolean isComplete(){
-		return myButtonClicked;
+	public NodeState checkState(){
+		return NodeState.COMPLETE;
 	}
 	
 	/**

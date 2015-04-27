@@ -1,11 +1,15 @@
 package engine.gameScreens;
 
 
+import java.awt.List;
+import java.util.ArrayList;
 import java.util.Queue;
 
 import engine.Grid;
 import engine.GridManager;
 import engine.HeadsUpDisplay;
+import engine.NodeState;
+import engine.conditions.Condition;
 import engine.gameLogic.Wave;
 
 public class LevelNode extends GameNode  {
@@ -15,6 +19,7 @@ public class LevelNode extends GameNode  {
 	private Grid myGrid;
 	private HeadsUpDisplay myHUD;
 	private GridManager myGridManager;
+	private ArrayList<Condition> myConditions;
 	//private GridManager myGridManager; TODO - why
 
 	public LevelNode() {
@@ -33,6 +38,7 @@ public class LevelNode extends GameNode  {
 		myGrid = new Grid(myGrid, myGridManager);
 		myStore  = new Store();
 		myHUD = new HeadsUpDisplay();
+		myConditions = new ArrayList<Condition>();
 	}
 
 	
@@ -74,8 +80,8 @@ public class LevelNode extends GameNode  {
 		myGrid.update();
 	}
 
-	public boolean isComplete(){
-		return myGrid.isComplete();
+	public NodeState checkState(){
+		return NodeState.RUNNING;
 	}
 
 

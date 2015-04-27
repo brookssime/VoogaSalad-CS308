@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import engine.NodeState;
 import engine.gameLogic.GameObject;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
@@ -60,7 +61,7 @@ public abstract class GameNode extends GameObject{
 	/**
 	 * Check complete.
 	 */
-	public abstract boolean isComplete();
+	public abstract NodeState checkState();
 	
 	public abstract void render();
 
