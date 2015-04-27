@@ -47,8 +47,8 @@ public class GridManager {
 			}
 			if(Arrays.asList(o.getClass().getClasses()).contains(Shootable.class)){
 				myShootables.add((Shootable) o);
-				
 			}
+			
 			if(Arrays.asList(o.getClass().getClasses()).contains(Sprite.class)){
 				mySprites.add(o);
 			}
@@ -116,8 +116,8 @@ public class GridManager {
 	}
 
 	//TODO: Come back such that we don't have to return the range...then take getRange out of the interface
-	private List<Collidable> getObjectsInRange(Shootable c){
-		return c.getRangeObject().getObjectsInRange();
+	private List<Collidable> getObjectsInRange(Shootable shootable){
+		return shootable.getRangeObject().getObjectsInRange();
 	}
 
 	private void moveSprites() {

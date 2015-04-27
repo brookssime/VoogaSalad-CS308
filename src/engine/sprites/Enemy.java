@@ -121,7 +121,9 @@ public class Enemy extends Sprite implements Collidable {
 
 	@Override
 	public void evaluateCollision(Collidable collider) {
-		// TODO Auto-generated method stub
+		if (collider.getClass().isAssignableFrom(Projectile.class)) {
+			executeEffect((Projectile) collider);
+		}
 	}
 
 	public MovementStrategy getMovement() {

@@ -4,7 +4,9 @@ import interfaces.Collidable;
 
 import java.util.ArrayList;
 
-public class Range implements Collidable{
+import engine.sprites.Sprite;
+
+public class Range extends Sprite implements Collidable{
 
 	private ArrayList<Collidable> objectsInRange = new ArrayList<Collidable>();
 	private Integer myCollisionHeight;
@@ -59,5 +61,15 @@ public class Range implements Collidable{
 	@Override
 	public Integer getCollisionWidth() {
 		return myCollisionWidth;
+	}
+
+	@Override
+	public Placement move() {
+		return null;
+	}
+
+	@Override
+	public void fillSpriteInfo() {
+		
 	}
 }
