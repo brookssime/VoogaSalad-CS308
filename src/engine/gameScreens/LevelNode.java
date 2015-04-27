@@ -31,6 +31,7 @@ public class LevelNode extends GameNode  {
 	}
 	
 	private void init(){
+		//how does this make sense?
 		myGrid = new Grid(myGrid, myGridManager);
 		myStore  = new Store();
 		myHUD = new HeadsUpDisplay();

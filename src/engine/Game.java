@@ -1,5 +1,6 @@
 package engine;
 
+import interfaces.MethodAnnotation;
 import engine.gameScreens.GameNode;
 import engine.gameScreens.LevelNode;
 import engine.gameScreens.Store;
@@ -19,7 +20,7 @@ public class Game {
 	}
 	
 	
-	
+	@MethodAnnotation(editor=true, name = "Set Head", type = "game", fieldName = "myStartNode")
 	public void setHead(GameNode head){
 		myStartNode = head;
 	}

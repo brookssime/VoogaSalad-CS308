@@ -217,7 +217,7 @@ public class GameEditor extends EditorComponent{
 
 	@Override
 	public void setUpEditor() {
-		drawGameEditor();
+		this.getChildren().add(drawGameEditor());
 		
 	}
 	

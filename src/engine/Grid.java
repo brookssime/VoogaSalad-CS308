@@ -12,7 +12,6 @@ import engine.sprites.Tile;
 
 public class Grid extends GameObject{
 
-	private String myName;
 	public Tile[][] myTiles;
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;	

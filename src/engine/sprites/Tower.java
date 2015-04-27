@@ -113,6 +113,7 @@ public class Tower extends Sprite implements Shootable{
 		return myRange;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Range", type = "textfield", fieldName = "myRange")
 	public void setRange(Integer range){
 		myRange = range;
 	}

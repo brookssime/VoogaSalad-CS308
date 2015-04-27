@@ -1,6 +1,7 @@
 package gae.view.editorpane.editorComponents;
 
 import gae.model.Receiver;
+import gae.view.gameEditor.GameEditor;
 
 import java.lang.reflect.Method;
 
@@ -16,6 +17,13 @@ public class EditorComponentFactory {
 			return (new SliderEditor(receiver, setMethod, objName));
 		} else if (editorType.equalsIgnoreCase("queueeditor")) {
 			return (new QueueEditor(receiver, setMethod, objName));
+		} else if (editorType.equalsIgnoreCase("gameeditor")){
+			return (new GameEditor(receiver, setMethod, objName));
+			//not implemented yet
+		} else if (editorType.equalsIgnoreCase("titlescreeneditor")){
+			return null; //(new TitleScreenEditor(receiver, setMethod, objName));
+		} else if (editorType.equalsIgnoreCase("multiselect")) {
+			return (new MultipleSelectEditor(receiver, setMethod, objName));
 		}
 
 		// we should implement a better error handling here.
