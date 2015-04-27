@@ -1,5 +1,7 @@
 package gae.view.titleScreenEditor;
 
+import java.util.ArrayList;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -25,17 +27,31 @@ public class TitleScreenEditor implements IButton{
 	private static final int SCROLLPANE_HEIGHT = 80;
 	private static final int VBOX_PADDING = 25;
 	private static final int VBOX_SPACING = 10;
-	private VBox myComponents;
 	private VBox myTitles;
 	private VBox myButtons;
+	private HBox myWholeEditor;
+	private Visualizer v;
+	private VBox myComponents;
+	private ArrayList<GameButton> myButtonList;
+	
 
 	public TitleScreenEditor() {
-		myComponents = new VBox(VBOX_SPACING);
-		myComponents.setPadding(new Insets(VBOX_PADDING));
+		myButtonList = new ArrayList<>();
 		setUpRootProperties();
+//		myWholeEditor = new HBox();
+//		myWholeEditor.getChildren().addAll(setVisualizerProperties(), setUpRootProperties());
 	}
 
-	private void setUpRootProperties() {
+	//not implemented
+	private Parent setVisualizerProperties() {
+		v = new Visualizer();
+		return v.getPane();
+		
+	}
+
+	private Parent setUpRootProperties() {
+		myComponents = new VBox(VBOX_SPACING);
+		myComponents.setPadding(new Insets(VBOX_PADDING));
 		//ADD TITLES
 		ScrollPane titlePane = new ScrollPane();
 		titlePane.setPrefHeight(SCROLLPANE_HEIGHT);
@@ -61,10 +77,12 @@ public class TitleScreenEditor implements IButton{
 		
 		
 		myComponents.getChildren().addAll(addTitle, titlePane, addButton, buttonPane);
+		return myComponents;
 	}
 
 	private Node addTitle(){
 		VBox temp = new VBox();
+		
 		TextField title = new TextField();
 		title.setPromptText("Name");
 		
@@ -88,5 +106,9 @@ public class TitleScreenEditor implements IButton{
 	public void addButton(GameButton button) {
 		myButtons.getChildren().add(button.getBody());
 		myButtons.getChildren().add(new Separator());
+	}
+	
+	public ArrayList<GameButton> getButtons(){
+		return myButtonList;
 	}
 }

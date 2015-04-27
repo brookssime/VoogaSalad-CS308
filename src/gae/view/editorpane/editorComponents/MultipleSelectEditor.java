@@ -69,6 +69,9 @@ public class MultipleSelectEditor extends EditorComponent{
 			e.printStackTrace();
 		}
 		
+		//get list
+		//use annotation to get type
+		//use fetched value to populate list
 		for (int i = 0; i < 20; i++) {
 			data.add(new GameObject(list.contains(i) ? true : false, "Access ID: "
 					+ i));

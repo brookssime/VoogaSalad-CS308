@@ -18,7 +18,8 @@ public class EditorComponentFactory {
 		} else if (editorType.equalsIgnoreCase("queueeditor")) {
 			return (new QueueEditor(receiver, setMethod, objName));
 		} else if (editorType.equalsIgnoreCase("gameeditor")){
-			return (new GameEditor(receiver, setMethod, objName));
+//			return (new GameEditor(receiver, setMethod, objName));
+			return null;
 			//not implemented yet
 		} else if (editorType.equalsIgnoreCase("titlescreeneditor")){
 			return null; //(new TitleScreenEditor(receiver, setMethod, objName));
