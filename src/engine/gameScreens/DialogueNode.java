@@ -34,12 +34,11 @@ public class DialogueNode extends GameNode{
 	
 	@Override
 	public void render() {
-		// TODO PUT APPROPRIATE CALLS FOR DIALOGUESCENE WHEN WE HAVE UNIFIED GUI CLASS
+		myPlayerManager.updateDialogue(myDialogueBoxes.poll());
 		
 	}
 	
 	public void showNextDialogue(){
-		myDialogueBoxes.poll();
 		render();
 	}
 	
