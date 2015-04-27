@@ -4,34 +4,27 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.*;
-import engine.controller.Controller;
 import engine.gameLogic.Placement;
 import engine.gameScreens.LevelNode;
 import engine.gameScreens.Store;
 import engine.sprites.Sprite;
-import engine.sprites.Tile;
 import engine.sprites.Tower;
 import player.GraphicGameScene;
+import player.manager.LevelManager;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -48,7 +41,7 @@ public class GameLevelScene implements GraphicGameScene{
 	private static final int MENU_SPACING = 50;
 	private static final int SLIDER_SPACING = 10;
 	private static final int NUM_FRAMES_PER_SECOND = 60;
-	private Controller myController = new  Controller();
+	//private Controller myController = new  Controller();
 	private LevelNode mylevelnode;
 	//private double infoBoxWidthPct = .6;
 	//private double infoBoxHeightPct = .7;
@@ -82,8 +75,9 @@ public class GameLevelScene implements GraphicGameScene{
 	private Timeline animation;
 	private Button speedUpButton;
 	private Button slowDownButton;
+	private LevelManager myManager;
 	//private int currentTime
-	public GameLevelScene(Stage stage, double screenWidth, double screenHeight){
+	public GameLevelScene(Stage stage, double screenWidth, double screenHeight, LevelManager manager){
 		//this.root = new Group();
 		primaryStage = stage;
 		this.screenWidth = screenWidth;
@@ -92,18 +86,8 @@ public class GameLevelScene implements GraphicGameScene{
 		moneyNum = 0;
 		scoreNum = 0;
 		adjustrate = screenWidth/1436;
-		//double infoBoxWidth = infoBoxWidthPct * screenWidth;
-		//double infoBoxHeight = infoBoxHeightPct * screenHeight;
-		
 		BorderPane root = makePane();
-		
-        // control the navigation
-       // enableButtons();
-        // create scene to hold UI
         myScene = new Scene(root, screenWidth, screenHeight);
-		//root.getChildren().add(gameChoiceBox);
-		//root.getChildren().add(gameInfoBox);
-        //displayError("here is the error");
         initTimeLine();
 	}
 	
@@ -132,11 +116,7 @@ public class GameLevelScene implements GraphicGameScene{
 		mylevelnode = level;
 		 myScene = new Scene(makePane(), screenWidth, screenHeight);
 	}
-	public void updateEnvironment(Environment environment){
-		updateGrid(environment.getGrid());
-		updateHUD(environment.getHUD());
-		updateStore(environment.getStore());
-	}
+	
 	
 	private void updateStore(Store store) {
 		towerInfo.getChildren().clear();
@@ -231,27 +211,28 @@ public class GameLevelScene implements GraphicGameScene{
 		return result;
 	}
 	
-	/**
-	 * Sets up the animation speed slider with its labels and listeners.
-	 * 
-	 * @return the slider in the form of a Node to be added to the scene
-	 */
-	private Node initiateSpeedSlider()
-	{
-		HBox result = new HBox();
-		result.setSpacing(SLIDER_SPACING);
-		animationSpeedSlider = new Slider(1, 4, 1);
-		Label sliderLabel = new Label("Speed:");
-		result.getChildren().addAll(sliderLabel, animationSpeedSlider);
-		animationSpeedSlider.valueProperty().addListener(new ChangeListener<Number>()
-				{
-					public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue)
-					{
-						speed = newValue.doubleValue();
-					}
-				});
-		return result;
-	}
+//	/**
+//	 * Sets up the animation speed slider with its labels and listeners.
+//	 * 
+//	 * @return the slider in the form of a Node to be added to the scene
+//	 */
+//	private Node initiateSpeedSlider()
+//	{
+//		HBox result = new HBox();
+//		result.setSpacing(SLIDER_SPACING);
+//		animationSpeedSlider = new Slider(1, 4, 1);
+//		Label sliderLabel = new Label("Speed:");
+//		result.getChildren().addAll(sliderLabel, animationSpeedSlider);
+//		animationSpeedSlider.valueProperty().addListener(new ChangeListener<Number>()
+//				{
+//					public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue)
+//					{
+//						speed = newValue.doubleValue();
+//					}
+//				});
+//		return result;
+//	}
+	
 	/**
 	 * Makes a new button with the given label.
 	 * 
