@@ -97,14 +97,14 @@ public class GameLevelScene implements GraphicGameScene{
         //initTimeLine();
 	}
 	
-	private void initTimeLine() {
-		animation = new Timeline();
-		frame = start(NUM_FRAMES_PER_SECOND);
-		animation.setCycleCount(Animation.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
-	}
-	
+//	private void initTimeLine() {
+//		animation = new Timeline();
+//		frame = start(NUM_FRAMES_PER_SECOND);
+//		animation.setCycleCount(Animation.INDEFINITE);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
+//	}
+//	
 	
 
 	private KeyFrame start(int framerate) {
@@ -150,7 +150,9 @@ public class GameLevelScene implements GraphicGameScene{
 
 	private void updateGrid(Grid grid) {
 		Map<Sprite, Placement> myMap =grid.getSpriteMap();
+		myGrid.updateGrid(grid);
 		myGrid.updateSprite(myMap);
+		
 		
 		
 	}
@@ -281,7 +283,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void pause(){
-		animation.pause();
+		//animation.pause();
 	}
 	
 	/**
@@ -290,7 +292,8 @@ public class GameLevelScene implements GraphicGameScene{
 	 */
 	public void resume(){
 		//animation
-		animation.play();
+		//animation.play();
+		
 		
 	}
 	
@@ -300,8 +303,9 @@ public class GameLevelScene implements GraphicGameScene{
 	 */
 	public void speedUp(){
 		//animation.stop();
-		gamespeed = gamespeed/2;
-		if(gamespeed == 0) gamespeed = 1;
+		//gamespeed = gamespeed/2;
+		//if(gamespeed == 0) gamespeed = 1;
+		myManager.increaseGameSpeed();
 	}
 	
 	/**
@@ -309,8 +313,10 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void slowDown(){
-		gamespeed = gamespeed*2;
-		if(gamespeed > 60) gamespeed = 60;
+		//gamespeed = gamespeed*2;
+		//if(gamespeed > 60) gamespeed = 60;
+		
+		myManager.decreaseGameSpeed();
 	}
 	
 	/**

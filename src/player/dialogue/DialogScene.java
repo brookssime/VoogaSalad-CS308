@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 
 /*
@@ -21,21 +22,25 @@ import javafx.scene.layout.BorderPane;
 public class DialogScene implements GraphicGameScene{
 	private Scene scene;
 	private BorderPane root;
-	private double Width = 1400;
-	private double Height=800;
+	private double width = 1400;
+	private double height=800;
 	private DialogueManager myManager;
 	private List<Button> buttons;
 	//private Controller myController;
 	private Dialog curr;
-	public DialogScene(DialogueManager manager){
-		myManager = manager;
+	private Stage stage;
+	public DialogScene(Stage stage, double screenWidth, double screenHeight,
+			DialogueManager playerManager) {
+		this.stage = stage;
+		width = screenWidth;
+		height = screenHeight;
+		myManager = playerManager;
 		root = new BorderPane();
 		//myController = controller;
 		curr = new Dialog();
 		root.getChildren().add(curr.getDialog());
-		scene = new Scene(root,Width, Height);
+		scene = new Scene(root,width, height);
 		buttons = new ArrayList<Button>();
-	
 	}
 	public Scene getScene(){
 		

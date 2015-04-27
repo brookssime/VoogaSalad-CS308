@@ -1,6 +1,7 @@
 package player;
 
 import player.level.GameLevelScene;
+import player.manager.PlayerManager;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -20,7 +21,7 @@ public class GamePlay {
 	private Stage stage;
 	private double screenWidth;
 	private double screenHeight;
-	
+	private PlayerManager myManager;
 	public GamePlay(Stage stage, double screenWidth, double screenHeight){
 		Group root = new Group();
 		Button playGame = new Button("Play Game");
@@ -33,10 +34,12 @@ public class GamePlay {
 		playGame.setLayoutY(.5 * screenHeight);
 		root.getChildren().add(playGame);
 		this.scene = new Scene(root, screenWidth, screenHeight);
+		myManager = new PlayerManager();
 		
 	}
 	public Scene getScene() {
-		GameLevelScene g = new GameLevelScene(stage, screenWidth, screenHeight);
+
+		GameLevelScene g = new GameLevelScene(stage, screenWidth, screenHeight, myManager);
 		return g.getScene();
 	}
 	public void manageTimeline(Timeline animationTimeline, int frameRate) {
