@@ -20,6 +20,7 @@ import javafx.scene.layout.HBox;
 public class SliderEditor extends EditorComponent{
     private final static Double DEFAULT_MAX = 50.0;
     private final static Double DEFAULT_MIN = 0.0;
+    private Label sliderVal;
     private HBox h;
     private double myMin;
     private double myMax;
@@ -28,9 +29,7 @@ public class SliderEditor extends EditorComponent{
     private Double val;
 
     public SliderEditor(Receiver receiver, Method setMethod, String objectName) {
-        super(receiver, setMethod, objectName);
-        //In case the sliderEditorParams method is not called
-        
+        super(receiver, setMethod, objectName);        
     }
 
     @Override
@@ -47,12 +46,7 @@ public class SliderEditor extends EditorComponent{
         }
         h.getChildren().add(sliderSetUp());
         this.getChildren().add(h);
-    }
-    
-    public void sliderEditorParams(double min, double max) {
-        myMin = min;
-        myMax = max;
-        myCur = Math.floor((max-min)/2);
+        this.getChildren().add(sliderVal);
     }
 
     public Node sliderSetUp() {
@@ -63,7 +57,7 @@ public class SliderEditor extends EditorComponent{
         mySlider.setShowTickLabels(true);
         mySlider.setMajorTickUnit(myCur);
 
-        final Label sliderVal = new Label(Double.toString(mySlider.getValue()));
+        sliderVal = new Label(Double.toString(mySlider.getValue()));
 
         mySlider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
