@@ -17,12 +17,15 @@ import javafx.scene.input.DragEvent;
 import java.util.Observable;
 import java.util.Observer;
 
+import engine.sprites.Tower;
 import player.RunGamePlayer;
 
-public class GraphicTower implements Observer{
+public class GraphicTower{
 	private final Image previewImage;
     private final Image activeImage;
     private final Image equippedImage;
+    private Tower myTower;
+    private LevelInfo myLevelInfo;
     private String spriteID;
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
@@ -51,11 +54,14 @@ public class GraphicTower implements Observer{
         return currentImage;
     }
     
-    public GraphicTower(Image images , Node display) {
+    public GraphicTower(Image images , Node display, LevelInfo levelinfo, Tower tower) {
+    	myLevelInfo = levelinfo;
         this.previewImage = images;
         this.activeImage = images;
         this.equippedImage = images;
+        spriteID = tower.getName();
         
+        myTower = tower;
         currentImage = new ImageView(images);
         //currentImage.setImage(previewImage);
         currentImage.setId(this.getClass().getSimpleName() + System.currentTimeMillis());
@@ -67,7 +73,7 @@ public class GraphicTower implements Observer{
 	           // orgSceneY = event.getSceneY();
 	            //orgTranslateX = ((ImageView)(event.getSource())).getTranslateX();
 	            //orgTranslateY = ((ImageView)(event.getSource())).getTranslateY();
-	        	
+	        	if(myTower.getMyPrice()>myLevelInfo.getMoney()) return;
 	            //activate();
 			 	System.out.println("Drage Detected");
 	            Dragboard db = currentImage.startDragAndDrop(TransferMode.MOVE);
@@ -75,7 +81,9 @@ public class GraphicTower implements Observer{
 	            // Store node ID in order to know what is dragged.
 	            //content.putString(currentImage.getId());
 	            content.putImage(images);
+	            //TODO: need spriteID
 	            content.putString("Tower 1");
+	            
 	            //Image myimage = new Image(images, IMAGESIZE,IMAGESIZE,false,false); 
 	            //ImageCursor myCursor = new ImageCursor(myimage);
 	            //myCursor.getBestSize(IMAGESIZE, IMAGESIZE);
@@ -198,9 +206,5 @@ public class GraphicTower implements Observer{
 		
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
-	}
+
 }

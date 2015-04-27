@@ -1,5 +1,7 @@
 package player.level;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -18,11 +20,14 @@ public class GraphicGrid{
 	private GridPane myGrid;
 	private StackPane myPane;
 	private double screenWidth, screenHeight;
+	private List<GridCell> myCells;
+	
 	
 	public GraphicGrid(double screenWidth, double screenHeight){
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
 		myPane = new StackPane();
+		myCells = new ArrayList<GridCell>();
 	}
 	public Node getNode(){
 		myGrid = new GridPane();
@@ -74,6 +79,8 @@ public class GraphicGrid{
 	}
 	
 	public void updateGrid(Grid grid){
+		myGrid.getChildren().clear();
+		myCells.clear();
 		if(grid == null) {
 			System.out.println("null grid");
 			return;
@@ -93,6 +100,7 @@ public class GraphicGrid{
 					c.setDropable(true);
 				}
 				myGrid.add(c.getPane(), col, row);
+				myCells.add(c);
 				
 			}
 		}
@@ -112,6 +120,12 @@ public class GraphicGrid{
 		sprite.setLayoutX(placement.getLocation().x);
 		sprite.setLayoutY(placement.getLocation().y);
 		
+	}
+	public void updateDroppable(String spriteID) {
+		// TODO Auto-generated method stub
+		for(GridCell cell : myCells){
+			
+		}
 	}
 
 }

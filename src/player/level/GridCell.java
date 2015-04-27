@@ -17,6 +17,7 @@ import javafx.scene.ImageCursor;
 import java.awt.Point;
 
 import engine.gameLogic.Placement;
+import engine.sprites.Tile;
 
 public class GridCell{
 	private int row;
@@ -28,19 +29,23 @@ public class GridCell{
 	private String spriteID;
 	private boolean showOption;
 	private LevelManager myManager;
+	private Tile myTile;
 	public void setPosition(int r, int c){
 		row = r;
 		col =c;
 		
 		
 	}
-	public GridCell(Image im, int r, int c){
-		
+	public GridCell(Image im, Tile tile, int r, int c){
+		myTile = tile;
 		image = new ImageView(im);
 		dropable = false;
 		showOption  =false;
 		init();
 		
+	}
+	public getDropList(){
+		myTile.
 	}
 	public void setSize(double width, double height){
 		myPane = new StackPane();

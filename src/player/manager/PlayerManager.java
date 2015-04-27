@@ -46,9 +46,11 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	private void init(){
 		myLevel = new GameLevelScene(stage, screenWidth, screenHeight, this);
 		myDialog = new DialogScene(stage, screenWidth, screenHeight, this);
+		//TODO: create game from XML
 		myController = new Controller(new Game(null));
 	}
 	public Scene getInitScene(){
+		//TODO: get the initScene
 		return myLevel.getScene();
 	}
 	public void moveToNode(String nodeID){
@@ -184,9 +186,6 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		currScene.makeNodeButton(nodeButtons);
 	}
 	
-	public void makeDialogNodeButton(){
-		
-	}
 	
 	
 	

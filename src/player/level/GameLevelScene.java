@@ -38,7 +38,7 @@ import javafx.util.Duration;
 
 
 
-public class GameLevelScene implements GraphicGameScene{
+public class GameLevelScene implements GraphicGameScene, LevelInfo{
 
 	// spaces out the bottom menu
 	private static final int MENU_SPACING = 50;
@@ -130,7 +130,7 @@ public class GameLevelScene implements GraphicGameScene{
 
 		Set<Tower> myTowersOnSale = store.getTowersOnSale();
 		for(Tower tower : myTowersOnSale){
-			TowerInfo t = new TowerInfo(tower);
+			TowerInfo t = new TowerInfo(tower, this);
 			//sample TowerInfo
 			//TowerInfo t = new TowerInfo("../../images/tower.jpg", "basic", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
 			towerInfo.getChildren().addAll(myLabel,t.getDisplay());
@@ -184,8 +184,8 @@ public class GameLevelScene implements GraphicGameScene{
 		towerInfo = new VBox();
 		Label myLabel = new Label("Towers: ");
 		//sample TowerInfo
-		TowerInfo t = new TowerInfo("../../images/tower.jpg", "basic", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
-		towerInfo.getChildren().addAll(myLabel,t.getDisplay());
+		//TowerInfo t = new TowerInfo("../../images/tower.jpg", "basic", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
+		towerInfo.getChildren().addAll(myLabel);
 		return towerInfo;
 	}
 
@@ -379,6 +379,24 @@ public class GameLevelScene implements GraphicGameScene{
 		root.getChildren().removeAll(buttons);
 		buttons.clear();
 		
+	}
+	@Override
+	public double getMoney(){
+		return moneyNum;
+	}
+
+	@Override
+	public double getScore() {
+		return scoreNum;
+	}
+
+	@Override
+	public double getHealth() {
+		return healthNum;
+	}
+	
+	public void updateDroppable(String spriteID){
+		myGrid.updateDroppable(spriteID);
 	}
 
 	
