@@ -1,18 +1,23 @@
 package gae.view.titleScreenEditor;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import engine.gameScreens.NodeButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import engine.gameScreens.NodeButton;
+import gae.model.Receiver;
+import gae.view.editorpane.editorComponents.EditorComponent;
 
 
 /**
@@ -21,14 +26,13 @@ import javafx.scene.layout.VBox;
  * Allows the user to edit the title screen editor. 
  *
  */
-public class TitleScreenEditor implements IButton{
+public class TitleScreenEditor extends EditorComponent implements IButton{
 	
 	private static final int BUTTON_PADDING = 40;
 	private static final int BUTTON_SPACING = 30;
 	private static final int SCROLLPANE_HEIGHT = 80;
 	private static final int VBOX_PADDING = 25;
 	private static final int VBOX_SPACING = 10;
-	private VBox myTitles;
 	private VBox myButtons;
 	private HBox myWholeEditor;
 	private Visualizer v;
@@ -36,9 +40,8 @@ public class TitleScreenEditor implements IButton{
 	private ArrayList<NodeButton> myButtonList;
 	
 
-	public TitleScreenEditor() {
-		myButtonList = new ArrayList<>();
-		setUpRootProperties();
+	public TitleScreenEditor(Receiver receiver, Method setMethod, String objectName) {
+		super(receiver, setMethod, objectName);
 //		myWholeEditor = new HBox();
 //		myWholeEditor.getChildren().addAll(setVisualizerProperties(), setUpRootProperties());
 	}
@@ -54,14 +57,8 @@ public class TitleScreenEditor implements IButton{
 		myComponents = new VBox(VBOX_SPACING);
 		myComponents.setPadding(new Insets(VBOX_PADDING));
 		//ADD TITLES
-		ScrollPane titlePane = new ScrollPane();
-		titlePane.setPrefHeight(SCROLLPANE_HEIGHT);
-		myTitles = new VBox(VBOX_SPACING);
-		titlePane.setContent(myTitles);
-		Button addTitle = new Button("Add Title");
-		addTitle.setOnAction(e -> {
-			myTitles.getChildren().add(addTitle());
-		});
+		Pane titlePane = new Pane();
+		titlePane.getChildren().add(addTitle());
 		
 		//ADD BUTTONS
 		ScrollPane buttonPane = new ScrollPane();
@@ -76,8 +73,12 @@ public class TitleScreenEditor implements IButton{
 			buttonEditor.setUpEditor();
 		});
 		
+		Button save = new Button("Save");
+		save.setOnAction(e -> {
+			//export fields via setters to title screen
+		});
 		
-		myComponents.getChildren().addAll(addTitle, titlePane, addButton, buttonPane);
+		myComponents.getChildren().addAll(titlePane, addButton, buttonPane, save);
 		return myComponents;
 	}
 
@@ -94,7 +95,11 @@ public class TitleScreenEditor implements IButton{
 		yPos.setPromptText("Y Location");
 		loc.getChildren().addAll(xPos, yPos);
 		
-		temp.getChildren().addAll(title, loc);
+		TextField css = new TextField();
+		css.setPromptText("Add CSS Styling");
+		
+		
+		temp.getChildren().addAll(title, loc, css);
 		return temp;
 		
 	}
@@ -104,12 +109,33 @@ public class TitleScreenEditor implements IButton{
 	}
 
 	@Override
-	public void addButton(GameButton button) {
-		myButtons.getChildren().add(button.getBody());
+	public void addButton(NodeButton button) {
+		myButtons.getChildren().add(build(button));
 		myButtons.getChildren().add(new Separator());
+		myButtonList.add(button);
 	}
 	
+	private Node build(NodeButton button) {
+		Label l = new Label(button.getInfo());
+		try{
+			l.setStyle(button.getStyle());
+		} catch(Exception e){
+			l.setStyle(button.getDefaultStyle());
+		}
+		
+		l.setScaleX(button.getScale());
+		l.setScaleY(button.getScale());
+		return l;
+		
+	}
+
 	public ArrayList<NodeButton> getButtons(){
 		return myButtonList;
+	}
+
+	@Override
+	public void setUpEditor() {
+		myButtonList = new ArrayList<>();
+		setUpRootProperties();
 	}
 }

@@ -2,6 +2,13 @@ package gae.view.titleScreenEditor;
 
 import javafx.scene.control.Label;
 
+
+/**
+ * This class is no longer used. Instead we make an instance of NodeButton from the Game Engine
+ * All Deprecated Code!
+ * @author sunjeevdevulapalli
+ *
+ */
 public class GameButton {
 	
 	private static final String CSS_BUTTON = 

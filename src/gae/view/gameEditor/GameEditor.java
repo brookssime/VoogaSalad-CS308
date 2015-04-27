@@ -2,7 +2,9 @@ package gae.view.gameEditor;
 
 import engine.gameScreens.NodeButton;
 import gae.model.Receiver;
+import gae.view.editorpane.editorComponents.EditorComponent;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +36,7 @@ import reflection.Reflection;
  * Presumably this would extend GAEPane but as of right now it is free standing as its own application.
  *
  */
-public class GameEditor{
+public class GameEditor extends EditorComponent{
 	
 	private static final int CHOICE_SPACING = 10;
 	private Receiver myReceiver;
@@ -43,9 +45,9 @@ public class GameEditor{
 	private GameNode myHead;
 	
 	
-	public GameEditor(Receiver receiver){
-		myReceiver = receiver;
-		myNodes = new ArrayList<>();
+	public GameEditor(Receiver receiver, Method method, String objectName){
+		super(receiver, method, objectName);
+		
 		
 	}
 
@@ -240,6 +242,12 @@ public class GameEditor{
 				endX, endY);
 		myRoot.getChildren().add(line);
 		return line;
+	}
+
+	@Override
+	public void setUpEditor() {
+		myNodes = new ArrayList<>();
+		this.getChildren().add(drawGameEditor());
 	}
 	
 	

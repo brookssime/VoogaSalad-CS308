@@ -1,9 +1,11 @@
 package gae.view.editorpane.editorComponents;
 
 import gae.model.Receiver;
+import interfaces.TypeAnnotation;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Set;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -61,20 +63,20 @@ public class MultipleSelectEditor extends EditorComponent{
 	@SuppressWarnings("unchecked")
 	private Parent makeScene() {
 		ObservableList<GameObject> data = FXCollections.observableArrayList();
-		ArrayList<Integer> list = null;
-		try{
-			//list = ((ArrayList<Integer>) myReceiver.getFromObject(myObject, myGetMethod, (Object[]) null));
-		} catch (Exception e) {
-			System.err.println("Cannot convert Object to ArrayList");
-			e.printStackTrace();
-		}
+		
 		
 		//get list
 		//use annotation to get type
 		//use fetched value to populate list
-		for (int i = 0; i < 20; i++) {
-			data.add(new GameObject(list.contains(i) ? true : false, "Access ID: "
-					+ i));
+		//TODO: figure out how to fetch type from annotation.
+		TypeAnnotation typeAnnotation = myMethod
+				.getAnnotation(TypeAnnotation.class);
+		
+		String type = typeAnnotation.annotationType().getName();
+		Set<String> list = myReceiver.getList(type);
+		ArrayList<String> myChecked = (ArrayList<String>) myFetchedValue;
+		for (String o: list){
+			data.add(new GameObject(myChecked.contains(o) ? true : false, o));
 		}
 
 		final ListView<GameObject> listView = new ListView<GameObject>();
@@ -98,19 +100,12 @@ public class MultipleSelectEditor extends EditorComponent{
 		Button btn = new Button("Accept");
 
 		btn.setOnAction(e -> {
-			ArrayList<Integer> accessArray = new ArrayList<>();
+			ArrayList<String> accessArray = new ArrayList<>();
 			for (GameObject g : data) {
 				if(g.getSelected()){
 					System.out.println(g.getSelected());
-					//Format: "Access ID: i
-					try {
-						System.out.println(g.getName().split("\\s++")[2]);
-						accessArray.add(Integer.parseInt(g.getName().split("\\s++")[2]));
-					} catch (IndexOutOfBoundsException e1){
-						System.err.println("Cannot find Index");
-						e1.printStackTrace();
-					}
-					
+					System.out.println(g.getName());
+					accessArray.add(g.getName());
 				}
 			}
 			// update backend inventory
