@@ -31,7 +31,6 @@ public class Grid extends GameObject{
 		myName = grid.myName;
 		myTiles = grid.myTiles;
 		mySpriteMap = grid.mySpriteMap;
-		myPorts = grid.myPorts;
 		myGridManager = gm;
 	}
 	
@@ -88,14 +87,6 @@ public class Grid extends GameObject{
 	
 	public void addTile(Tile t, int x, int y){
 		myTiles[x][y] = t;
-	}
-
-	public void setPort(List<Tile> t){
-		myPorts = t;
-	}
-
-	public List<Tile> getPort(){
-		return myPorts;
 	}
 
 	public Tile getTile(int x, int y){

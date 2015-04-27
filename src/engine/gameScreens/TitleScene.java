@@ -9,7 +9,6 @@ import engine.NodeState;
  */
 public class TitleScene extends GameNode {
 
-	// private String myName; Do we need this?
 	private String myTitlePicturePath;
 
 	public TitleScene() {

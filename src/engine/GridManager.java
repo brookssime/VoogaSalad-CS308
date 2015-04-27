@@ -31,7 +31,7 @@ public class GridManager {
 	private Queue<Wave> myWaves;
 	private long myStartTime;
 	private PathFinder myPathFinder;
-	private Base myBase;
+	private List<Base> myBases;
 	private boolean myGameWon; //remove these
 
 	public GridManager(Grid grid){
@@ -68,18 +68,22 @@ public class GridManager {
 	}
 
 	public boolean isComplete() {
-		if (myBase.isDead()) {
+		if (calculateBaseHealth()==0) {
 			return true;
 		}
 		return myGameWon;
+	}
+
+	public int calculateBaseHealth() {
+		return myBases.stream().mapToInt(b -> b.getHealth()).sum();
 	}
 
 	public void setWaves(Queue<Wave> waves){
 		myWaves = waves;
 	}
 
-	public Base getBase(){
-		return myBase;
+	public List<Base> getBases(){
+		return myBases;
 	}
 
 	private void checkCollidables() {
@@ -149,7 +153,6 @@ public class GridManager {
 		return myWaves;
 	}
 	
-	//TODO: THIS IS SOOOO TERRIBLEEEEEE looking
 	private boolean isCollision(Collidable spriteCollidedWith, Collidable spriteCollider){
 		Integer spriteCollidedWithX = myGrid.getPlacement(spriteCollidedWith).getLocation().x;
 		Integer spriteCollidedWithY = myGrid.getPlacement(spriteCollidedWith).getLocation().y;

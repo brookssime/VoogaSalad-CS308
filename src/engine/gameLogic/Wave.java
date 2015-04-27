@@ -9,7 +9,7 @@ import engine.sprites.Enemy;
 public class Wave extends GameObject{
 	
 	private List<Enemy> myEnemies;
-	private String myPortName; //myPortName NEEDS TO BE UNIQUE FOR EACH PORT
+	private String myPortName;
 	private List<Long> myDelays;
 	private int myCurrentEnemy;
 

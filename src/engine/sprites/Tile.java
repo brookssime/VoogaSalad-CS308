@@ -51,8 +51,6 @@ public class Tile extends GameObject{
 				point.y < this.myGridLocation.y + (double)this.myWidth);
 	}
 	
-	// TODO untested
-	
 	public double distanceToEdge(Point p){
 		Point c = this.getCenterLocation();
 		double d1 = p.distance(c);
