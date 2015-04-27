@@ -88,6 +88,10 @@ public class Projectile extends Sprite implements Collidable{
 		return myEffect;
 	}
 
+	public void setEffect(ProjectileEffect effect){
+		myEffect = effect;
+	}
+	
 	@Override
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub

@@ -91,6 +91,10 @@ public class Tower extends Sprite implements Shootable{
 		myFireRate = fireRate;
 	}
 	
+	public void setProjectile(Projectile projectile){
+		myProjectile = projectile;
+	}
+	
 	public Integer getFireRate(){
 		return myFireRate;
 	}
@@ -107,6 +111,10 @@ public class Tower extends Sprite implements Shootable{
 	@MethodAnnotation(editor=true, name = "Set Range", type = "textfield", fieldName = "myRange")
 	public void setRange(Integer range){
 		myRange = range;
+	}
+	
+	public void setRangeObject(Range range){
+		myRangeObject = range;
 	}
 
 	@Override
