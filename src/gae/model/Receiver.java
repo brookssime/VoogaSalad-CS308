@@ -30,8 +30,8 @@ public interface Receiver {
 
 	public String getType(String obj);
 
-	public Set<String> getList(String type);// once peter figures how to do
-											// this, we will change it.
+	public Set<String> getList(String type);
+									
 
 	public void saveFile();
 

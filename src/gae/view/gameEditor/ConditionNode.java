@@ -41,7 +41,7 @@ public class ConditionNode extends GameNode{
 		sceneSelect.show();
 		ListView<String> selection = new ListView<>();
 		ObservableList<String> data = FXCollections.observableArrayList();
-		data.addAll("ENEMIES_DEAD", "TIME_OUT", "BASE_HEALTH_EQUALS_0");
+		data.addAll("ENEMIES_DEAD", "RUNNING", "BASE_DEAD", "COMPLETE");
 		selection.setItems(data);
 		
 		Button accept = new Button("Accept");

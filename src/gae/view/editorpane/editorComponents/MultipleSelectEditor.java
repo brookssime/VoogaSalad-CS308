@@ -44,7 +44,7 @@ public class MultipleSelectEditor extends EditorComponent{
 	@Override
 	public void setUpEditor() {
 		//Steps:
-		//1) need to get parameters -> all access ids [not necessary for this component?...DONE?]
+		//1) need to get parameters -> objects of type...but what type...? []
 		//2) then need to construct UI [DONE]
 		//3) then set UI with getFromObject method [DONE]
 		//4) then create button to update inventory [DONE]

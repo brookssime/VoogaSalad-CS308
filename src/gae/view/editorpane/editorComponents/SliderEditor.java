@@ -30,13 +30,14 @@ public class SliderEditor extends EditorComponent{
     public SliderEditor(Receiver receiver, Method setMethod, String objectName) {
         super(receiver, setMethod, objectName);
         //In case the sliderEditorParams method is not called
-        myMin = DEFAULT_MIN;
-        myMax = DEFAULT_MAX;
-        myCur = Math.floor((myMax-myMin)/2);
+        
     }
 
     @Override
     public void setUpEditor() {
+    	myMin = DEFAULT_MIN;
+        myMax = DEFAULT_MAX;
+        myCur = Math.floor((myMax-myMin)/2);
         h = new HBox();
         mySlider = new Slider();
         if (myFetchedValue!= null){
@@ -45,6 +46,7 @@ public class SliderEditor extends EditorComponent{
             myCur = val;
         }
         h.getChildren().add(sliderSetUp());
+        this.getChildren().add(h);
     }
     
     public void sliderEditorParams(double min, double max) {

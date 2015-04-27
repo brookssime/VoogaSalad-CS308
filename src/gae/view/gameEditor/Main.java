@@ -14,8 +14,8 @@ public class Main extends Application{
 		Receiver model = new Model();
 //		TitleScreenEditor e = new TitleScreenEditor();
 //		primaryStage.setScene(new Scene(e.getPane()));
-		GameEditor e = new GameEditor(model);
-		primaryStage.setScene(new Scene(e.drawGameEditor()));
+//		GameEditor e = new GameEditor(model);
+//		primaryStage.setScene(new Scene(e.drawGameEditor()));
 		primaryStage.setHeight(600);
 		primaryStage.setWidth(600);
 		primaryStage.show();
