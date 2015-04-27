@@ -1,6 +1,7 @@
 package gae.view.editorpane.editorComponents;
 
 import gae.model.Receiver;
+import interfaces.TypeAnnotation;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -68,7 +69,10 @@ public class MultipleSelectEditor extends EditorComponent{
 		//use annotation to get type
 		//use fetched value to populate list
 		//TODO: figure out how to fetch type from annotation.
-		String type = "enemy";
+		TypeAnnotation typeAnnotation = myMethod
+				.getAnnotation(TypeAnnotation.class);
+		
+		String type = typeAnnotation.annotationType().getName();
 		Set<String> list = myReceiver.getList(type);
 		ArrayList<String> myChecked = (ArrayList<String>) myFetchedValue;
 		for (String o: list){
