@@ -41,9 +41,7 @@ public class Editor extends GAEPane {
 
 		// TODO - changed getType(obj) to obj for testing.
 		// TODO - needs to work for classes outside engine.sprites. + should consider making this a receiver method?
-		ArrayList<Method> objMethods = new ArrayList<Method>(
-				Reflection.getEditorMethods("engine.sprites."
-						+ myReceiver.getType(obj)));
+		List<Method> objMethods = new ArrayList<Method>(myReceiver.getEditorMethods(obj));
 		System.out.println(objMethods);
 
 		/*

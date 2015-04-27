@@ -13,7 +13,7 @@ public class EditorComponentFactory {
 		} else if (editorType.equalsIgnoreCase("imageselect")) {
 			return (new ImageSelector(receiver, setMethod, objName));
 		} else if (editorType.equalsIgnoreCase("slider")) {
-//			return (new SliderEditor(receiver, setMethod, objName));
+			return (new SliderEditor(receiver, setMethod, objName));
 		} else if (editorType.equalsIgnoreCase("queueeditor")) {
 			return (new QueueEditor(receiver, setMethod, objName));
 		}
