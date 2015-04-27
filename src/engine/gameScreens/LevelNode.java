@@ -8,13 +8,10 @@ import java.util.Queue;
 import engine.Grid;
 import engine.GridManager;
 import engine.HeadsUpDisplay;
-<<<<<<< HEAD
 import engine.NodeState;
 import engine.conditions.Condition;
-=======
 import engine.gameLogic.GameStats;
 import engine.gameLogic.Placement;
->>>>>>> 3466350ec643555bf8e8c8bff695002e5ff19163
 import engine.gameLogic.Wave;
 
 public class LevelNode extends GameNode  {
