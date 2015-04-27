@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -85,8 +86,21 @@ public class TestEditor extends Application{
         Label damage = new Label("Set Damage"); 
         damage.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
         myPane.add(damage, 0, 10);
-        TextField damageField = new TextField();
+        TextArea damageField = new TextArea("Test");
+        Button area = new Button("Done");
+        damageField.setWrapText(true);
+        //damageField.setPrefRowCount(40);
+        damageField.setPrefColumnCount(20);
         myPane.add(damageField, 1, 10);
+        myPane.add(area, 2, 10);
+        
+        area.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(final ActionEvent e) {
+                    	System.out.println(damageField.getParagraphs().toString());
+                    }
+                });
         
         //Code for the save button
         Button finishBtn = new Button("Save");

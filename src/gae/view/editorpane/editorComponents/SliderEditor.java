@@ -42,9 +42,9 @@ public class SliderEditor extends EditorComponent{
         if (myFetchedValue!= null){
             val = Double.parseDouble(myFetchedValue.toString());
             mySlider.setValue(val);
+            myCur = val;
         }
         h.getChildren().add(sliderSetUp());
-        myReceiver.runOnObject(myObject, myMethod, val);
     }
     
     public void sliderEditorParams(double min, double max) {
@@ -57,18 +57,6 @@ public class SliderEditor extends EditorComponent{
         System.out.println(myMax + myMin);
         mySlider.setMax(myMax);
         mySlider.setMin(myMin);
-//        myCur = (Double) myReceiver.getFromObject(myObject, myGetMethod, (Object[]) null);
-        
-        if (myCur == null) {
-            myCur = myMax / 2;
-        }
-        
-        myCur = Math.floor((myMax - myMin) / 2);
-        if (myFetchedValue != null) {
-            System.out.println(myCur);
-            myCur = (Double) myFetchedValue;
-        }
-        System.out.println(myCur);
         mySlider.setValue(myCur);
         mySlider.setShowTickLabels(true);
         mySlider.setMajorTickUnit(myCur);
@@ -82,6 +70,7 @@ public class SliderEditor extends EditorComponent{
                 sliderVal.setText(val.toString());
                 //Integer myVal = (int) mySlider.getValue();
                 //sliderVal.setText(myVal.toString());
+                myReceiver.runOnObject(myObject, myMethod, val);
             }
         });
 
