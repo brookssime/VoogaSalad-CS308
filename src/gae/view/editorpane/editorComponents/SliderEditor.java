@@ -27,7 +27,7 @@ public class SliderEditor extends EditorComponent{
 	private Slider mySlider;
 	private Double val;
 
-	public SliderEditor(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
+	public SliderEditor(Receiver receiver, Method setMethod, String objectName) {
 		super(receiver, setMethod, objectName);
 		//In case the sliderEditorParams method is not called
 		myMin = DEFAULT_MIN;

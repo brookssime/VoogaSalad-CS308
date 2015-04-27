@@ -2,6 +2,7 @@
 package engine.sprites;
 
 import interfaces.Collidable;
+import interfaces.MethodAnnotation;
 
 import java.awt.Shape;
 
@@ -18,10 +19,12 @@ public class Base extends Sprite implements Collidable{
 		myHealth = health;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Health", type = "textfield", fieldName = "myHealth")
 	public void setHealth(int health){
 		myHealth = health;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Radius", type = "textfield", fieldName = "myRadius")
 	public void setRadius(int radius){
 		myRadius = radius;
 	}
