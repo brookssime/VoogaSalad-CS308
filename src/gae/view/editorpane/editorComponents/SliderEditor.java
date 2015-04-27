@@ -27,9 +27,7 @@ public class SliderEditor extends EditorComponent{
     private Double val;
 
     public SliderEditor(Receiver receiver, Method setMethod, String objectName) {
-        super(receiver, setMethod, objectName);
-        //In case the sliderEditorParams method is not called
-        
+        super(receiver, setMethod, objectName);        
     }
 
     @Override
@@ -47,12 +45,6 @@ public class SliderEditor extends EditorComponent{
         h.getChildren().add(mySlider);
         sliderSetUp();
         this.getChildren().add(h);
-    }
-    
-    public void sliderEditorParams(double min, double max) {
-        myMin = min;
-        myMax = max;
-        myCur = Math.floor((max-min)/2);
     }
 
     public void sliderSetUp() {
