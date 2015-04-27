@@ -118,6 +118,7 @@ public class Controller {
 		Store myStore = new Store();
 		Grid myGrid = myEnvironment.getGrid();
 		myGrid.removeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
+		myGrid.removeSpriteAt(myStore.getFromID(spriteID).getRangeObject, spritePlacement);
 		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice() * -1);	
 	}
 	

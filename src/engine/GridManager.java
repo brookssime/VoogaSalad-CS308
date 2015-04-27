@@ -82,9 +82,6 @@ public class GridManager {
 		return myBase;
 	}
 
-	/**
-	 * TODO: Clean this up??
-	 */
 	private void checkCollidables() {
 		for (Collidable sprite : myCollidables) {
 			for (Collidable collider : myCollidables) {
@@ -115,7 +112,6 @@ public class GridManager {
 		myPathFinder.generateProjectile(s.fire(), myPathFinder.target(s, c));
 	}
 
-	//TODO: Come back such that we don't have to return the range...then take getRange out of the interface
 	private List<Collidable> getObjectsInRange(Shootable shootable){
 		return shootable.getRangeObject().getObjectsInRange();
 	}
@@ -154,7 +150,7 @@ public class GridManager {
 		return myWaves;
 	}
 	
-	//TODO: THIS IS SOOOO TERRIBLEEEEEE
+	//TODO: THIS IS SOOOO TERRIBLEEEEEE looking
 	private boolean isCollision(Collidable spriteCollidedWith, Collidable spriteCollider){
 		Integer spriteCollidedWithX = myGrid.getPlacement(spriteCollidedWith).getLocation().x;
 		Integer spriteCollidedWithY = myGrid.getPlacement(spriteCollidedWith).getLocation().y;
