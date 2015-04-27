@@ -18,7 +18,7 @@ public class Grid extends GameObject{
 	public Tile[][] myTiles;
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;	
-	private List<Tile> myPorts;
+	//private List<Tile> myPorts;
 	//private Map<String, Sprite> mySpriteNames; //
 	
 	public Grid(int width, int height){

@@ -1,6 +1,8 @@
 
 package engine.sprites;
 
+import java.awt.Point;
+
 import interfaces.Collidable;
 import engine.gameLogic.Placement;
 
@@ -9,7 +11,8 @@ public class Base extends Sprite implements Collidable{
 	private Integer myHealth;
 	private int myCollisionHeight;
 	private int myCollisionWidth;
-
+	private Point myLocation;
+	
 	public Base(String imageString, Integer health){
 		myImagePath = imageString;
 		myHealth = health;
@@ -71,4 +74,13 @@ public class Base extends Sprite implements Collidable{
 	public Integer getCollisionWidth() {
 		return myCollisionWidth;
 	}
+	
+	public Point getLocation(){
+		return myLocation;
+	}
+	
+	public void setLocation(Point location){
+		myLocation = location;
+	}
+	
 }
