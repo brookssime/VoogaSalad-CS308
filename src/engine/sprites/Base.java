@@ -13,6 +13,10 @@ public class Base extends Sprite implements Collidable{
 	private int myCollisionWidth;
 	private Point myLocation;
 	
+	public Base(){
+		
+	}
+	
 	public Base(String imageString, Integer health){
 		myImagePath = imageString;
 		myHealth = health;
