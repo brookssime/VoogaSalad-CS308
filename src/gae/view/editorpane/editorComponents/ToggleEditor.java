@@ -5,14 +5,11 @@ import interfaces.ParameterAnnotation;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 
 /**
@@ -26,7 +23,6 @@ import javafx.scene.layout.HBox;
 
 public class ToggleEditor extends EditorComponent{
 	private String text;
-	private String[] texts;
 	private ToggleButton tgb;
 	
 	public ToggleEditor(Receiver receiver, Method setMethod, Method getMethod,String objectName) {
@@ -49,11 +45,7 @@ public class ToggleEditor extends EditorComponent{
                 	 	myReceiver.runOnObject(myObject, myMethod, toggleStatus());
                     }
                 });
-	}
-	
-	public void groupToggleParam(String[] myTexts){
-		texts = new String[myTexts.length];
-		texts = myTexts;
+	 	this.getChildren().add(h);
 	}
 		
 	private Node toggleButton() {
@@ -63,28 +55,8 @@ public class ToggleEditor extends EditorComponent{
 		}
 		return tgb;
 	}
-	
-	private Node toggleButton(String s) {
-		ToggleButton tgb1 = new ToggleButton(s);
-		return tgb1;
-	}
 
-	private List<Node> toggleGroups() {
-		List<Node> myGroupButtons = new ArrayList<Node>();
-		int i = 0; // iterate through the booleans
-		ToggleGroup myGroup = new ToggleGroup();
-
-		for (String s : texts) {
-			ToggleButton tgb = (ToggleButton) toggleButton(s);
-			tgb.setToggleGroup(myGroup);
-			myGroupButtons.add(tgb);
-			i++;
-		}
-
-		return myGroupButtons;
-	}
-
-	public boolean toggleStatus(){
+	private boolean toggleStatus(){
 		return tgb.isSelected();
 	}
 }
