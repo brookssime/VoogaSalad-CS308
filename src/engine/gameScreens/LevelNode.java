@@ -12,13 +12,10 @@ import engine.gameLogic.Wave;
 
 public class LevelNode extends GameNode  {
 
-	//private String myLevelTitle; TODO - why
 	private Store myStore;
 	private Grid myGrid;
 	private HeadsUpDisplay myHUD;
-	private GridManager myGridManager;
 	private GameStats myGameStats;
-	//private GridManager myGridManager; TODO - why
 
 	public LevelNode() {
 		super();
@@ -38,7 +35,7 @@ public class LevelNode extends GameNode  {
 		
 	}
 	
-	// TODO should the value when sold be different from the value when purchased? Currently, it is not.
+	// REVIEW should the value when sold be different from the value when purchased? Currently, it is not.
 	// increment money appropriately and remove from Grid
 	void sellObject(String SpriteID, Placement spritePlacement){
 		myGameStats.updateMoney(myStore.getTowerCost(myStore.getFromID(SpriteID)));
@@ -47,48 +44,26 @@ public class LevelNode extends GameNode  {
 	
 	}
 	
-	// TODO make sure that the Player displays the range correctly in addition to the model updating the HUD
-	// TODO make sure that the player can accurately display a popup with the enemy's data
+	// REVIEW make sure that the Player displays the range correctly in addition to the model updating the HUD
+	// REVIEW make sure that the player can accurately display a popup with the enemy's data
 	void examineSprite(String SpriteID, Placement spritePlacement){
 		render();
 	}
-	
-	
-
-	void increaseGameSpeed(){
-		// TODO not sure why this is in the API
-	}
-	
-	void decreaseGameSpeed(){
-		// TODO not sure why this is in the API
-	}
-	
-	
-	private void init(){
-		myGrid = new Grid(myGrid, myGridManager);
-		myStore  = new Store();
-		myHUD = new HeadsUpDisplay();
-	}
-
 	
 	public HeadsUpDisplay getHUD(){
 		return myHUD;
 	}
 
-	public GridManager getGridManager() {
-		return myGridManager;
-	}
 	
 	public void setStore(Store store){
 		myStore = store;
 	}
 	
-	//TODO: MAKE SURE this is all that needs to be set up
 	public void setGrid(Grid grid){
 		myGrid = new Grid(grid, new GridManager(myGrid));
+		
 	}
 	
-	//TODO: make sure this is the right way to handle this
 	public void setWaves(Queue<Wave> waves){
 		myGrid.setWaves(waves);
 	}
@@ -116,7 +91,4 @@ public class LevelNode extends GameNode  {
 	public void setGameStats(GameStats gamestats){
 		myGameStats = gamestats;
 	}
-
-
-
 }

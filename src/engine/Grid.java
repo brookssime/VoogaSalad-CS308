@@ -17,7 +17,7 @@ public class Grid extends GameObject{
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;	
 	private List<Tile> myPorts;
-	private Map<String, Sprite> mySpriteNames; //TODO: This needs to be populated
+	//private Map<String, Sprite> mySpriteNames; //
 	
 	public Grid(int width, int height){
 		myTiles = new Tile[width][height];
@@ -122,15 +122,6 @@ public class Grid extends GameObject{
 		return myGridManager.getWaves();
 	}
 	
-	public Sprite getFromID(String inputSprite){
-		for (String spriteName: mySpriteNames.keySet()){
-			if (spriteName == inputSprite){
-				return mySpriteNames.get(spriteName);
-			}
-		}
-		return null; //TODO: Throw an error?
-	}
-
 	public void move(Sprite sprite, Placement move) {
 		mySpriteMap.put(sprite, move);
 		

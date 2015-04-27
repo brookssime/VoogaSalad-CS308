@@ -131,7 +131,6 @@ public class GridManager {
 		myPathFinder.generateProjectile(s.fire(), myPathFinder.target(s, c));
 	}
 
-	//TODO: Come back such that we don't have to return the range...then take getRange out of the interface
 	private List<Collidable> getObjectsInRange(Shootable c){
 		return c.getRangeObject().getObjectsInRange();
 	}
