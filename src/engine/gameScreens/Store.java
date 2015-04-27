@@ -43,7 +43,7 @@ public class Store extends GameObject {
 		}
 	}
 	
-	@MethodAnnotation(editor=true, name="Set Background Image", type="image", fieldName="myBackgroundImagePath")
+	@MethodAnnotation(editor=true, name="Set Background Image", type="imageselect", fieldName="myBackgroundImagePath")
 	public void setBackgroundImage(String image) {
 		myBackgroundImagePath = image;
 	}

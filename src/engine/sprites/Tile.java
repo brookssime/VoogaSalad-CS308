@@ -29,7 +29,7 @@ public class Tile extends GameObject{
 		return myGridLocation;
 	}
 	
-	@MethodAnnotation(editor=true, name = "Set Image", type = "image", fieldName = "myImagePath")
+	@MethodAnnotation(editor=true, name = "Set Image", type = "imageselect", fieldName = "myImagePath")
 	public void setImagePath(String imagePath){
 		myImagePath = imagePath;
 	}

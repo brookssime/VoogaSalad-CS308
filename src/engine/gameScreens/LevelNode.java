@@ -1,5 +1,8 @@
 package engine.gameScreens;
 
+import interfaces.MethodAnnotation;
+import interfaces.TypeAnnotation;
+
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.stream.Collectors;
@@ -67,10 +70,13 @@ public class LevelNode extends GameNode {
 		return myHUD;
 	}
 
+	@MethodAnnotation(editor = true, name = "Set Time Limit", type = "textfield", fieldName = "myTotalTime")
 	public void setTotalTime(long time) {
 		myTotalTime = time;
 	}
 
+	@MethodAnnotation(editor = true, name = "Set Store", type = "singleselect", fieldName = "myStore")
+	@TypeAnnotation(type="Store")
 	public void setStore(Store store) {
 		myStore = store;
 	}
@@ -79,6 +85,8 @@ public class LevelNode extends GameNode {
 		myHUD = HUD;
 	}
 
+	@MethodAnnotation(editor = true, name = "Set Grid", type = "singleselect", fieldName = "myGrid")
+	@TypeAnnotation(type="Grid")
 	public void setGrid(Grid grid) {
 		myGrid = new Grid(grid, new GridManager(myGrid));
 

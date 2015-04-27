@@ -1,6 +1,7 @@
 package gae.view.editorpane.editorComponents;
 
 import image_drawer.Drawer;
+import interfaces.MethodAnnotation;
 import interfaces.ParameterAnnotation;
 
 import java.io.File;
@@ -43,11 +44,18 @@ public class ImageSelector extends EditorComponent {
 
 	@Override
 	public void setUpEditor() {
-		
+
 		Annotation[][] Annotations = myMethod.getParameterAnnotations();
 		Annotation[] annotationList = Annotations[0];
-		ParameterAnnotation parameterAnnotation = (ParameterAnnotation) annotationList[0];
-		String parameterName = parameterAnnotation.name();
+		String parameterName;
+		if (annotationList.length > 0) {
+			ParameterAnnotation parameterAnnotation = (ParameterAnnotation) annotationList[0];
+			parameterName = parameterAnnotation.name();
+		} else {
+			MethodAnnotation methodAnnotation = myMethod
+					.getAnnotation(MethodAnnotation.class);
+			parameterName = methodAnnotation.name();
+		}
 
 		myBox = new HBox();
 		myDisplay = new ImageView();
@@ -62,7 +70,7 @@ public class ImageSelector extends EditorComponent {
 			JFileChooser fileChooser = new JFileChooser(System.getProperties()
 					.getProperty("user.dir") + "/src/images");
 			FileNameExtensionFilter filter = new FileNameExtensionFilter(
-			        "PNG, JPG & GIF Images", "jpg", "gif", "png");
+					"PNG, JPG & GIF Images", "jpg", "gif", "png");
 			fileChooser.setFileFilter(filter);
 			fileChooser
 					.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -72,25 +80,27 @@ public class ImageSelector extends EditorComponent {
 			}
 			selectedFile = fileChooser.getSelectedFile();
 			String[] path = selectedFile.toURI().toString().split("/");
-			myImagePath = "/"+path[path.length-2]+"/"+path[path.length-1];
-			myDisplay.setImage(new Image(getClass().getResourceAsStream(myImagePath)));
+			myImagePath = "/" + path[path.length - 2] + "/"
+					+ path[path.length - 1];
+			myDisplay.setImage(new Image(getClass().getResourceAsStream(
+					myImagePath)));
 			myReceiver.runOnObject(myObject, myMethod, myImagePath);
 		});
-		
-		drawButton.setOnAction(e->{
+
+		drawButton.setOnAction(e -> {
 			Drawer d = new Drawer();
 			d.getImageFile();
 		});
-		
+
 	}
 
 	private void setupImageView() {
 		myImagePath = defaultImagePath;
-		if (myFetchedValue != null){
+		if (myFetchedValue != null) {
 			myImagePath = (String) myFetchedValue;
 		}
 		Image myImage = new Image(getClass().getResourceAsStream(myImagePath));
-		
+
 		myDisplay.setImage(myImage);
 		myDisplay.setFitWidth(displayWidth);
 		myDisplay.setFitHeight(displayHeight);
