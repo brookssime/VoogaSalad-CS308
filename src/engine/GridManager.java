@@ -154,7 +154,6 @@ public class GridManager {
 		return myWaves;
 	}
 	
-	//TODO: THIS IS SOOOO TERRIBLEEEEEE
 	private boolean isCollision(Collidable spriteCollidedWith, Collidable spriteCollider){
 		Integer spriteCollidedWithX = myGrid.getPlacement(spriteCollidedWith).getLocation().x;
 		Integer spriteCollidedWithY = myGrid.getPlacement(spriteCollidedWith).getLocation().y;

@@ -1,17 +1,22 @@
 package engine.gameLogic;
 
+import interfaces.Collidable;
+
 import java.util.Timer;
 import java.util.TimerTask;
+
+import engine.sprites.Enemy;
+
 
 public class ProjectileEffect extends GameObject{
 
 	private Integer mySpeedDamage;
-	private Long mySpeedFrequency;
+	private Double mySpeedFrequency;
 	private Integer mySpeedReps;
-	private Long mySpeedDuration;
+	private Double mySpeedDuration;
 
 	private Integer myHealthDamage;
-	private Long myHealthFrequency;
+	private Double myHealthFrequency;
 	private Integer myHealthReps;
 
 	private Timer effectTimer;
@@ -26,7 +31,7 @@ public class ProjectileEffect extends GameObject{
 		mySpeedDamage = x;
 	}
 
-	public void setSpeedFrequency(Long x){
+	public void setSpeedFrequency(Double x){
 		mySpeedFrequency = x;
 	}
 
@@ -34,7 +39,7 @@ public class ProjectileEffect extends GameObject{
 		mySpeedReps = x;
 	}
 
-	public void setSpeedDamageDuration(Long x){
+	public void setSpeedDamageDuration(Double x){
 		mySpeedDuration = x;
 	}
 
@@ -43,7 +48,7 @@ public class ProjectileEffect extends GameObject{
 		myHealthDamage = x;
 	}
 
-	public void setHealthFrequency(Long x){
+	public void setHealthFrequency(Double x){
 		myHealthFrequency = x;
 	}
 
@@ -55,23 +60,19 @@ public class ProjectileEffect extends GameObject{
 		return mySpeedDamage;	
 	}
 
-	public Integer reverseSpeedDamage(){
-		return mySpeedDamage*-1;
-	}
-
 	public Integer getHealthDamage(){
 		return myHealthDamage;	
 	}
 
-	public Long getSpeedFrequency(){
+	public Double getSpeedFrequency(){
 		return mySpeedFrequency;
 	}
 
-	public Long getSpeedDuration(){
+	public Double getSpeedDuration(){
 		return mySpeedDuration;
 	}
 
-	public Long getHealthFrequency(){
+	public Double getHealthFrequency(){
 		return myHealthFrequency;
 	}
 
@@ -87,31 +88,55 @@ public class ProjectileEffect extends GameObject{
 		return myIsFinal;
 	}
 
-	class ReturnOriginalSpeedTask extends TimerTask {
-		public void run() {
-			reverseSpeedDamage();
-		}
+	public void reverseSpeedDamage(Enemy enemy){
+		int originalSpeed = enemy.getSpeed();
+		originalSpeed += mySpeedDamage;
+		enemy.setSpeed(originalSpeed);
 	}
 	
-	//TODO: SPEED POISON?
-	private void speedEffect(){
-		getSpeedDamage();
-		if (!myIsFinal){
-			effectTimer.schedule(new ReturnOriginalSpeedTask(), mySpeedDuration*1000);
+	class SpeedTask extends TimerTask {
+		
+		private Enemy enemy;
+		
+		SpeedTask (Enemy enemy){
+			this.enemy = enemy;
 		}
-
-	}
-	class HealthTask extends TimerTask {
 		public void run() {
-			getHealthDamage();
+			reverseSpeedDamage(enemy);
+			
 		}
 	}
 
-	private void healthEffect(){
-		getHealthDamage();
-		for (int i = 1; i <= myHealthReps-1; i++){
-			effectTimer.schedule(new HealthTask(), myHealthFrequency*1000);
+	public void reverseSpeedEffect(Enemy enemy){
+		effectTimer.schedule(new SpeedTask(enemy), mySpeedDuration.longValue()*1000);
+		
+	}
+	
+	public void causeHealthDamage(Enemy enemy){
+		int newHealth = enemy.getHealth();
+		newHealth -= myHealthDamage;
+		enemy.setHealth(newHealth);
+	}
+	
+	class HealthTask extends TimerTask {
+		
+		private Enemy enemy;
+		
+		HealthTask (Enemy enemy){
+			this.enemy = enemy;
+		}
+		public void run() {
+			causeHealthDamage(enemy);
 		}
 	}
+
+	public void reverseHealthEffect(Enemy enemy){
+		for (int i = 1; i <= myHealthReps; i++){
+			effectTimer.schedule(new HealthTask(enemy), myHealthFrequency.longValue()*1000);
+		}
+		
+		
+	}
+
 
 }
