@@ -1,5 +1,7 @@
 package gae.view.titleScreenEditor;
 
+import java.awt.Point;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -16,6 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import engine.gameScreens.NodeButton;
 
 public class ButtonEditor {
 
@@ -28,16 +31,16 @@ public class ButtonEditor {
 	private static final double SCALE_SLIDER_MAX = 2;
 	private static final double SCALE_SLIDER_MAJOR_TICK = 1;
 	private static final int MINOR_TICK_COUNT = 4;
-	private GameButton myButton;
+	private NodeButton myButton;
 	private IButton myEditor;
 
 	public ButtonEditor(IButton editor) {
-		myButton = new GameButton();
+		myButton = new NodeButton();
 		myEditor = editor;
 	}
 
 	//if we are editing an existing button
-	public ButtonEditor(IButton editor, GameButton button){
+	public ButtonEditor(IButton editor, NodeButton button){
 		myEditor = editor;
 		myButton = button;
 		//GameButton has all the information, should also have have new information
@@ -88,7 +91,7 @@ public class ButtonEditor {
 
 		// Textfield for Text on button
 		TextField buttonText = new TextField();
-		buttonText.setText(myButton.getText());
+		buttonText.setText(myButton.getInfo());
 
 		// add Square as visual with text
 		Label visual = new Label(buttonText.getText());
@@ -126,10 +129,13 @@ public class ButtonEditor {
 		accept.setOnAction(e -> {
 			//THIS ASSUMES STUFF WAS TYPED
 			//TODO: FIX THE ABOVE
-			myButton.setX(Double.parseDouble(xPos.getText()));
-			myButton.setY(Double.parseDouble(yPos.getText()));
+			Point p = new Point();
+			p.setLocation(Double.parseDouble(xPos.getText()), 
+					Double.parseDouble(yPos.getText()));
+			myButton.setLocation(p);
+			
 			myButton.setScale(scaleSlider.getValue());
-			myButton.setText(buttonText.getText());
+			myButton.setInfo(buttonText.getText());
 			myEditor.addButton(myButton);
 			stage.close();
 		});
