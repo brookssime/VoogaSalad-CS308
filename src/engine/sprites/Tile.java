@@ -1,5 +1,7 @@
 package engine.sprites;
 
+import interfaces.MethodAnnotation;
+
 import java.awt.Point;
 
 import engine.gameLogic.GameObject;
@@ -27,6 +29,7 @@ public class Tile extends GameObject{
 		return myGridLocation;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Image", type = "image", fieldName = "myImagePath")
 	public void setImagePath(String imagePath){
 		myImagePath = imagePath;
 	}
@@ -36,6 +39,7 @@ public class Tile extends GameObject{
 		return myImagePath;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Width", type = "textfield", fieldName = "myWidth")
 	public void setWidth(int width){
 		myWidth = width;
 	}

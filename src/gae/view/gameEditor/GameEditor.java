@@ -1,5 +1,6 @@
 package gae.view.gameEditor;
 
+import engine.gameScreens.NodeButton;
 import gae.model.Receiver;
 import gae.view.editorpane.editorComponents.EditorComponent;
 
@@ -7,6 +8,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -40,12 +42,13 @@ public class GameEditor extends EditorComponent{
 	private Receiver myReceiver;
 	private Pane myRoot;
 	private ArrayList<GameNode> myNodes;
+	private GameNode myHead;
 	
 	
 	public GameEditor(Receiver receiver, Method method, String objectName){
 		super(receiver, method, objectName);
-		myReceiver = receiver;
-		myNodes = new ArrayList<>();
+		
+		
 	}
 
 	/**
@@ -70,8 +73,8 @@ public class GameEditor extends EditorComponent{
 		acceptButton.setOnAction(e -> {
 			//export myNodes in whatever format
 			//build two maps:
-			// 1) String to Node
-			// 2) Node to Map<Enum, Node>;
+			// 1) String to Node [already done]
+			// 2) Node to Map<Enum, Node>; [done]
 			printMap();
 		});
 		return acceptButton;
@@ -84,11 +87,24 @@ public class GameEditor extends EditorComponent{
 			GameNode node = myNodes.get(i);
 			//scene node
 			if(i % 2 == 0){
-				for(GameNode conditions: node.getChildren()){
-					String e = conditions.toString();
-					String n = conditions.getChildren() == null ? 
-							null : conditions.getChildren().get(0).toString();
-					enumNodeMap.put(e, n);
+				//latest thing is head.
+				if(node.isHead()){
+					myHead = node;
+				}
+				for(GameNode condition: node.getChildren()){
+					if(!condition.isButton()){
+						String e = condition.toString();
+						String n = condition.getChildren() == null ? 
+								null : condition.getChildren().get(0).toString();
+						enumNodeMap.put(e, n);
+					}
+					else{
+						//fetch button from titlescreen from receiver and update its next to be its next
+						//i.e. go through all titlescenes and see if it contains button. If it does, update
+						//button.
+						fetchButton(condition).setTarget(condition.getChildren().get(0).getText());
+					}
+					
 				}
 				nodeConditionMap.put(node.toString(), enumNodeMap);
 			}
@@ -97,6 +113,18 @@ public class GameEditor extends EditorComponent{
 			System.out.print(node + ": " + nodeConditionMap.get(node) + "\n");
 		}
 		
+	}
+
+	//TODO: implement this
+	private NodeButton fetchButton(GameNode condition) {
+		Set<String> titleScreens = myReceiver.getList("titleScene");
+		for(String titleScene : titleScreens){
+			//pseudo code
+//			if(myReceiver.getButtonList(titleScene).contains(condition.getText()){
+//				return button;
+//			}
+		}
+		return null;
 	}
 
 	private Button addNodeButton() {
@@ -128,6 +156,7 @@ public class GameEditor extends EditorComponent{
 			RadioButton r = (RadioButton) group.getSelectedToggle();
 			
 			GameNode gameNode = (GameNode) Reflection.createInstance("gae.view.gameEditor." + r.getText().replaceAll("\\s",""));
+			gameNode.setReceiver(myReceiver);
 			myNodes.add(gameNode);
 			addSelectListener(gameNode);
 			myRoot.getChildren().add(gameNode.getGroup());
@@ -145,7 +174,7 @@ public class GameEditor extends EditorComponent{
 	}
 	
 	/**
-	 * adds a listener to the node to see if it was selcted. This listener then looks for other selected of
+	 * adds a listener to the node to see if it was selected. This listener then looks for other selected of
 	 * the opposite type 
 	 */
 	private void addSelectListener(GameNode node){
@@ -217,9 +246,10 @@ public class GameEditor extends EditorComponent{
 
 	@Override
 	public void setUpEditor() {
+		myNodes = new ArrayList<>();
 		this.getChildren().add(drawGameEditor());
-		
 	}
+	
 	
 	
 }

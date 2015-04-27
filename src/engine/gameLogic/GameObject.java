@@ -8,7 +8,7 @@ public abstract class GameObject {
 	protected String myName;
 	
 	@MethodAnnotation(editor=true, name = "Set Name", type = "textfield", fieldName = "myName")
-	public void setName(@ParameterAnnotation(name=" Name ") String name){
+	public void setName(String name){
 		myName = name;
 	}
 
