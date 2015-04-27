@@ -10,10 +10,16 @@ public class HealthCondition extends Condition{
 	public HealthCondition(Grid grid, GridManager gridManager, Store store) {
 		super(grid, gridManager, store);
 	}
+	
 
 	@Override
 	public NodeState evaluate() {
-		return NodeState.RUNNING;
+		if(myGridManager.calculateBaseHealth()==0){
+			return NodeState.BASE_DEAD;
+		}
+		else{
+			return NodeState.RUNNING;
+		}
 	}
 
 }
