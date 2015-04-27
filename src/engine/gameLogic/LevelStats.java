@@ -3,7 +3,7 @@ package engine.gameLogic;
 /**
  * @author Brooks and Sid
  */
-public class GameStats {
+public class LevelStats {
 	
 	private int myMoney;
 	private int myBaseHealth;
