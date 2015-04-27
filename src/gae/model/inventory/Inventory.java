@@ -7,6 +7,7 @@ import exceptions.ObjectDoesntExistException;
 import gae.view.inventorypane.UpdateListener;
 import engine.gameLogic.GameObject;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -50,6 +51,7 @@ public class Inventory {
 	}
 
 	private ObservableMap<String, GameObject> getMap(String obj) {
+		
 		for (String type : TYPES) {
 			if (myMaps.get(type).containsKey(obj)) {
 				return myMaps.get(type);
@@ -71,6 +73,7 @@ public class Inventory {
 	 */
 	public void addObject(String type) {
 		ObservableMap<String, GameObject> map = myMaps.get(type);
+		//TODO only addes engine.sprites classes. needs to expand.
 		GameObject newThing = (GameObject) Reflection.createInstance("engine.sprites."
 				+ type);
 		String newName = "New" + type;
@@ -108,7 +111,20 @@ public class Inventory {
 		}
 	}
 
-	public Object getFromObject(String obj, Method method, Object... params) {
+	public Object getFromObject(String obj, String fieldName) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
+		ObservableMap<String, GameObject> map = getMap(obj);
+		GameObject object = map.get(obj);
+		
+		Object returnValue = null;
+		Field field = grabField(obj, fieldName);
+		
+		if (field!=null){
+			field.setAccessible(true);
+			returnValue = field.get(object);
+		}
+		
+		return returnValue;
+		/*
 		ObservableMap<String, GameObject> map = getMap(obj);
 		GameObject object = map.get(obj);
 		Object ret;
@@ -119,11 +135,13 @@ public class Inventory {
 			e.printStackTrace();
 			ret = null;
 		}
+		System.out.println(ret);
 		return ret;
+		*/
 	}
 
-	public GameObject getObject(String type, String obj) {
-		ObservableMap<String, GameObject> map = myMaps.get(type);
+	public GameObject getObject(String obj) {
+		ObservableMap<String, GameObject> map = getMap(obj);
 		GameObject object = map.get(obj);
 		return object;
 	}
@@ -180,5 +198,30 @@ public class Inventory {
 
 		});
 	}
+	
+	private Field grabField(Class<?> objClass, String fieldName) throws ClassNotFoundException{
+		Field field = null;
+		try {
+			field = objClass.getDeclaredField(fieldName);
+		} catch (NoSuchFieldException | SecurityException e) {
+			Class<?> parent = objClass.getSuperclass();
+			if (parent!=null){
+				try {
+					field = grabField(parent, fieldName);
+				} catch (SecurityException e1) {
+					System.out.println("Failed to fetch field:  "+fieldName);
+				}
+			}
+		}
+		
+		return field;
+	}
+	
+	private Field grabField(String objname, String fieldName) throws ClassNotFoundException{
+		//TODO only works for sprites folder. make it work to all engine classes. 
+		Class<?> objClass = Class.forName("engine.sprites."+getType(objname));
+		return grabField(objClass, fieldName);
+	}
+	
 
 }

@@ -23,6 +23,7 @@ public class GraphicTower implements Observer{
 	private final Image previewImage;
     private final Image activeImage;
     private final Image equippedImage;
+    private String spriteID;
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
     //private boolean placed;

@@ -34,6 +34,8 @@ public class TowerInfo{
 	
 	public TowerInfo(Tower t){
 		
+		//TODO: need get damage from Tower
+		this(t.getImagePath(),t.getName(),t.getMyPrice(),t.getRange(), 99);
 	}
 	
 	public TowerInfo(String imageFile, String name,int price,  int range, int damage ){

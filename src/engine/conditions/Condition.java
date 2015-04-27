@@ -1,8 +1,8 @@
 package engine.conditions;
 
-import engine.Environment;
 import engine.Grid;
 import engine.GridManager;
+import engine.NodeState;
 import engine.gameScreens.Store;
 
 public abstract class Condition {
@@ -11,12 +11,12 @@ public abstract class Condition {
 	protected Grid myGrid;
 	protected Store myStore;
 	
-	public Condition (Environment gameData){
-		gameData.getGridManager();
-		gameData.getGrid();
-		gameData.getStore();
+	public Condition (Grid grid, GridManager gridManager, Store store){
+		myGrid= grid;
+		myGridManager = gridManager;
+		myStore = store;
 	}
 	
-	public abstract boolean evaluate();
+	public abstract NodeState evaluate();
 
 }
