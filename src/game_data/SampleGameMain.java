@@ -7,6 +7,7 @@ import java.util.Map;
 
 import engine.Game;
 import engine.Grid;
+import engine.HeadsUpDisplay;
 import engine.gameLogic.ProjectileEffect;
 import engine.gameLogic.Range;
 import engine.gameScreens.GameNode;
@@ -23,26 +24,13 @@ public class SampleGameMain {
 		
 		Game g2  = new Game(null);
 		
-		GameNode levelNode = new LevelNode();
+		LevelNode levelNode = new LevelNode();
 		levelNode.setName("GAMENODE");
 		Game g1 = new Game(levelNode);
 	
 		//WAVE
 		
-		//HUD
-		
 		//GAMESTATS?
-		
-		
-		/*LEVELNODE
-	private Store myStore;
-	private Grid myGrid;
-	private HeadsUpDisplay myHUD;
-	private ArrayList<Condition> myConditions;
-	private LevelStats myGameStats;
-	private long myStartTime;
-	private long myTotalTime;
-		 */
 		
 		Grid grid = new Grid(5, 5);
 
@@ -95,6 +83,9 @@ public class SampleGameMain {
 		//PORT?
 		
 		//somehow put these on grid
+		
+		HeadsUpDisplay HUD = new HeadsUpDisplay();
+		levelNode.setGrid(grid);
 		
 		
 		// saving t1 to a file named by the user's choice.
