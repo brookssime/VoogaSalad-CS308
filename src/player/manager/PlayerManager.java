@@ -1,5 +1,7 @@
 package player.manager;
 
+import java.lang.reflect.InvocationTargetException;
+
 import engine.Grid;
 import engine.HeadsUpDisplay;
 import engine.Controller;
@@ -48,43 +50,94 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	@Override
 	public void sellObject(String spriteID, Placement place) {
 		Object[] params = {spriteID, place};
-		myController.doSomething("sellObject", params);
+		
+			try {
+				myController.doSomething("sellObject", params);
+			} catch (NoSuchMethodException | SecurityException
+					| IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 		
 		
 	}
 	@Override
 	public void placeSprite(String spriteID, Placement place) {
 		Object[] params = {spriteID, place};
-		myController.doSomething("placeSprite", params);
+		try {
+			myController.doSomething("placeSprite", params);
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	@Override
 	public void examinSprite(String spriteID, Placement place) {
 		Object[] params = {spriteID, place};
-		myController.doSomething("examinSprite", params);
+		try {
+			myController.doSomething("examinSprite", params);
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	@Override
 	public void increaseGameSpeed() {
 		Object[] params = {};
-		myController.doSomething("increaseGameSpeed", params);
+		try {
+			myController.doSomething("increaseGameSpeed", params);
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	@Override
 	public void decreaseGameSpeed() {
 		Object[] params = {};
-		myController.doSomething("decreaseGameSpeed", params);
+		try {
+			myController.doSomething("decreaseGameSpeed", params);
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	@Override
 	public void purchaseObject(String spriteID) {
 		Object[] params = {spriteID};
-		myController.doSomething("purchaseObject", params);
+		try {
+			myController.doSomething("purchaseObject", params);
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	@Override
 	public void showNextDialogue() {
 		Object[] params = {};
-		myController.doSomething("showNextDialogue", params);
+		try {
+			myController.doSomething("showNextDialogue", params);
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
