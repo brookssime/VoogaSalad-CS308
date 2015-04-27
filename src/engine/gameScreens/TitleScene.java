@@ -1,5 +1,9 @@
 package engine.gameScreens;
 
+import java.awt.Point;
+import java.util.List;
+
+import interfaces.MethodAnnotation;
 import engine.NodeState;
 
 /**
@@ -9,7 +13,11 @@ import engine.NodeState;
  */
 public class TitleScene extends GameNode {
 
-	private String myTitlePicturePath;
+	private String myBackgroundPicturePath;
+	private String myTitleText;
+	private Point myTitlePos = new Point();
+	private String myTitleStyle;
+	private List<NodeButton> myButtons;
 
 	public TitleScene() {
 		super();
@@ -30,14 +38,34 @@ public class TitleScene extends GameNode {
 	public NodeState checkState() {
 		return myState;
 	}
-
-
-	public String getTitlePicturePath() {
-		return myTitlePicturePath;
+	
+	public List<NodeButton> getButtons() {
+		return myButtons;
 	}
 
-	public void setTitlePicturePath(String path) {
-		myTitlePicturePath = path;
+	@MethodAnnotation(editor=true, name="Set Background Image", type="imageselect", fieldName="myBackgroundPicturePath")
+	public void setBackgroundPicturePath(String path) {
+		myBackgroundPicturePath = path;
 	}
-
+	
+	@MethodAnnotation(editor=true, name="Set Title Text", type="textfield", fieldName="myTitleText")
+	public void setTitleText(String text) {
+		myTitleText = text;
+	}
+	
+	@MethodAnnotation(editor=true, name="Set Title Position", type="something", fieldName="myTitlePos")
+	public void setTitlePos(int x, int y) {
+		myTitlePos.x = x;
+		myTitlePos.y = y;
+	}
+	
+	@MethodAnnotation(editor=true, name="Set Title Style", type="textfield", fieldName="myTitleStyle")
+	public void setTitleStyle(String style) {
+		myTitleStyle = style;
+	}
+	
+	@MethodAnnotation(editor=true, name="Set Buttons", type="titlescreeneditor", fieldName="myButtons")
+	public void setButtons(List<NodeButton> buttons) {
+		myButtons = buttons;
+	}
 }

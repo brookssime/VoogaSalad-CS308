@@ -6,6 +6,8 @@ package gae.model.inventory;
 import exceptions.ObjectDoesntExistException;
 import gae.view.inventorypane.UpdateListener;
 import engine.gameLogic.GameObject;
+import engine.gameScreens.NodeButton;
+import engine.gameScreens.TitleScene;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -72,7 +74,7 @@ public class Inventory {
 		ObservableMap<String, GameObject> map = myMaps.get(type);
 		// TODO only addes engine.sprites classes. needs to expand.
 		GameObject newThing = (GameObject) Reflection.createInstance("engine."
-				+ location + "." + type);
+				+ location + type);
 		String newName = "New" + type;
 		int vrsNum = 0;
 		while (map.containsKey(newName)) {
@@ -108,6 +110,24 @@ public class Inventory {
 		}
 	}
 	
+	public void runOnObjectSwap(String obj, Method method, Object... params) {
+		Object[] newparams = new Object[params.length];
+		for (int i = 0; i < params.length; i++) {
+			String str = params[i].toString();
+			newparams[i] = getObject(str);
+		}
+		runOnObject(obj, method, newparams);
+	}
+	
+	public boolean isInvObject(String type) {
+		for (String key : myMaps.keySet()) {
+			if (type.equals(key)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public List<Method> getEditorMethods(String obj) {
 		ObservableMap<String, GameObject> map = getMap(obj);
 		GameObject object = map.get(obj);
@@ -136,6 +156,21 @@ public class Inventory {
 		 * InvocationTargetException e) { e.printStackTrace(); ret = null; }
 		 * System.out.println(ret); return ret;
 		 */
+	}
+	
+	public List<NodeButton> getButtonList(String obj) {
+		if (!getType(obj).equals("TitleScene")) {
+			try {
+				throw new ObjectDoesntExistException();
+			} catch (ObjectDoesntExistException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		ObservableMap<String, GameObject> map = getMap(obj);
+		GameObject object = map.get(obj);
+		TitleScene titlescene = (TitleScene) object;
+		return titlescene.getButtons();
 	}
 
 	public GameObject getObject(String obj) {
