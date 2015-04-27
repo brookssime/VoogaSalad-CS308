@@ -64,4 +64,15 @@ public class Tile extends GameObject{
 		return d1 - Math.abs(adjust);
 		
 	}
+	
+	public void setGridLocation(Point p){
+		myGridLocation = p;
+	}
+	
+	public Tile clone(){
+		Tile t = new Tile();
+		t.myImagePath = this.myImagePath;
+		t.myWidth = t.myWidth;
+		return t;
+	}
 }
