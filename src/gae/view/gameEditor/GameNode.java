@@ -1,5 +1,7 @@
 package gae.view.gameEditor;
 
+import gae.model.Receiver;
+
 import java.util.ArrayList;
 
 import javafx.beans.binding.Bindings;
@@ -16,12 +18,18 @@ public abstract class GameNode {
 	protected Rectangle myBody;
 	private Connector myIn;
 	private Connector myOut;
-	private boolean isHead;
+	protected boolean isHead;
+	protected Receiver myReceiver;
+	protected boolean isButton;
 
 	public GameNode() {
 		myGroup = new Group();
 		myText = new Label("");
 		isHead = false;
+	}
+	
+	public void setReceiver(Receiver receiver){
+		myReceiver = receiver;
 	}
 	
 	protected void commonNodeInteraction() {
@@ -53,7 +61,6 @@ public abstract class GameNode {
 				if(event.getClickCount() == 2) {
 					openDialog();
 				};
-				
 			}
 			
 		});
@@ -118,8 +125,12 @@ public abstract class GameNode {
 		}
 	}
 	
-	private void setHead(boolean bool){
+	public void setHead(boolean bool){
 		isHead = bool;
+	}
+	
+	public boolean isHead(){
+		return isHead;
 	}
 	
 	@Override
@@ -144,4 +155,6 @@ public abstract class GameNode {
 	public abstract ArrayList<GameNode> getChildren();
 	
 	public abstract boolean draw();
+	
+	public abstract boolean isButton();
 }

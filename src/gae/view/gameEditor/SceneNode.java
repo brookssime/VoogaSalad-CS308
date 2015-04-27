@@ -1,12 +1,14 @@
 package gae.view.gameEditor;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -44,7 +46,12 @@ public class SceneNode extends GameNode{
 		sceneSelect.show();
 		ListView<String> selection = new ListView<>();
 		ObservableList<String> data = FXCollections.observableArrayList();
-		data.addAll("Level1", "Level2", "TitleScreen", "GameOver");
+		Set<String> titleScreens = myReceiver.getList("TitleScene");
+		Set<String> levels = myReceiver.getList("LevelNode");
+		Set<String> dialogueScreens = myReceiver.getList("DialogueNode");
+		data.addAll(titleScreens);
+		data.addAll(dialogueScreens);
+		data.addAll(levels);
 		selection.setItems(data);
 		
 		Button accept = new Button("Accept");
@@ -53,6 +60,12 @@ public class SceneNode extends GameNode{
 			bindText(selection.getSelectionModel().getSelectedItem(), 
 					NODE_BODY_LENGTH - 10, NODE_BODY_HEIGHT - 10);
 			sceneSelect.close();
+		});
+		
+		CheckBox isHeadBox = new CheckBox("Is Head?");
+		isHeadBox.setSelected(false);
+		isHeadBox.selectedProperty().addListener(e -> {
+			isHead = true;
 		});
 		
 		VBox selectionBox = new VBox(10);
@@ -83,5 +96,10 @@ public class SceneNode extends GameNode{
 	@Override
 	public ArrayList<GameNode> getChildren() {
 		return myConditions;
+	}
+
+	@Override
+	public boolean isButton() {
+		return false;
 	}
 }
