@@ -28,7 +28,7 @@ public class LevelNode extends GameNode  {
 	
 	@Override
 	public void render() {
-		// TODO FILL IN WITH APPROPRIATE CALLS FOR LEVELNODE ONCE AVAILABLE
+		myPlayerManager.updateLevel(myGrid, myStore, myHUD);
 		
 	}
 	
