@@ -3,7 +3,6 @@ package engine.sprites;
 import interfaces.Collidable;
 import interfaces.MovementStrategy;
 
-import java.awt.Shape;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
@@ -19,10 +18,11 @@ public class Enemy extends Sprite implements Collidable {
 	private MovementStrategy myMovement;
 	private Integer myDamage;
 	private Integer myHealth;
-	private Shape myCollisionBounds;
 	private List<Tile> myTilePath;
 	private Timer myTimer; //TODO: Do we need this in the EnemyClass?
 	private Path myPath;
+	private Integer myCollisionHeight;
+	private Integer myCollisionWidth;
 
 	public Enemy(){
 		
@@ -109,16 +109,6 @@ public class Enemy extends Sprite implements Collidable {
 		return myHealth <= 0;
 	}
 
-	public Shape getCollisionBounds() {
-		return myCollisionBounds;
-	}
-
-	@Override
-	public void setCollisionBounds() {
-		// TODO FIX THIS bc enemies no longer know where they are
-
-	}
-
 	@Override
 	public int compareTo(Object o) {
 		return (this.myPath.size().compareTo(((Enemy) o).myPath.size()));
@@ -130,9 +120,10 @@ public class Enemy extends Sprite implements Collidable {
 	}
 
 	@Override
-	public boolean evaluateCollision(Collidable collider) {
-		// TODO Auto-generated method stub
-		return false;
+	public void evaluateCollision(Collidable collider) {
+		if (collider.getClass().isAssignableFrom(Projectile.class)) {
+			executeEffect((Projectile) collider);
+		}
 	}
 
 	public MovementStrategy getMovement() {
@@ -146,5 +137,25 @@ public class Enemy extends Sprite implements Collidable {
 		mySpriteInfo.put("Health", myHealth.toString());
 		mySpriteInfo.put("Speed", mySpeed.toString());
 		mySpriteInfo.put("Damage", myDamage.toString());
+	}
+
+	@Override
+	public void setCollisionHeight(Integer height) {
+		myCollisionHeight = height;
+	}
+
+	@Override
+	public void setCollisionWidth(Integer width) {
+		myCollisionWidth = width;	
+	}
+
+	@Override
+	public Integer getCollisionHeight() {
+		return myCollisionHeight;
+	}
+
+	@Override
+	public Integer getCollisionWidth() {
+		return myCollisionWidth;
 	}
 }

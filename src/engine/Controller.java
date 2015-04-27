@@ -1,7 +1,9 @@
 package engine;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.Queue;
+
 import engine.gameLogic.GameStats;
 import engine.gameLogic.Placement;
 import engine.gameScreens.DialogueBox;
@@ -33,10 +35,20 @@ public class Controller {
 		
 	}
 	
+	public void doSomething(String action, Object[] params) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+		Class[] paramTypes = new Class[params.length];
+		for(int i = 0; i < params.length ; i++){
+			paramTypes[i] = params[i].getClass();
+		}
+		java.lang.reflect.Method method = myGame.getCurNode().getClass().
+				getMethod(action, paramTypes);
+		
+		method.invoke(myGame.getCurNode(), params);
+	}
 	
+	/*
 	
-	
-	/********** From DialogueController **********/
+	*//********** From DialogueController **********//*
 	
 	DialogueNodeQueue<DialogueBox> myDialogueBoxes = myDialogueNode.getDialogueBoxes();
 	
@@ -54,14 +66,14 @@ public class Controller {
 		return myDialogueBoxes.peek().getText();
 	}
 
-	/********* From LevelController ***********/
+	*//********* From LevelController ***********//*
 	
-	 /*
+	 
 	  * Takes in the ID and location of a tower on the front-end grid
 	  * Will add sprite to grid on the back-en @param spriteID
 	  * @param spritePlacement
 	  * Takes in the ID and location of a tower on the front-end grid
-	  */
+	  
  
 	public void placeSprite(String spriteID, Placement spritePlacement){
 		Store myStore = new Store();
@@ -70,36 +82,36 @@ public class Controller {
 		myGrid.placeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
 	}
 	
-	/**
+	*//**
 	 * Takes in SpriteID
 	 * Will display information about the sprite on screen
 	 * Useful for looking at cost and health of towers, etc.
 	 * TODO: Is this okay that it returns the Sprite info directly to view?
 	 * @param spriteID
 	 * @return 
-	 */
+	 *//*
 	public Map<String, String> examineSprite(String spriteID){
 		Environment myEnvironment = new Environment();
 		Grid myGrid = myEnvironment.getGrid();
 		return myGrid.getFromID(spriteID).getSpriteInfo();	
 	}
 
-	/**
+	*//**
 	 * Takes in spriteID and makes necessary changes to money, HUD, and Store
-	 */
+	 *//*
 	public void purchaseObject(String spriteID){
 		GameStats myGameStats = new GameStats();
 		Store myStore = new Store();
 		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice());
 	}
 	
-	/**
+	*//**
 	 * Takes in ID and placement
 	 * Makes changes to money, HUD, and store
 	 * Also removes sprite from grid on back-end
 	 * @param spriteID
 	 * @param spritePlacement
-	 */
+	 *//*
 	public void sellObject(String spriteID, Placement spritePlacement){
 		Environment myEnvironment = new Environment();
 		GameStats myGameStats = new GameStats();
@@ -109,16 +121,16 @@ public class Controller {
 		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice() * -1);	
 	}
 	
-	/**
+	*//**
 	 * Error message if there isn't enough money to purchase
 	 * returns true if there is money, otherwise false
-	 */
+	 *//*
 	public boolean notEnoughMoney(String spriteID){
 		GameStats myGameStats = new GameStats();
 		Store myStore = new Store();
 		return (myGameStats.getMoney() > myStore.getFromID(spriteID).getMyPrice());
 	}
-	
+	*/
 	/*********** From TitleController ***********/
 	
 

@@ -19,16 +19,18 @@ public class TitleScene extends GameNode{
 	}
 	
 	@Override
+	public void render() {
+		// TODO FILL IN WITH APPROPRIATE CALLS FOR TITLESCENE ONCE AVAILABLE
+		
+	}
+	
+	@Override
 	public void update() {
 		myButtonClicked = false;
 	}
 	
 
-	@Override
-	public void render() {
-		// TODO Fill in with appropriate calls as we get a Player API
-		
-	}
+	
 
 	@Override
 	public NodeState checkState(){

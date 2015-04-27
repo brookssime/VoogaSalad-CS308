@@ -1,5 +1,7 @@
 package engine;
 
+import interfaces.Collidable;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -134,5 +136,22 @@ public class Grid extends GameObject{
 	public void move(Sprite sprite, Placement move) {
 		mySpriteMap.put(sprite, move);
 		
+	}
+	
+	public void placeSpriteIDAt(String SpriteID, Placement p){
+		
+	}
+	
+	//maybe we'll need this idk
+//	public Sprite getSpritefromPlacement (Placement p){
+//		for (Sprite mySprite : mySpriteMap.keySet()){
+//			if (mySpriteMap.get(mySprite).equals(p))
+//				return mySprite;
+//		}
+//		return null;
+//	}
+	
+	public Placement getPlacement(Collidable s){
+		return mySpriteMap.get(s);
 	}
 }
