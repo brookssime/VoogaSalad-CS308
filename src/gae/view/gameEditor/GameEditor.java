@@ -119,10 +119,11 @@ public class GameEditor extends EditorComponent{
 	private NodeButton fetchButton(GameNode condition) {
 		Set<String> titleScreens = myReceiver.getList("titleScene");
 		for(String titleScene : titleScreens){
-			//pseudo code
-//			if(myReceiver.getButtonList(titleScene).contains(condition.getText()){
-//				return button;
-//			}
+			for(NodeButton button : myReceiver.getButtonList(titleScene)){
+				if(button.getInfo().equals(condition.toString())){
+					return button;
+				}
+			}
 		}
 		return null;
 	}
@@ -234,6 +235,7 @@ public class GameEditor extends EditorComponent{
 		DoubleProperty startY = new SimpleDoubleProperty();
 		DoubleProperty endX   = new SimpleDoubleProperty();
 		DoubleProperty endY   = new SimpleDoubleProperty();
+		
 		startX.bind(outNodeBody.translateXProperty());
 		startY.bind(outNodeBody.translateYProperty());
 		endX.bind(inNodeBody.translateXProperty());
