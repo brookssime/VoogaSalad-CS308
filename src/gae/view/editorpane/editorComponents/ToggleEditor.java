@@ -1,7 +1,9 @@
 package gae.view.editorpane.editorComponents;
 
 import gae.model.Receiver;
+import interfaces.ParameterAnnotation;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +25,21 @@ import javafx.scene.layout.HBox;
 public class ToggleEditor extends EditorComponent{
 	private String text;
 	private String[] texts;
+	private ToggleButton tgb;
 	
 	public ToggleEditor(Receiver receiver, Method setMethod, Method getMethod,String objectName) {
 		super(receiver, setMethod, objectName);
 	}
 
 	//@Override
-	public void setUpEditor() {//TODO: Find a way to do this with string
-			HBox h = new HBox();
-			h.getChildren().add(toggleButton());
-	}
-	
-	public void toggleButtonParam(String myText){
-		text = myText;
+	public void setUpEditor() {
+		Annotation[][] Annotations = myMethod.getParameterAnnotations();
+		Annotation[] annotationList = Annotations[0];
+		ParameterAnnotation parameterAnnotation = (ParameterAnnotation) annotationList[0];
+		String parameterName = parameterAnnotation.name();
+		text = parameterName;
+		HBox h = new HBox();
+	 	h.getChildren().add(toggleButton());
 	}
 	
 	public void groupToggleParam(String[] myTexts){
@@ -43,9 +47,12 @@ public class ToggleEditor extends EditorComponent{
 		texts = myTexts;
 	}
 		
-	public Node toggleButton() {
-		ToggleButton tgb1 = new ToggleButton(text);
-		return tgb1;
+	private Node toggleButton() {
+		tgb = new ToggleButton(text);
+		if (myFetchedValue!= null){
+			tgb.setSelected(Boolean.parseBoolean(myFetchedValue.toString()));
+		}
+		return tgb;
 	}
 	
 	private Node toggleButton(String s) {
@@ -53,7 +60,7 @@ public class ToggleEditor extends EditorComponent{
 		return tgb1;
 	}
 
-	public List<Node> toggleGroups() {
+	private List<Node> toggleGroups() {
 		List<Node> myGroupButtons = new ArrayList<Node>();
 		int i = 0; // iterate through the booleans
 		ToggleGroup myGroup = new ToggleGroup();
@@ -68,5 +75,7 @@ public class ToggleEditor extends EditorComponent{
 		return myGroupButtons;
 	}
 
-	//TODO: Make method to get the boolean status of the toggle buttons 
+	public boolean toggleStatus(){
+		return tgb.isSelected();
+	}
 }
