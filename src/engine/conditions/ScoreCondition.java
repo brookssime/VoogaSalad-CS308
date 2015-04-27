@@ -8,7 +8,7 @@ import engine.gameScreens.Store;
 public class ScoreCondition extends Condition{
 
 	public ScoreCondition(Grid grid, GridManager gridManager, Store store) {
-		super(grid, gridManager, store);
+		super(null);
 	}
 
 	@Override

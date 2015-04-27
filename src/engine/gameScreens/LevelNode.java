@@ -20,6 +20,7 @@ public class LevelNode extends GameNode  {
 	private ArrayList<Condition> myConditions;
 	private LevelStats myGameStats;
 	private long myStartTime;
+	private long myTotalTime;
 
 	public LevelNode() {
 		super();
@@ -61,6 +62,9 @@ public class LevelNode extends GameNode  {
 		return myHUD;
 	}
 
+	public void setTotalTime(long time){
+		myTotalTime = time;
+	}
 	
 	public void setStore(Store store){
 		myStore = store;
@@ -75,6 +79,9 @@ public class LevelNode extends GameNode  {
 		myGrid.setWaves(waves);
 	}
 	
+	public long getTotalTime(){
+		return myTotalTime;
+	}
 	public Grid getGrid(){
 		return myGrid;
 	}
@@ -98,5 +105,8 @@ public class LevelNode extends GameNode  {
 	
 	public void setGameStats(LevelStats gamestats){
 		myGameStats = gamestats;
+	}
+	public long calculateRemainingTime(){
+		return myTotalTime - myGameStats.getTimeElapsed(myStartTime);
 	}
 }
