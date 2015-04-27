@@ -2,6 +2,7 @@ package gae.view.titleScreenEditor;
 
 import java.util.ArrayList;
 
+import engine.gameScreens.NodeButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -32,7 +33,7 @@ public class TitleScreenEditor implements IButton{
 	private HBox myWholeEditor;
 	private Visualizer v;
 	private VBox myComponents;
-	private ArrayList<GameButton> myButtonList;
+	private ArrayList<NodeButton> myButtonList;
 	
 
 	public TitleScreenEditor() {
@@ -108,7 +109,7 @@ public class TitleScreenEditor implements IButton{
 		myButtons.getChildren().add(new Separator());
 	}
 	
-	public ArrayList<GameButton> getButtons(){
+	public ArrayList<NodeButton> getButtons(){
 		return myButtonList;
 	}
 }
