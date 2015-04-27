@@ -8,7 +8,7 @@ import engine.GridManager;
 import engine.HeadsUpDisplay;
 import engine.NodeState;
 import engine.conditions.Condition;
-import engine.gameLogic.GameStats;
+import engine.gameLogic.LevelStats;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Wave;
 
@@ -18,7 +18,7 @@ public class LevelNode extends GameNode  {
 	private Grid myGrid;
 	private HeadsUpDisplay myHUD;
 	private ArrayList<Condition> myConditions;
-	private GameStats myGameStats;
+	private LevelStats myGameStats;
 	private long myStartTime;
 
 	public LevelNode() {
@@ -96,7 +96,7 @@ public class LevelNode extends GameNode  {
 		return NodeState.RUNNING;
 	}
 	
-	public void setGameStats(GameStats gamestats){
+	public void setGameStats(LevelStats gamestats){
 		myGameStats = gamestats;
 	}
 }

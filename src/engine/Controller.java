@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.Queue;
 
-import engine.gameLogic.GameStats;
+import engine.gameLogic.LevelStats;
 import engine.gameLogic.Placement;
 import engine.gameScreens.DialogueBox;
 import engine.gameScreens.DialogueNode;
