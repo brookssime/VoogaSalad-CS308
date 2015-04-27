@@ -20,6 +20,7 @@ import engine.sprites.Tower;
 public class TowerInfo{
 	private StackPane image;
 	private String name;
+	private String spriteID;
 	private int price;
 	private int range;
 	private int damage;
@@ -34,7 +35,7 @@ public class TowerInfo{
 	
 	public TowerInfo(Tower t){
 		
-		//TODO: need get damage from Tower
+		//TODO: need get damage spriteID from Tower
 		this(t.getImagePath(),t.getName(),t.getMyPrice(),t.getRange(), 99);
 	}
 	

@@ -18,5 +18,6 @@ public interface LevelManager {
 	public void examinSprite(String SpriteID, Placement place);
 	public void increaseGameSpeed();
 	public void decreaseGameSpeed();
+	public void moveToNode(String NodeID);
 	
 }

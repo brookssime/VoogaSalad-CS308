@@ -1,12 +1,16 @@
 package player.manager;
 
+import java.util.List;
+
 import engine.Grid;
 import engine.HeadsUpDisplay;
 import engine.Controller;
 import engine.gameLogic.Placement;
 import engine.gameScreens.DialogueBox;
+import engine.gameScreens.NodeButton;
 import engine.gameScreens.Store;
 import engine.sprites.Tower;
+import player.GraphicGameScene;
 import player.dialogue.DialogScene;
 import player.level.GameLevelScene;
 
@@ -20,6 +24,7 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	private GameLevelScene myLevel;
 	private DialogScene myDialog;
 	private Controller myController;
+	private GraphicGameScene currScene;
 	public void SceneManager(GameLevelScene level, DialogScene dialog, Controller controller){
 		myLevel = level;
 		myDialog = dialog;
@@ -28,14 +33,32 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	public void init(){
 		
 	}
+	public void moveToNode(String nodeID){
+		myController.moveToNode(nodeID);
+	}
 	//for controller
+	
 	@Override
 	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud){
+		if(currScene != myLevel){
+			changeScene(myLevel);
+		}
+		currScene = myLevel;
 		myLevel.updateLevel(grid, store, hud);
+
+	}
+	private void changeScene(GraphicGameScene myLevel2) {
+		// TODO Auto-generated method stub
+		
 	}
 	@Override
 	public void updateDialogue(DialogueBox dialog){
+		if(currScene!=myDialog){
+			changeScene(myDialog);
+		}
+		currScene = myDialog;
 		myDialog.displayDialog(dialog);
+
 	}
 	@Override
 	public void displayError(String errormessage) {
@@ -87,6 +110,17 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		myController.doSomething("showNextDialogue", params);
 		
 	}
+	
+	
+	
+	public void makeNodeButton(List<NodeButton> nodeButtons){
+		currScene.makeNodeButton(nodeButtons);
+	}
+	
+	public void makeDialogNodeButton(){
+		
+	}
+	
 	
 	
 	//for dialog scene use

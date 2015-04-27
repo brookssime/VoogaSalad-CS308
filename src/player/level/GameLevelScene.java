@@ -1,11 +1,14 @@
 package player.level;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import engine.*;
 import engine.gameLogic.Placement;
 import engine.gameScreens.LevelNode;
+import engine.gameScreens.NodeButton;
 import engine.gameScreens.Store;
 import engine.sprites.Sprite;
 import engine.sprites.Tower;
@@ -51,6 +54,7 @@ public class GameLevelScene implements GraphicGameScene{
 	private double adjustrate = 0;
 	private int gamespeed = 6;
 	private int currentTime = 0;
+	private List<Button> buttons;
 	
 	//Group root;
 	private Scene myScene;
@@ -76,6 +80,7 @@ public class GameLevelScene implements GraphicGameScene{
 	private Button speedUpButton;
 	private Button slowDownButton;
 	private LevelManager myManager;
+	BorderPane root;
 	//private int currentTime
 	public GameLevelScene(Stage stage, double screenWidth, double screenHeight, LevelManager manager){
 		//this.root = new Group();
@@ -86,9 +91,10 @@ public class GameLevelScene implements GraphicGameScene{
 		moneyNum = 0;
 		scoreNum = 0;
 		adjustrate = screenWidth/1436;
-		BorderPane root = makePane();
+		root = makePane();
         myScene = new Scene(root, screenWidth, screenHeight);
-        initTimeLine();
+        buttons = new ArrayList<Button>();
+        //initTimeLine();
 	}
 	
 	private void initTimeLine() {
@@ -344,6 +350,28 @@ public class GameLevelScene implements GraphicGameScene{
 		updateGrid(grid);
 		updateStore(store);
 		updateHUD(hud);
+		
+	}
+
+	@Override
+	public void makeNodeButton(List<NodeButton> nodeButtons) {
+		clearButtons();
+		for(NodeButton nodebutton : nodeButtons){
+			Button myButton = new Button(nodebutton.getInfo());
+			myButton.setOnAction((e)->{
+				myManager.moveToNode(nodebutton.myTargetNodeID);
+			});
+			myButton.setLayoutX(nodebutton.getLocation().x);
+			myButton.setLayoutY(nodebutton.getLocation().y);
+			buttons.add(myButton);
+			root.getChildren().add(myButton);
+		}
+		
+	}
+
+	private void clearButtons() {
+		root.getChildren().removeAll(buttons);
+		buttons.clear();
 		
 	}
 
