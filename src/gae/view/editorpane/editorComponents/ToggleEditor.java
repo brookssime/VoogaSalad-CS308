@@ -8,6 +8,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -40,6 +42,13 @@ public class ToggleEditor extends EditorComponent{
 		text = parameterName;
 		HBox h = new HBox();
 	 	h.getChildren().add(toggleButton());
+	 	tgb.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(final ActionEvent e) {
+                	 	myReceiver.runOnObject(myObject, myMethod, toggleStatus());
+                    }
+                });
 	}
 	
 	public void groupToggleParam(String[] myTexts){

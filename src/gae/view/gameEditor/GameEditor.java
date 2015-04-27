@@ -1,8 +1,12 @@
 package gae.view.gameEditor;
 
 import gae.model.Receiver;
+import gae.view.editorpane.editorComponents.EditorComponent;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -30,7 +34,7 @@ import reflection.Reflection;
  * Presumably this would extend GAEPane but as of right now it is free standing as its own application.
  *
  */
-public class GameEditor {
+public class GameEditor extends EditorComponent{
 	
 	private static final int CHOICE_SPACING = 10;
 	private Receiver myReceiver;
@@ -38,7 +42,8 @@ public class GameEditor {
 	private ArrayList<GameNode> myNodes;
 	
 	
-	public GameEditor(Receiver receiver){
+	public GameEditor(Receiver receiver, Method method, String objectName){
+		super(receiver, method, objectName);
 		myReceiver = receiver;
 		myNodes = new ArrayList<>();
 	}
@@ -64,8 +69,34 @@ public class GameEditor {
 		Button acceptButton = new Button("Accept");
 		acceptButton.setOnAction(e -> {
 			//export myNodes in whatever format
+			//build two maps:
+			// 1) String to Node
+			// 2) Node to Map<Enum, Node>;
+			printMap();
 		});
 		return acceptButton;
+	}
+
+	private void printMap() {
+		Map<String, Map<String, String>> nodeConditionMap = new HashMap<>();
+		for(int i = 0; i < myNodes.size(); i++){
+			Map<String, String> enumNodeMap = new HashMap<>();
+			GameNode node = myNodes.get(i);
+			//scene node
+			if(i % 2 == 0){
+				for(GameNode conditions: node.getChildren()){
+					String e = conditions.toString();
+					String n = conditions.getChildren() == null ? 
+							null : conditions.getChildren().get(0).toString();
+					enumNodeMap.put(e, n);
+				}
+				nodeConditionMap.put(node.toString(), enumNodeMap);
+			}
+		}
+		for(String node: nodeConditionMap.keySet()){
+			System.out.print(node + ": " + nodeConditionMap.get(node) + "\n");
+		}
+		
 	}
 
 	private Button addNodeButton() {
@@ -131,30 +162,15 @@ public class GameEditor {
 	 */
 	private void checkOutSelected(GameNode inNode) {
 		for(GameNode outNode : myNodes){
-			//A connection was drawn
-			// 1) Draw Line between Nodes showing Connection was Made [DONE[
-			// 2) Update Out Node's Children [DONE]
-			if(outNode.getMyOut().isSelected().getValue() && !outNode.equals(inNode)){
+			
+			//if outnode is selected and outnode is not innode
+			if(outNode.getMyOut().isSelected().getValue() && !outNode.equals(inNode) 
+					&& outNode.draw() &&inNode.draw()){
 				//draw line
-				Rectangle outNodeBody = outNode.getMyOut().getOutBody();
-				Rectangle inNodeBody = inNode.getMyIn().getInBody();
-				DoubleProperty startX = new SimpleDoubleProperty();
-			    DoubleProperty startY = new SimpleDoubleProperty();
-			    DoubleProperty endX   = new SimpleDoubleProperty();
-			    DoubleProperty endY   = new SimpleDoubleProperty();
-			    startX.bind(outNodeBody.translateXProperty());
-			    startY.bind(outNodeBody.translateYProperty());
-			    endX.bind(inNodeBody.translateXProperty());
-			    endY.bind(inNodeBody.translateYProperty());
-				Line line = new BoundLine(startX, startY, 
-						endX, endY);
-				myRoot.getChildren().add(line);
+				Line line = drawLine(inNode, outNode);
 				
 				outNode.addChild(inNode);
 				
-				//If line is double clicked, we delete it
-				// 1) First remove it from the scene [DONE]
-				// 2) Second update children of outNode [DONE]
 				line.setOnMouseEntered(new EventHandler<MouseEvent>() {
 					
 					@Override
@@ -172,6 +188,36 @@ public class GameEditor {
 				inNode.getMyIn().setSelected();
 			}
 		}
+		
+	}
+
+	/**
+	 * creates properties that are bound so that the line will follow the Connectors whereever the node 
+	 * moves.
+	 * @param inNode
+	 * @param outNode
+	 * @return
+	 */
+	private Line drawLine(GameNode inNode, GameNode outNode) {
+		Rectangle outNodeBody = outNode.getMyOut().getBody();
+		Rectangle inNodeBody = inNode.getMyIn().getBody();
+		DoubleProperty startX = new SimpleDoubleProperty();
+		DoubleProperty startY = new SimpleDoubleProperty();
+		DoubleProperty endX   = new SimpleDoubleProperty();
+		DoubleProperty endY   = new SimpleDoubleProperty();
+		startX.bind(outNodeBody.translateXProperty());
+		startY.bind(outNodeBody.translateYProperty());
+		endX.bind(inNodeBody.translateXProperty());
+		endY.bind(inNodeBody.translateYProperty());
+		Line line = new BoundLine(startX, startY, 
+				endX, endY);
+		myRoot.getChildren().add(line);
+		return line;
+	}
+
+	@Override
+	public void setUpEditor() {
+		drawGameEditor();
 		
 	}
 	
