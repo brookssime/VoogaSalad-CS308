@@ -14,6 +14,5 @@ public @interface SpecialEditorAnnotation {
 	 */
 	boolean specialeditor();
 	public String name();
-	public String type();
 	public String fieldName();
 }

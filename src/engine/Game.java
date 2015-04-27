@@ -1,6 +1,7 @@
 package engine;
 
 import interfaces.MethodAnnotation;
+import interfaces.SpecialEditorAnnotation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,12 +19,21 @@ public class Game extends GameObject {
 	private Store myStore;
 	private Map<GameNode, Map<NodeState, GameNode>> myAdjacencyList;
 	private Map<String, GameNode> myIDMap;
+	
+	public Game() {
+		
+	}
 
 	public Game(GameNode head) {
 		myStartNode = head;
 		myAdjacencyList = new HashMap<GameNode, Map<NodeState, GameNode>>();
 		myIDMap = new HashMap<String, GameNode>();
 		addStoreToLevel();
+	}
+	
+	@MethodAnnotation(editor=true, name = "Game Editor", type = "game", fieldName = "")
+	public void fakeMethod() {
+		return;
 	}
 
 	public GameNode getCurNode() {
@@ -40,7 +50,7 @@ public class Game extends GameObject {
 		myCurNode.render();
 	}
 
-	@MethodAnnotation(editor=true, name = "Set Head", type = "game", fieldName = "myStartNode")
+	@SpecialEditorAnnotation(specialeditor=true, name = "Set Head", fieldName = "myStartNode")
 	public void setHead(GameNode head) {
 		myStartNode = head;
 	}

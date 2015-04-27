@@ -125,11 +125,13 @@ public class Enemy extends Sprite implements Collidable {
 	}
 
 	@Override
+	@MethodAnnotation(editor=true, name = "Set Collision Height", type = "textfield", fieldName = "myCollisionHeight")
 	public void setCollisionHeight(Integer height) {
 		myCollisionHeight = height;
 	}
 
 	@Override
+	@MethodAnnotation(editor=true, name = "Set Collision Width", type = "textfield", fieldName = "myCollisionWidth")
 	public void setCollisionWidth(Integer width) {
 		myCollisionWidth = width;	
 	}

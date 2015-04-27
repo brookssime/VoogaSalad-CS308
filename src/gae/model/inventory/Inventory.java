@@ -133,6 +133,12 @@ public class Inventory {
 		GameObject object = map.get(obj);
 		return new ArrayList<Method>(Reflection.getEditorMethods(object));
 	}
+	
+	public List<Method> getSpecialEditorMethods(String obj) {
+		ObservableMap<String, GameObject> map = getMap(obj);
+		GameObject object = map.get(obj);
+		return new ArrayList<Method>(Reflection.getSpecialEditorMethods(object));
+	}
 
 	public Object getFromObject(String obj, String fieldName)
 			throws IllegalArgumentException, IllegalAccessException,

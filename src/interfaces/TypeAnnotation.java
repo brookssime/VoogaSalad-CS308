@@ -10,5 +10,5 @@ public @interface TypeAnnotation {
 	 * types - types of objects the method is going to use for implementation.
 	 *
 	 */
-	public String types();
+	public String type();
 }

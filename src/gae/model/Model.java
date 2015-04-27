@@ -55,6 +55,11 @@ public class Model implements Receiver {
 	public List<Method> getEditorMethods(String obj) {
 		return myInventory.getEditorMethods(obj);
 	}
+	
+	@Override
+	public List<Method> getSpecialEditorMethods(String obj) {
+		return myInventory.getSpecialEditorMethods(obj);
+	}
 
 	@Override
 	public Object getFromObject(String obj, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException {
@@ -83,8 +88,11 @@ public class Model implements Receiver {
 
 	@Override
 	public void saveFile() {
-		// TODO Auto-generated method stub
-
+		try {
+			XMLWriter.SaveGameData(myInventory);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

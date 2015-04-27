@@ -27,6 +27,8 @@ public interface Receiver {
 	public boolean isInvObject(String type);
 	
 	public List<Method> getEditorMethods(String obj);
+	
+	public List<Method> getSpecialEditorMethods(String obj);
 
 	//get version of above //still check for null
 	public Object getFromObject(String obj, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException;

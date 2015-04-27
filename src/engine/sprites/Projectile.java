@@ -2,6 +2,7 @@ package engine.sprites;
 
 import interfaces.Collidable;
 import interfaces.MethodAnnotation;
+import interfaces.TypeAnnotation;
 
 import java.awt.Shape;
 
@@ -16,11 +17,12 @@ import engine.gameLogic.ProjectileEffect;
  */
 public class Projectile extends Sprite implements Collidable{
 	
+	//TODO: WHY ARE THERE NAME AND IMAGE STRING IF YOU EXTEND SPRITE?
 	private String myName;
 	private String myImageString;
 	private Integer mySpeed; 
 	private ProjectileEffect myEffect;
-	private int myRadius;
+	private int myRadius; //RADIUS AND COLLISION HEIGHT/WIDTH?
 	private Shape myCollisionBounds;
 	private Path myPath;
 	private Integer myCollisionHeight;
@@ -83,6 +85,11 @@ public class Projectile extends Sprite implements Collidable{
 		return myRadius;
 	}
 
+	@MethodAnnotation(editor=true, name = "Set Effect", type = "singleselect", fieldName = "myEffect")
+	@TypeAnnotation(type="ProjectileEffect")
+	public void setEffect(ProjectileEffect pe) {
+		myEffect = pe;
+	}
 	
 	public ProjectileEffect getEffect(){
 		return myEffect;
@@ -101,11 +108,13 @@ public class Projectile extends Sprite implements Collidable{
 	}
 
 	@Override
+	@MethodAnnotation(editor=true, name = "Set Collision Height", type = "textfield", fieldName = "myCollisionHeight")
 	public void setCollisionHeight(Integer height) {
 		myCollisionHeight = height;
 	}
 
 	@Override
+	@MethodAnnotation(editor=true, name = "Set Collision Width", type = "textfield", fieldName = "myCollisionWidth")
 	public void setCollisionWidth(Integer width) {
 		myCollisionWidth = width;	
 	}

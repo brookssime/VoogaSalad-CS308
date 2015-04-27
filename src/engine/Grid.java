@@ -1,7 +1,10 @@
 package engine;
 
 import interfaces.Collidable;
+import interfaces.MethodAnnotation;
+import interfaces.SpecialEditorAnnotation;
 
+import java.awt.Point;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -14,6 +17,8 @@ import engine.sprites.Tile;
 
 public class Grid extends GameObject{
 
+	private int myHeight;
+	private int myWidth;
 	public Tile[][] myTiles;
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;	
@@ -31,6 +36,21 @@ public class Grid extends GameObject{
 		myTiles = grid.myTiles;
 		mySpriteMap = grid.mySpriteMap;
 		myGridManager = gm;
+	}
+	
+	@MethodAnnotation(editor=true, name = "Grid Editor", type = "grid", fieldName = "")
+	public void fakeMethod() {
+		return;
+	}
+	
+	@SpecialEditorAnnotation(specialeditor = true, name = "Set Height", fieldName = "myHeight")
+	public void setHeight(int height) {
+		myHeight = height;
+	}
+	
+	@SpecialEditorAnnotation(specialeditor = true, name = "Set Width", fieldName = "myWidth")
+	public void setWidth(int width) {
+		myWidth = width;
 	}
 	
 	public Tile[][] getTiles(){
@@ -62,6 +82,7 @@ public class Grid extends GameObject{
 		myGridManager.start();
 	}
 
+	@SpecialEditorAnnotation(specialeditor = true, name = "Set Waves", fieldName = "myGridManager.getWaves()")
 	public void setWaves(Queue<Wave> waves){
 		myGridManager.setWaves(waves);
 	}
@@ -72,10 +93,16 @@ public class Grid extends GameObject{
 		//myGridManager.checkComplete();
 	}
 
+	@SpecialEditorAnnotation(specialeditor=true, name="Set Tiles", fieldName="myTiles")
 	public void setTiles(Tile[][] tiles){
 		myTiles = tiles;
 	}
-
+	
+	@SpecialEditorAnnotation(specialeditor=true, name="Set Sprite", fieldName="mySpriteMap")
+	public void setSprite(Sprite sprite, Point point) {
+		mySpriteMap.put(sprite, new Placement(point));
+	}
+	
 	public void placeSpriteAt(Sprite sprite, Placement spritePlacement){
 		mySpriteMap.put(sprite, spritePlacement);
 	}

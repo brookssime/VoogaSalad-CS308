@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.List;
 
 import interfaces.MethodAnnotation;
+import interfaces.SpecialEditorAnnotation;
 import engine.NodeState;
 
 /**
@@ -21,6 +22,11 @@ public class TitleScene extends GameNode {
 
 	public TitleScene() {
 		super();
+	}
+	
+	@MethodAnnotation(editor=true, name="Title Scene Editor", type="titlescene", fieldName="")
+	public void fakeMethod() {
+		return;
 	}
 
 	@Override
@@ -43,28 +49,28 @@ public class TitleScene extends GameNode {
 		return myButtons;
 	}
 
-	@MethodAnnotation(editor=true, name="Set Background Image", type="imageselect", fieldName="myBackgroundPicturePath")
+	@SpecialEditorAnnotation(specialeditor=true, name="Set Background Image", fieldName="myBackgroundPicturePath")
 	public void setBackgroundPicturePath(String path) {
 		myBackgroundPicturePath = path;
 	}
 	
-	@MethodAnnotation(editor=true, name="Set Title Text", type="textfield", fieldName="myTitleText")
+	@SpecialEditorAnnotation(specialeditor=true, name="Set Title Text", fieldName="myTitleText")
 	public void setTitleText(String text) {
 		myTitleText = text;
 	}
 	
-	@MethodAnnotation(editor=true, name="Set Title Position", type="something", fieldName="myTitlePos")
+	@SpecialEditorAnnotation(specialeditor=true, name="Set Title Position", fieldName="myTitlePos")
 	public void setTitlePos(int x, int y) {
 		myTitlePos.x = x;
 		myTitlePos.y = y;
 	}
 	
-	@MethodAnnotation(editor=true, name="Set Title Style", type="textfield", fieldName="myTitleStyle")
+	@SpecialEditorAnnotation(specialeditor=true, name="Set Title Style", fieldName="myTitleStyle")
 	public void setTitleStyle(String style) {
 		myTitleStyle = style;
 	}
 	
-	@MethodAnnotation(editor=true, name="Set Buttons", type="titlescreeneditor", fieldName="myButtons")
+	@SpecialEditorAnnotation(specialeditor=true, name="Set Buttons", fieldName="myButtons")
 	public void setButtons(List<NodeButton> buttons) {
 		myButtons = buttons;
 	}

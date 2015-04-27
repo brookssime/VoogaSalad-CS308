@@ -1,6 +1,7 @@
 package engine.gameLogic;
 
 import interfaces.Collidable;
+import interfaces.MethodAnnotation;
 
 import java.util.ArrayList;
 
@@ -42,11 +43,13 @@ public class Range extends Sprite implements Collidable{
 	}
 
 	@Override
+	@MethodAnnotation(editor=true, name="Set Collision Height", type="textfield", fieldName="myCollisionHeight")
 	public void setCollisionHeight(Integer height) {
 		myCollisionHeight = height;
 	}
 
 	@Override
+	@MethodAnnotation(editor=true, name="Set Collision Width", type="textfield", fieldName="myCollisionWidth")
 	public void setCollisionWidth(Integer width) {
 		myCollisionWidth = width;	
 	}
