@@ -1,9 +1,13 @@
 package gae.model;
 
+import engine.gameLogic.GameObject;
 import gae.model.inventory.Inventory;
 import gae.view.inventorypane.UpdateListener;
+import game_data.XMLWriter;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,15 +24,25 @@ public class Model implements Receiver {
 		myInventory = new Inventory();
 
 	}
+	
+	@Override
+	public void addMap(String type) {
+		myInventory.addMap(type);
+	}
 
 	@Override
-	public void addObject(String type) {
-		myInventory.addObject(type);
+	public void addObject(String type, String location) {
+		myInventory.addObject(type, location);
 	}
 
 	@Override
 	public void runOnObject(String obj, Method method, Object... params) {
 		myInventory.runOnObject(obj, method, params);
+	}
+	
+	@Override
+	public List<Method> getEditorMethods(String obj) {
+		return myInventory.getEditorMethods(obj);
 	}
 
 	@Override
@@ -58,9 +72,13 @@ public class Model implements Receiver {
 	}
 
 	@Override
-	public void exportFile(String game) {
-		// TODO Auto-generated method stub
-
+	public void exportFile(String obj) {
+		GameObject object = myInventory.getObject(obj);
+		try {
+			XMLWriter.SaveGameData(object);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// might not be used

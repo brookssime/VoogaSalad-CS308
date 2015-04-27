@@ -12,14 +12,11 @@ import engine.sprites.Tower;
  */
 public class Store extends GameObject {
 
-	/** The my towers on sale. */
+	
 	private Map<Tower, Integer> myTowersOnSale;
-	
-	/** The my money. */
 	private Integer myMoney;
-	
-	/** The my background image path. */
 	private String myBackgroundImagePath;
+	private Map<String, Tower> myTowerNames;
 	
 	/**
 	 * Instantiates a new store.
@@ -38,24 +35,7 @@ public class Store extends GameObject {
 		myTowersOnSale = towersOnSale;
 		myBackgroundImagePath = backgroundImagePath;
 	}
-	
-	/**
-	 * Adds the money.
-	 *
-	 * @param moneyToBeAdded the money to be added
-	 */
-	public void addMoney(Integer moneyToBeAdded){
-		myMoney += moneyToBeAdded;
-	}
-	
-	/**
-	 * Gets the money.
-	 *
-	 * @return the money
-	 */
-	public Integer getMoney(){
-		return myMoney;
-	}
+
 	
 	/**
 	 * Gets the tower cost.
@@ -74,5 +54,14 @@ public class Store extends GameObject {
 	 */
 	public String getImagePath(){
 		return myBackgroundImagePath;
+	}
+	
+	public Tower getFromID(String TowerID){
+		for (String myTower: myTowerNames.keySet()){
+			if (myTower == TowerID){
+				return myTowerNames.get(myTower);
+			}
+		}
+		return null;
 	}
 }

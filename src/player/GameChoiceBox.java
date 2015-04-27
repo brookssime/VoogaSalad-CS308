@@ -2,7 +2,6 @@ package player;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -13,99 +12,90 @@ import javafx.scene.layout.VBox;
  */
 public class GameChoiceBox extends AbstractOverlay {
 
-	protected static int numButtons;
+	//protected static int numButtons;
+	protected GameInfoBox gameInfoBox;
+	protected List<GameData> availGames;
 
-	public GameChoiceBox(double overlayWidth, double overlayHeight, GameInfoBox gameInfoBox) {
+	public GameChoiceBox(double overlayWidth, double overlayHeight,
+			GameInfoBox gameInfoBox, List<GameData> availGames) {
 		super(overlayWidth, overlayHeight);
-		
-		this.setMaxWidth(overlayWidth); 
+
+		this.setMaxWidth(overlayWidth);
 		this.setMaxHeight(overlayHeight);
 		this.setPrefSize(overlayWidth, overlayHeight);
-		
+		this.gameInfoBox = gameInfoBox;
+		this.availGames = availGames;
+
 		// Entirely for testing, this will be populated by some game data
-		List<String> games = new ArrayList<String>(); 
+		List<String> games = new ArrayList<String>();
 		games.add("Game 1");
 		games.add("Game 2");
 		games.add("Game 3");
-		
-		createGameButtons(games);
-		
-		
-
+		games.add("Game 4");
+		games.add("Game 5");
+		games.add("Game 6");
+		createGameButtons(availGames);
 	}
 
-	void createGameButtons(List<String> games ) {
-
-		//configureNumButtonsUsingExistingResourceBundle();
+	void createGameButtons(List<GameData> availGames) {
 
 		// Managing where to place the button
-		numButtons = games.size();
+		int numButtons = availGames.size();
+		System.out.println(numButtons);
 		double fractionHeight = overlayHeight / numButtons;
 		double middleFraction = fractionHeight / 2;
 		double nextButtonCenter = 1 * middleFraction;
- 
-		double buttonWidth = overlayWidth * .75;
+		double buttonHeight = fractionHeight * .8;
 
 		for (int i = 0; i < numButtons; i++) {
 
 			String nextButtonLabel = null;
 
 			try {
-				nextButtonLabel = "game" + games.get(i);
-			}
-
-			catch (Exception e) {
+				nextButtonLabel = availGames.get(i).gameName; //in reality will be games.get(i).getName();
+			} catch (Exception e) {
 				System.out
 						.println("AlgorithmOverlay.numButtons is set to be too large. "
 								+ "You were just protected from a crash.");
 				break;
 			}
-
 			createButtonWithLabelWithCenterXWithWidth(nextButtonLabel,
-					nextButtonCenter, buttonWidth);
+					nextButtonCenter, buttonHeight, i);
 			nextButtonCenter += fractionHeight;
-
 		}
-
 	}
 
-//	public void configureNumButtonsUsingExistingResourceBundle() {
-//
-//		GameChoiceBox.numButtons = Integer.parseInt(resources
-//				.getString("numberAlgorithms"));
-//
-//	}
 
 	private void createButtonWithLabelWithCenterXWithWidth(String label,
-			double centerX, double buttonHeight) {
+			double centerX, double buttonHeight, int i) {
 
 		VBox v = new VBox();
-		v.setLayoutX(overlayWidth / 3);
-		v.setLayoutY(centerX - buttonHeight / 2);
+		v.setTranslateY(centerX - buttonHeight / 2);
+		v.setTranslateX(overlayHeight / 3);
 
 		Button b = new Button(label);
-		b.setPrefWidth(overlayWidth * .75);
+		b.getStylesheets().add("playerStyle.css");
+		b.setPrefWidth(overlayWidth * .8);
 		b.setPrefHeight(buttonHeight);
 		b.getStyleClass().add("button-settings");
 
-		setRespectiveButtonActionWithAlgorithmName(b, label);
-
+		setRespectiveButtonActionWithAlgorithmName(b, label, i);
 		v.getChildren().add(b);
-		//v.setLayoutX(100);
-		//v.setLayoutY(100);
 		this.getChildren().add(v);
 
 	}
 
 	private void setRespectiveButtonActionWithAlgorithmName(Button b,
-			String label) {
+			String label, int i) {
 
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 
-				// Set the button actions for each game (Likely setting an
-				// active game for the gameInformation Box)
+				//Set the selected game at the active game within the information box
 				System.out.println("Set Respective Button Actions");
+				
+				gameInfoBox.setGameData(availGames.get(i));
+				
 			}
 		});
 	}

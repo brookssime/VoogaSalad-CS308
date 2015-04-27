@@ -3,6 +3,7 @@ package gae.model;
 import gae.view.inventorypane.UpdateListener;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,12 +12,16 @@ import java.util.Set;
  *
  */
 public interface Receiver {
+	
+	public void addMap(String type);
 
 	//not using
-	public void addObject(String type);
+	public void addObject(String type, String location);
 
 	//obj is name of object, method is actual method (set), param is what goes into method
 	public void runOnObject(String obj, Method method, Object... params);
+	
+	public List<Method> getEditorMethods(String obj);
 
 	//get version of above //still check for null
 	public Object getFromObject(String obj, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException;
