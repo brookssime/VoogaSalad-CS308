@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.Group;
-import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -30,7 +29,6 @@ public class Editor extends GAEPane {
 	private HBox myLayout;
 	private Group myView;
 	private VBox myForm;
-	private Button exportObject;
 	private EditorComponentFactory myFactory;
 	private Receiver myReceiver;
 
@@ -41,24 +39,24 @@ public class Editor extends GAEPane {
 		myObj = obj;
 		myReceiver = receiver;
 
+		// TODO - changed getType(obj) to obj for testing.
+		// TODO - needs to work for classes outside engine.sprites. + should consider making this a receiver method?
 		ArrayList<Method> objMethods = new ArrayList<Method>(
-				Reflection.getEditorMethods("engine.sprites." + myReceiver.getType(obj)));
+				Reflection.getEditorMethods("engine.sprites."
+						+ myReceiver.getType(obj)));
 		System.out.println(objMethods);
 
-		ArrayList<Method> setMethods = new ArrayList<Method>();
-		ArrayList<Method> getMethods = new ArrayList<Method>();
-
-		for (Method method : objMethods) {
-			MethodAnnotation ma = method
-					.getAnnotation(MethodAnnotation.class);
-			if (ma.gsType().equals("setter")) {
-				setMethods.add(method);
-			} else {
-				if (ma.gsType().equals("getter")) {
-					getMethods.add(method);
-				}
-			}
-		}
+		/*
+		 * Map<Method, Method> methodMap = new HashMap<Method, Method>();
+		 * 
+		 * for (Method m1 : objMethods) { MethodAnnotation ma =
+		 * m1.getAnnotation(MethodAnnotation.class); if
+		 * (ma.gsType().equals("setter")) { String str = ma.name(); for (Method
+		 * m2 : objMethods) { MethodAnnotation ma2 =
+		 * m2.getAnnotation(MethodAnnotation.class); if
+		 * ((ma2.gsType().equals("getter")) && (ma2.name().equals(str))) {
+		 * methodMap.put(m1, m2); } } } }
+		 */
 
 		myLayout = new HBox();
 		myView = new Group();
@@ -67,21 +65,22 @@ public class Editor extends GAEPane {
 		myRoot.getChildren().add(myLayout);
 
 		myFactory = new EditorComponentFactory();
-		for (Method method : setMethods) {
+		for (Method method : objMethods) {
 			MethodAnnotation methodAnnotation = method
 					.getAnnotation(MethodAnnotation.class);
 			String componentType = methodAnnotation.type();
 			EditorComponent fieldEditor = myFactory.generateComponent(
 					componentType, myReceiver, method, myObj);
+			System.out.println(componentType);
 			myForm.getChildren().add(fieldEditor);
 		}
 
-		exportObject = new Button("Export Object");
-		exportObject.setOnAction(e -> {
-			// udpate/export object missing in receiver?.
-
-			});
-		myForm.getChildren().add(exportObject);
+//		exportObject = new Button("Export Object");
+//		exportObject.setOnAction(e -> {
+//			// udpate/export object missing in receiver?.
+//			myReceiver.exportFile(obj);
+//		});
+//		myForm.getChildren().add(exportObject);
 	}
 
 	@Override

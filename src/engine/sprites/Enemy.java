@@ -19,7 +19,7 @@ public class Enemy extends Sprite implements Collidable {
 	private Integer myDamage;
 	private Integer myHealth;
 	private List<Tile> myTilePath;
-	private Timer myTimer; //TODO: Do we need this in the EnemyClass?
+	private Timer myTimer;
 	private Path myPath;
 	private Integer myCollisionHeight;
 	private Integer myCollisionWidth;
@@ -112,7 +112,6 @@ public class Enemy extends Sprite implements Collidable {
 		return myMovement;
 	}
 
-	//TODO: Find a better way to do this?
 	@Override
 	public void fillSpriteInfo() {
 		mySpriteInfo.put("Name", myName);

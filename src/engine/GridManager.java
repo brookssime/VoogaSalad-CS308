@@ -82,9 +82,6 @@ public class GridManager {
 		return myBase;
 	}
 
-	/**
-	 * TODO: Clean this up??
-	 */
 	private void checkCollidables() {
 		for (Collidable sprite : myCollidables) {
 			for (Collidable collider : myCollidables) {
@@ -114,10 +111,8 @@ public class GridManager {
 		Collidable c = s.selectTarget(getObjectsInRange(s));
 		myPathFinder.generateProjectile(s.fire(), myPathFinder.target(s, c));
 	}
-
-	//TODO: Come back such that we don't have to return the range...then take getRange out of the interface
-	private List<Collidable> getObjectsInRange(Shootable shootable){
-		return shootable.getRangeObject().getObjectsInRange();
+	private List<Collidable> getObjectsInRange(Shootable c){
+		return c.getRangeObject().getObjectsInRange();
 	}
 
 	private void moveSprites() {
