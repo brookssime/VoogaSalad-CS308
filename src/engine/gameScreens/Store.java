@@ -45,6 +45,11 @@ public class Store extends GameObject {
 		return myTowersOnSale.keySet();
 	}
 	
+	public Tower getTowerFromName(String ID){
+		return myTowerNames.get(ID);
+		// TODO make this CLONE the object instead of returning the same instance
+	}
+	
 	/**
 	 * Gets the tower cost.
 	 *

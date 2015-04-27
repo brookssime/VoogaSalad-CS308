@@ -5,6 +5,7 @@ import java.util.Queue;
 import engine.Grid;
 import engine.GridManager;
 import engine.HeadsUpDisplay;
+import engine.gameLogic.Placement;
 import engine.gameLogic.Wave;
 
 public class LevelNode extends GameNode  {
@@ -29,6 +30,31 @@ public class LevelNode extends GameNode  {
 		// TODO Fill in with appropriate calls as we get a Player API
 		
 	}
+	
+	void placeSprite(String SpriteID, Placement spritePlacement){
+		myGrid.placeSpriteAt(myStore.getTowerFromName(SpriteID), spritePlacement);
+		
+	}
+	
+	void examineSprite(String SpriteID, Placement spritePlacement){
+		
+	}
+	
+	void sellObject(String SpriteID, Placement spritePlacement){
+		
+	}
+	void purchaseObject(String SpriteID){
+		
+	}
+	
+	void increaseGameSpeed(){
+		
+	}
+	
+	void decreaseGameSpeed(){
+		
+	}
+	
 	
 	private void init(){
 		myGrid = new Grid(myGrid, myGridManager);
