@@ -47,7 +47,7 @@ public class LevelNode extends GameNode {
 	}
 
 	public void sellObject(String spriteID, Placement spritePlacement) {
-		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice()
+		myGameStats.updateMoney(myStore.getFromID(spriteID).getPrice()
 				* -myStore.getSellPercentage());
 		myGrid.removeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
 		myGrid.removeSpriteAt(myStore.getFromID(spriteID).getRangeObject(),

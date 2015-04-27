@@ -130,12 +130,5 @@ public class Projectile extends Sprite implements Collidable{
 	
 	public void setSpeed(int speed){
 		mySpeed = speed;
-	}
-	
-	public void setEffect (ProjectileEffect effect){
-		myEffect = effect;
-	}
-	
-	
-	
+	}	
 }

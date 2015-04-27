@@ -173,10 +173,6 @@ public class Tower extends Sprite implements Shootable{
 		mySpriteInfo.put("Health Damage", myProjectile.getEffect().getHealthDamage().toString());
 	}
 	
-	public void setProjectile (Projectile projectile){
-		myProjectile = projectile;
-	}
-	
 	public void setRotationSpeed (double rotationSpeed){
 		myRotationSpeed = rotationSpeed;
 	}
