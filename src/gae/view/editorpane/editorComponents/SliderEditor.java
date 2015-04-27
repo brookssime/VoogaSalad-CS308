@@ -24,7 +24,7 @@ public class SliderEditor extends EditorComponent{
 	private Double myCur;
 	private Slider mySlider;
 
-	public SliderEditor(Receiver receiver, Method setMethod, Method getMethod, String objectName) {
+	public SliderEditor(Receiver receiver, Method setMethod, String objectName) {
 		super(receiver, setMethod, objectName);
 		// TODO Auto-generated constructor stub
 		//In case the sliderEditorParams method is not called
@@ -48,12 +48,15 @@ public class SliderEditor extends EditorComponent{
 	}
 
 	public Node sliderSetUp() {
+		System.out.println(myMax + myMin);
 		mySlider.setMax(myMax);
 		mySlider.setMin(myMin);
-//		myCur = (Double) myReceiver.getFromObject(myObject, myGetMethod, (Object[]) null);
-		if (myCur == null) {
-			myCur = myMax / 2;
+		myCur = Math.floor((myMax - myMin) / 2);
+		if (myFetchedValue != null) {
+			System.out.println(myCur);
+			myCur = (Double) myFetchedValue;
 		}
+		System.out.println(myCur);
 		mySlider.setValue(myCur);
 		mySlider.setShowTickLabels(true);
 		mySlider.setMajorTickUnit(myCur);
