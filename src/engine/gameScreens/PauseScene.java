@@ -5,7 +5,7 @@ import engine.NodeState;
 public class PauseScene extends GameNode{
 	
 	public PauseScene(){
-		
+		super();
 	}
 
 	@Override

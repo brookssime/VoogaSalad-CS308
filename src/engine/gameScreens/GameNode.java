@@ -16,38 +16,32 @@ import javafx.util.Duration;
  * 
  * 
  */
-public abstract class GameNode extends GameObject{
-	
-	// TODO INITIALIZE THE GUI ONCE WE HAVE THE IMPLEMENTATION FROM FANGYI + SAJAL
-	
+public abstract class GameNode extends GameObject {
+
+	// TODO INITIALIZE THE GUI ONCE WE HAVE THE IMPLEMENTATION FROM FANGYI +
+	// SAJAL
+
 	private List<NodeButton> myNodeButtons;
-
 	private Map<Double, GameNode> nextNodes;
-	
-	/** The my has completed. */
 	protected boolean myHasCompleted;
-	
-	/** The my scene. */
 	private KeyFrame myScene;
-	
-	/** The my game lost. */
 	protected boolean myGameLost;
-	
-	/** The my game won. */
 	protected boolean myGameWon;
+	protected NodeState myState;
 
-	
 	/**
 	 * Instantiates a new game scene.
 	 */
-	public GameNode(){
+	public GameNode() {
 		myNodeButtons = new ArrayList<NodeButton>();
+		myState = NodeState.RUNNING;
 	}
 
 	/**
 	 * Start.
 	 *
-	 * @param frameRate the frame rate
+	 * @param frameRate
+	 *            the frame rate
 	 * @return the key frame
 	 */
 	public KeyFrame start(double frameRate) {
@@ -59,12 +53,12 @@ public abstract class GameNode extends GameObject{
 	 * Update.
 	 */
 	public abstract void update(); // this gets called in a loop
-	
+
 	/**
 	 * Check complete.
 	 */
 	public abstract NodeState checkState();
-	
+
 	public abstract void render();
 
 	/**
@@ -72,19 +66,18 @@ public abstract class GameNode extends GameObject{
 	 *
 	 * @return the next scene
 	 */
-	public GameNode getNextNode(Double key){
+	public GameNode getNextNode(Double key) {
 		return nextNodes.get(key);
 	}
-	
 
 	/**
 	 * Sets the next scene.
 	 *
-	 * @param gameNode the new next scene
+	 * @param gameNode
+	 *            the new next scene
 	 */
-	public void addNewNode(Double key, GameNode gameNode){
+	public void addNewNode(Double key, GameNode gameNode) {
 		nextNodes.put(key, gameNode);
 	}
-	
-	
+
 }
