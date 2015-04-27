@@ -32,14 +32,6 @@ public class TitleScene extends GameNode {
 		return myState;
 	}
 
-	/**
-	 * Theoretically, this could apply to any button All buttons will lead away
-	 * from this TitleScene to another scene It will just be a matter of setting
-	 * the myNext of this scene after it is completed.
-	 */
-	public void exitButtonClicked() {
-		myState = NodeState.COMPLETE;
-	}
 
 	public String getTitlePicturePath() {
 		return myTitlePicturePath;
