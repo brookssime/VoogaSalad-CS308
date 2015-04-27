@@ -8,12 +8,12 @@ import java.util.TimerTask;
 public class ProjectileEffect extends GameObject{
 
 	private Integer mySpeedDamage;
-	private Long mySpeedFrequency;
+	private Double mySpeedFrequency;
 	private Integer mySpeedReps;
 	private Double mySpeedDuration;
 
 	private Integer myHealthDamage;
-	private Long myHealthFrequency;
+	private Double myHealthFrequency;
 	private Integer myHealthReps;
 
 	private Timer effectTimer;
@@ -30,7 +30,7 @@ public class ProjectileEffect extends GameObject{
 	}
 
 	@MethodAnnotation(editor = true, name = "Set Speed Frequency", type = "slider", fieldName = "mySpeedFrequency") 
-	public void setSpeedFrequency(Long x){
+	public void setSpeedFrequency(Double x){
 		mySpeedFrequency = x;
 	}
 
@@ -50,7 +50,7 @@ public class ProjectileEffect extends GameObject{
 	}
 
 	@MethodAnnotation(editor = true, name = "Set Health Frequency", type = "slider", fieldName = "myHealthFrequency") 
-	public void setHealthFrequency(Long x){
+	public void setHealthFrequency(Double x){
 		myHealthFrequency = x;
 	}
 
@@ -78,7 +78,7 @@ public class ProjectileEffect extends GameObject{
 	}
 	private void speedEffect(){
 		for (int i = 0; i < mySpeedReps; i++){
-			effectTimer.schedule(new SpeedTask(), mySpeedFrequency*1000);
+			effectTimer.schedule(new SpeedTask(), (long) (mySpeedFrequency*1000));
 		}
 
 	}
@@ -90,7 +90,7 @@ public class ProjectileEffect extends GameObject{
 	}
 	private void healthEffect(){
 		for (int i = 0; i < myHealthReps; i++){
-			effectTimer.schedule(new HealthTask(), myHealthFrequency*1000);
+			effectTimer.schedule(new HealthTask(), (long) (myHealthFrequency*1000));
 		}
 
 	}
