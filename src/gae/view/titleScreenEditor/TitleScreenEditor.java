@@ -1,5 +1,6 @@
 package gae.view.titleScreenEditor;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import javafx.geometry.Insets;
@@ -15,6 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import engine.gameScreens.NodeButton;
+import gae.model.Receiver;
+import gae.view.editorpane.editorComponents.EditorComponent;
 
 
 /**
@@ -23,7 +26,7 @@ import engine.gameScreens.NodeButton;
  * Allows the user to edit the title screen editor. 
  *
  */
-public class TitleScreenEditor implements IButton{
+public class TitleScreenEditor extends EditorComponent implements IButton{
 	
 	private static final int BUTTON_PADDING = 40;
 	private static final int BUTTON_SPACING = 30;
@@ -37,9 +40,8 @@ public class TitleScreenEditor implements IButton{
 	private ArrayList<NodeButton> myButtonList;
 	
 
-	public TitleScreenEditor() {
-		myButtonList = new ArrayList<>();
-		setUpRootProperties();
+	public TitleScreenEditor(Receiver receiver, Method setMethod, String objectName) {
+		super(receiver, setMethod, objectName);
 //		myWholeEditor = new HBox();
 //		myWholeEditor.getChildren().addAll(setVisualizerProperties(), setUpRootProperties());
 	}
@@ -129,5 +131,11 @@ public class TitleScreenEditor implements IButton{
 
 	public ArrayList<NodeButton> getButtons(){
 		return myButtonList;
+	}
+
+	@Override
+	public void setUpEditor() {
+		myButtonList = new ArrayList<>();
+		setUpRootProperties();
 	}
 }
