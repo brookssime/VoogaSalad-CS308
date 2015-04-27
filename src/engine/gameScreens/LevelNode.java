@@ -1,7 +1,5 @@
 package engine.gameScreens;
 
-
-
 import java.util.ArrayList;
 import java.util.Queue;
 
@@ -44,15 +42,13 @@ public class LevelNode extends GameNode  {
 		
 	}
 	
-	// REVIEW should the value when sold be different from the value when purchased? Currently, it is not.
-	// increment money appropriately and remove from Grid
-	public void sellObject(String SpriteID, Placement spritePlacement){
-		myGameStats.updateMoney(myStore.getTowerCost(myStore.getFromID(SpriteID)));
-		myGrid.removeSpriteAt(myStore.getFromID(SpriteID), spritePlacement);
+	public void sellObject(String spriteID, Placement spritePlacement){
+		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice() * -myStore.getSellPercentage());
+		myGrid.removeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
+		myGrid.removeSpriteAt(myStore.getFromID(spriteID).getRangeObject(), spritePlacement);
 		render();
 	}
 	
-
 	// REVIEW make sure that the Player displays the range correctly in addition to the model updating the HUD
 	// REVIEW make sure that the player can accurately display a popup with the enemy's data
 	void examineSprite(String SpriteID, Placement spritePlacement){
@@ -100,5 +96,4 @@ public class LevelNode extends GameNode  {
 	public void setGameStats(GameStats gamestats){
 		myGameStats = gamestats;
 	}
-
 }
