@@ -13,15 +13,26 @@ import engine.sprites.Sprite;
 import engine.sprites.Tile;
 
 public class Grid extends GameObject{
-
+	
+	private int myWidth;
+	private int myHeight;
+	
 	public Tile[][] myTiles;
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;	
 	//private List<Tile> myPorts;
 	//private Map<String, Sprite> mySpriteNames; //
 	
-	public Grid(int width, int height){
-		myTiles = new Tile[width][height];
+	public void setWidth(int width){
+		myWidth = width;
+	}
+	
+	public void setHeight(int height){
+		myHeight = height;
+	}
+	
+	public Grid(){
+		myTiles = new Tile[myWidth][myHeight];
 		myGridManager = new GridManager(this);
 		init();
 	}
