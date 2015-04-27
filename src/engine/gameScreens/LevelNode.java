@@ -19,9 +19,11 @@ public class LevelNode extends GameNode  {
 	private HeadsUpDisplay myHUD;
 	private ArrayList<Condition> myConditions;
 	private GameStats myGameStats;
+	private long myStartTime;
 
 	public LevelNode() {
 		super();
+		myStartTime = System.nanoTime();
 	}
 	
 	@Override
@@ -87,6 +89,7 @@ public class LevelNode extends GameNode  {
 	
 	public void update(){	
 		myGrid.update();
+		myGameStats.getTimeElapsed(myStartTime);
 	}
 
 	public NodeState checkState(){
