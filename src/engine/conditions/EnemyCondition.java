@@ -3,17 +3,23 @@ package engine.conditions;
 import engine.Grid;
 import engine.GridManager;
 import engine.NodeState;
+import engine.gameScreens.LevelNode;
 import engine.gameScreens.Store;
 
 public class EnemyCondition extends Condition{
 
-	public EnemyCondition(Grid grid, GridManager gridManager, Store store) {
-		super(null);
+	public EnemyCondition(LevelNode levelNode) {
+		super(levelNode);
 	}
 
 	@Override
 	public NodeState evaluate() {
-		return NodeState.RUNNING;
+		if(myLevelNode.getGrid().getWaves().isEmpty()){
+			return NodeState.ENEMIES_DEAD;
+		}
+		else{
+			return NodeState.RUNNING;
+		}
 	}
 
 }
