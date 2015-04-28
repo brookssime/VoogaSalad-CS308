@@ -30,6 +30,14 @@ public class Game extends GameObject {
 		return myCurNode;
 	}
 
+	public void setAdjacencyList(Map<GameNode, Map<NodeState, GameNode>> adjList){
+		myAdjacencyList = adjList;
+	}
+	
+	public void setIDMap(Map<String, GameNode> idMap){
+		myIDMap = idMap;
+	}
+	
 	public void advanceNode(NodeState state) {
 		myCurNode = myAdjacencyList.get(myCurNode).get(state);
 		myCurNode.render();
@@ -41,8 +49,12 @@ public class Game extends GameObject {
 	}
 
 	@MethodAnnotation(editor=true, name = "Set Head", type = "game", fieldName = "myStartNode")
-	public void setHead(GameNode head) {
-		myStartNode = head;
+	public void setStartNode(GameNode node) {
+		myStartNode = node;
+	}
+	
+	public void setStore(Store store){
+		myStore = store;
 	}
 
 	public GameNode getHead() {

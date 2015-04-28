@@ -31,7 +31,6 @@ public class LevelNode extends GameNode {
 	@Override
 	public void render() {
 		myPlayerManager.updateLevel(myGrid, myStore, myHUD);
-
 	}
 
 	// increment money appropriately and place on grid
@@ -49,7 +48,8 @@ public class LevelNode extends GameNode {
 	}
 
 	public void sellObject(String spriteID, Placement spritePlacement) {
-		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice()
+		myGameStats.updateMoney(myStore.getFromID(spriteID).getPrice()
+
 				* -myStore.getSellPercentage());
 		myGrid.removeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
 		myGrid.removeSpriteAt(myStore.getFromID(spriteID).getRangeObject(),
@@ -75,6 +75,11 @@ public class LevelNode extends GameNode {
 
 	public void setStore(Store store) {
 		myStore = store;
+	}
+
+	
+	public void setHUD(HeadsUpDisplay HUD){
+		myHUD = HUD;
 	}
 
 	public void setGrid(Grid grid) {

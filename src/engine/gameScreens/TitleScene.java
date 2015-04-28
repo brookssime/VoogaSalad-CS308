@@ -2,11 +2,6 @@ package engine.gameScreens;
 
 import engine.NodeState;
 
-/**
- * Currently a static title screen Animation can be added later.
- *
- * @author Brooks, Patrick, Robert, and Sid.
- */
 public class TitleScene extends GameNode {
 
 	private String myTitlePicturePath;

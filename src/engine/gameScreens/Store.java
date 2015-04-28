@@ -1,5 +1,6 @@
 package engine.gameScreens;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,6 +23,10 @@ public class Store extends GameObject {
 		myBackgroundImagePath = backgroundImagePath;
 	}
 
+	public void setTowersOnSale(HashMap<Tower, Integer> towerOnSaleMap){
+		myTowersOnSale = towerOnSaleMap;
+	}
+	
 	public Set<Tower> getTowersOnSale(){
 		return myTowersOnSale.keySet();
 	}
@@ -31,12 +36,14 @@ public class Store extends GameObject {
 		// TODO make this CLONE the object instead of returning the same instance
 	}
 	
-	/**
-	 * Gets the tower cost.
-	 *
-	 * @param tower the tower
-	 * @return the tower cost
-	 */
+	public void setBackgroundImagePath(String imagePath){
+		myBackgroundImagePath = imagePath;
+	}
+	
+	public void setSellPercentage(Integer sellPercentage){
+		mySellPercentage = sellPercentage;
+	}
+	
 	public Integer getTowerCost(Tower tower){
 		return myTowersOnSale.get(tower);
 	}

@@ -3,7 +3,6 @@
  */
 package engine.gameScreens;
 
-import java.util.List;
 import java.util.Queue;
 
 import engine.NodeState;

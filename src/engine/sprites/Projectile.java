@@ -16,7 +16,6 @@ import engine.gameLogic.ProjectileEffect;
  */
 public class Projectile extends Sprite implements Collidable{
 	
-	private String myName;
 	private String myImageString;
 	private Integer mySpeed; 
 	private ProjectileEffect myEffect;
@@ -29,6 +28,7 @@ public class Projectile extends Sprite implements Collidable{
 	public Projectile(){
 		
 	}
+	
 	
 	public Projectile(Projectile projectile) {
 		this.myName = projectile.myName;
@@ -88,6 +88,10 @@ public class Projectile extends Sprite implements Collidable{
 		return myEffect;
 	}
 
+	public void setEffect(ProjectileEffect effect){
+		myEffect = effect;
+	}
+	
 	@Override
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
@@ -119,4 +123,12 @@ public class Projectile extends Sprite implements Collidable{
 	public Integer getCollisionWidth() {
 		return myCollisionWidth;
 	}
+	
+	public void setImageString(String image){
+		myImageString = image;
+	}
+	
+	public void setSpeed(int speed){
+		mySpeed = speed;
+	}	
 }
