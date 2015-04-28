@@ -32,6 +32,7 @@ public class SampleGameMain {
 		
 		//GAMESTATS?
 		
+		//no constructor for Gird(int,int)
 		//Grid grid = new Grid(5, 5);
 
 		Grid grid = new Grid();
