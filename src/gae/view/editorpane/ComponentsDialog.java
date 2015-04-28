@@ -1,5 +1,6 @@
 package gae.view.editorpane;
 
+
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -48,6 +49,7 @@ public class ComponentsDialog extends JDialog {
 			loop++;
 		}
 
+		
 		setSize(defWidth, defHeight);
 		setVisible(true);
 	}
