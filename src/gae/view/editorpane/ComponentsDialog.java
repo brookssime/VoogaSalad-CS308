@@ -8,13 +8,14 @@ import java.util.Set;
 
 import gae.model.Receiver;
 
+
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
 /**
  * 
  * @author Negatu
- * Not implemented yet.
  *
  */
 public class ComponentsDialog extends JDialog {
@@ -39,7 +40,6 @@ public class ComponentsDialog extends JDialog {
 			button[loop] = new JButton(option);
 			button[loop].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					System.out.println("button clicked for: "+option);
 					myReturnElement = option;
 					dispose();
 				}

@@ -21,6 +21,7 @@ public abstract class EditorComponent extends VBox {
 	protected Receiver myReceiver;
 	protected Object myFetchedValue;
 	protected String myObject;
+	protected String myMethodName;
 
 	public EditorComponent(Receiver receiver, Method method, String objectName) {
 		myReceiver = receiver;
@@ -29,9 +30,9 @@ public abstract class EditorComponent extends VBox {
 		myFetchedValue = null;
 		MethodAnnotation methodAnnotation = myMethod
 				.getAnnotation(MethodAnnotation.class);
-		String methodName = methodAnnotation.name();
+		myMethodName = methodAnnotation.name();
 		myFieldName = methodAnnotation.fieldName();
-		fieldLabel = new Label(methodName);
+		fieldLabel = new Label(myMethodName);
 
 		try {
 			try {
