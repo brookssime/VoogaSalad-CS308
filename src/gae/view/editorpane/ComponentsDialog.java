@@ -25,7 +25,6 @@ public class ComponentsDialog extends JDialog {
 	private int defWidth = 500;
 	private int defHeight = 500;
 
-
 	public ComponentsDialog(String type, Receiver model) {
 		setModalityType(Dialog.ModalityType.TOOLKIT_MODAL);
 		setTitle("List of "+type+" in inventory");

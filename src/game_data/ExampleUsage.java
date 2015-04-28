@@ -2,6 +2,17 @@ package game_data;
 
 import java.io.IOException;
 
+
+
+
+
+
+
+import engine.Game;
+import engine.NodeState;
+import engine.gameLogic.GameObject;
+import engine.gameScreens.GameNode;
+import engine.gameScreens.LevelNode;
 //import player.GameData;
 import engine.sprites.Projectile;
 import engine.sprites.Tower;
@@ -18,8 +29,13 @@ public class ExampleUsage {
 
 	public static void main(String[] args) {
 
-		Tower t1 = new Tower(1, 2, 3);
-		Tower t2 = new Tower(4, 5, 6);
+		Tower t1 = new Tower();
+		Tower t2 = new Tower();
+		
+		GameNode gn1 = new LevelNode();
+		gn1.setName("GAMENODE");
+		Game g1 = new Game(gn1);
+		Game g2  = new Game(null);
 
 		t1.setName("tower 1");
 		t2.setName("tower 2");
@@ -32,16 +48,14 @@ public class ExampleUsage {
 
 		// saving t1 to a file named by the user's choice.
 		try {
-			XMLWriter.LoadGameData();
-//			GameData.SaveGameData(p1);
-		} catch (IOException | ClassNotFoundException e) {
+			XMLWriter.SaveGameData(g1);
+		} catch (IOException e) {
 			System.out.println("Failed to save file: " + e);
 		}
 
 		// loading the file into t2
 		try {
-			p2 = (Projectile) XMLWriter.LoadGameData();
-//			p2 = (Projectile) GameData.LoadGameData();
+			g2 = (Game) XMLWriter.LoadGameData();
 		} catch (ClassNotFoundException e) {
 			System.out.println("Class not found: " + e);
 		} catch (IOException e) {
@@ -49,7 +63,7 @@ public class ExampleUsage {
 		}
 
 		// test if t2 is now t1
-		System.out.println(p2.getName());
+		System.out.println(g2.getHead().getName());
 
 	}
 

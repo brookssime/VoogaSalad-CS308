@@ -1,8 +1,14 @@
 package gae.view.gameEditor;
 
+import engine.gameScreens.NodeButton;
 import gae.model.Receiver;
+import gae.view.editorpane.editorComponents.EditorComponent;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -30,17 +36,19 @@ import reflection.Reflection;
  * Presumably this would extend GAEPane but as of right now it is free standing as its own application.
  *
  */
-public class GameEditor {
+public class GameEditor extends EditorComponent{
 	
 	private static final int CHOICE_SPACING = 10;
 	private Receiver myReceiver;
 	private Pane myRoot;
 	private ArrayList<GameNode> myNodes;
+	private GameNode myHead;
 	
 	
-	public GameEditor(Receiver receiver){
-		myReceiver = receiver;
-		myNodes = new ArrayList<>();
+	public GameEditor(Receiver receiver, Method method, String objectName){
+		super(receiver, method, objectName);
+		
+		
 	}
 
 	/**
@@ -64,8 +72,59 @@ public class GameEditor {
 		Button acceptButton = new Button("Accept");
 		acceptButton.setOnAction(e -> {
 			//export myNodes in whatever format
+			//build two maps:
+			// 1) String to Node [already done]
+			// 2) Node to Map<Enum, Node>; [done]
+			printMap();
 		});
 		return acceptButton;
+	}
+
+	private void printMap() {
+		Map<String, Map<String, String>> nodeConditionMap = new HashMap<>();
+		for(int i = 0; i < myNodes.size(); i++){
+			Map<String, String> enumNodeMap = new HashMap<>();
+			GameNode node = myNodes.get(i);
+			//scene node
+			if(i % 2 == 0){
+				//latest thing is head.
+				if(node.isHead()){
+					myHead = node;
+				}
+				for(GameNode condition: node.getChildren()){
+					if(!condition.isButton()){
+						String e = condition.toString();
+						String n = condition.getChildren() == null ? 
+								null : condition.getChildren().get(0).toString();
+						enumNodeMap.put(e, n);
+					}
+					else{
+						//fetch button from titlescreen from receiver and update its next to be its next
+						//i.e. go through all titlescenes and see if it contains button. If it does, update
+						//button.
+						fetchButton(condition).setTarget(condition.getChildren().get(0).getText());
+					}
+					
+				}
+				nodeConditionMap.put(node.toString(), enumNodeMap);
+			}
+		}
+		for(String node: nodeConditionMap.keySet()){
+			System.out.print(node + ": " + nodeConditionMap.get(node) + "\n");
+		}
+		
+	}
+
+	//TODO: implement this
+	private NodeButton fetchButton(GameNode condition) {
+		Set<String> titleScreens = myReceiver.getList("titleScene");
+		for(String titleScene : titleScreens){
+			//pseudo code
+//			if(myReceiver.getButtonList(titleScene).contains(condition.getText()){
+//				return button;
+//			}
+		}
+		return null;
 	}
 
 	private Button addNodeButton() {
@@ -97,6 +156,7 @@ public class GameEditor {
 			RadioButton r = (RadioButton) group.getSelectedToggle();
 			
 			GameNode gameNode = (GameNode) Reflection.createInstance("gae.view.gameEditor." + r.getText().replaceAll("\\s",""));
+			gameNode.setReceiver(myReceiver);
 			myNodes.add(gameNode);
 			addSelectListener(gameNode);
 			myRoot.getChildren().add(gameNode.getGroup());
@@ -114,7 +174,7 @@ public class GameEditor {
 	}
 	
 	/**
-	 * adds a listener to the node to see if it was selcted. This listener then looks for other selected of
+	 * adds a listener to the node to see if it was selected. This listener then looks for other selected of
 	 * the opposite type 
 	 */
 	private void addSelectListener(GameNode node){
@@ -131,30 +191,15 @@ public class GameEditor {
 	 */
 	private void checkOutSelected(GameNode inNode) {
 		for(GameNode outNode : myNodes){
-			//A connection was drawn
-			// 1) Draw Line between Nodes showing Connection was Made [DONE[
-			// 2) Update Out Node's Children [DONE]
-			if(outNode.getMyOut().isSelected().getValue() && !outNode.equals(inNode)){
+			
+			//if outnode is selected and outnode is not innode
+			if(outNode.getMyOut().isSelected().getValue() && !outNode.equals(inNode) 
+					&& outNode.draw() &&inNode.draw()){
 				//draw line
-				Rectangle outNodeBody = outNode.getMyOut().getOutBody();
-				Rectangle inNodeBody = inNode.getMyIn().getInBody();
-				DoubleProperty startX = new SimpleDoubleProperty();
-			    DoubleProperty startY = new SimpleDoubleProperty();
-			    DoubleProperty endX   = new SimpleDoubleProperty();
-			    DoubleProperty endY   = new SimpleDoubleProperty();
-			    startX.bind(outNodeBody.translateXProperty());
-			    startY.bind(outNodeBody.translateYProperty());
-			    endX.bind(inNodeBody.translateXProperty());
-			    endY.bind(inNodeBody.translateYProperty());
-				Line line = new BoundLine(startX, startY, 
-						endX, endY);
-				myRoot.getChildren().add(line);
+				Line line = drawLine(inNode, outNode);
 				
 				outNode.addChild(inNode);
 				
-				//If line is double clicked, we delete it
-				// 1) First remove it from the scene [DONE]
-				// 2) Second update children of outNode [DONE]
 				line.setOnMouseEntered(new EventHandler<MouseEvent>() {
 					
 					@Override
@@ -174,6 +219,37 @@ public class GameEditor {
 		}
 		
 	}
+
+	/**
+	 * creates properties that are bound so that the line will follow the Connectors whereever the node 
+	 * moves.
+	 * @param inNode
+	 * @param outNode
+	 * @return
+	 */
+	private Line drawLine(GameNode inNode, GameNode outNode) {
+		Rectangle outNodeBody = outNode.getMyOut().getBody();
+		Rectangle inNodeBody = inNode.getMyIn().getBody();
+		DoubleProperty startX = new SimpleDoubleProperty();
+		DoubleProperty startY = new SimpleDoubleProperty();
+		DoubleProperty endX   = new SimpleDoubleProperty();
+		DoubleProperty endY   = new SimpleDoubleProperty();
+		startX.bind(outNodeBody.translateXProperty());
+		startY.bind(outNodeBody.translateYProperty());
+		endX.bind(inNodeBody.translateXProperty());
+		endY.bind(inNodeBody.translateYProperty());
+		Line line = new BoundLine(startX, startY, 
+				endX, endY);
+		myRoot.getChildren().add(line);
+		return line;
+	}
+
+	@Override
+	public void setUpEditor() {
+		myNodes = new ArrayList<>();
+		this.getChildren().add(drawGameEditor());
+	}
+	
 	
 	
 }

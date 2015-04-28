@@ -26,10 +26,8 @@ import gae.view.menupane.MenuAdder;
  */
 public class InventoryPane extends GAEPane {
 
-	private static final String[] TYPES = { "Game", "LevelScene",
-			"DialogueScene", "TitleScene", "Base", "Projectile", "Grid",
-			"Wave", "Port", "Enemy", "Tower", "Tile", "Effect", "Range",
-			"Store" };
+	private String[] TYPES;
+	private String[] LOCATIONS;
 	private Accordion myAccordion;
 	private Receiver myReceiver;
 	private EditorPane myEditor;
@@ -39,13 +37,14 @@ public class InventoryPane extends GAEPane {
 		myAccordion = new Accordion();
 		myReceiver = rec;
 		myEditor = ep;
-		for (String type : TYPES) {
-			myAccordion.getPanes().add(makePane(type));
+		for (int i = 0; i < TYPES.length; i++) {
+			myReceiver.addMap(TYPES[i]);
+			myAccordion.getPanes().add(makePane(TYPES[i], LOCATIONS[i]));
 		}
 		myRoot.getChildren().add(myAccordion);
 	}
 
-	private TitledPane makePane(String type) {
+	private TitledPane makePane(String type, String location) {
 		TitledPane pane = new TitledPane();
 		pane.setText(type);
 		ObservableList<String> theList = FXCollections.observableArrayList();
@@ -54,7 +53,7 @@ public class InventoryPane extends GAEPane {
 		myReceiver.setListener(type, ul);
 		VBox mainbox = new VBox();
 		HBox buttonBox = new HBox();
-		Button addButton = makeAdd(type, list);
+		Button addButton = makeAdd(type, list, location);
 		Button editButton = makeEdit(type, list);
 		Button removeButton = makeRemove(type, list);
 		buttonBox.getChildren().addAll(addButton, editButton, removeButton);
@@ -63,10 +62,10 @@ public class InventoryPane extends GAEPane {
 		return pane;
 	}
 
-	private Button makeAdd(String type, ListView<String> list) {
+	private Button makeAdd(String type, ListView<String> list, String location) {
 		Button button = new Button("Add");
 		button.setOnMouseClicked(e -> {
-			myReceiver.addObject(type);
+			myReceiver.addObject(type, location);
 		});
 		return button;
 	}
@@ -94,14 +93,17 @@ public class InventoryPane extends GAEPane {
 
 	@Override
 	public List<Menu> getMenus() {
+		TYPES = myConfigs.getString("Types").split(", ");
+		LOCATIONS = myConfigs.getString("Types_Location").split(", ");
 		List<Menu> menus = new ArrayList<Menu>();
 
-		Menu menuInventory = new Menu("New...");
-
-		for (String type : TYPES) {
-			MenuItem newMenuItem = new MenuItem("New " + type);
+		Menu menuInventory = new Menu("New Object");
+		for (int i = 0; i < TYPES.length; i++) {
+			MenuItem newMenuItem = new MenuItem("New " + TYPES[i]);
+			String type = TYPES[i];
+			String location = LOCATIONS[i];
 			newMenuItem.setOnAction(e -> {
-				myReceiver.addObject(type);
+				myReceiver.addObject(type, location);
 			});
 			menuInventory.getItems().add(newMenuItem);
 		}

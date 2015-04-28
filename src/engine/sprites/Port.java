@@ -1,21 +1,33 @@
 package engine.sprites;
 
+import java.awt.Point;
 
+import engine.gameLogic.Placement;
 
-/**
- * The Class Port.
- * 
- * @author Brooks, Patrick, Robert, and Sid.
- */
+public class Port extends Sprite{
 
-public class Port extends GridObject{
-
-	//EACH PORT'S myName MUST BE UNIQUE -- this is how each wave determines which port is assigned to it
-
-	/**
-	 * Instantiates a new port.
-	 */
+	//why does this have location? base/tower had it removed and handled a different way, why not this?
+	Point myLocation;
+	
 	public Port(){
 		
+	}
+	
+	public void setLocation(Point location){
+		myLocation = location;
+	}
+	
+	public Point getLocation(){
+		return myLocation;
+	}
+
+	@Override
+	public Placement move() {
+		return new Placement(myLocation); // REVIEW: Make sure this doesn't ever need to return an orientation...currently set to null
+	}
+
+	@Override
+	public void fillSpriteInfo() {
+		mySpriteInfo.put("Name", myName);
 	}
 }

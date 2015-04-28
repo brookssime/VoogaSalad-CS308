@@ -1,5 +1,7 @@
 package gae.view.gameEditor;
 
+import gae.model.Receiver;
+
 import java.util.ArrayList;
 
 import javafx.beans.binding.Bindings;
@@ -14,14 +16,20 @@ public abstract class GameNode {
 	protected Label myText;
 	protected Group myGroup;
 	protected Rectangle myBody;
-	private In myIn;
-	private Out myOut;
-	private ArrayList<GameNode> myChildren;
+	private Connector myIn;
+	private Connector myOut;
+	protected boolean isHead;
+	protected Receiver myReceiver;
+	protected boolean isButton;
 
 	public GameNode() {
 		myGroup = new Group();
 		myText = new Label("");
-		myChildren = new ArrayList<>();
+		isHead = false;
+	}
+	
+	public void setReceiver(Receiver receiver){
+		myReceiver = receiver;
 	}
 	
 	protected void commonNodeInteraction() {
@@ -53,7 +61,6 @@ public abstract class GameNode {
 				if(event.getClickCount() == 2) {
 					openDialog();
 				};
-				
 			}
 			
 		});
@@ -71,46 +78,64 @@ public abstract class GameNode {
 		return myGroup;
 	}
 	
-	//TODO: refactor these two methods and these two classes (In and Out)
-	protected void addIn(double x, int y) {
+	protected void addIn(double x, double y) {
 		myIn = new In();
-		myIn.getInBody().translateXProperty().bind(Bindings.add(x, 
-				myBody.translateXProperty()));
-		myIn.getInBody().translateYProperty().bind(Bindings.add(y, myBody.translateYProperty()));
-		myGroup.getChildren().add(myIn.getInBody());
+		formatConnector(x, y, myIn);
 		
+	}
+
+	private void formatConnector(double x, double y, Connector c) {
+		c.getBody().translateXProperty().bind(Bindings.add(x, 
+				myBody.translateXProperty()));
+		c.getBody().translateYProperty().bind(Bindings.add(y, myBody.translateYProperty()));
+		myGroup.getChildren().add(c.getBody());
 	}
 
 	protected void addOut(double x, double y) {
 		myOut = new Out();
-		myOut.getOutBody().translateXProperty().bind(Bindings.add(x, 
-				myBody.translateXProperty()));
-		myOut.getOutBody().translateYProperty().bind(Bindings.add(y, myBody.translateYProperty()));
-		myGroup.getChildren().add(myOut.getOutBody());
+		formatConnector(x, y, myOut);
 	}
 
-	public In getMyIn() {
+	public Connector getMyIn() {
 		return myIn;
 	}
 
-	public Out getMyOut() {
+	public Connector getMyOut() {
 		return myOut;
-	}
-	
-	public void addChild(GameNode node){
-		if(!myChildren.contains(node)){
-			myChildren.add(node);
-		}
-	}
-	
-	public void removeChild(GameNode node){
-		if(myChildren.contains(node)){
-			myChildren.remove(node);
-		}
 	}
 	
 	public String getText(){
 		return myText.toString();
+	}
+	
+	protected void bindText(String s, int length, int height){
+		myText.setText(s);
+		myText.setWrapText(true);
+		myText.setPickOnBounds(false);
+		//buffer with binding
+		myText.setPrefSize(length, height);
+		myText.translateXProperty().bind(Bindings.add(5, myBody.translateXProperty()));
+		myText.translateYProperty().bind(myBody.translateYProperty());
+		
+		//TODO: FIX THIS
+		try{
+			myGroup.getChildren().add(myText);
+		} catch(IllegalArgumentException e){
+			System.out.println("fix this later");
+		}
+	}
+	
+	public void setHead(boolean bool){
+		isHead = bool;
+	}
+	
+	public boolean isHead(){
+		return isHead;
+	}
+	
+	@Override
+	public String toString(){
+		return myText.getText();
 	}
  
 	/**
@@ -122,11 +147,14 @@ public abstract class GameNode {
 	 * open a dialog that adds respective information to a node on double click of node
 	 */
 	protected abstract void openDialog();
-	
-	/**
-	 * When an item is selected in openDialog(), the item needs to be displayed in the node. This method 
-	 * does this. 
-	 */
-	protected abstract void bindText(String s);
 
+	protected abstract void addChild(GameNode node);
+	
+	protected abstract void removeChild(GameNode node);
+	
+	public abstract ArrayList<GameNode> getChildren();
+	
+	public abstract boolean draw();
+	
+	public abstract boolean isButton();
 }

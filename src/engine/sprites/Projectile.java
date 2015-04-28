@@ -1,71 +1,35 @@
 package engine.sprites;
 
 import interfaces.Collidable;
-import interfaces.Movable;
+import interfaces.MethodAnnotation;
+import interfaces.TypeAnnotation;
 
-import java.awt.Point;
 import java.awt.Shape;
-import java.util.List;
 
-import engine.gameLogic.Effect;
-import engine.gameLogic.Path;
+import engine.Path;
 import engine.gameLogic.Placement;
+import engine.gameLogic.ProjectileEffect;
 
 /**
  * The Class Projectile.
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class Projectile extends GridObject implements Collidable, Movable{
-
-	/** The my name. */
-	private String myName;
+public class Projectile extends Sprite implements Collidable{
 	
-	/** The my image string. */
-	private String myImageString;
-	
-	/** The my access i ds. */
-	private List<Integer> myAccessIDs;
-	
-	/** The my speed. */
+	private String myImageString; //Necessary?
 	private Integer mySpeed; 
-	
-	/** The my effect. */
-	public Effect myEffect;
-	
-	/** The my rad. */
-	private int myRadius;
-	
-	/** The my direction. */
-	private double myDirection;
-	
-	/** The my collision bounds. */
+	private ProjectileEffect myEffect;
+	private int myRadius; //RADIUS AND COLLISION HEIGHT/WIDTH?
 	private Shape myCollisionBounds;
 	private Path myPath;
+	private Integer myCollisionHeight;
+	private Integer myCollisionWidth;
 	
-	/**
-	 * Instantiates a new projectile.
-	 */
 	public Projectile(){
 		
 	}
 	
-	/**
-	 * Instantiates a new projectile.
-	 *
-	 * @param location the location
-	 * @param speed the speed
-	 * @param damage the damage
-	 * @param duration the duration
-	 * @param effect the effect
-	 */
-	public Projectile(Point location, Integer speed, Integer damage, Integer duration, Effect effect){
-		
-		mySpeed = speed; 
-		myEffect = effect;
-		myRadius = 5; // DEFAULT VAL FOR THIS CONSTRUCTOR
-		setCollisionBounds();
-	}
 	
 	public Projectile(Projectile projectile) {
 		this.myName = projectile.myName;
@@ -77,22 +41,20 @@ public class Projectile extends GridObject implements Collidable, Movable{
 		this.myAccessNames = projectile.myAccessNames;
 		this.myName = projectile.myName;
 		this.myAccessNames = projectile.myAccessNames;
-		
 	}
 	
 	public void setPath(Path p){
 		myPath = p;
 	}
 
+	@MethodAnnotation(editor=true, name = "Set Radius", type = "textfield", fieldName = "myRadius")
 	public void setRadius(int x){
 		myRadius = x;
 	}
 
 	@Override
 	public Placement move() {
-		/*myLocation.x += mySpeed * Math.cos(myDirection);
-		myLocation.y += mySpeed * Math.sin(myDirection);	*/	
-		return myPath.getNext();
+		return myPath.getNextPlacement();
 	}
 
 	/**
@@ -101,9 +63,10 @@ public class Projectile extends GridObject implements Collidable, Movable{
 	 * @param collider the collider
 	 * @return true, if successful
 	 */
+	
 	@Override
-	public boolean evaluateCollision(Collidable collider) {
-		return isCollision(collider);
+	public void evaluateCollision(Collidable collider) {
+		
 	}
 
 	/**
@@ -117,31 +80,59 @@ public class Projectile extends GridObject implements Collidable, Movable{
 		return false;
 	}
 	
-	/* (non-Javadoc)
-	 * @see interfaces.Collidable#setCollisionBounds()
-	 */
-	public void setCollisionBounds() {
-		// myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRadius*2, myRadius*2);		
-	}
-	
 	public int getRadius(){
 		return myRadius;
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Collidable#getCollisionBounds()
-	 */
-	@Override
-	public Shape getCollisionBounds() {
-		return myCollisionBounds;
+	@MethodAnnotation(editor=true, name = "Set Effect", type = "singleselect", fieldName = "myEffect")
+	@TypeAnnotation(type="ProjectileEffect")
+	public void setEffect(ProjectileEffect pe) {
+		myEffect = pe;
 	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#setName(java.lang.String)
-	 */
+	
+	public ProjectileEffect getEffect(){
+		return myEffect;
+	}
+	
 	@Override
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public void fillSpriteInfo() {
+		mySpriteInfo.put("Name", myName);
+		mySpriteInfo.put("Speed", mySpeed.toString());
+	}
+
+	@Override
+	@MethodAnnotation(editor=true, name = "Set Collision Height", type = "textfield", fieldName = "myCollisionHeight")
+	public void setCollisionHeight(Integer height) {
+		myCollisionHeight = height;
+	}
+
+	@Override
+	@MethodAnnotation(editor=true, name = "Set Collision Width", type = "textfield", fieldName = "myCollisionWidth")
+	public void setCollisionWidth(Integer width) {
+		myCollisionWidth = width;	
+	}
+
+	@Override
+	public Integer getCollisionHeight() {
+		return myCollisionHeight;
+	}
+
+	@Override
+	public Integer getCollisionWidth() {
+		return myCollisionWidth;
+	}
+	
+	public void setImageString(String image){
+		myImageString = image;
+	}
+	
+	public void setSpeed(int speed){
+		mySpeed = speed;
+	}	
 }

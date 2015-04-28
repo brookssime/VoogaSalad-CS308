@@ -4,6 +4,7 @@
 package reflection;
 
 import interfaces.MethodAnnotation;
+import interfaces.SpecialEditorAnnotation;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -224,6 +225,50 @@ public class Reflection {
     	 for(Method method : allMethods){
     		 MethodAnnotation methodAnnotation = method.getAnnotation(MethodAnnotation.class);
     		 if(methodAnnotation != null && methodAnnotation.editor()) {
+    			 targetMethods.add(method);
+    		 }
+    	 }
+    	return targetMethods;
+    }
+    
+	/**
+	 * return a list of methods for a given object that can be edited by the
+	 * editor window.
+	 *
+	 * @param target
+	 *            object
+	 * @return a list of editor methods
+	 */
+	public static List<Method> getSpecialEditorMethods(String classname) {
+		try {
+			Object classRep = createInstance(classname);
+			List<Method> allMethods = getEditorMethods(classRep);
+			List<Method> targetMethods = new ArrayList<>();
+			for (Method method : allMethods) {
+				SpecialEditorAnnotation specialEditorAnnotation = method
+						.getAnnotation(interfaces.SpecialEditorAnnotation.class);
+				if (specialEditorAnnotation != null && specialEditorAnnotation.specialeditor()) {
+					targetMethods.add(method);
+				}
+			}
+			return targetMethods;
+		} catch (Exception e) {
+			throw new ReflectionException("Classname not found: " + classname);
+		}
+	}
+	
+    /**
+     * return a list of methods for a given object that can be edited by the editor window.
+     *
+     * @param target object
+     * @return a list of editor methods
+     */
+    public static List<Method> getSpecialEditorMethods(Object target){
+    	Method[] allMethods = target.getClass().getMethods();
+    	List<Method> targetMethods = new ArrayList<>();
+    	 for(Method method : allMethods){
+    		 SpecialEditorAnnotation specialEditorAnnotation = method.getAnnotation(SpecialEditorAnnotation.class);
+    		 if(specialEditorAnnotation != null && specialEditorAnnotation.specialeditor()) {
     			 targetMethods.add(method);
     		 }
     	 }

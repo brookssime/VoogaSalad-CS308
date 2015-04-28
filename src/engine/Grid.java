@@ -1,66 +1,77 @@
 package engine;
 
+import interfaces.Collidable;
+import interfaces.MethodAnnotation;
+import interfaces.SpecialEditorAnnotation;
+
+import java.awt.Point;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import engine.gameLogic.GameObject;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Wave;
-import engine.sprites.GridObject;
+import engine.sprites.Sprite;
 import engine.sprites.Tile;
 
-/**
- * The Class Grid.
- * 
- * @author Brooks, Patrick, Robert, and Sid.
- * 
- */
-public class Grid extends GameObject implements Observable{
+public class Grid extends GameObject{
 
-
-	/** The my name. */
-	private String myName;
-
-	/** The my tiles. */
+	private int myHeight;
+	private int myWidth;
 	public Tile[][] myTiles;
-
-	/** The my grid manager. */
 	private GridManager myGridManager;
-	private Map<GridObject, Placement> myGridObjectMap;	
-	private List<Tile> myPorts;
+	private Map<Sprite, Placement> mySpriteMap;	
+	//private List<Tile> myPorts;
+	//private Map<String, Sprite> mySpriteNames; //
 	
-
-	/**
-	 * Instantiates a new grid.
-	 *
-	 * @param width the width
-	 * @param height the height
-	 */
-	public Grid(int width, int height){
-		myTiles = new Tile[width][height];
+	public Grid(){
+		myTiles = new Tile[myWidth][myHeight];
 		myGridManager = new GridManager(this);
 		init();
 	}
 
-	/**
-	 * Instantiates a grid that connects to the gridmanager
-	 */
 	public Grid(Grid grid, GridManager gm){
 		myName = grid.myName;
 		myTiles = grid.myTiles;
-		myGridObjectMap = grid.myGridObjectMap;
-		myPorts = grid.myPorts;
+		mySpriteMap = grid.mySpriteMap;
 		myGridManager = gm;
 	}
+	
+	@MethodAnnotation(editor=true, name = "Grid Editor", type = "grid", fieldName = "")
+	public void fakeMethod() {
+		return;
+	}
+	
+	@SpecialEditorAnnotation(specialeditor = true, name = "Set Height", fieldName = "myHeight")
+	public void setHeight(int height) {
+		myHeight = height;
+	}
+	
+	@SpecialEditorAnnotation(specialeditor = true, name = "Set Width", fieldName = "myWidth")
+	public void setWidth(int width) {
+		myWidth = width;
+	}
+	
 	public Tile[][] getTiles(){
 		return myTiles;
 	}
 
-	public Map<GridObject, Placement> getGridObjectMap(){
-		return myGridObjectMap;
+	public int getBaseHealth(){
+		return myGridManager.calculateBaseHealth();
+	}
+	public void moveSprite(Sprite s, Placement p){
+		mySpriteMap.put(s, p);
+	}
+	
+	public void refreshHeadings(){
+		for(Sprite s : mySpriteMap.keySet()){
+			mySpriteMap.get(s).normalize();
+		}
+	}
+	
+	public Map<Sprite, Placement> getSpriteMap(){
+		return mySpriteMap;
 	}
 
 	private void init(){
@@ -74,74 +85,65 @@ public class Grid extends GameObject implements Observable{
 		myGridManager.start();
 	}
 
+	@SpecialEditorAnnotation(specialeditor = true, name = "Set Waves", fieldName = "myGridManager.getWaves()")
 	public void setWaves(Queue<Wave> waves){
 		myGridManager.setWaves(waves);
 	}
 
 	public void update(){
+		refreshHeadings();
 		myGridManager.update();
-		myGridManager.checkComplete();
+		//myGridManager.checkComplete();
 	}
 
+	@SpecialEditorAnnotation(specialeditor=true, name="Set Tiles", fieldName="myTiles")
 	public void setTiles(Tile[][] tiles){
 		myTiles = tiles;
+		initTiles();
 	}
-
-	public void placeGridObjectAt(GridObject o, Placement p){
-		myGridObjectMap.put(o, p);
+	
+	private void initTiles(){
+		 
+		
+		// adjust Tile y locations such that (0,0) is bottom right
+		for (int x = 0; x < myTiles.length; x++)
+			for(int i = 0; i < myTiles[0].length / 2; i++)
+			{
+				Tile temp = myTiles[x][i];
+				myTiles[x][i] = myTiles[x][myTiles.length - i - 1];
+				myTiles[x][myTiles.length - i - 1] = temp;
+			}
+		
+		
+		// clone Tiles and set their locations
+		for (int x = 0; x < myTiles.length; x++)
+			for (int y = 0; y < myTiles[0].length; y++){
+				myTiles[x][y] = myTiles[x][y].clone();
+				myTiles[x][y].setGridLocation(new Point(x,y));
+			}
+		
+		
 	}
-
-
-	/**
-	 * Adds the tile.
-	 *
-	 * @param t the t
-	 * @param x the x
-	 * @param y the y
-	 */
+	
+	@SpecialEditorAnnotation(specialeditor=true, name="Set Sprite", fieldName="mySpriteMap")
+	public void setSprite(Sprite sprite, Point point) {
+		mySpriteMap.put(sprite, new Placement(point));
+	}
+	
+	public void placeSpriteAt(Sprite sprite, Placement spritePlacement){
+		mySpriteMap.put(sprite, spritePlacement);
+	}
+	
+	public void removeSpriteAt(Sprite sprite, Placement spritePlacement){
+		mySpriteMap.remove(sprite, spritePlacement);
+	}
+	
 	public void addTile(Tile t, int x, int y){
 		myTiles[x][y] = t;
 	}
 
-
-	/**
-	 * Sets the port.
-	 *
-	 *
-	 */
-	public void setPort(List<Tile> t){
-		myPorts = t;
-	}
-
-	/**
-	 * Gets the port.
-	 *
-	 * @return the port
-	 */
-	public List<Tile> getPort(){
-		return myPorts;
-	}
-
-	/**
-	 * Gets the tile.
-	 *
-	 * @param x the x
-	 * @param y the y
-	 * @return the tile
-	 */
 	public Tile getTile(int x, int y){
 		return myTiles[x][y];
-	}
-
-	@Override
-	public void addListener(InvalidationListener listener) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeListener(InvalidationListener listener) {
-		// TODO Auto-generated method stub
 	}
 
 	public boolean isComplete() {
@@ -150,9 +152,9 @@ public class Grid extends GameObject implements Observable{
 
 	public Tile getPortFor(Wave w) {
 		Placement p = new Placement();
-		for(GridObject o : myGridObjectMap.keySet()){
+		for(Sprite o : mySpriteMap.keySet()){
 			if(o.getName().equals(w.getPortName()))
-					p = myGridObjectMap.get(o);	
+					p = mySpriteMap.get(o);	
 		}
 		
 		return getTileForPlacement(p);
@@ -164,5 +166,27 @@ public class Grid extends GameObject implements Observable{
 
 	public Queue<Wave> getWaves() {
 		return myGridManager.getWaves();
+	}
+	
+	public void move(Sprite sprite, Placement move) {
+		mySpriteMap.put(sprite, move);
+		
+	}
+	
+	public void placeSpriteIDAt(String SpriteID, Placement p){
+		
+	}
+	
+	//maybe we'll need this idk
+//	public Sprite getSpritefromPlacement (Placement p){
+//		for (Sprite mySprite : mySpriteMap.keySet()){
+//			if (mySpriteMap.get(mySprite).equals(p))
+//				return mySprite;
+//		}
+//		return null;
+//	}
+	
+	public Placement getPlacement(Collidable s){
+		return mySpriteMap.get(s);
 	}
 }

@@ -1,93 +1,86 @@
 package engine;
 
-import engine.gameScreens.GameScene;
-import engine.gameScreens.LevelScene;
-import engine.gameScreens.Store;
-import javafx.animation.KeyFrame;
-import javafx.util.Duration;
+import interfaces.MethodAnnotation;
+import interfaces.SpecialEditorAnnotation;
 
-/**
- * The Class Game.
- * 
- * @author Brooks, Patrick, Robert, and Sid.
- * 
- */
-public class Game {
+import java.util.HashMap;
+import java.util.Map;
+
+import engine.gameLogic.GameObject;
+import engine.gameScreens.GameNode;
+import engine.gameScreens.LevelNode;
+import engine.gameScreens.Store;
+
+
+public class Game extends GameObject {
 	
-	/** The my name. */
-	private String myName;
-	
-	/** The frame rate. */
-	private final int FRAME_RATE = 10;
-	
-	/** The my head. */
-	private GameScene myHead;
-	
-	/** The my store. */
+	private GameNode myStartNode;
+	private GameNode myCurNode;
 	private Store myStore;
+	private Map<GameNode, Map<NodeState, GameNode>> myAdjacencyList;
+	private Map<String, GameNode> myIDMap;
 	
-	
-	
-	/**
-	 * Instantiates a new game.
-	 *
-	 * @param head the head
-	 */
-	public Game(GameScene head){
-		myHead = head;
+	public Game() {
+		
+	}
+
+	public Game(GameNode head) {
+		myStartNode = head;
+		myAdjacencyList = new HashMap<GameNode, Map<NodeState, GameNode>>();
+		myIDMap = new HashMap<String, GameNode>();
 		addStoreToLevel();
 	}
 	
-	public void setHead(GameScene head){
-		myHead = head;
+	@MethodAnnotation(editor=true, name = "Game Editor", type = "game", fieldName = "")
+	public void fakeMethod() {
+		return;
+	}
+
+	public GameNode getCurNode() {
+		return myCurNode;
+	}
+
+	public void setAdjacencyList(Map<GameNode, Map<NodeState, GameNode>> adjList){
+		myAdjacencyList = adjList;
 	}
 	
-	public GameScene getHead(){
-		return myHead;
+	public void setIDMap(Map<String, GameNode> idMap){
+		myIDMap = idMap;
 	}
 	
-	/**
-	 * This is pretty awful design
-	 * Any ideas?.
-	 */
-	public void addStoreToLevel(){
-		if(myHead instanceof LevelScene){
-			((LevelScene) myHead).setStore(myStore);
+	public void advanceNode(NodeState state) {
+		myCurNode = myAdjacencyList.get(myCurNode).get(state);
+		myCurNode.render();
+	}
+
+	public void goToNode(String nodeID) {
+		myCurNode = myIDMap.get(nodeID);
+		myCurNode.render();
+	}
+
+	@SpecialEditorAnnotation(specialeditor=true, name = "Set Head", fieldName = "myStartNode")
+	public void setHead(GameNode head) {
+		myStartNode = head;
+	}
+
+	public GameNode getHead() {
+		return myStartNode;
+	}
+
+	public void update(){
+		myCurNode.update();
+		if(myCurNode.checkState()!=NodeState.RUNNING){
+			advanceNode(myCurNode.checkState());
+		}
+		else{
+			myCurNode.render();
 		}
 	}
-	
-	/**
-	 * Start game.
-	 *
-	 * @return the key frame
-	 */
-	public KeyFrame startGame(){
-		return new KeyFrame(Duration.millis(FRAME_RATE * 10), e -> update());
-	}
-
-
-	/**
-	 * Update.
-	 *
-	 * @return the key frame
-	 */
-	public KeyFrame update(){
-		if(sceneComplete()){
-			myHead = myHead.getNextScene();
-			addStoreToLevel();
-			return myHead.start(FRAME_RATE);
+	// TODO: Check back on this
+	public void addStoreToLevel() {
+		if (myStartNode instanceof LevelNode) {
+			((LevelNode) myStartNode).setStore(myStore);
 		}
-		return myHead.getCurScene();
-	}
-	
-	/**
-	 * Scene complete.
-	 *
-	 * @return true, if successful
-	 */
-	public boolean sceneComplete(){
-		return myHead.isComplete();
 	}
 
-	
 }

@@ -1,117 +1,106 @@
-/*
- * 
- */
+
 package engine.sprites;
 
 import interfaces.Collidable;
+import interfaces.MethodAnnotation;
 
-import java.awt.Point;
 import java.awt.Shape;
+import java.awt.Point;
 
-/**
- * The Class Base.
- * @author Brooks, Patrick, Robert, and Sid.
- */
-public class Base extends GridObject implements Collidable{
-	
-	/** The my name. */
-	private String myName;
-	
-	/** The my image string. */
-	private String myImageString;
-	
-	/** The my health. */
+import interfaces.Collidable;
+import engine.gameLogic.Placement;
+
+public class Base extends Sprite implements Collidable{
+
 	private Integer myHealth;
-	
-	/** The my base id. */
-	private Integer myBaseID; //not sure when/if this will be used yet
-	
-	/** The my rad. */
-	private int myRadius;
-	
-	/** The my collision bounds. */
-	private Shape myCollisionBounds;
-
-	/** The my location. */
+	private int myCollisionHeight;
+	private int myCollisionWidth;
 	private Point myLocation;
-
-	/**
-	 * Instantiates a new base.
-	 *
-	 * @param imageString the image string
-	 * @param health the health
-	 * 
-	 */
+	
+	public Base() {
+		
+	}
+	
 	public Base(String imageString, Integer health){
 		myImagePath = imageString;
 		myHealth = health;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Health", type = "textfield", fieldName = "myHealth")
 	public void setHealth(int health){
 		myHealth = health;
 	}
 	
-	public void setRadius(int radius){
-		myRadius = radius;
-	}
+//	@MethodAnnotation(editor=true, name = "Set Radius", type = "textfield", fieldName = "myRadius")
+//	public void setRadius(int radius){
+//		myRadius = radius;
+//	}
 	
 	public int getHealth(){
 		return myHealth;
 	}
 	
-	public int getRadius(){
-		return myRadius;
-	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Collidable#evaluateCollision(interfaces.Collidable)
-	 */
 	@Override
-	public boolean evaluateCollision(Collidable collider){
-		if(isCollision(collider)){
-			if (collider.getClass().isAssignableFrom(Enemy.class)) { 
-				myHealth -= ((Enemy) collider).getEnemyDamage(); 
-			}
-			return true;
+	public void evaluateCollision(Collidable collider){
+		if (collider.getClass().isAssignableFrom(Enemy.class)) {
+			myHealth -= ((Enemy) collider).getEnemyDamage();
 		}
-		return false; 
 	}
 
-	/* (non-Javadoc)
-	 * @see interfaces.Collidable#isDead()
-	 */
 	@Override
 	public boolean isDead() {
 		return (myHealth<=0);
 	}
-	
-	/* (non-Javadoc)
-	 * @see interfaces.Collidable#setCollisionBounds()
-	 */
-	public void setCollisionBounds() {
-		//myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRad*2, myRad*2);
 
-	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Collidable#getCollisionBounds()
-	 */
-	@Override
-	public Shape getCollisionBounds() {
-		return myCollisionBounds;
-	}
-
-	/* (non-Javadoc)
-	 * @see interfaces.Authorable#setName(java.lang.String)
-	 */
-	@Override
-	public void setName(String s) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public Placement move() {
+		return null;
+	}
+
+	@Override
+	public void fillSpriteInfo() {
+		mySpriteInfo.put("Name", myName);
+		mySpriteInfo.put("Health", myHealth.toString());
+	}
+
+	@Override
+	@MethodAnnotation(editor=true, name = "Set Collision Height", type = "textfield", fieldName = "myCollisionHeight")
+	public void setCollisionHeight(Integer height) {
+		myCollisionHeight = height;
+	}
+
+	@Override
+	@MethodAnnotation(editor=true, name = "Set Collision Width", type = "textfield", fieldName = "myCollisionWidth")
+	public void setCollisionWidth(Integer width) {
+		myCollisionWidth = width;	
+	}
+
+	@Override
+	public Integer getCollisionHeight() {
+		return myCollisionHeight;
+	}
+
+	@Override
+	public Integer getCollisionWidth() {
+		return myCollisionWidth;
+	}
+	
+	public Point getLocation(){
+		return myLocation;
+	}
+	
+	public void setLocation(Point location){
+		myLocation = location;
+	}
+	
+	public void setHealth(Integer health){
+		myHealth = health;
+	}
+	
 }
