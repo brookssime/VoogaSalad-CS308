@@ -10,7 +10,7 @@ import engine.gameLogic.LevelStats;
 public class HeadsUpDisplay {
 	
 	private LevelStats myData;
-	
+
 	public void setLevelStats(LevelStats data){
 		myData = data;
 	}

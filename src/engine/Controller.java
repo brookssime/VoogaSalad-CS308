@@ -1,14 +1,7 @@
 package engine;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
-import java.util.Queue;
 
-import engine.gameLogic.LevelStats;
-import engine.gameLogic.Placement;
-import engine.gameScreens.DialogueBox;
-import engine.gameScreens.DialogueNode;
-import engine.gameScreens.Store;
 
 
 public class Controller {
@@ -21,20 +14,23 @@ public class Controller {
 	 * @param screenID
 	 */
 	
-	private Store myStore;
-	
+
 	private Game myGame;
 	
 	public Controller(Game game){
 		myGame = game;
-		
 	}
 
 	
 	public void moveToNode(String nodeID){
+		myGame.goToNode(nodeID);
+	}
+	
+	public void start(){
 		
 	}
 	
+	// allows for generalized action on GameNodes
 	public void doSomething(String action, Object[] params) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		Class[] paramTypes = new Class[params.length];
 		for(int i = 0; i < params.length ; i++){
