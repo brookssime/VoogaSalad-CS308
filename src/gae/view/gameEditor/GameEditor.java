@@ -250,6 +250,8 @@ public class GameEditor extends EditorComponent{
 	public void setUpEditor() {
 		myNodes = new ArrayList<>();
 		this.getChildren().add(drawGameEditor());
+		
+		//get special method annotations
 	}
 	
 	

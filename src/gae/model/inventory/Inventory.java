@@ -109,7 +109,7 @@ public class Inventory {
 			map.put(object.getName(), object);
 		}
 	}
-	
+
 	public void runOnObjectSwap(String obj, Method method, Object... params) {
 		Object[] newparams = new Object[params.length];
 		for (int i = 0; i < params.length; i++) {
@@ -118,22 +118,28 @@ public class Inventory {
 		}
 		runOnObject(obj, method, newparams);
 	}
-	
+
 	public boolean isInvObject(String type) {
+		String suffix = type.split("\\.")[type.split("\\.").length-1];
+		return (inInvObject(type) || inInvObject(suffix));
+	}
+
+	private boolean inInvObject(String type) {
 		for (String key : myMaps.keySet()) {
 			if (type.equals(key)) {
 				return true;
 			}
 		}
+
 		return false;
 	}
-	
+
 	public List<Method> getEditorMethods(String obj) {
 		ObservableMap<String, GameObject> map = getMap(obj);
 		GameObject object = map.get(obj);
 		return new ArrayList<Method>(Reflection.getEditorMethods(object));
 	}
-	
+
 	public List<Method> getSpecialEditorMethods(String obj) {
 		ObservableMap<String, GameObject> map = getMap(obj);
 		GameObject object = map.get(obj);
@@ -163,7 +169,7 @@ public class Inventory {
 		 * System.out.println(ret); return ret;
 		 */
 	}
-	
+
 	public List<NodeButton> getButtonList(String obj) {
 		if (!getType(obj).equals("TitleScene")) {
 			try {
@@ -259,10 +265,10 @@ public class Inventory {
 
 	private Field grabField(String objname, String fieldName)
 			throws ClassNotFoundException {
-		// TODO only works for sprites folder. make it work to all engine
-		// classes.
-		Class<?> objClass = Class.forName("engine.sprites." + getType(objname));
-		return grabField(objClass, fieldName);
+
+		ObservableMap<String, GameObject> map = getMap(objname);
+		GameObject object = map.get(objname);
+		return grabField(object.getClass(), fieldName);
 	}
 
 }
