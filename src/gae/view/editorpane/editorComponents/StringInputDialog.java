@@ -1,13 +1,14 @@
 package gae.view.editorpane.editorComponents;
 
 import java.awt.Dialog;
-import java.awt.FlowLayout;
 
 
 
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 
 import javax.swing.JButton;
@@ -30,7 +31,7 @@ public class StringInputDialog extends JDialog{
 	public StringInputDialog(){
 		setModalityType(Dialog.ModalityType.TOOLKIT_MODAL);
 		setTitle("String Input Dialog");
-		setLayout(new FlowLayout());
+		setLayout(new GridLayout(3, 1));
 		
 		prompt = new JLabel("Please type your input");
 		inputField = new JTextField();
