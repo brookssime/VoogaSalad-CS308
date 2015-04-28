@@ -265,10 +265,10 @@ public class Inventory {
 
 	private Field grabField(String objname, String fieldName)
 			throws ClassNotFoundException {
-		// TODO only works for sprites folder. make it work to all engine
-		// classes.
-		Class<?> objClass = Class.forName("engine.sprites." + getType(objname));
-		return grabField(objClass, fieldName);
+
+		ObservableMap<String, GameObject> map = getMap(objname);
+		GameObject object = map.get(objname);
+		return grabField(object.getClass(), fieldName);
 	}
 
 }

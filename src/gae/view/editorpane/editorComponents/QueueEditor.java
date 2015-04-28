@@ -33,6 +33,8 @@ public class QueueEditor extends EditorComponent{
 		super(receiver, method, objectName);
 	}
 
+
+	@SuppressWarnings("unchecked")
 	@Override
 	public void setUpEditor() {
 		Class<?>[] parameterType = myMethod.getParameterTypes();
@@ -51,6 +53,12 @@ public class QueueEditor extends EditorComponent{
 		elementsDisplay.getChildren().add(addButton);
 		lowerBox.getChildren().addAll(loopLabel, loopInput, loadQueue);
 		getChildren().addAll(elementsDisplay, lowerBox);
+		
+		if (myFetchedValue!=null){
+			for (Object element : (ArrayList<Object>)myFetchedValue){
+				addToList(element.toString());
+			}
+		}
 		
 		addButton.setOnAction(e->{
 			addToList(getElement());

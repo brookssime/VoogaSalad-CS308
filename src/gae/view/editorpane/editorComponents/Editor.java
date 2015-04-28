@@ -46,7 +46,6 @@ public class Editor extends GAEPane {
 		myReceiver = receiver;
 
 		List<Method> objMethods = new ArrayList<Method>(myReceiver.getEditorMethods(obj));
-		System.out.println(objMethods);
 
 
 		myForm = new VBox();
@@ -64,7 +63,6 @@ public class Editor extends GAEPane {
 			String componentType = methodAnnotation.type();
 			EditorComponent fieldEditor = myFactory.generateComponent(
 					componentType, myReceiver, method, myObj);
-			System.out.println(componentType);
 			myForm.getChildren().add(fieldEditor);
 		}
 
