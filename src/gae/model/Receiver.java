@@ -1,5 +1,6 @@
 package gae.model;
 
+import engine.gameScreens.NodeButton;
 import gae.view.inventorypane.UpdateListener;
 
 import java.lang.reflect.Method;
@@ -21,11 +22,19 @@ public interface Receiver {
 	//obj is name of object, method is actual method (set), param is what goes into method
 	public void runOnObject(String obj, Method method, Object... params);
 	
+	public void runOnObjectSwap(String obj, Method method, Object... params);
+	
+	public boolean isInvObject(String type);
+	
 	public List<Method> getEditorMethods(String obj);
+	
+	public List<Method> getSpecialEditorMethods(String obj);
 
 	//get version of above //still check for null
 	public Object getFromObject(String obj, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException;
 
+	public List<NodeButton> getButtonList(String obj);
+	
 	public void removeObject(String obj);
 
 	public String getType(String obj);

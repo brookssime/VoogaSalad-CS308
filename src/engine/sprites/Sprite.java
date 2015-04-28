@@ -2,6 +2,7 @@ package engine.sprites;
 
 import interfaces.MethodAnnotation;
 import interfaces.ParameterAnnotation;
+import interfaces.TypeAnnotation;
 
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ public abstract class Sprite extends GameObject{
 	}
 	
 	@MethodAnnotation(editor=true, name = "Set Access Names", type = "multiselect", fieldName = "myAccessNames")
+	@TypeAnnotation(type="Tile")
 	public void setAccessNames(List<String> accessNames){
 		myAccessNames = accessNames;
 	}

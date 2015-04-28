@@ -1,11 +1,18 @@
 package gae.view.titleScreenEditor;
 
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
+
+/**
+ * This class is no longer used. Instead we make an instance of NodeButton from the Game Engine
+ * All Deprecated Code!
+ * @author sunjeevdevulapalli
+ *
+ */
 public class GameButton {
 	
+	private static final String CSS_BUTTON = 
+			"-fx-background-color: white;  -fx-padding: 30; -fx-border-color: black";
 	private double myXLoc;
 	private double myYLoc;
 	private double myScale;
@@ -15,7 +22,7 @@ public class GameButton {
 	
 	public GameButton(){
 		myBody = new Label();
-		myBody.setStyle("-fx-background-color: white;  -fx-padding: 30; -fx-border-color: black");
+		myBody.setStyle(CSS_BUTTON);
 		//set default values
 		myXLoc = 0;
 		myYLoc = 0;
@@ -30,7 +37,7 @@ public class GameButton {
 		myScale = scale;
 		myText = text;
 		myBody = new Label(text);
-		myBody.setStyle("-fx-background-color: white;  -fx-padding: 30; -fx-border-color: black");
+		myBody.setStyle(CSS_BUTTON);
 		updateBody();
 		
 	}

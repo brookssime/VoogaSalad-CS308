@@ -6,6 +6,7 @@ import engine.gameLogic.Placement;
 
 public class Port extends Sprite{
 
+	//why does this have location? base/tower had it removed and handled a different way, why not this?
 	Point myLocation;
 	
 	public Port(){
