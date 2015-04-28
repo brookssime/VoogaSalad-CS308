@@ -14,7 +14,6 @@ import javax.swing.JDialog;
 /**
  * 
  * @author Negatu
- * Not implemented yet.
  *
  */
 public class ComponentsDialog extends JDialog {
