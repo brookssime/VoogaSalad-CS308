@@ -1,63 +1,91 @@
 package engine;
 
+import interfaces.MethodAnnotation;
+import interfaces.SpecialEditorAnnotation;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import player.manager.PlayerManager;
+import engine.gameLogic.GameObject;
 import engine.gameScreens.GameNode;
 import engine.gameScreens.LevelNode;
 import engine.gameScreens.Store;
-import javafx.animation.KeyFrame;
-import javafx.util.Duration;
 
-public class Game {
+
+public class Game extends GameObject {
 	
-	private String myName;
-	private final int FRAME_RATE = 10;	
 	private GameNode myCurNode;
 	private Store myStore;
+	private Map<GameNode, Map<NodeState, GameNode>> myAdjacencyList;
+	private Map<String, GameNode> myIDMap;
+    
+	private PlayerManager myPlayerManager;
 	
-	public Game(GameNode head){
+	public Game() {
+		
+	}
+
+	public Game(GameNode head) {
 		myCurNode = head;
+		myAdjacencyList = new HashMap<GameNode, Map<NodeState, GameNode>>();
+		myIDMap = new HashMap<String, GameNode>();
 		addStoreToLevel();
 	}
 	
-	
-	
-	public void setHead(GameNode head){
-		myCurNode = head;
+	@MethodAnnotation(editor=true, name = "Game Editor", type = "game", fieldName = "")
+	public void fakeMethod() {
+		return;
 	}
 	
-	public GameNode getCurNode(){
+	// To be called by Player
+	public void setPlayerManager(PlayerManager playerManager){
+		myPlayerManager = playerManager;
+	}
+
+	public GameNode getCurNode() {
 		return myCurNode;
 	}
+
+	public void setAdjacencyList(Map<GameNode, Map<NodeState, GameNode>> adjList){
+		myAdjacencyList = adjList;
+	}
 	
-	/**
-	 * This is pretty awful design
-	 * Any ideas? Maybe a try/catch
-	 */
-	public void addStoreToLevel(){
-		if(myCurNode instanceof LevelNode){
+	public void setIDMap(Map<String, GameNode> idMap){
+		myIDMap = idMap;
+	}
+	
+	public void advanceNode(NodeState state) {
+		myCurNode = myAdjacencyList.get(myCurNode).get(state);
+		myCurNode.refreshNodeButtons(null);
+		myCurNode.render(myPlayerManager);
+	}
+
+	public void goToNode(String nodeID) {
+		myCurNode = myIDMap.get(nodeID);
+		myCurNode.render(myPlayerManager);
+	}
+
+	@SpecialEditorAnnotation(specialeditor=true, name = "Set Head", fieldName = "myStartNode")
+	public void setHead(GameNode head) {
+		myCurNode = head;
+	}
+
+
+	public void update(){
+		myCurNode.update();
+		if(myCurNode.checkState()!=NodeState.RUNNING){
+			advanceNode(myCurNode.checkState());
+		}
+		else{
+			myCurNode.render(myPlayerManager);
+		}
+	}
+	// TODO: Check back on this
+	public void addStoreToLevel() {
+		if (myCurNode instanceof LevelNode) {
 			((LevelNode) myCurNode).setStore(myStore);
 		}
 	}
-	
-	//TODO: Can this all be removed with our new framework of KeyFrame/game loop?
-	//Fangyi will handle the game loop and creating the key frames
-	//then he will call a method in the controller that calls the loop method in model
-	
-/*	public KeyFrame startGame(){
-		return new KeyFrame(Duration.millis(FRAME_RATE * 10), e -> update());
-	}
-	
-	public KeyFrame update(){
-		if(sceneComplete()){
-			myCurNode = myCurNode.getNextNode();
-			addStoreToLevel();
-			return myCurNode.start(FRAME_RATE);
-		}
-		return myCurNode.getCurScene();
-	}*/
 
-	public boolean sceneComplete(){
-		return myCurNode.isComplete();
-	}
-
-	
 }

@@ -9,8 +9,9 @@ import engine.gameScreens.DialogueBox;
  * @author Fangyi Chen
  *
  */
-public interface DialogueManager {
+public interface DialogueManager extends NodeManager{
 	//public String getNextDialogueText();
 	//public String getNextDialogueImage();
 	public void showNextDialogue();
+	//public void moveToNode(String NodeID);
 }

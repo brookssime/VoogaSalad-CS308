@@ -3,6 +3,7 @@ package game_data;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -72,6 +73,20 @@ public class XMLWriter {
 		ois.close();
 		return obj;
 
+	}
+	
+	//use javafx filechooser for player use
+	public static Object loadGameData() throws IOException, ClassNotFoundException{
+		XStream xstream = new XStream(new DomDriver());
+		if(XMLFileChooser.getLoadFile() == null) return null;
+		FileInputStream fin = new FileInputStream(XMLFileChooser.getLoadFile());
+		ObjectInputStream ois = new ObjectInputStream(fin);
+		Object obj = xstream.fromXML((String) ois.readObject());
+		ois.close();
+		return obj;
+		
+		
+		
 	}
 
 }

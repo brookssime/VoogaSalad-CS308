@@ -2,47 +2,49 @@
 package engine.sprites;
 
 import interfaces.Collidable;
+import interfaces.MethodAnnotation;
 
 import java.awt.Shape;
+import java.awt.Point;
 
+import interfaces.Collidable;
 import engine.gameLogic.Placement;
 
 public class Base extends Sprite implements Collidable{
 
 	private Integer myHealth;
-	private int myRadius;
-	private Shape myCollisionBounds;
-
+	private int myCollisionHeight;
+	private int myCollisionWidth;
+	private Point myLocation;
+	
+	public Base() {
+		
+	}
+	
 	public Base(String imageString, Integer health){
 		myImagePath = imageString;
 		myHealth = health;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Health", type = "textfield", fieldName = "myHealth")
 	public void setHealth(int health){
 		myHealth = health;
 	}
 	
-	public void setRadius(int radius){
-		myRadius = radius;
-	}
+//	@MethodAnnotation(editor=true, name = "Set Radius", type = "textfield", fieldName = "myRadius")
+//	public void setRadius(int radius){
+//		myRadius = radius;
+//	}
 	
 	public int getHealth(){
 		return myHealth;
 	}
 	
-	public int getRadius(){
-		return myRadius;
-	}
-
 	@Override
-	public boolean evaluateCollision(Collidable collider){
-		if(isCollision(collider)){
-			if (collider.getClass().isAssignableFrom(Enemy.class)) { 
-				myHealth -= ((Enemy) collider).getEnemyDamage(); 
-			}
-			return true;
+	public void evaluateCollision(Collidable collider){
+		if (collider.getClass().isAssignableFrom(Enemy.class)) {
+			myHealth -= ((Enemy) collider).getEnemyDamage();
 		}
-		return false; 
 	}
 
 	@Override
@@ -50,16 +52,6 @@ public class Base extends Sprite implements Collidable{
 		return (myHealth<=0);
 	}
 
-	public void setCollisionBounds() {
-		//myCollisionBounds = new Ellipse2D.Double(myLocation.x, myLocation.y, myRad*2, myRad*2);
-		// TODO
-	}
-
-	@Override
-	public Shape getCollisionBounds() {
-		return myCollisionBounds;
-	}
-	
 
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
@@ -76,4 +68,39 @@ public class Base extends Sprite implements Collidable{
 		mySpriteInfo.put("Name", myName);
 		mySpriteInfo.put("Health", myHealth.toString());
 	}
+
+	@Override
+	@MethodAnnotation(editor=true, name = "Set Collision Height", type = "textfield", fieldName = "myCollisionHeight")
+	public void setCollisionHeight(Integer height) {
+		myCollisionHeight = height;
+	}
+
+	@Override
+	@MethodAnnotation(editor=true, name = "Set Collision Width", type = "textfield", fieldName = "myCollisionWidth")
+	public void setCollisionWidth(Integer width) {
+		myCollisionWidth = width;	
+	}
+
+	@Override
+	public Integer getCollisionHeight() {
+		return myCollisionHeight;
+	}
+
+	@Override
+	public Integer getCollisionWidth() {
+		return myCollisionWidth;
+	}
+	
+	public Point getLocation(){
+		return myLocation;
+	}
+	
+	public void setLocation(Point location){
+		myLocation = location;
+	}
+	
+	public void setHealth(Integer health){
+		myHealth = health;
+	}
+	
 }

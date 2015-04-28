@@ -1,12 +1,25 @@
 package player.manager;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+import engine.Game;
 import engine.Grid;
 import engine.HeadsUpDisplay;
 import engine.Controller;
 import engine.gameLogic.Placement;
 import engine.gameScreens.DialogueBox;
+import engine.gameScreens.NodeButton;
 import engine.gameScreens.Store;
 import engine.sprites.Tower;
+import game_data.ImageLoader;
+import game_data.XMLWriter;
+import player.GraphicGameScene;
+import player.MainMenu;
 import player.dialogue.DialogScene;
 import player.level.GameLevelScene;
 
@@ -20,22 +33,91 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	private GameLevelScene myLevel;
 	private DialogScene myDialog;
 	private Controller myController;
-	public void SceneManager(GameLevelScene level, DialogScene dialog, Controller controller){
+	private GraphicGameScene currScene;
+	private Stage stage;
+	private double screenWidth;
+	private double screenHeight;
+	private Game currGame;
+	public static ImageLoader myImageLoader;
+	public PlayerManager(GameLevelScene level, DialogScene dialog, Controller controller){
 		myLevel = level;
 		myDialog = dialog;
 		myController = controller;
 	}
-	public void init(){
+	public PlayerManager(Stage stage, double screenWidth, double screenHeight){
+		this.stage = stage;
+		this.screenHeight = screenHeight;
+		this.screenWidth = screenWidth;
+		init();
+	}
+	private void init(){
+		myLevel = new GameLevelScene(stage, screenWidth, screenHeight, this);
+		myDialog = new DialogScene(stage, screenWidth, screenHeight, this);
+		//TODO: create game from XML
+		currGame = new Game(null);
+		myController = new Controller(currGame);
+	}
+	public Scene getInitScene(){
+		//TODO: get the initScene
+		MainMenu mainMenu = new MainMenu(stage,screenWidth,screenHeight);
+		createMainMenuButtons(mainMenu);
+		Scene initScene = mainMenu.getScene();
+		return initScene;
+	}
+	private void createMainMenuButtons(MainMenu mainMenu) {
+		Button playGame = mainMenu.getPlayButton();
+		playGame.setOnAction((event) -> {
+			//GameChoiceScreen gameChoiceScreen = new GameChoiceScreen(stage, screenWidth, screenHeight);
+			
+			try {
+				currGame = (Game) XMLWriter.loadGameData();
+			} catch (ClassNotFoundException e) {
+				System.out.println("Class not found: " + e);
+			} catch (IOException e) {
+				System.out.println("IOException: " + e);
+			}
+
+			// test if t2 is now t1
+			if(currGame !=null)
+			System.out.println(currGame.getName());
+			myController = new Controller(currGame);
+			//stage.setScene(myLevel.getScene());
+			//stage.show();
+			
+
+		});
+		
 		
 	}
+
+	public void moveToNode(String nodeID){
+		myController.moveToNode(nodeID);
+	}
 	//for controller
+	
 	@Override
 	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud){
+		if(currScene != myLevel){
+			changeScene(myLevel);
+		}
+		
 		myLevel.updateLevel(grid, store, hud);
+
+	}
+	private void changeScene(GraphicGameScene myScene) {
+		currScene = myScene;
+		stage.setScene(currScene.getScene());
+		stage.show();
+		
 	}
 	@Override
 	public void updateDialogue(DialogueBox dialog){
+		if(currScene!=myDialog){
+			changeScene(myDialog);
+		}
+		
 		myDialog.displayDialog(dialog);
+
 	}
 	@Override
 	public void displayError(String errormessage) {
@@ -48,45 +130,106 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	@Override
 	public void sellObject(String spriteID, Placement place) {
 		Object[] params = {spriteID, place};
-		myController.doSomething("sellObject", params);
+
+		
+			try {
+				myController.doSomething("sellObject", params);
+			} catch (NoSuchMethodException | SecurityException
+					| IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+
 		
 		
 	}
 	@Override
 	public void placeSprite(String spriteID, Placement place) {
 		Object[] params = {spriteID, place};
-		myController.doSomething("placeSprite", params);
+		try {
+			myController.doSomething("placeSprite", params);
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	@Override
 	public void examinSprite(String spriteID, Placement place) {
 		Object[] params = {spriteID, place};
-		myController.doSomething("examinSprite", params);
+		try {
+			myController.doSomething("examinSprite", params);
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	@Override
 	public void increaseGameSpeed() {
 		Object[] params = {};
-		myController.doSomething("increaseGameSpeed", params);
+		try {
+			myController.doSomething("increaseGameSpeed", params);
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	@Override
 	public void decreaseGameSpeed() {
 		Object[] params = {};
-		myController.doSomething("decreaseGameSpeed", params);
+		try {
+			myController.doSomething("decreaseGameSpeed", params);
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	@Override
 	public void purchaseObject(String spriteID) {
 		Object[] params = {spriteID};
-		myController.doSomething("purchaseObject", params);
+		try {
+			myController.doSomething("purchaseObject", params);
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	@Override
 	public void showNextDialogue() {
 		Object[] params = {};
-		myController.doSomething("showNextDialogue", params);
+		try {
+			myController.doSomething("showNextDialogue", params);
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
+	
+	
+	
+	public void makeNodeButton(List<NodeButton> nodeButtons){
+		currScene.makeNodeButton(nodeButtons);
+	}
+	
+	
 	
 	
 	//for dialog scene use

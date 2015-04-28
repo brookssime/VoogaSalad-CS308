@@ -1,19 +1,26 @@
 package engine.gameLogic;
 
+
+import interfaces.Collidable;
 import interfaces.MethodAnnotation;
+
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import engine.sprites.Enemy;
+
+
 public class ProjectileEffect extends GameObject{
 
 	private Integer mySpeedDamage;
- 	private Long mySpeedFrequency;
-	private Integer mySpeedReps;
-	private Long mySpeedDuration;
+	private Double mySpeedFrequency;
+
+//	private Integer mySpeedReps;
+	private Double mySpeedDuration;
 
 	private Integer myHealthDamage;
-	private Long myHealthFrequency;
+	private Double myHealthFrequency;
 	private Integer myHealthReps;
 
 	private Timer effectTimer;
@@ -24,105 +31,120 @@ public class ProjectileEffect extends GameObject{
 
 	}
 
-	@MethodAnnotation(editor = true, name = "Speed Damage", type = "slider", fieldName = "mySpeedDamage") 
+	@MethodAnnotation(editor = true, name = "Set Speed Damage", type = "textfield", fieldName = "mySpeedDamage") 
 	public void setSpeedDamage(int x){
 		mySpeedDamage = x;
 	}
 
-
-	@MethodAnnotation(editor = true, name = "Speed Frequency", type = "slider", fieldName = "mySpeedFrequency") 
-	public void setSpeedFrequency(Long x){
+	@MethodAnnotation(editor = true, name = "Set Speed Frequency", type = "slider", fieldName = "mySpeedFrequency") 
+	public void setSpeedFrequency(Double x){
 		mySpeedFrequency = x;
 	}
 
+//	@MethodAnnotation(editor = true, name = "Set Speed Repetitions", type = "textfield", fieldName = "mySpeedReps") 
+//	public void setSpeedReps(int x){
+//		mySpeedReps = x;
+//	}
 
-
-
-	@MethodAnnotation(editor = true, name = "Speed Repetitions", type = "slider", fieldName = "mySpeedReps") 
-	public void setSpeedReps(int x){
-		mySpeedReps = x;
-	}
-
-
-	@MethodAnnotation(editor = true, name = "Health Damage", type = "slider", fieldName = "myHealthDamage") 
-	public void setSpeedDamageDuration(Long x){
+	@MethodAnnotation(editor = true, name = "Set Speed Damage Duration", type = "slider", fieldName = "mySpeedDuration") 
+	public void setSpeedDamageDuration(Double x){
 		mySpeedDuration = x;
 	}
 
-
+	@MethodAnnotation(editor = true, name = "Set Health Damage", type = "textfield", fieldName = "myHealthDamage") 
 	public void setHealthDamage(int x){
 		myHealthDamage = x;
 	}
 
-	@MethodAnnotation(editor = true, name = "Health Frequency", type = "textfield", fieldName = "myHealthFrequency") 
-	public void setHealthFrequency(Long x){
+	@MethodAnnotation(editor = true, name = "Set Health Frequency", type = "slider", fieldName = "myHealthFrequency") 
+	public void setHealthFrequency(Double x){
 		myHealthFrequency = x;
 	}
 
-	@MethodAnnotation(editor = true, name = "Health Repetitions", type = "textfield", fieldName = "myHealthReps") 
+	@MethodAnnotation(editor = true, name = "Set Health Repetitions", type = "textfield", fieldName = "myHealthReps") 
 	public void setHealthReps(int x){
 		myHealthReps = x;
 	}
-
 
 	public Integer getSpeedDamage(){
 		return mySpeedDamage;	
 	}
 
-	public Integer reverseSpeedDamage(){
-		return mySpeedDamage*-1;
+	public Integer getHealthDamage(){
+		return myHealthDamage;	
 	}
 
+	public Double getSpeedFrequency(){
+		return mySpeedFrequency;
+	}
 
-//	public Long getSpeedFrequency(){
-//		return mySpeedFrequency;
-//	}
-
-	public Long getSpeedDuration(){
+	public Double getSpeedDuration(){
 		return mySpeedDuration;
 	}
 
-	public Long getHealthFrequency(){
+	public Double getHealthFrequency(){
 		return myHealthFrequency;
-	}
-	
-	public int getHealthDamage() {
-		return myHealthDamage;
 	}
 
 	public boolean isFinal() {
 		return myIsFinal;
 	}
 
+	public void reverseSpeedDamage(Enemy enemy){
+		int originalSpeed = enemy.getSpeed();
+		originalSpeed += mySpeedDamage;
+		enemy.setSpeed(originalSpeed);
+	}
+
+
 	class SpeedTask extends TimerTask {
+
+		private Enemy enemy;
+
+		SpeedTask (Enemy enemy){
+			this.enemy = enemy;
+		}
 		public void run() {
-			getSpeedDamage();
+			reverseSpeedDamage(enemy);
 		}
 	}
+	
+//	private void speedEffect(){
+//		for (int i = 0; i < mySpeedReps; i++){
+//			effectTimer.schedule(new SpeedTask(), (long) (mySpeedFrequency*1000));
+//		}
 
-	class ReverseSpeedTask extends TimerTask {
-		public void run() {
-			reverseSpeedDamage();
-		}
+	public void reverseSpeedEffect(Enemy enemy){
+		effectTimer.schedule(new SpeedTask(enemy), mySpeedDuration.longValue()*1000);
 	}
-	private void speedEffect(){
-		effectTimer.schedule(new SpeedTask(), mySpeedDuration*1000);
-		effectTimer.schedule(new ReverseSpeedTask(), 0);
+
+	public void causeHealthDamage(Enemy enemy){
+		int newHealth = enemy.getHealth();
+		newHealth -= myHealthDamage;
+		enemy.setHealth(newHealth);
 	}
-
-
 
 	class HealthTask extends TimerTask {
+
+		private Enemy enemy;
+
+		HealthTask (Enemy enemy){
+			this.enemy = enemy;
+		}
 		public void run() {
-			getHealthDamage();
+			causeHealthDamage(enemy);
 		}
 	}
+	
+//	private void healthEffect(){
+//		for (int i = 0; i < myHealthReps; i++){
+//			effectTimer.schedule(new HealthTask(), (long) (myHealthFrequency*1000));
+//		}
 
-	private void healthEffect(){
+	public void reverseHealthEffect(Enemy enemy){
 		for (int i = 1; i <= myHealthReps; i++){
-			effectTimer.schedule(new HealthTask(), myHealthFrequency*1000);
+			effectTimer.schedule(new HealthTask(enemy), myHealthFrequency.longValue()*1000);
 		}
-
 	}
 
 }

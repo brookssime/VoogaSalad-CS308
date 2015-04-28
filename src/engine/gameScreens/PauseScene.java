@@ -1,27 +1,29 @@
 package engine.gameScreens;
 
+import player.manager.PlayerManager;
+import engine.NodeState;
+
 public class PauseScene extends GameNode{
 	
 	public PauseScene(){
-		
+		super();
 	}
 
+	@Override
+	public void render(PlayerManager playerManager) {
+		// REVIEW: make sure these having nothing is fully functional
+	}
+	
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public boolean isComplete() {
-		// TODO Auto-generated method stub
-		return false;
+	public NodeState checkState() {
+		return NodeState.RUNNING;
 	}
 
-	@Override
-	public void render() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

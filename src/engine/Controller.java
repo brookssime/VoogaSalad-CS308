@@ -1,14 +1,7 @@
 package engine;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
-import java.util.Queue;
 
-import engine.gameLogic.GameStats;
-import engine.gameLogic.Placement;
-import engine.gameScreens.DialogueBox;
-import engine.gameScreens.DialogueNode;
-import engine.gameScreens.Store;
 
 
 public class Controller {
@@ -21,57 +14,39 @@ public class Controller {
 	 * @param screenID
 	 */
 	
-	private Store myStore;
-	
+
 	private Game myGame;
 	
 	public Controller(Game game){
 		myGame = game;
-		
 	}
 
 	
 	public void moveToNode(String nodeID){
+		myGame.goToNode(nodeID);
+	}
+	
+	public void start(){
 		
 	}
 	
-	public void doSomething(String action, Object[] params){
+	// allows for generalized action on GameNodes
+	public void doSomething(String action, Object[] params) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		Class[] paramTypes = new Class[params.length];
 		for(int i = 0; i < params.length ; i++){
 			paramTypes[i] = params[i].getClass();
 		}
-		java.lang.reflect.Method method = null;
-		// REVIEW make sure this ^ works to initialize...
-		try {
-			method = myGame.getCurNode().getClass().
-					getMethod(action, paramTypes);
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		java.lang.reflect.Method method = myGame.getCurNode().getClass().
+				getMethod(action, paramTypes);
 		
-		try {
-			method.invoke(myGame.getCurNode(), params);
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		method.invoke(myGame.getCurNode(), params);
 	}
 	
+	/*
 	
+	*//********** From DialogueController **********//*
 	
-	/********** From DialogueController **********/
-	
-	/*DialogueNodeQueue<DialogueBox> myDialogueBoxes = myDialogueNode.getDialogueBoxes();
+	DialogueNodeQueue<DialogueBox> myDialogueBoxes = myDialogueNode.getDialogueBoxes();
 	
 	public void showNextDialogue(){
 		updateDialogueImage();
@@ -85,17 +60,17 @@ public class Controller {
 	
 	public String updateDialogueText(){
 		return myDialogueBoxes.peek().getText();
-	}*/
+	}
 
-	/********* From LevelController ***********/
+	*//********* From LevelController ***********//*
 	
-	 /*
+	 
 	  * Takes in the ID and location of a tower on the front-end grid
 	  * Will add sprite to grid on the back-en @param spriteID
 	  * @param spritePlacement
 	  * Takes in the ID and location of a tower on the front-end grid
-	  */
- /*
+	  
+ 
 	public void placeSprite(String spriteID, Placement spritePlacement){
 		Store myStore = new Store();
 		Environment myEnvironment = new Environment();
@@ -139,7 +114,8 @@ public class Controller {
 		Store myStore = new Store();
 		Grid myGrid = myEnvironment.getGrid();
 		myGrid.removeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
-		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice() * -1);	
+		myGrid.removeSpriteAt(myStore.getFromID(spriteID).getRangeObject, spritePlacement);
+		myGameStats.updateMoney(myStore.getFromID(spriteID).getMyPrice() * -myStore.getSellPercentage);	
 	}
 	
 	*//**

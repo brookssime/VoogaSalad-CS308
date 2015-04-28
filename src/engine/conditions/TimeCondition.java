@@ -1,16 +1,22 @@
 package engine.conditions;
 
-import engine.Environment;
+import engine.NodeState;
+import engine.gameScreens.LevelNode;
 
 public class TimeCondition extends Condition{
+	
 
-	public TimeCondition(Environment gameData) {
-		super(gameData);
+	public TimeCondition(LevelNode levelNode) {
+		super();
 	}
 
 	@Override
-	public boolean evaluate() {
-		return false;
+	public NodeState evaluate(LevelNode levelNode) {
+		
+		if(levelNode.getTotalTime()!=0 && levelNode.calculateRemainingTime()==0){
+			return NodeState.TIME_UP;
+		}
+		return NodeState.RUNNING;
 	}
 
 }

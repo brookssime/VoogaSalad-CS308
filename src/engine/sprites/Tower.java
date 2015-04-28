@@ -18,14 +18,8 @@ import engine.Path;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Range;
 
-/**
- * The Class Tower.
- * 
- * @author Brooks, Patrick, Robert, and Sid.
- */
 public class Tower extends Sprite implements Shootable{
 
-	//TODO: Many instance variables. are all necessary?
 	private Integer myFireRate;
 	private Integer myHealth;
 	private Projectile myProjectile;
@@ -66,12 +60,10 @@ public class Tower extends Sprite implements Shootable{
 		myPath.elongate();
 	}
 	
-
-	
 	public Projectile fire(){
 		return myProjectile;
-		
 	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collidable selectTarget(List<Collidable> targets) {
@@ -95,17 +87,20 @@ public class Tower extends Sprite implements Shootable{
 	}
 
 	@MethodAnnotation(editor=true, name = "Set FireRate", type = "textfield", fieldName = "myFireRate")
-	public void setFireRate(@ParameterAnnotation(name=" FireRate ") Integer fireRate) {
+	public void setFireRate(Integer fireRate) {
 		myFireRate = fireRate;
 	}
 	
+	public void setProjectile(Projectile projectile){
+		myProjectile = projectile;
+	}
 	
 	public Integer getFireRate(){
 		return myFireRate;
 	}
 
 	@MethodAnnotation(editor=true, name = "Set Health", type = "textfield", fieldName = "myHealth")
-	public void setHealth(@ParameterAnnotation(name=" Health ") Integer health) {
+	public void setHealth(Integer health) {
 		myHealth = health;
 	}
 
@@ -113,8 +108,13 @@ public class Tower extends Sprite implements Shootable{
 		return myRange;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Range", type = "textfield", fieldName = "myRange")
 	public void setRange(Integer range){
 		myRange = range;
+	}
+	
+	public void setRangeObject(Range range){
+		myRangeObject = range;
 	}
 
 	@Override
@@ -127,15 +127,15 @@ public class Tower extends Sprite implements Shootable{
 		return myRangeObject;
 	}
 
-	public Integer getMyPrice() {
+	public Integer getPrice() {
 		return myPrice;
 	}
 
+	@MethodAnnotation(editor=true, name = "Set Price", type = "textfield", fieldName = "myPrice")
 	public void setMyPrice(Integer price) {
 		myPrice = price;
 	}
 
-	
 	/*
 	 * Takes target location and assigns it a path based on the projectile's MovementStrategy  
 	 * 
@@ -171,6 +171,11 @@ public class Tower extends Sprite implements Shootable{
 		mySpriteInfo.put("Health", myHealth.toString());
 		mySpriteInfo.put("Firing Rate", myFireRate.toString());
 		mySpriteInfo.put("Price", myPrice.toString());
-	}
+		mySpriteInfo.put("Health Damage", myProjectile.getEffect().getHealthDamage().toString());
 
+	}
+	
+	public void setRotationSpeed (double rotationSpeed){
+		myRotationSpeed = rotationSpeed;
+	}
 }

@@ -1,16 +1,23 @@
 package engine.conditions;
 
-import engine.Environment;
+import engine.NodeState;
+import engine.gameScreens.LevelNode;
 
 public class HealthCondition extends Condition{
 
-	public HealthCondition(Environment gameData) {
-		super(gameData);
+	public HealthCondition() {
+		super();
 	}
+	
 
 	@Override
-	public boolean evaluate() {
-		return false;
+	public NodeState evaluate(LevelNode levelNode) {
+		if(levelNode.getGrid().getBaseHealth()==0){
+			return NodeState.BASE_DEAD;
+		}
+		else{
+			return NodeState.RUNNING;
+		}
 	}
 
 }

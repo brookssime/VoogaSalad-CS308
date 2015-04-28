@@ -1,6 +1,8 @@
 
 package engine.gameLogic;
 
+import interfaces.MethodAnnotation;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,19 +10,11 @@ import engine.sprites.Enemy;
 
 public class Wave extends GameObject{
 	
-	/** The my enemies. */
 	private List<Enemy> myEnemies;
-	private String myPortName; //myPortName NEEDS TO BE UNIQUE FOR EACH PORT
-
-	/** The my delays. */
+	private String myPortName;
 	private List<Long> myDelays;
-	
-	/** The my current enemy. */
 	private int myCurrentEnemy;
-	
-	/**
-	 * Instantiates a new wave.
-	 */
+
 	public Wave(){
 		myEnemies = new ArrayList<Enemy>();
 		myDelays = new ArrayList<Long>();
@@ -38,6 +32,7 @@ public class Wave extends GameObject{
 		return myDelays;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Port", type = "textfield", fieldName = "myPortName")
 	public void setPortName(String portName){
 		myPortName = portName;
 	}
@@ -45,13 +40,17 @@ public class Wave extends GameObject{
 	public void addEnemy(Enemy enemy){
 		myEnemies.add(enemy);
 	}
+	
 	public void addDelay(Long delay){
 		myDelays.add(delay);
 	}
+	
+	@MethodAnnotation(editor=true, name = "Set Enemies", type = "queueeditor", fieldName = "myEnemies")
 	public void setEnemies(List<Enemy> enemies){
 		myEnemies = enemies;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Delays", type = "queueeditor", fieldName = "myDelays")
 	public void setDelays(List<Long> delays){
 		myDelays = delays;
 	}
@@ -70,11 +69,6 @@ public class Wave extends GameObject{
 		return toSpawn;
 	}
 
-	/**
-	 * Checks if is complete.
-	 *
-	 * @return true, if is complete
-	 */
 	public boolean isComplete() {
 		if (myCurrentEnemy >= myEnemies.size()) {
 			return true;
