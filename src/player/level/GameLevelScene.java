@@ -38,7 +38,7 @@ import javafx.util.Duration;
 
 
 
-public class GameLevelScene implements GraphicGameScene, LevelInfo{
+public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 
 	// spaces out the bottom menu
 	private static final int MENU_SPACING = 50;
@@ -54,10 +54,9 @@ public class GameLevelScene implements GraphicGameScene, LevelInfo{
 	private double adjustrate = 0;
 	private int gamespeed = 6;
 	private int currentTime = 0;
-	private List<Button> buttons;
-	
+
 	//Group root;
-	private Scene myScene;
+	//private Scene myScene;
 	private double speed;
 	private double screenWidth;
 	private double screenHeight;
@@ -92,8 +91,9 @@ public class GameLevelScene implements GraphicGameScene, LevelInfo{
 		scoreNum = 0;
 		adjustrate = screenWidth/1436;
 		root = makePane();
-        myScene = new Scene(root, screenWidth, screenHeight);
+        scene = new Scene(root, screenWidth, screenHeight);
         buttons = new ArrayList<Button>();
+        myNodeManager = manager;
         //initTimeLine();
 	}
 	
@@ -120,7 +120,7 @@ public class GameLevelScene implements GraphicGameScene, LevelInfo{
 
 	public void loadLevel(LevelNode level){
 		mylevelnode = level;
-		 myScene = new Scene(makePane(), screenWidth, screenHeight);
+		 scene = new Scene(makePane(), screenWidth, screenHeight);
 	}
 
 	
@@ -257,16 +257,8 @@ public class GameLevelScene implements GraphicGameScene, LevelInfo{
 	}
 	
 	
-	@Override
-	/**
-	 * Return the level game scene for prime stage to display
-	 * @return scene for prime stage to display
-	 */
-	public Scene getScene() {
-		
-		return myScene;
-	}
-	
+
+
 	
 	/**
 	 * Load the level based on the level number
@@ -359,27 +351,6 @@ public class GameLevelScene implements GraphicGameScene, LevelInfo{
 		
 	}
 
-	@Override
-	public void makeNodeButton(List<NodeButton> nodeButtons) {
-		clearButtons();
-		for(NodeButton nodebutton : nodeButtons){
-			Button myButton = new Button(nodebutton.getInfo());
-			myButton.setOnAction((e)->{
-				myManager.moveToNode(nodebutton.myTargetNodeID);
-			});
-			myButton.setLayoutX(nodebutton.getLocation().x);
-			myButton.setLayoutY(nodebutton.getLocation().y);
-			buttons.add(myButton);
-			root.getChildren().add(myButton);
-		}
-		
-	}
-
-	private void clearButtons() {
-		root.getChildren().removeAll(buttons);
-		buttons.clear();
-		
-	}
 	@Override
 	public double getMoney(){
 		return moneyNum;

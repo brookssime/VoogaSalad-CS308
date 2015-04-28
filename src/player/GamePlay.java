@@ -34,7 +34,7 @@ public class GamePlay {
 		playGame.setLayoutY(.5 * screenHeight);
 		root.getChildren().add(playGame);
 		this.scene = new Scene(root, screenWidth, screenHeight);
-		myManager = new PlayerManager();
+		myManager = new PlayerManager(stage, screenWidth, screenHeight);
 		
 	}
 	public Scene getScene() {

@@ -19,8 +19,9 @@ import javafx.stage.Stage;
 /*
  * display the dialogs which are designed by GAE
  */
-public class DialogScene implements GraphicGameScene{
+public class DialogScene extends GraphicGameScene{
 	private Scene scene;
+
 	private BorderPane root;
 	private double width = 1400;
 	private double height=800;
@@ -30,11 +31,12 @@ public class DialogScene implements GraphicGameScene{
 	private Dialog curr;
 	private Stage stage;
 	public DialogScene(Stage stage, double screenWidth, double screenHeight,
-			DialogueManager playerManager) {
+			DialogueManager manager) {
+		myNodeManager = manager;
 		this.stage = stage;
 		width = screenWidth;
 		height = screenHeight;
-		myManager = playerManager;
+		myManager = manager;
 		root = new BorderPane();
 		//myController = controller;
 		curr = new Dialog();
@@ -49,10 +51,7 @@ public class DialogScene implements GraphicGameScene{
 		    }
 		});
 	}
-	public Scene getScene(){
-		
-		return scene;
-	}
+
 //	public void nextDialog(){
 //		curr.updateDialog(myController.updateDialogueImage(), myController.updateDialogueText());
 //	}
@@ -61,26 +60,6 @@ public class DialogScene implements GraphicGameScene{
 		curr.updateDialog(dialog.getImagePath(), dialog.getText());
 		
 	}
-	@Override
-	public void makeNodeButton(List<NodeButton> nodeButtons) {
-		// TODO Auto-generated method stub
-		clearButtons();
-		for(NodeButton nodebutton : nodeButtons){
-			Button myButton = new Button(nodebutton.getInfo());
-			myButton.setOnAction((e)->{
-				myManager.moveToNode(nodebutton.myTargetNodeID);
-			});
-			myButton.setLayoutX(nodebutton.getLocation().x);
-			myButton.setLayoutY(nodebutton.getLocation().y);
-			buttons.add(myButton);
-			root.getChildren().add(myButton);
-		}
-		
-	}
-	private void clearButtons() {
-		root.getChildren().removeAll(buttons);
-		buttons.clear();
-		
-	}
+	
 	
 }

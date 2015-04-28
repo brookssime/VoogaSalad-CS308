@@ -1,13 +1,13 @@
 package player.manager;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-
 import java.util.List;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import engine.Game;
-
 import engine.Grid;
 import engine.HeadsUpDisplay;
 import engine.Controller;
@@ -16,7 +16,10 @@ import engine.gameScreens.DialogueBox;
 import engine.gameScreens.NodeButton;
 import engine.gameScreens.Store;
 import engine.sprites.Tower;
+import game_data.ImageLoader;
+import game_data.XMLWriter;
 import player.GraphicGameScene;
+import player.MainMenu;
 import player.dialogue.DialogScene;
 import player.level.GameLevelScene;
 
@@ -34,12 +37,14 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	private Stage stage;
 	private double screenWidth;
 	private double screenHeight;
-	public void SceneManager(GameLevelScene level, DialogScene dialog, Controller controller){
+	private Game currGame;
+	public static ImageLoader myImageLoader;
+	public PlayerManager(GameLevelScene level, DialogScene dialog, Controller controller){
 		myLevel = level;
 		myDialog = dialog;
 		myController = controller;
 	}
-	public void SceneManager(Stage stage, double screenWidth, double screenHeight){
+	public PlayerManager(Stage stage, double screenWidth, double screenHeight){
 		this.stage = stage;
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
@@ -49,12 +54,42 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		myLevel = new GameLevelScene(stage, screenWidth, screenHeight, this);
 		myDialog = new DialogScene(stage, screenWidth, screenHeight, this);
 		//TODO: create game from XML
-		myController = new Controller(new Game(null));
+		currGame = new Game(null);
+		myController = new Controller(currGame);
 	}
 	public Scene getInitScene(){
 		//TODO: get the initScene
-		return myLevel.getScene();
+		MainMenu mainMenu = new MainMenu(stage,screenWidth,screenHeight);
+		createMainMenuButtons(mainMenu);
+		Scene initScene = mainMenu.getScene();
+		return initScene;
 	}
+	private void createMainMenuButtons(MainMenu mainMenu) {
+		Button playGame = mainMenu.getPlayButton();
+		playGame.setOnAction((event) -> {
+			//GameChoiceScreen gameChoiceScreen = new GameChoiceScreen(stage, screenWidth, screenHeight);
+			
+			try {
+				currGame = (Game) XMLWriter.loadGameData();
+			} catch (ClassNotFoundException e) {
+				System.out.println("Class not found: " + e);
+			} catch (IOException e) {
+				System.out.println("IOException: " + e);
+			}
+
+			// test if t2 is now t1
+			if(currGame !=null)
+			System.out.println(currGame.getName());
+			myController = new Controller(currGame);
+			//stage.setScene(myLevel.getScene());
+			//stage.show();
+			
+
+		});
+		
+		
+	}
+
 	public void moveToNode(String nodeID){
 		myController.moveToNode(nodeID);
 	}
@@ -65,12 +100,14 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		if(currScene != myLevel){
 			changeScene(myLevel);
 		}
-		currScene = myLevel;
+		
 		myLevel.updateLevel(grid, store, hud);
 
 	}
-	private void changeScene(GraphicGameScene myLevel2) {
-		// TODO Auto-generated method stub
+	private void changeScene(GraphicGameScene myScene) {
+		currScene = myScene;
+		stage.setScene(currScene.getScene());
+		stage.show();
 		
 	}
 	@Override
@@ -78,7 +115,7 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		if(currScene!=myDialog){
 			changeScene(myDialog);
 		}
-		currScene = myDialog;
+		
 		myDialog.displayDialog(dialog);
 
 	}

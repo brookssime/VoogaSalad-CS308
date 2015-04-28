@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import player.manager.PlayerManager;
 import engine.Grid;
 import engine.gameLogic.Placement;
 import engine.sprites.Sprite;
@@ -114,7 +115,7 @@ public class GraphicGrid{
 		
 	}
 	private void setSprite(Sprite mySprite, Placement placement) {
-		Image image = new Image(mySprite.getImagePath());
+		Image image = PlayerManager.myImageLoader.loadImageFile(mySprite.getImagePath());
 		ImageView sprite = new ImageView(image);
 		myPane.getChildren().add(sprite);
 		sprite.setLayoutX(placement.getLocation().x);

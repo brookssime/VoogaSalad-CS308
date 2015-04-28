@@ -85,7 +85,7 @@ public class GraphicTower{
 	            //content.putString(currentImage.getId());
 	            content.putImage(images);
 	            //TODO: need spriteID
-	            content.putString("Tower 1");
+	            content.putString(myTower.getName());
 	            
 	            //Image myimage = new Image(images, IMAGESIZE,IMAGESIZE,false,false); 
 	            //ImageCursor myCursor = new ImageCursor(myimage);
@@ -178,36 +178,36 @@ public class GraphicTower{
         
     }
 
-	private void movingImage() {
-		
-		  currentImage.setOnMouseMoved((MouseEvent event) -> {
-	        	System.out.println("mouse moving");
-	            //activate();
-	            double offsetX = event.getSceneX() - orgSceneX;
-	            double offsetY = event.getSceneY() - orgSceneY;
-	            double newTranslateX = orgTranslateX + offsetX;
-	            double newTranslateY = orgTranslateY + offsetY;
-	            currentImage.setOpacity(0.7);
-	            //currentImage.setTranslateX(newTranslateX);
-	            //currentImage.setTranslateY(newTranslateY);
-	           
-	        });
-		  /*
-		 currentImage.setOnMouseDragged((MouseEvent event) -> {
-	        	System.out.println("mouse dragging");
-	            //activate();
-	            double offsetX = event.getSceneX() - orgSceneX;
-	            double offsetY = event.getSceneY() - orgSceneY;
-	            double newTranslateX = orgTranslateX + offsetX;
-	            double newTranslateY = orgTranslateY + offsetY;
-	            currentImage.setOpacity(0.7);
-	            //currentImage.setTranslateX(newTranslateX);
-	            //currentImage.setTranslateY(newTranslateY);
-	           
-	        });
-	        */
-		
-	}
+//	private void movingImage() {
+//		
+//		  currentImage.setOnMouseMoved((MouseEvent event) -> {
+//	        	System.out.println("mouse moving");
+//	            //activate();
+//	            double offsetX = event.getSceneX() - orgSceneX;
+//	            double offsetY = event.getSceneY() - orgSceneY;
+//	            double newTranslateX = orgTranslateX + offsetX;
+//	            double newTranslateY = orgTranslateY + offsetY;
+//	            currentImage.setOpacity(0.7);
+//	            //currentImage.setTranslateX(newTranslateX);
+//	            //currentImage.setTranslateY(newTranslateY);
+//	           
+//	        });
+//		  /*
+//		 currentImage.setOnMouseDragged((MouseEvent event) -> {
+//	        	System.out.println("mouse dragging");
+//	            //activate();
+//	            double offsetX = event.getSceneX() - orgSceneX;
+//	            double offsetY = event.getSceneY() - orgSceneY;
+//	            double newTranslateX = orgTranslateX + offsetX;
+//	            double newTranslateY = orgTranslateY + offsetY;
+//	            currentImage.setOpacity(0.7);
+//	            //currentImage.setTranslateX(newTranslateX);
+//	            //currentImage.setTranslateY(newTranslateY);
+//	           
+//	        });
+//	        */
+//		
+//	}
 
 
 }

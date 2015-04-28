@@ -2,6 +2,7 @@ package player.level;
 
 
 import player.RunGamePlayer;
+import player.manager.PlayerManager;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -46,7 +47,8 @@ public class TowerInfo{
 	
 	public void init(String imageFile, String name,int price,  int range, int damage, LevelInfo levelinfo ){
 		image = new StackPane();
-		Image towerimage = new Image((getClass().getResourceAsStream(imageFile)),IMAGESIZE,IMAGESIZE,false,false);
+		Image towerimage = PlayerManager.myImageLoader.loadImageFile(imageFile, IMAGESIZE);
+				//new Image((getClass().getResourceAsStream(imageFile)),IMAGESIZE,IMAGESIZE,false,false);
 		ImageView myimage = new ImageView(towerimage);
 		myimage.setFitHeight(IMAGESIZE);
 		myimage.setFitWidth(IMAGESIZE);

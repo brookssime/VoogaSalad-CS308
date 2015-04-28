@@ -1,6 +1,7 @@
 package player.level;
 
 import player.manager.LevelManager;
+import player.manager.PlayerManager;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -99,7 +100,8 @@ public class GridCell{
 					toweroption.getCircle().setCenterY(myPane.getScaleY()+40);
 					toweroption.setSell(e->{
 						myManager.sellObject(spriteID, place);
-						image.setImage(new Image(myTile.getImagePath()));
+						image.setImage(PlayerManager.myImageLoader.loadImageFile(myTile.getImagePath()));
+								//new Image(myTile.getImagePath()));
 						spriteID = null;
 					});
 					myPane.toFront();
