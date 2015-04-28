@@ -3,6 +3,7 @@ package engine.gameScreens;
 import java.awt.Point;
 import java.util.List;
 
+import player.manager.PlayerManager;
 import interfaces.MethodAnnotation;
 import interfaces.SpecialEditorAnnotation;
 import engine.NodeState;
@@ -25,7 +26,7 @@ public class TitleScene extends GameNode {
 	}
 
 	@Override
-	public void render() {
+	public void render(PlayerManager playerManager) {
 		// REVIEW: make sure these having nothing is fully functional
 	}
 

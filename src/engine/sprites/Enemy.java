@@ -7,7 +7,6 @@ import interfaces.MovementStrategy;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import engine.Path;
 import engine.gameLogic.Placement;
@@ -19,7 +18,7 @@ public class Enemy extends Sprite implements Collidable {
 	private MovementStrategy myMovement;
 	private Integer myDamage;
 	private Integer myHealth;
-	private List<Tile> myTilePath;
+	//private List<Tile> myTilePath;
 	private Timer myTimer;
 	private Path myPath;
 	private Integer myCollisionHeight;
@@ -53,9 +52,6 @@ public class Enemy extends Sprite implements Collidable {
 		return mySpeed;
 	}
 	
-	public int getDamage(){
-		return myDamage;
-	}	
 	
 	public void executeEffect(Projectile projectile) {
 		ProjectileEffect currentEffect = projectile.getEffect();
@@ -76,14 +72,11 @@ public class Enemy extends Sprite implements Collidable {
 		myPath = p;
 	}
 
-	public List<Tile> getTilePath() {
-	return myTilePath;
 
-	}
 
-	public void setTilePath(LinkedList<Tile> tilePath) {
-		myTilePath = tilePath;
-	}
+	//public void setTilePath(LinkedList<Tile> tilePath) {
+		//myTilePath = tilePath;
+	//}
 
 	public Integer getEnemyDamage() {
 		return myDamage;
