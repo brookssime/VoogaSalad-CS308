@@ -37,20 +37,22 @@ public class Wave extends GameObject{
 		myPortName = portName;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Add Enemies", type = "queueeditor", fieldName = "myEnemies")
 	public void addEnemy(Enemy enemy){
 		myEnemies.add(enemy);
 	}
 	
+	@MethodAnnotation(editor=true, name = "Add Delays", type = "queueeditor", fieldName = "myDelays")
 	public void addDelay(Long delay){
 		myDelays.add(delay);
 	}
 	
-	@MethodAnnotation(editor=true, name = "Set Enemies", type = "queueeditor", fieldName = "myEnemies")
+	
 	public void setEnemies(List<Enemy> enemies){
 		myEnemies = enemies;
 	}
 	
-	@MethodAnnotation(editor=true, name = "Set Delays", type = "queueeditor", fieldName = "myDelays")
+	
 	public void setDelays(List<Long> delays){
 		myDelays = delays;
 	}

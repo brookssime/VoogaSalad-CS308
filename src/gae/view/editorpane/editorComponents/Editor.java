@@ -6,11 +6,14 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.scene.Group;
+
+
+
 import javafx.scene.control.Menu;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import reflection.Reflection;
 import gae.model.Receiver;
 import gae.view.GAEPane;
 import gae.view.menupane.MenuAdder;
@@ -26,11 +29,14 @@ public class Editor extends GAEPane {
 	 *            - the class name of the object to be instantiated.
 	 */
 
-	private HBox myLayout;
-	private Group myView;
 	private VBox myForm;
+	private ScrollPane myLayout;
+	private BorderPane myPane;
 	private EditorComponentFactory myFactory;
 	private Receiver myReceiver;
+	
+	private int default_width = 500;
+	private int default_height = 500;
 
 	private String myObj;
 
@@ -39,28 +45,17 @@ public class Editor extends GAEPane {
 		myObj = obj;
 		myReceiver = receiver;
 
-		// TODO - changed getType(obj) to obj for testing.
-		// TODO - needs to work for classes outside engine.sprites. + should consider making this a receiver method?
 		List<Method> objMethods = new ArrayList<Method>(myReceiver.getEditorMethods(obj));
 		System.out.println(objMethods);
 
-		/*
-		 * Map<Method, Method> methodMap = new HashMap<Method, Method>();
-		 * 
-		 * for (Method m1 : objMethods) { MethodAnnotation ma =
-		 * m1.getAnnotation(MethodAnnotation.class); if
-		 * (ma.gsType().equals("setter")) { String str = ma.name(); for (Method
-		 * m2 : objMethods) { MethodAnnotation ma2 =
-		 * m2.getAnnotation(MethodAnnotation.class); if
-		 * ((ma2.gsType().equals("getter")) && (ma2.name().equals(str))) {
-		 * methodMap.put(m1, m2); } } } }
-		 */
 
-		myLayout = new HBox();
-		myView = new Group();
 		myForm = new VBox();
-		myLayout.getChildren().addAll(myView, myForm);
-		myRoot.getChildren().add(myLayout);
+		myLayout = new ScrollPane(myForm);
+		myPane = new BorderPane();
+		myPane.setPrefSize(default_width, default_height);
+		myLayout.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		myPane.setCenter(myLayout);
+		myRoot.getChildren().add(myPane);
 
 		myFactory = new EditorComponentFactory();
 		for (Method method : objMethods) {
@@ -73,12 +68,6 @@ public class Editor extends GAEPane {
 			myForm.getChildren().add(fieldEditor);
 		}
 
-//		exportObject = new Button("Export Object");
-//		exportObject.setOnAction(e -> {
-//			// udpate/export object missing in receiver?.
-//			myReceiver.exportFile(obj);
-//		});
-//		myForm.getChildren().add(exportObject);
 	}
 
 	@Override

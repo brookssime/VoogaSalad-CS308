@@ -109,7 +109,7 @@ public class Inventory {
 			map.put(object.getName(), object);
 		}
 	}
-	
+
 	public void runOnObjectSwap(String obj, Method method, Object... params) {
 		Object[] newparams = new Object[params.length];
 		for (int i = 0; i < params.length; i++) {
@@ -118,22 +118,28 @@ public class Inventory {
 		}
 		runOnObject(obj, method, newparams);
 	}
-	
+
 	public boolean isInvObject(String type) {
+		String suffix = type.split("\\.")[type.split("\\.").length-1];
+		return (inInvObject(type) || inInvObject(suffix));
+	}
+
+	private boolean inInvObject(String type) {
 		for (String key : myMaps.keySet()) {
 			if (type.equals(key)) {
 				return true;
 			}
 		}
+
 		return false;
 	}
-	
+
 	public List<Method> getEditorMethods(String obj) {
 		ObservableMap<String, GameObject> map = getMap(obj);
 		GameObject object = map.get(obj);
 		return new ArrayList<Method>(Reflection.getEditorMethods(object));
 	}
-	
+
 	public List<Method> getSpecialEditorMethods(String obj) {
 		ObservableMap<String, GameObject> map = getMap(obj);
 		GameObject object = map.get(obj);
@@ -163,7 +169,7 @@ public class Inventory {
 		 * System.out.println(ret); return ret;
 		 */
 	}
-	
+
 	public List<NodeButton> getButtonList(String obj) {
 		if (!getType(obj).equals("TitleScene")) {
 			try {

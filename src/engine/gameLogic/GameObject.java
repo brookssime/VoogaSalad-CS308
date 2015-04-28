@@ -15,4 +15,8 @@ public abstract class GameObject {
 	public String getName(){
 		return myName;
 	}
+	
+	public String toString(){
+		return myName;
+	}
 }
