@@ -83,8 +83,10 @@ public class Tile extends GameObject{
 			point.y < this.myGridLocation.y + (double)this.myWidth);
 }*/
 	
-	/*public String getImagePath(){
+	
+	//TODO: might need another solution for image path
+	public String getImagePath(){
 	return myImagePath;
-}*/
+}
 	
 }

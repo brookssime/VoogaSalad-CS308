@@ -63,7 +63,7 @@ public class ExampleUsage {
 		}
 
 		// test if t2 is now t1
-		System.out.println(g2.getHead().getName());
+		//System.out.println(g2.getHead().getName());
 
 	}
 

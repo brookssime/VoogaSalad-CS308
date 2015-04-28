@@ -73,7 +73,7 @@ public class GraphicTower{
 			 	for(String id : myTower.getAccessNames()){
 			 		levelinfo.updateDroppable(id);
 			 	}
-	        	if(myTower.getMyPrice()>myLevelInfo.getMoney()) return;
+	        	if(myTower.getPrice()>myLevelInfo.getMoney()) return;
 	            //activate();
 			 	System.out.println("Drage Detected");
 	            Dragboard db = currentImage.startDragAndDrop(TransferMode.MOVE);

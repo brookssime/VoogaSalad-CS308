@@ -40,7 +40,7 @@ public class TowerInfo{
 		
 		//TODO: need get damage spriteID from Tower
 		myTower = t;
-		init(t.getImagePath(),t.getName(),t.getMyPrice(),t.getRange(), Integer.parseInt(t.getSpriteInfo().get("damage")), info);
+		init(t.getImagePath(),t.getName(),t.getPrice(),t.getRange(), Integer.parseInt(t.getSpriteInfo().get("damage")), info);
 		myLevelInfo = info;
 		
 	}
