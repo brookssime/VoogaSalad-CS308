@@ -1,12 +1,12 @@
 package engine.sprites;
 
 import interfaces.Collidable;
+import interfaces.MethodAnnotation;
 import interfaces.MovementStrategy;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import engine.Path;
 import engine.gameLogic.Placement;
@@ -18,7 +18,7 @@ public class Enemy extends Sprite implements Collidable {
 	private MovementStrategy myMovement;
 	private Integer myDamage;
 	private Integer myHealth;
-	private List<Tile> myTilePath;
+	//private List<Tile> myTilePath;
 	private Timer myTimer;
 	private Path myPath;
 	private Integer myCollisionHeight;
@@ -29,14 +29,17 @@ public class Enemy extends Sprite implements Collidable {
 		
 	}
 
+	@MethodAnnotation(editor=true, name = "Set Health", type = "textfield", fieldName = "myHealth")
 	public void setHealth(int x){
 		myHealth = x;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Speed", type = "textfield", fieldName = "mySpeed")
 	public void setSpeed(int x){
 		mySpeed = x;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Damage", type = "textfield", fieldName = "myDamage")
 	public void setDamage(int x){
 		myDamage = x;
 	}
@@ -49,9 +52,6 @@ public class Enemy extends Sprite implements Collidable {
 		return mySpeed;
 	}
 	
-	public int getDamage(){
-		return myDamage;
-	}	
 	
 	public void executeEffect(Projectile projectile) {
 		ProjectileEffect currentEffect = projectile.getEffect();
@@ -72,14 +72,11 @@ public class Enemy extends Sprite implements Collidable {
 		myPath = p;
 	}
 
-	public List<Tile> getTilePath() {
-	return myTilePath;
 
-	}
 
-	public void setTilePath(LinkedList<Tile> tilePath) {
-		myTilePath = tilePath;
-	}
+	//public void setTilePath(LinkedList<Tile> tilePath) {
+		//myTilePath = tilePath;
+	//}
 
 	public Integer getEnemyDamage() {
 		return myDamage;
@@ -121,11 +118,13 @@ public class Enemy extends Sprite implements Collidable {
 	}
 
 	@Override
+	@MethodAnnotation(editor=true, name = "Set Collision Height", type = "textfield", fieldName = "myCollisionHeight")
 	public void setCollisionHeight(Integer height) {
 		myCollisionHeight = height;
 	}
 
 	@Override
+	@MethodAnnotation(editor=true, name = "Set Collision Width", type = "textfield", fieldName = "myCollisionWidth")
 	public void setCollisionWidth(Integer width) {
 		myCollisionWidth = width;	
 	}
@@ -138,5 +137,9 @@ public class Enemy extends Sprite implements Collidable {
 	@Override
 	public Integer getCollisionWidth() {
 		return myCollisionWidth;
+	}
+	
+	public void setMovement(MovementStrategy movement){
+		myMovement = movement;
 	}
 }

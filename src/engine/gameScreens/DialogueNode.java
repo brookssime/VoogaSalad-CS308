@@ -3,9 +3,9 @@
  */
 package engine.gameScreens;
 
-import java.util.List;
 import java.util.Queue;
 
+import player.manager.PlayerManager;
 import engine.NodeState;
 
 /**
@@ -33,13 +33,13 @@ public class DialogueNode extends GameNode{
 	}
 	
 	@Override
-	public void render() {
-		myPlayerManager.updateDialogue(myDialogueBoxes.poll());
+	public void render(PlayerManager playerManager) {
+		playerManager.updateDialogue(myDialogueBoxes.poll());
 		
 	}
 	
 	public void showNextDialogue(){
-		render();
+		//render();
 	}
 	
 	public void setImagePath(String imagePath){

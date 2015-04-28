@@ -1,9 +1,11 @@
-package gae.editorComponents;
+package gae.view.editorpane.editorComponents;
 
 import gae.model.Receiver;
+import interfaces.TypeAnnotation;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Set;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -36,7 +38,7 @@ import javafx.util.Callback;
  */
 public class MultipleSelectEditor extends EditorComponent{
 
-	public MultipleSelectEditor(Receiver receiver, Method setMethod, Method getMethod,
+	public MultipleSelectEditor(Receiver receiver, Method setMethod,
 			String objectName) {
 		super(receiver, setMethod, objectName);
 	}
@@ -44,7 +46,7 @@ public class MultipleSelectEditor extends EditorComponent{
 	@Override
 	public void setUpEditor() {
 		//Steps:
-		//1) need to get parameters -> all access ids [not necessary for this component?...DONE?]
+		//1) need to get parameters -> objects of type...but what type...? []
 		//2) then need to construct UI [DONE]
 		//3) then set UI with getFromObject method [DONE]
 		//4) then create button to update inventory [DONE]
@@ -61,17 +63,20 @@ public class MultipleSelectEditor extends EditorComponent{
 	@SuppressWarnings("unchecked")
 	private Parent makeScene() {
 		ObservableList<GameObject> data = FXCollections.observableArrayList();
-		ArrayList<Integer> list = null;
-		try{
-			//list = ((ArrayList<Integer>) myReceiver.getFromObject(myObject, myGetMethod, (Object[]) null));
-		} catch (Exception e) {
-			System.err.println("Cannot convert Object to ArrayList");
-			e.printStackTrace();
-		}
 		
-		for (int i = 0; i < 20; i++) {
-			data.add(new GameObject(list.contains(i) ? true : false, "Access ID: "
-					+ i));
+		
+		//get list
+		//use annotation to get type
+		//use fetched value to populate list
+		//TODO: figure out how to fetch type from annotation.
+		TypeAnnotation typeAnnotation = myMethod
+				.getAnnotation(TypeAnnotation.class);
+		
+		String type = typeAnnotation.annotationType().getName();
+		Set<String> list = myReceiver.getList(type);
+		ArrayList<String> myChecked = (ArrayList<String>) myFetchedValue;
+		for (String o: list){
+			data.add(new GameObject(myChecked.contains(o) ? true : false, o));
 		}
 
 		final ListView<GameObject> listView = new ListView<GameObject>();
@@ -95,19 +100,12 @@ public class MultipleSelectEditor extends EditorComponent{
 		Button btn = new Button("Accept");
 
 		btn.setOnAction(e -> {
-			ArrayList<Integer> accessArray = new ArrayList<>();
+			ArrayList<String> accessArray = new ArrayList<>();
 			for (GameObject g : data) {
 				if(g.getSelected()){
 					System.out.println(g.getSelected());
-					//Format: "Access ID: i
-					try {
-						System.out.println(g.getName().split("\\s++")[2]);
-						accessArray.add(Integer.parseInt(g.getName().split("\\s++")[2]));
-					} catch (IndexOutOfBoundsException e1){
-						System.err.println("Cannot find Index");
-						e1.printStackTrace();
-					}
-					
+					System.out.println(g.getName());
+					accessArray.add(g.getName());
 				}
 			}
 			// update backend inventory

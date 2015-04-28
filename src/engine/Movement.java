@@ -17,22 +17,21 @@ public class Movement {
 		return myPlacements.pop();
 	}
 	
-	LinkedList<Placement> getPlacements(){
-		return myPlacements;
-	}
-
-	public Placement getLast() {
-		return myPlacements.getLast();
-	}
-	
 	public Integer size(){
 		return myPlacements.size();
 	}
-	
-	public void append(Placement p){
-		myPlacements.add(p);
+
+	public void elongate(){
+		myPlacements.add(myPlacements.getLast());
 		// REVIEW make sure this effectively keeps the list from ending 
 		// by keeping the object still if nothing else is added
 	}
+	
+	public Placement getLastPlacement(){
+		return myPlacements.getLast();
+	}
+	
+	
+	
 
 }

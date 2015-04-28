@@ -15,6 +15,7 @@ public class ProjectileEffect extends GameObject{
 
 	private Integer mySpeedDamage;
 	private Double mySpeedFrequency;
+
 //	private Integer mySpeedReps;
 	private Double mySpeedDuration;
 
@@ -30,37 +31,37 @@ public class ProjectileEffect extends GameObject{
 
 	}
 
-	@MethodAnnotation(editor = true, name = "Speed Damage", type = "slider", fieldName = "mySpeedDamage") 
+	@MethodAnnotation(editor = true, name = "Set Speed Damage", type = "textfield", fieldName = "mySpeedDamage") 
 	public void setSpeedDamage(int x){
 		mySpeedDamage = x;
 	}
 
-	@MethodAnnotation(editor = true, name = "Speed Frequency", type = "slider", fieldName = "mySpeedFrequency") 
+	@MethodAnnotation(editor = true, name = "Set Speed Frequency", type = "slider", fieldName = "mySpeedFrequency") 
 	public void setSpeedFrequency(Double x){
 		mySpeedFrequency = x;
 	}
 
-//	@MethodAnnotation(editor = true, name = "Speed Repetitions", type = "slider", fieldName = "mySpeedReps") 
+//	@MethodAnnotation(editor = true, name = "Set Speed Repetitions", type = "textfield", fieldName = "mySpeedReps") 
 //	public void setSpeedReps(int x){
 //		mySpeedReps = x;
 //	}
 
-	@MethodAnnotation(editor = true, name = "Speed Damage Duration", type = "slider", fieldName = "mySpeedDuration") 
+	@MethodAnnotation(editor = true, name = "Set Speed Damage Duration", type = "slider", fieldName = "mySpeedDuration") 
 	public void setSpeedDamageDuration(Double x){
 		mySpeedDuration = x;
 	}
 
-	@MethodAnnotation(editor = true, name = "Health Damage", type = "slider", fieldName = "myHealthDamage") 
+	@MethodAnnotation(editor = true, name = "Set Health Damage", type = "textfield", fieldName = "myHealthDamage") 
 	public void setHealthDamage(int x){
 		myHealthDamage = x;
 	}
 
-	@MethodAnnotation(editor = true, name = "Health Frequency", type = "textfield", fieldName = "myHealthFrequency") 
+	@MethodAnnotation(editor = true, name = "Set Health Frequency", type = "slider", fieldName = "myHealthFrequency") 
 	public void setHealthFrequency(Double x){
 		myHealthFrequency = x;
 	}
 
-	@MethodAnnotation(editor = true, name = "Health Repetitions", type = "textfield", fieldName = "myHealthReps") 
+	@MethodAnnotation(editor = true, name = "Set Health Repetitions", type = "textfield", fieldName = "myHealthReps") 
 	public void setHealthReps(int x){
 		myHealthReps = x;
 	}
@@ -107,10 +108,14 @@ public class ProjectileEffect extends GameObject{
 			reverseSpeedDamage(enemy);
 		}
 	}
+	
+//	private void speedEffect(){
+//		for (int i = 0; i < mySpeedReps; i++){
+//			effectTimer.schedule(new SpeedTask(), (long) (mySpeedFrequency*1000));
+//		}
 
 	public void reverseSpeedEffect(Enemy enemy){
 		effectTimer.schedule(new SpeedTask(enemy), mySpeedDuration.longValue()*1000);
-
 	}
 
 	public void causeHealthDamage(Enemy enemy){
@@ -130,6 +135,11 @@ public class ProjectileEffect extends GameObject{
 			causeHealthDamage(enemy);
 		}
 	}
+	
+//	private void healthEffect(){
+//		for (int i = 0; i < myHealthReps; i++){
+//			effectTimer.schedule(new HealthTask(), (long) (myHealthFrequency*1000));
+//		}
 
 	public void reverseHealthEffect(Enemy enemy){
 		for (int i = 1; i <= myHealthReps; i++){

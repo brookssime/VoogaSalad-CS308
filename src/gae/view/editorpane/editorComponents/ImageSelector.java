@@ -1,6 +1,7 @@
-package gae.editorComponents;
+package gae.view.editorpane.editorComponents;
 
 import image_drawer.Drawer;
+import interfaces.MethodAnnotation;
 import interfaces.ParameterAnnotation;
 
 import java.io.File;
@@ -23,30 +24,38 @@ import javafx.scene.layout.HBox;
  *
  */
 
-public class FileSelector extends EditorComponent {
+public class ImageSelector extends EditorComponent {
 
 	private HBox myBox;
 	private ImageView myDisplay;
 	private Button selectButton;
 	private Button drawButton;
 	private File selectedFile;
+	private String myImagePath;
 
 	private final String defaultImagePath = "/images/addImage.png";
 	private final static Double displayWidth = 100.0;
 	private final static Double displayHeight = 100.0;
 
-	public FileSelector(Receiver receiver, Method setMethod, String objectName) {
+	public ImageSelector(Receiver receiver, Method setMethod, String objectName) {
 		super(receiver, setMethod, objectName);
 
 	}
 
 	@Override
 	public void setUpEditor() {
-		
+
 		Annotation[][] Annotations = myMethod.getParameterAnnotations();
 		Annotation[] annotationList = Annotations[0];
-		ParameterAnnotation parameterAnnotation = (ParameterAnnotation) annotationList[0];
-		String parameterName = parameterAnnotation.name();
+		String parameterName;
+		if (annotationList.length > 0) {
+			ParameterAnnotation parameterAnnotation = (ParameterAnnotation) annotationList[0];
+			parameterName = parameterAnnotation.name();
+		} else {
+			MethodAnnotation methodAnnotation = myMethod
+					.getAnnotation(MethodAnnotation.class);
+			parameterName = methodAnnotation.name();
+		}
 
 		myBox = new HBox();
 		myDisplay = new ImageView();
@@ -61,7 +70,7 @@ public class FileSelector extends EditorComponent {
 			JFileChooser fileChooser = new JFileChooser(System.getProperties()
 					.getProperty("user.dir") + "/src/images");
 			FileNameExtensionFilter filter = new FileNameExtensionFilter(
-			        "PNG, JPG & GIF Images", "jpg", "gif", "png");
+					"PNG, JPG & GIF Images", "jpg", "gif", "png");
 			fileChooser.setFileFilter(filter);
 			fileChooser
 					.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -70,22 +79,29 @@ public class FileSelector extends EditorComponent {
 				return;
 			}
 			selectedFile = fileChooser.getSelectedFile();
-			myDisplay.setImage(new Image(selectedFile.toURI().toString()));
-			myReceiver.runOnObject(myObject, myMethod, selectedFile);
+			String[] path = selectedFile.toURI().toString().split("/");
+			myImagePath = "/" + path[path.length - 2] + "/"
+					+ path[path.length - 1];
+			myDisplay.setImage(new Image(getClass().getResourceAsStream(
+					myImagePath)));
+			myReceiver.runOnObject(myObject, myMethod, myImagePath);
 		});
-		
-		drawButton.setOnAction(e->{
+
+		drawButton.setOnAction(e -> {
 			Drawer d = new Drawer();
-			//TODO - add an image fetch to drawer.
+			d.getImageFile();
 		});
 
 	}
 
 	private void setupImageView() {
-		Image myImage = new Image(getClass().getResourceAsStream(
-				defaultImagePath));
+		myImagePath = defaultImagePath;
+		if (myFetchedValue != null) {
+			myImagePath = (String) myFetchedValue;
+		}
+		Image myImage = new Image(getClass().getResourceAsStream(myImagePath));
+
 		myDisplay.setImage(myImage);
-		System.out.println(displayWidth);
 		myDisplay.setFitWidth(displayWidth);
 		myDisplay.setFitHeight(displayHeight);
 	}

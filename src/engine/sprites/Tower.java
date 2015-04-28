@@ -87,8 +87,12 @@ public class Tower extends Sprite implements Shootable{
 	}
 
 	@MethodAnnotation(editor=true, name = "Set FireRate", type = "textfield", fieldName = "myFireRate")
-	public void setFireRate(@ParameterAnnotation(name=" FireRate ") Integer fireRate) {
+	public void setFireRate(Integer fireRate) {
 		myFireRate = fireRate;
+	}
+	
+	public void setProjectile(Projectile projectile){
+		myProjectile = projectile;
 	}
 	
 	public Integer getFireRate(){
@@ -96,7 +100,7 @@ public class Tower extends Sprite implements Shootable{
 	}
 
 	@MethodAnnotation(editor=true, name = "Set Health", type = "textfield", fieldName = "myHealth")
-	public void setHealth(@ParameterAnnotation(name=" Health ") Integer health) {
+	public void setHealth(Integer health) {
 		myHealth = health;
 	}
 
@@ -104,8 +108,13 @@ public class Tower extends Sprite implements Shootable{
 		return myRange;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Range", type = "textfield", fieldName = "myRange")
 	public void setRange(Integer range){
 		myRange = range;
+	}
+	
+	public void setRangeObject(Range range){
+		myRangeObject = range;
 	}
 
 	@Override
@@ -118,10 +127,11 @@ public class Tower extends Sprite implements Shootable{
 		return myRangeObject;
 	}
 
-	public Integer getMyPrice() {
+	public Integer getPrice() {
 		return myPrice;
 	}
 
+	@MethodAnnotation(editor=true, name = "Set Price", type = "textfield", fieldName = "myPrice")
 	public void setMyPrice(Integer price) {
 		myPrice = price;
 	}
@@ -162,6 +172,10 @@ public class Tower extends Sprite implements Shootable{
 		mySpriteInfo.put("Firing Rate", myFireRate.toString());
 		mySpriteInfo.put("Price", myPrice.toString());
 		mySpriteInfo.put("Health Damage", myProjectile.getEffect().getHealthDamage().toString());
-	}
 
+	}
+	
+	public void setRotationSpeed (double rotationSpeed){
+		myRotationSpeed = rotationSpeed;
+	}
 }

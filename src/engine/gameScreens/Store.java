@@ -1,5 +1,10 @@
 package engine.gameScreens;
 
+import interfaces.MethodAnnotation;
+import interfaces.TypeAnnotation;
+
+import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,14 +21,36 @@ public class Store extends GameObject {
 	public Store(){
 		
 	}
-	
+		
 	public Store(Map<Tower, Integer> towersOnSale, String backgroundImagePath){
 		myTowersOnSale = towersOnSale;
 		myBackgroundImagePath = backgroundImagePath;
 	}
 
+	public void setTowersOnSale(HashMap<Tower, Integer> towerOnSaleMap){
+		myTowersOnSale = towerOnSaleMap;
+	}
+	
 	public Set<Tower> getTowersOnSale(){
 		return myTowersOnSale.keySet();
+	}
+	
+	@MethodAnnotation(editor=true, name="Set Towers and Prices", type="multiselect", fieldName="myTowersOnSale")
+	@TypeAnnotation(type="Tower")
+	public void setTowersOnSale(List<Tower> towers) {
+		for (Tower tower : towers) {
+			myTowersOnSale.put(tower, tower.getPrice());
+		}
+	}
+	
+	@MethodAnnotation(editor=true, name="Set Background Image", type="imageselect", fieldName="myBackgroundImagePath")
+	public void setBackgroundImage(String image) {
+		myBackgroundImagePath = image;
+	}
+	
+	@MethodAnnotation(editor=true, name="Set Sell Percentage", type="textfield", fieldName="mySellPercentage")
+	public void setSellPercentage(int sellpercent) {
+		mySellPercentage = sellpercent;
 	}
 	
 	public Tower getTowerFromName(String ID){
@@ -31,12 +58,14 @@ public class Store extends GameObject {
 		// TODO make this CLONE the object instead of returning the same instance
 	}
 	
-	/**
-	 * Gets the tower cost.
-	 *
-	 * @param tower the tower
-	 * @return the tower cost
-	 */
+	public void setBackgroundImagePath(String imagePath){
+		myBackgroundImagePath = imagePath;
+	}
+	
+	public void setSellPercentage(Integer sellPercentage){
+		mySellPercentage = sellPercentage;
+	}
+	
 	public Integer getTowerCost(Tower tower){
 		return myTowersOnSale.get(tower);
 	}

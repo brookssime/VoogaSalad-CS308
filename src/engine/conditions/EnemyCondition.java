@@ -1,19 +1,22 @@
 package engine.conditions;
 
-import engine.Grid;
-import engine.GridManager;
 import engine.NodeState;
-import engine.gameScreens.Store;
+import engine.gameScreens.LevelNode;
 
 public class EnemyCondition extends Condition{
 
-	public EnemyCondition(Grid grid, GridManager gridManager, Store store) {
-		super(null);
+	public EnemyCondition() {
+		super();
 	}
 
 	@Override
-	public NodeState evaluate() {
-		return NodeState.RUNNING;
+	public NodeState evaluate(LevelNode levelNode) {
+		if(levelNode.getGrid().getWaves().isEmpty()){
+			return NodeState.ENEMIES_DEAD;
+		}
+		else{
+			return NodeState.RUNNING;
+		}
 	}
 
 }

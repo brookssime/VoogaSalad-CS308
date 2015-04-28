@@ -5,14 +5,14 @@ import engine.gameScreens.LevelNode;
 
 public class HealthCondition extends Condition{
 
-	public HealthCondition(LevelNode levelNode) {
-		super(levelNode);
+	public HealthCondition() {
+		super();
 	}
 	
 
 	@Override
-	public NodeState evaluate() {
-		if(myLevelNode.getGrid().getBaseHealth()==0){
+	public NodeState evaluate(LevelNode levelNode) {
+		if(levelNode.getGrid().getBaseHealth()==0){
 			return NodeState.BASE_DEAD;
 		}
 		else{

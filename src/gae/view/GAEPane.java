@@ -30,7 +30,7 @@ public abstract class GAEPane implements Menuable {
 	protected MenuAdder myMenuAdder;
 
 	/** The my configs. */
-	private final ResourceBundle myConfigs;
+	protected static ResourceBundle myConfigs;
 
 	/**
 	 * Instantiates a new GAE pane.

@@ -1,6 +1,10 @@
 
 package engine.sprites;
 
+import interfaces.Collidable;
+import interfaces.MethodAnnotation;
+
+import java.awt.Shape;
 import java.awt.Point;
 
 import interfaces.Collidable;
@@ -13,14 +17,24 @@ public class Base extends Sprite implements Collidable{
 	private int myCollisionWidth;
 	private Point myLocation;
 	
+	public Base() {
+		
+	}
+	
 	public Base(String imageString, Integer health){
 		myImagePath = imageString;
 		myHealth = health;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Health", type = "textfield", fieldName = "myHealth")
 	public void setHealth(int health){
 		myHealth = health;
 	}
+	
+//	@MethodAnnotation(editor=true, name = "Set Radius", type = "textfield", fieldName = "myRadius")
+//	public void setRadius(int radius){
+//		myRadius = radius;
+//	}
 	
 	public int getHealth(){
 		return myHealth;
@@ -56,11 +70,13 @@ public class Base extends Sprite implements Collidable{
 	}
 
 	@Override
+	@MethodAnnotation(editor=true, name = "Set Collision Height", type = "textfield", fieldName = "myCollisionHeight")
 	public void setCollisionHeight(Integer height) {
 		myCollisionHeight = height;
 	}
 
 	@Override
+	@MethodAnnotation(editor=true, name = "Set Collision Width", type = "textfield", fieldName = "myCollisionWidth")
 	public void setCollisionWidth(Integer width) {
 		myCollisionWidth = width;	
 	}
@@ -81,6 +97,10 @@ public class Base extends Sprite implements Collidable{
 	
 	public void setLocation(Point location){
 		myLocation = location;
+	}
+	
+	public void setHealth(Integer health){
+		myHealth = health;
 	}
 	
 }

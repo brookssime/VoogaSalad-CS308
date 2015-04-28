@@ -1,4 +1,4 @@
-package gae.editorComponents;
+package gae.view.editorpane.editorComponents;
 
 import interfaces.MethodAnnotation;
 
@@ -20,7 +20,6 @@ public abstract class EditorComponent extends VBox {
 	protected String myFieldName;
 	protected Receiver myReceiver;
 	protected Object myFetchedValue;
-
 	protected String myObject;
 
 	public EditorComponent(Receiver receiver, Method method, String objectName) {
