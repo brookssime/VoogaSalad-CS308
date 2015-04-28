@@ -91,7 +91,7 @@ public class Model implements Receiver {
 		try {
 			XMLWriter.SaveGameData(myInventory);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Failed to save Inventory: "+e);
 		}
 	}
 
@@ -101,7 +101,7 @@ public class Model implements Receiver {
 		try {
 			XMLWriter.SaveGameData(object);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Failed to save Game");
 		}
 	}
 
