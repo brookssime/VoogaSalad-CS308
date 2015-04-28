@@ -25,8 +25,8 @@ public class GridCell{
 	private ImageView image;
 	private StackPane myPane;
 	private TowerOption toweroption;
-	private boolean dropable;
-	private String spriteID;
+	private boolean droppable;
+	private String spriteID;  //the spriteID of tower which is on this cell
 	private boolean showOption;
 	private LevelManager myManager;
 	private Tile myTile;
@@ -36,16 +36,19 @@ public class GridCell{
 		
 		
 	}
-	public GridCell(Image im, Tile tile, int r, int c){
+	public GridCell( Tile tile, int r, int c){
 		myTile = tile;
-		image = new ImageView(im);
-		dropable = false;
+		image = new ImageView(tile.getImagePath());
+		droppable = false;
 		showOption  =false;
 		init();
 		
 	}
-	public getDropList(){
-		myTile.
+	public void setDroppable(String id){
+		if(id.equals(myTile.getName())){
+			droppable = true;
+			
+		}
 	}
 	public void setSize(double width, double height){
 		myPane = new StackPane();
@@ -65,7 +68,7 @@ public class GridCell{
 		
 		image.setOnDragDropped((DragEvent t) -> {
 			 System.out.println("Drage dropped");
-			 if(dropable ==false) return;
+			 if(droppable ==false) return;
 		   Dragboard db = t.getDragboard();
 		   boolean success  = false;
 		   if(db.hasImage()){
@@ -75,7 +78,11 @@ public class GridCell{
 			   showOption = true;
 			   //ColorAdjust adjust = new ColorAdjust();
 			   //adjust.setSaturation(-1.0);
-		   }
+		   } else return;
+		   int range = 100;
+		   if(db.hasUrl()){
+			    range= Integer.parseInt(db.getUrl());
+		   } else return;
 		   if(db.hasString()){
 			   spriteID = db.getString();
 			   Point p = new Point((int) myPane.getLayoutX(),(int) myPane.getLayoutY());
@@ -83,13 +90,18 @@ public class GridCell{
 			   Placement place = new Placement(p);
 			   myManager.placeSprite(spriteID, place);
 			   myManager.purchaseObject(spriteID);
-			   toweroption = new TowerOption(myManager, spriteID, place);
-			   image.setOnMouseClicked((MouseEvent e) ->{
+			   toweroption = new TowerOption(myManager, spriteID, place, range);
+			   image.setOnMouseClicked((MouseEvent x) ->{
 					if(showOption ==false) return;
 					System.out.println("show option");
 					toweroption.setPos(40, -60);
 					toweroption.getCircle().setCenterX(myPane.getScaleX()+40);
 					toweroption.getCircle().setCenterY(myPane.getScaleY()+40);
+					toweroption.setSell(e->{
+						myManager.sellObject(spriteID, place);
+						image.setImage(new Image(myTile.getImagePath()));
+						spriteID = null;
+					});
 					myPane.toFront();
 					if(toweroption.getShown()){
 						toweroption.hide();
@@ -111,7 +123,7 @@ public class GridCell{
 		});
 	}
 	public void setDropable(boolean b) {
-		dropable = b;
+		droppable = b;
 		
 	}
 }

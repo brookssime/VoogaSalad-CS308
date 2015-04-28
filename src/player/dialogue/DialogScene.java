@@ -41,6 +41,13 @@ public class DialogScene implements GraphicGameScene{
 		root.getChildren().add(curr.getDialog());
 		scene = new Scene(root,width, height);
 		buttons = new ArrayList<Button>();
+		scene.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+		    @Override
+		    public void handle(MouseEvent mouseEvent) {
+		        System.out.println("mouse click detected! " + mouseEvent.getSource());
+		        myManager.showNextDialogue();
+		    }
+		});
 	}
 	public Scene getScene(){
 		

@@ -2,6 +2,7 @@ package player.level;
 
 import engine.gameLogic.Placement;
 import player.manager.LevelManager;
+import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -15,19 +16,19 @@ public class TowerOption {
 	boolean isShown;
 	private LevelManager myManager;
 	
-	public TowerOption(LevelManager manager, String spriteID, Placement place){
+	public TowerOption(LevelManager manager, String spriteID, Placement place, int range){
 		myManager = manager;
 		myPane = new Pane();
 		sell = new Option();
-		 circle= new Circle(100,Color.web("green", 0.2));
+		 circle= new Circle(range,Color.web("green", 0.2));
 		 sell.setText("$");
 		myPane.getChildren().add(circle);
 		myPane.getChildren().add(sell.getButton());
 		myPane.setVisible(false);
 		isShown = false;
-		sell.setFunc(e->{
-			myManager.sellObject(spriteID, place);
-		});
+//		sell.setFunc(e->{
+//			myManager.sellObject(spriteID, place);
+//		});
 		myPane.setOnMouseClicked((MouseEvent e) ->{
 			if(myPane.visibleProperty().equals(true)){
 				myPane.setVisible(false);
@@ -39,6 +40,11 @@ public class TowerOption {
 		//circle.centerYProperty().bind(myPane.layoutYProperty());
 		//circle.setCenterX();
 		
+		
+	}
+	
+	public void setSell(EventHandler<? super MouseEvent> value){
+		sell.setFunc(value);
 		
 	}
 	public void setPos(double x, double y){

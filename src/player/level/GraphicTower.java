@@ -69,15 +69,18 @@ public class GraphicTower{
 		currentImage.setFitWidth(IMAGESIZE);
 		//placed =false;
 		 currentImage.setOnDragDetected((MouseEvent event) -> {
-			 //orgSceneX = event.getSceneX();
-	           // orgSceneY = event.getSceneY();
-	            //orgTranslateX = ((ImageView)(event.getSource())).getTranslateX();
-	            //orgTranslateY = ((ImageView)(event.getSource())).getTranslateY();
+			 	//update grid droppable
+			 	for(String id : myTower.getAccessNames()){
+			 		levelinfo.updateDroppable(id);
+			 	}
 	        	if(myTower.getMyPrice()>myLevelInfo.getMoney()) return;
 	            //activate();
 			 	System.out.println("Drage Detected");
 	            Dragboard db = currentImage.startDragAndDrop(TransferMode.MOVE);
+	            
 	            ClipboardContent content = new ClipboardContent();
+	            // input range as url
+	            content.putUrl(Integer.toString( myTower.getRange()));
 	            // Store node ID in order to know what is dragged.
 	            //content.putString(currentImage.getId());
 	            content.putImage(images);

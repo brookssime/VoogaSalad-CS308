@@ -93,7 +93,7 @@ public class GraphicGrid{
 		}
 		for(int row = 0; row < mytiles.length;row ++){
 			for(int col = 0; col < mytiles[0].length;col++){
-				GridCell c= new GridCell(new Image(mytiles[row][col].getImagePath()),row,col);
+				GridCell c= new GridCell(mytiles[row][col],row,col);
 				c.setSize(80*screenWidth/1436, 80*(screenHeight/877));
 				//TODO: need a name for the place on which a tower can be placed
 				if(mytiles[0][0].getName()=="walls"){
@@ -124,7 +124,7 @@ public class GraphicGrid{
 	public void updateDroppable(String spriteID) {
 		// TODO Auto-generated method stub
 		for(GridCell cell : myCells){
-			
+			cell.setDroppable(spriteID);
 		}
 	}
 
