@@ -1,6 +1,7 @@
-package gae.view.editorpane.editorComponents;
+package gae.view.gridEditor;
 
 import gae.model.Receiver;
+import gae.view.editorpane.editorComponents.EditorComponent;
 import interfaces.SpecialEditorAnnotation;
 
 import java.lang.reflect.Method;
@@ -33,7 +34,6 @@ import javafx.stage.Stage;
 
 //TODO: Make small editor things (except for queue)
 //TODO: Make grid editor show up in inventory
-//TODO: Make package for grid editor
 //TODO: Figure out how to get created tiles and sprites
 //TODO: Sprites used are base, port, tower, (tile)
 

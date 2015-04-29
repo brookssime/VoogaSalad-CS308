@@ -1,4 +1,4 @@
-package gae.view.editorpane.editorComponents;
+package gae.view.gridEditor;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
