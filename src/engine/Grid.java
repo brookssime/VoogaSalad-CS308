@@ -20,19 +20,19 @@ public class Grid extends GameObject{
 
 	private int myHeight;
 	private int myWidth;
-	public Tile[][] myTiles;
+	private Tile[][] myTiles;
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;	
 	
 	public Grid(){
-		myTiles = new Tile[myWidth][myHeight];
+		setMyTiles(new Tile[myWidth][myHeight]);
 		myGridManager = new GridManager(this);
 		init();
 	}
 
 	public Grid(Grid grid, GridManager gm){
 		myName = grid.myName;
-		myTiles = grid.myTiles;
+		setMyTiles(grid.getMyTiles());
 		mySpriteMap = grid.mySpriteMap;
 		myGridManager = gm;
 	}
@@ -61,7 +61,7 @@ public class Grid extends GameObject{
 
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Tiles", fieldName="myTiles")
 	public void setTiles(Tile[][] tiles){
-		myTiles = tiles;
+		setMyTiles(tiles);
 		initTiles();
 	}
 	
@@ -92,29 +92,29 @@ public class Grid extends GameObject{
 	/********Helpers********/
 	
 	private void init(){
-		for (int x = 0; x < myTiles.length; x++)
-			for (int y = 0; y < myTiles.length; y++){
-				myTiles[x][y] = new Tile(x, y);
+		for (int x = 0; x < getMyTiles().length; x++)
+			for (int y = 0; y < getMyTiles().length; y++){
+				getMyTiles()[x][y] = new Tile(x, y);
 			}	
 	}
 
 	private void initTiles(){
 		
 		// adjust Tile y locations such that (0,0) is bottom right
-		for (int x = 0; x < myTiles.length; x++)
-			for(int i = 0; i < myTiles[0].length / 2; i++)
+		for (int x = 0; x < getMyTiles().length; x++)
+			for(int i = 0; i < getMyTiles()[0].length / 2; i++)
 			{
-				Tile temp = myTiles[x][i];
-				myTiles[x][i] = myTiles[x][myTiles.length - i - 1];
-				myTiles[x][myTiles.length - i - 1] = temp;
+				Tile temp = getMyTiles()[x][i];
+				getMyTiles()[x][i] = getMyTiles()[x][getMyTiles().length - i - 1];
+				getMyTiles()[x][getMyTiles().length - i - 1] = temp;
 			}
 		
 		
 		// clone Tiles and set their locations
-		for (int x = 0; x < myTiles.length; x++)
-			for (int y = 0; y < myTiles[0].length; y++){
-				myTiles[x][y] = myTiles[x][y].clone();
-				myTiles[x][y].setGridLocation(new Point(x,y));
+		for (int x = 0; x < getMyTiles().length; x++)
+			for (int y = 0; y < getMyTiles()[0].length; y++){
+				getMyTiles()[x][y] = getMyTiles()[x][y].clone();
+				getMyTiles()[x][y].setGridLocation(new Point(x,y));
 			}
 		
 		
@@ -152,7 +152,7 @@ public class Grid extends GameObject{
 					p = mySpriteMap.get(o);	
 		}
 		
-		return myTiles[(int) Math.floor(p.getLocation().getX())][(int) Math.floor(p.getLocation().getY())]; 
+		return getMyTiles()[(int) Math.floor(p.getLocation().getX())][(int) Math.floor(p.getLocation().getY())]; 
 		// REVIEW: this might cause errors because Tile's array location will NOT be related to each object's location
 	}
 
@@ -165,11 +165,11 @@ public class Grid extends GameObject{
 		int[] dy = {0, 0, 1, -1};
 		
 		for (int i = 0; i < dx.length; i++){
-			if(x + dx[i] < myTiles.length && 
+			if(x + dx[i] < getMyTiles().length && 
 					x + dx[i] >= 0 &&
-					y + dy[i] < myTiles[0].length &&
+					y + dy[i] < getMyTiles()[0].length &&
 					y + dy[i] >= 0){
-				Tile temp = (myTiles[x + dx[i]][y + dy[i]]);
+				Tile temp = (getMyTiles()[x + dx[i]][y + dy[i]]);
 				neighbors.add(temp);
 			}
 		}
@@ -186,6 +186,14 @@ public class Grid extends GameObject{
 
 	public Placement getPlacement(Collidable s){
 		return mySpriteMap.get(s);
+	}
+
+	public Tile[][] getMyTiles() {
+		return myTiles;
+	}
+
+	public void setMyTiles(Tile[][] myTiles) {
+		this.myTiles = myTiles;
 	}
 	
 	
