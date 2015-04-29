@@ -37,17 +37,9 @@ public class ButtonEditor {
 	private Visualizer myV;
 
 	public ButtonEditor(IButton editor, Visualizer v) {
-		myV = v;
 		myButton = new NodeButton();
-		myEditor = editor;
-	}
-
-	//if we are editing an existing button
-	public ButtonEditor(IButton editor, NodeButton button, Visualizer v){
 		myV = v;
 		myEditor = editor;
-		myButton = button;
-		//GameButton has all the information, should also have have new information
 	}
 
 	public void setUpEditor() {
@@ -131,8 +123,8 @@ public class ButtonEditor {
 			Point p = new Point();
 			p.setLocation(Double.parseDouble(xPos.getText()), 
 					Double.parseDouble(yPos.getText()));
-			myButton.setLocation(p);
 			
+			myButton.setLocation(p);
 			myButton.setScale(scaleSlider.getValue());
 			myButton.setInfo(buttonText.getText());
 			myEditor.addButton(myButton);

@@ -1,10 +1,12 @@
 package engine.gameScreens;
 
-import java.awt.Point;
-import java.util.List;
-
 import interfaces.MethodAnnotation;
 import interfaces.SpecialEditorAnnotation;
+
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+
 import engine.NodeState;
 
 public class TitleScene extends GameNode {
@@ -65,7 +67,7 @@ public class TitleScene extends GameNode {
 	}
 	
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Buttons", fieldName="myButtons")
-	public void setButtons(List<NodeButton> buttons) {
+	public void setButtons(ArrayList<NodeButton> buttons) {
 		myButtons = buttons;
 	}
 }

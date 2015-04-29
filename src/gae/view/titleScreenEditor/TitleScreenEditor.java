@@ -86,6 +86,7 @@ public class TitleScreenEditor extends EditorComponent implements IButton{
 		Button save = new Button("Save");
 		save.setOnAction(e -> {
 			p.setLocation(Double.parseDouble(myXPos.getText()), Double.parseDouble(myYPos.getText()));
+			System.out.println(myButtonList);
 			myReceiver.runOnObject(myObject, getMethod("Set Buttons"), myButtonList);
 			myReceiver.runOnObject(myObject, getMethod("Set Title Text"), myTitle.getText());
 			myReceiver.runOnObject(myObject, getMethod("Set Title Position"), p.x, p.y);
@@ -154,10 +155,6 @@ public class TitleScreenEditor extends EditorComponent implements IButton{
 			}
 		}
 		return null;
-	}
-	
-	public ArrayList<NodeButton> getButtons(){
-		return myButtonList;
 	}
 
 	@Override

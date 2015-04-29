@@ -15,6 +15,7 @@ public class NodeButton extends GameObject {
 	public String myStyle;
 
 	public NodeButton() {
+		super();
 		myStyle = DEFAULT_CSS;
 	}
 
@@ -32,6 +33,7 @@ public class NodeButton extends GameObject {
 
 	public void setInfo(String info) {
 		this.myInfo = info;
+		this.myName = info;
 	}
 
 	public String getTarget() {
@@ -70,14 +72,4 @@ public class NodeButton extends GameObject {
 		return DEFAULT_CSS;
 	}
 	
-	@Override
-	public boolean equals(Object obj){
-		NodeButton button = (NodeButton) obj;
-		if(this.getInfo().equals(button.getInfo()) && this.getScale() ==(button.getScale()) 
-				&& this.getLocation().equals(button.getLocation())){
-			return true;
-		}
-		else return false;
-		
-	}
 }

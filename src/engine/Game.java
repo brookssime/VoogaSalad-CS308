@@ -30,7 +30,8 @@ public class Game extends GameObject {
 	private GameNode myCur;
 	
 	public Game() {
-		
+		myAdjacencyList = new HashMap<GameNode, Map<NodeState, GameNode>>();
+		myIDMap = new HashMap<String, GameNode>();
 	}
 
 	public Game(GameNode head) {
@@ -115,10 +116,14 @@ public class Game extends GameObject {
 
 	private void setAdjacencyList(){
 		if(myCur != null && myMap != null){
+			if(myAdjacencyList == null){
+				System.out.println("wtf");
+			}
 			myAdjacencyList.put(myCur, myMap);
 			myCur = null;
 			myMap = null;
 		}
+		System.out.println(myAdjacencyList);
 	}
 	
 	public void setIDMap(Map<String, GameNode> idMap){

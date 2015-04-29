@@ -83,7 +83,7 @@ public class ConditionNode extends GameNode{
 		List<String> titleScreens = new ArrayList<>();
 		titleScreens.addAll(myReceiver.getList("TitleScene"));
 		
-		buttonTitledPane(sceneSelect, accept, selectionBox, accordion,
+		buttonTitledPane(sceneSelect, selectionBox, accordion,
 				titleScreens);
 		
 		sceneSelect.setScene(new Scene(accordion));
@@ -98,7 +98,7 @@ public class ConditionNode extends GameNode{
 	 * @param accordion
 	 * @param titleScreens
 	 */
-	private void buttonTitledPane(Stage sceneSelect, Button accept,
+	private void buttonTitledPane(Stage sceneSelect,
 			VBox selectionBox, Accordion accordion, List<String> titleScreens) {
 		
 		for(String titleScreen: titleScreens){
@@ -108,13 +108,16 @@ public class ConditionNode extends GameNode{
 			ListView<String> buttonSelection = new ListView<>(); 
 			ObservableList<String> data2 = FXCollections.observableArrayList();
 			ArrayList<NodeButton> buttons = (ArrayList<NodeButton>) myReceiver.getButtonList(titleScreen);
-			for(NodeButton b: buttons){
-				data2.add(b.myInfo);
+			if(buttons != null){
+				for(NodeButton b: buttons){
+					data2.add(b.myInfo);
+				}
 			}
+			buttonSelection.setItems(data2);
 			accordion.getPanes().add(titleScreenPane);
 			
 			Button buttonAccept = new Button("Accept");
-			accept.setOnAction(e -> {
+			buttonAccept.setOnAction(e -> {
 				isButton = true;
 				//bind text of selection to game node
 				bindText(buttonSelection.getSelectionModel().getSelectedItem(), 
