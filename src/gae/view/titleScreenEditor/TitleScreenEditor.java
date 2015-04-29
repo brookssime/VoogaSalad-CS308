@@ -1,5 +1,11 @@
 package gae.view.titleScreenEditor;
 
+import engine.gameScreens.NodeButton;
+import gae.model.Receiver;
+import gae.view.editorpane.editorComponents.EditorComponent;
+import interfaces.SpecialEditorAnnotation;
+
+import java.awt.Point;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
@@ -12,12 +18,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import engine.gameScreens.NodeButton;
-import gae.model.Receiver;
-import gae.view.editorpane.editorComponents.EditorComponent;
 
 
 /**
@@ -38,6 +42,11 @@ public class TitleScreenEditor extends EditorComponent implements IButton{
 	private Visualizer v;
 	private VBox myComponents;
 	private ArrayList<NodeButton> myButtonList;
+	private ArrayList<Method> mySpecialMethods;
+	private TextField myTitle;
+	private TextInputControl myXPos;
+	private TextField myYPos;
+	private TextField myCSS;
 	
 
 	public TitleScreenEditor(Receiver receiver, Method setMethod, String objectName) {
@@ -71,9 +80,16 @@ public class TitleScreenEditor extends EditorComponent implements IButton{
 			buttonEditor.setUpEditor();
 		});
 		
+		Button selectButton = new Button("Select Background Image");
+
+		Point p = new Point();
 		Button save = new Button("Save");
 		save.setOnAction(e -> {
-			//export fields via setters to title screen
+			p.setLocation(Double.parseDouble(myXPos.getText()), Double.parseDouble(myYPos.getText()));
+			myReceiver.runOnObject(myObject, getMethod("Set Buttons"), myButtonList);
+			myReceiver.runOnObject(myObject, getMethod("Set Title Text"), myTitle.getText());
+			myReceiver.runOnObject(myObject, getMethod("Set Title Position"), p.x, p.y);
+			myReceiver.runOnObject(myObject, getMethod("Set Title Style"), myCSS.getText());
 		});
 		
 		myComponents.getChildren().addAll(titlePane, addButton, buttonPane, save);
@@ -83,23 +99,23 @@ public class TitleScreenEditor extends EditorComponent implements IButton{
 	private Node addTitle(){
 		VBox temp = new VBox();
 		
-		TextField title = new TextField();
-		title.setPromptText("Name");
+		myTitle = new TextField();
+		myTitle.setPromptText("Name");
 		
 		HBox loc = new HBox();
-		TextField xPos = new TextField();
-		xPos.setPromptText("X Location");
-		TextField yPos = new TextField();
-		yPos.setPromptText("Y Location");
-		loc.getChildren().addAll(xPos, yPos);
+		myXPos = new TextField();
+		myXPos.setPromptText("X Location");
+		myYPos = new TextField();
+		myYPos.setPromptText("Y Location");
+		loc.getChildren().addAll(myXPos, myYPos);
 		
-		TextField css = new TextField();
-		css.setPromptText("Add CSS Styling");
+		myCSS = new TextField();
+		myCSS.setPromptText("Add CSS Styling");
 		
-		v.setTextProperties(xPos.textProperty(), 
-				yPos.textProperty(), title.textProperty(), css.textProperty());
+		v.setTextProperties(myXPos.textProperty(), 
+				myYPos.textProperty(), myTitle.textProperty(), myCSS.textProperty());
 		
-		temp.getChildren().addAll(title, loc, css);
+		temp.getChildren().addAll(myTitle, loc, myCSS);
 		return temp;
 		
 	}
@@ -128,7 +144,18 @@ public class TitleScreenEditor extends EditorComponent implements IButton{
 		return l;
 		
 	}
-
+	
+	private Method getMethod(String name){
+		for(Method method : mySpecialMethods){
+			SpecialEditorAnnotation specialAnnotation = method
+					.getAnnotation(SpecialEditorAnnotation.class);
+			if(specialAnnotation.name().equals(name)){
+				return method;
+			}
+		}
+		return null;
+	}
+	
 	public ArrayList<NodeButton> getButtons(){
 		return myButtonList;
 	}
@@ -138,6 +165,11 @@ public class TitleScreenEditor extends EditorComponent implements IButton{
 		myButtonList = new ArrayList<>();
 		myWholeEditor = new HBox();
 		v = new Visualizer();
+		
+		mySpecialMethods = new ArrayList<>(myReceiver.getSpecialEditorMethods(myObject));
+		
+		
+		
 		myWholeEditor.getChildren().addAll(setUpRootProperties(), setVisualizerProperties());
 		this.getChildren().add(myWholeEditor);
 	}

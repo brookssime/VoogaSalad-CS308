@@ -43,7 +43,7 @@ public class TitleScene extends GameNode {
 		return myButtons;
 	}
 
-	@SpecialEditorAnnotation(specialeditor=true, name="Set Background Image", fieldName="myBackgroundPicturePath")
+	@MethodAnnotation(editor=true, name = "Select Image", type = "imageselect", fieldName = "myImagePath")
 	public void setBackgroundPicturePath(String path) {
 		myBackgroundPicturePath = path;
 	}
