@@ -1,6 +1,7 @@
 package gae.view.editorpane.editorComponents;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -9,13 +10,23 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-//TODO: Fix grid position
 public class TestEditor extends Application {
 	private int myWidth;
 	private int myHeight;
@@ -49,14 +60,21 @@ public class TestEditor extends Application {
                     	gridStage.setTitle("Make your grid");
                     	Group gridGroup = new Group();
                     	Scene gridScene = new Scene(gridGroup, myHeight*10, myWidth*10);
-                    	//makeGrid(gridScene);
-                    	gridGroup.getChildren().add(borderPane(gridScene));
+                    	if(myHeight<50){
+                    		gridStage.setHeight(500);
+                    	}
+                    	if(myWidth<50){
+                    		gridStage.setWidth(500);
+                    	}
+                    	gridGroup.getChildren().add(paneForGrid(gridScene));
                     	gridStage.setScene(gridScene);
                     	gridStage.show();
                     	System.out.println("Grid Created");
                     	
                     }
                 });
+		Button waves = new Button("Make Wave Queue");
+		//TODO: make wave queue stage
 		
         //NON-EDITOR CODE
 		root.getChildren().add(mainPane);
@@ -70,33 +88,48 @@ public class TestEditor extends Application {
 		return single.root();
 	}
 
-    private Node borderPane(Scene s){
+    private Node paneForGrid(Scene s){//TODO: Use 2 grids for sprites vs tiles
     	TabPane tabPane = new TabPane();
-    	BorderPane borderPane = new BorderPane();
+    	ScrollPane scrollPane = new ScrollPane();
+    	ScrollPane scrollPane2 = new ScrollPane();
+    	BorderPane bp1 = new BorderPane();
+    	BorderPane bp2 = new BorderPane(); 
     	
         Tab tiles = new Tab("Tiles");
         tiles.setClosable(false);
         makeGrid(s);
-        tiles.setContent(myGrid);
+        Button tileDone = gridDone();
+        tileDone.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(final ActionEvent e) {
+                    	System.out.println("Tiles Done ");
+                    	//TODO: Iterate through the grid
+                    }
+                });
+        bp1.setTop(tileDone);
+        scrollPane.setContent(myGrid);
+        bp1.setCenter(scrollPane);
+        tiles.setContent(bp1);
         tabPane.getTabs().add(tiles);
         
         Tab sprites = new Tab("Sprites");
         sprites.setClosable(false);
         makeGrid(s);
-        sprites.setContent(myGrid);
+        scrollPane2.setContent(myGrid);
+        sprites.setContent(scrollPane2);
         tabPane.getTabs().add(sprites);
-       
-        borderPane.prefHeightProperty().bind(s.heightProperty());
-        borderPane.prefWidthProperty().bind(s.widthProperty());
-        borderPane.setCenter(tabPane);
-        return borderPane;
+        
+        tabPane.prefHeightProperty().bind(s.heightProperty());
+        tabPane.prefWidthProperty().bind(s.widthProperty());
+        //tabPane.setContent();
+        return tabPane;
     }
     
 	private void makeGrid(Scene s){
     	myGrid = new GridPane();
     	myGrid.prefHeightProperty().bind(s.heightProperty());
     	myGrid.prefWidthProperty().bind(s.widthProperty());
-    	myGrid.setGridLinesVisible(true);
     	myGrid.setAlignment(Pos.CENTER);
     	myGrid.setPadding(new Insets(5));
     	
@@ -139,6 +172,11 @@ public class TestEditor extends Application {
                     }
                 });
     	return text.box();
+    }
+    
+    private Button gridDone(){
+    	Button done = new Button("Grid Done");
+    	return done;
     }
     
     

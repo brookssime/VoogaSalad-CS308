@@ -2,6 +2,7 @@ package gae.view.titleScreenEditor;
 
 import java.awt.Point;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -33,17 +34,12 @@ public class ButtonEditor {
 	private static final int MINOR_TICK_COUNT = 4;
 	private NodeButton myButton;
 	private IButton myEditor;
+	private Visualizer myV;
 
-	public ButtonEditor(IButton editor) {
+	public ButtonEditor(IButton editor, Visualizer v) {
 		myButton = new NodeButton();
+		myV = v;
 		myEditor = editor;
-	}
-
-	//if we are editing an existing button
-	public ButtonEditor(IButton editor, NodeButton button){
-		myEditor = editor;
-		myButton = button;
-		//GameButton has all the information, should also have have new information
 	}
 
 	public void setUpEditor() {
@@ -78,15 +74,7 @@ public class ButtonEditor {
 
 		// HBox with Text and Slider
 		HBox sliderBox = new HBox(HBOX_SPACING);
-		Slider scaleSlider = new Slider();
-		scaleSlider.setMin(SCALE_SLIDER_MIN);
-		scaleSlider.setMax(SCALE_SLIDER_MAX);
-		scaleSlider.setMajorTickUnit(SCALE_SLIDER_MAJOR_TICK);
-		scaleSlider.setMinorTickCount(MINOR_TICK_COUNT);
-		scaleSlider.setShowTickLabels(true);
-		scaleSlider.setShowTickMarks(true);
-		scaleSlider.setPrefWidth(300);
-		scaleSlider.setValue(myButton.getScale());
+		Slider scaleSlider = createScaleSlider();
 		sliderBox.getChildren().addAll(new Text("Scale: "), scaleSlider);
 
 		// Textfield for Text on button
@@ -120,8 +108,11 @@ public class ButtonEditor {
 		xPos.setPromptText("X Location");
 		TextField yPos = new TextField();
 		yPos.setPromptText("Y Location");
-		pos.getChildren().addAll(xPos, yPos);
+		TextField css = new TextField();
+		css.setPromptText("Set CSS for Button");
+		pos.getChildren().addAll(xPos, yPos, css);
 		location.getChildren().addAll(pos);
+		
 
 		// Return button
 		HBox returnButtons = new HBox(HBOX_SPACING);
@@ -132,8 +123,8 @@ public class ButtonEditor {
 			Point p = new Point();
 			p.setLocation(Double.parseDouble(xPos.getText()), 
 					Double.parseDouble(yPos.getText()));
-			myButton.setLocation(p);
 			
+			myButton.setLocation(p);
 			myButton.setScale(scaleSlider.getValue());
 			myButton.setInfo(buttonText.getText());
 			myEditor.addButton(myButton);
@@ -148,11 +139,28 @@ public class ButtonEditor {
 		});
 
 		returnButtons.getChildren().addAll(accept, quit);
-
+		
+		myV.setButtonProperties(buttonText.textProperty(),
+				css.getText().equals("") ? new SimpleStringProperty(BUTTON_CSS) : css.styleProperty(), 
+						scaleSlider.valueProperty(), xPos.textProperty(), yPos.textProperty());
+		
 		// Add overall features to ButtonEditor Scene
 		buttonEditor.getChildren().addAll(stackTitle, new Separator(),
 				buttonSettings, new Separator(), location, returnButtons);
 		return buttonEditor;
+	}
+
+	private Slider createScaleSlider() {
+		Slider scaleSlider = new Slider();
+		scaleSlider.setMin(SCALE_SLIDER_MIN);
+		scaleSlider.setMax(SCALE_SLIDER_MAX);
+		scaleSlider.setMajorTickUnit(SCALE_SLIDER_MAJOR_TICK);
+		scaleSlider.setMinorTickCount(MINOR_TICK_COUNT);
+		scaleSlider.setShowTickLabels(true);
+		scaleSlider.setShowTickMarks(true);
+		scaleSlider.setPrefWidth(300);
+		scaleSlider.setValue(myButton.getScale());
+		return scaleSlider;
 	}
 
 }

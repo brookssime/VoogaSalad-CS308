@@ -15,6 +15,7 @@ public class NodeButton extends GameObject {
 	public String myStyle;
 
 	public NodeButton() {
+		super();
 		myStyle = DEFAULT_CSS;
 	}
 
@@ -32,6 +33,7 @@ public class NodeButton extends GameObject {
 
 	public void setInfo(String info) {
 		this.myInfo = info;
+		this.myName = info;
 	}
 
 	public String getTarget() {
@@ -69,4 +71,5 @@ public class NodeButton extends GameObject {
 	public String getDefaultStyle() {
 		return DEFAULT_CSS;
 	}
+	
 }

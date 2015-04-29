@@ -20,7 +20,9 @@ public class EditorComponentFactory {
 			return (new QueueEditor(receiver, setMethod, objName));
 		} else if (editorType.equalsIgnoreCase("gameeditor")){
 			return (new GameEditor(receiver, setMethod, objName));
-		} else if (editorType.equalsIgnoreCase("titlescreeneditor")){
+		} else if (editorType.equalsIgnoreCase("grid")){
+			return (new GridEditor(receiver, setMethod, objName));
+		} else if (editorType.equalsIgnoreCase("titlescene")){
 			return (new TitleScreenEditor(receiver, setMethod, objName));
 		} else if (editorType.equalsIgnoreCase("multiselect")) {
 			return (new MultipleSelectEditor(receiver, setMethod, objName));

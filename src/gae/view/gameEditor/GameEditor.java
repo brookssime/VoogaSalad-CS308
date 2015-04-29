@@ -4,6 +4,7 @@ import engine.NodeState;
 import engine.gameScreens.NodeButton;
 import gae.model.Receiver;
 import gae.view.editorpane.editorComponents.EditorComponent;
+import interfaces.SpecialEditorAnnotation;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -94,6 +95,7 @@ public class GameEditor extends EditorComponent{
 				}
 				for(GameNode condition: node.getChildren()){
 					if(!condition.isButton()){
+						System.out.println(condition.toString());
 						NodeState e = NodeState.valueOf(condition.toString());
 						String n = condition.getChildren() == null ? 
 								null : condition.getChildren().get(0).toString();
@@ -109,6 +111,7 @@ public class GameEditor extends EditorComponent{
 					
 				}
 				//add current node to map
+				System.out.println(node.toString());
 				myReceiver.runOnObject(myObject, getMethod("addReference"), node.toString());
 				myReceiver.runOnObjectSwap(myObject, getMethod("addCurNode"), node.toString());
 			}
@@ -118,7 +121,9 @@ public class GameEditor extends EditorComponent{
 	
 	private Method getMethod(String name){
 		for(Method method : mySpecialMethods){
-			if(method.getName().equals(name)){
+			SpecialEditorAnnotation specialAnnotation = method
+					.getAnnotation(SpecialEditorAnnotation.class);
+			if(specialAnnotation.name().equals(name)){
 				return method;
 			}
 		}
@@ -126,7 +131,7 @@ public class GameEditor extends EditorComponent{
 	}
 	
 	private NodeButton fetchButton(GameNode condition) {
-		Set<String> titleScreens = myReceiver.getList("titleScene");
+		Set<String> titleScreens = myReceiver.getList("TitleScene");
 		for(String titleScene : titleScreens){
 			for(NodeButton button : myReceiver.getButtonList(titleScene)){
 				if(button.getInfo().equals(condition.toString())){

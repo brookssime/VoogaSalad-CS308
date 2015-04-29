@@ -1,6 +1,10 @@
 package engine.gameScreens;
 
+import interfaces.MethodAnnotation;
+import interfaces.SpecialEditorAnnotation;
+
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 
 import player.manager.PlayerManager;
@@ -44,7 +48,7 @@ public class TitleScene extends GameNode {
 		return myButtons;
 	}
 
-	@SpecialEditorAnnotation(specialeditor=true, name="Set Background Image", fieldName="myBackgroundPicturePath")
+	@MethodAnnotation(editor=true, name = "Select Image", type = "imageselect", fieldName = "myImagePath")
 	public void setBackgroundPicturePath(String path) {
 		myBackgroundPicturePath = path;
 	}
@@ -66,7 +70,7 @@ public class TitleScene extends GameNode {
 	}
 	
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Buttons", fieldName="myButtons")
-	public void setButtons(List<NodeButton> buttons) {
+	public void setButtons(ArrayList<NodeButton> buttons) {
 		myButtons = buttons;
 	}
 }
