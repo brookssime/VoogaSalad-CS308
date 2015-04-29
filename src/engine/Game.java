@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import player.manager.PlayerManager;
 import engine.gameLogic.GameObject;
 import engine.gameScreens.GameNode;
 import engine.gameScreens.LevelNode;
@@ -16,11 +17,12 @@ import engine.gameScreens.Store;
 
 public class Game extends GameObject {
 	
-	private GameNode myStartNode;
 	private GameNode myCurNode;
 	private Store myStore;
 	private Map<GameNode, Map<NodeState, GameNode>> myAdjacencyList;
 	private Map<String, GameNode> myIDMap;
+    
+	private PlayerManager myPlayerManager;
 	
 	//used for constructing the adjacency list, all index based. 
 	private String myReference;
@@ -35,7 +37,7 @@ public class Game extends GameObject {
 	}
 
 	public Game(GameNode head) {
-		myStartNode = head;
+		myCurNode = head;
 		myAdjacencyList = new HashMap<GameNode, Map<NodeState, GameNode>>();
 		myIDMap = new HashMap<String, GameNode>();
 		addStoreToLevel();
@@ -109,6 +111,11 @@ public class Game extends GameObject {
 	public void fakeMethod() {
 		return;
 	}
+	
+	// To be called by Player
+	public void setPlayerManager(PlayerManager playerManager){
+		myPlayerManager = playerManager;
+	}
 
 	public GameNode getCurNode() {
 		return myCurNode;
@@ -132,22 +139,20 @@ public class Game extends GameObject {
 	
 	public void advanceNode(NodeState state) {
 		myCurNode = myAdjacencyList.get(myCurNode).get(state);
-		myCurNode.render();
+		myCurNode.refreshNodeButtons(null);
+		myCurNode.render(myPlayerManager);
 	}
 
 	public void goToNode(String nodeID) {
 		myCurNode = myIDMap.get(nodeID);
-		myCurNode.render();
+		myCurNode.render(myPlayerManager);
 	}
 
 	@SpecialEditorAnnotation(specialeditor=true, name = "setHead", fieldName = "myStartNode")
 	public void setHead(GameNode head) {
-		myStartNode = head;
+		myCurNode = head;
 	}
 
-	public GameNode getHead() {
-		return myStartNode;
-	}
 
 	public void update(){
 		myCurNode.update();
@@ -155,13 +160,13 @@ public class Game extends GameObject {
 			advanceNode(myCurNode.checkState());
 		}
 		else{
-			myCurNode.render();
+			myCurNode.render(myPlayerManager);
 		}
 	}
 	// TODO: Check back on this
 	public void addStoreToLevel() {
-		if (myStartNode instanceof LevelNode) {
-			((LevelNode) myStartNode).setStore(myStore);
+		if (myCurNode instanceof LevelNode) {
+			((LevelNode) myCurNode).setStore(myStore);
 		}
 	}
 

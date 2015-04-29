@@ -39,7 +39,6 @@ public abstract class EditorComponent extends VBox {
 			try {
 				myFetchedValue = myReceiver.getFromObject(myObject, myFieldName);
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 			}
 		} catch (IllegalArgumentException | IllegalAccessException
 				| NoSuchFieldException | SecurityException e1) {

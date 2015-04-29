@@ -32,9 +32,10 @@ public class SampleGameMain {
 		
 		//GAMESTATS?
 		
-		Grid grid = new Grid(5, 5);
+		//no constructor for Gird(int,int)
+		//Grid grid = new Grid(5, 5);
 
-		
+		Grid grid = new Grid();
 		ProjectileEffect effect = new ProjectileEffect();
 		effect.setHealthDamage(10);
 		effect.setHealthFrequency(0.0);
@@ -105,7 +106,7 @@ public class SampleGameMain {
 		}
 
 		// test if t2 is now t1
-		System.out.println(g2.getHead().getName());
+		//System.out.println(g2.getHead().getName());
 	}
 	
 }

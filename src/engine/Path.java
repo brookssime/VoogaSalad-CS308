@@ -24,7 +24,7 @@ public class Path {
 	}
 	
 	public void elongate(){ // add the last, such that the path is never empty
-		myMovements.getLast().append(myMovements.getLast().getLast());
+		myMovements.getLast().elongate();
 	}
 	
 	public Integer size(){
