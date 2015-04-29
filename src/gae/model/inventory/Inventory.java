@@ -73,6 +73,8 @@ public class Inventory {
 	public void addObject(String type, String location) {
 		ObservableMap<String, GameObject> map = myMaps.get(type);
 		// TODO only addes engine.sprites classes. needs to expand.
+		System.out.println("engine."
+				+ location + type);
 		GameObject newThing = (GameObject) Reflection.createInstance("engine."
 				+ location + type);
 		String newName = "New" + type;

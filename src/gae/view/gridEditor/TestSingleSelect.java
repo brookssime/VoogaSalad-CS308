@@ -1,4 +1,4 @@
-package gae.view.editorpane.editorComponents;
+package gae.view.gridEditor;
 
 import gae.view.editorpane.ComponentsDialog;
 import javafx.scene.Node;

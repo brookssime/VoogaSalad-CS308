@@ -1,4 +1,4 @@
-package gae.view.editorpane.editorComponents;
+package gae.view.gridEditor;
 
 import java.awt.Dialog;
 import java.awt.FlowLayout;

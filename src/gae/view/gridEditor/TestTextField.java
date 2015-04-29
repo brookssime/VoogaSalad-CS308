@@ -1,7 +1,7 @@
 /*
  * 
  */
-package gae.view.editorpane.editorComponents;
+package gae.view.gridEditor;
 
 import interfaces.ParameterAnnotation;
 
