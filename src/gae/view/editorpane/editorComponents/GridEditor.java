@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 /**
  * Grid Editor
  * Special editor that uses the editor components
- * Editor compoents used: 
+ * Editor components used: 
  * 		single selector (for tiles -> path vs nature; for sprites)
  * 		text field (for width and height)
  * 		toggle button (for placing tiles vs sprites)
@@ -20,6 +20,10 @@ import java.lang.reflect.Method;
 
 
 //TODO: set up queue editor for waves
+//TODO: Make grid fit in scene
+//TODO: Implement with editor components
+//TODO: Return the correct info
+//TODO: Change content of each tab to sprite or tile
 public class GridEditor extends EditorComponent{
 	
 	public GridEditor(Receiver receiver, Method method, String objectName) {
