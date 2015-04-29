@@ -13,7 +13,7 @@ public class TestSingleSelect {
 	public void setUpEditor(){
 		root = new HBox(5);
 		//Label selectText = new Label("Select Object");
-		open = new Button("O");
+		open = new Button("X");
 		open.setOnAction(e -> {
 			TestDialog dialog = new TestDialog("type");
 			String ret = dialog.getElement();
