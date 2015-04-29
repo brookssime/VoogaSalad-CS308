@@ -41,7 +41,6 @@ import reflection.Reflection;
 public class GameEditor extends EditorComponent{
 	
 	private static final int CHOICE_SPACING = 10;
-	private Receiver myReceiver;
 	private Pane myRoot;
 	private ArrayList<GameNode> myNodes;
 	private GameNode myHead;
@@ -261,7 +260,7 @@ public class GameEditor extends EditorComponent{
 		this.getChildren().add(drawGameEditor());
 		
 		//get special method annotations
-		mySpecialMethods = new ArrayList<Method>(myReceiver.getSpecialEditorMethods(myObject));
+		mySpecialMethods = new ArrayList<>(myReceiver.getSpecialEditorMethods(myObject));
 	}
 	
 	

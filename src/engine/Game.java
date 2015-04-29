@@ -104,7 +104,7 @@ public class Game extends GameObject {
 	
 	
 	
-	@MethodAnnotation(editor=true, name = "Game Editor", type = "game", fieldName = "")
+	@MethodAnnotation(editor=true, name = "Game Editor", type = "gameeditor", fieldName = "")
 	public void fakeMethod() {
 		return;
 	}
