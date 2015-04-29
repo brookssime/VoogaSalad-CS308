@@ -89,7 +89,9 @@ public class GameEditor extends EditorComponent{
 			//scene node
 			if(i % 2 == 0){
 				if(node.isHead()){
+					//update head
 					myHead = node;
+						myReceiver.runOnObjectSwap(myObject, getMethod("setHead"), myHead.toString());
 				}
 				for(GameNode condition: node.getChildren()){
 					if(!condition.isButton()){
@@ -99,13 +101,7 @@ public class GameEditor extends EditorComponent{
 						//adds node state to instance
 						myReceiver.runOnObject(myObject, getMethod("addNodeState"), e);
 						//adds next node to instance
-						try {
-							myReceiver.runOnObjectSwap(myObject, getMethod("addNextNode"), myReceiver.getFromObject(myObject, n));
-						} catch (IllegalArgumentException
-								| IllegalAccessException | NoSuchFieldException
-								| SecurityException | ClassNotFoundException e1) {
-							e1.printStackTrace();
-						}
+						myReceiver.runOnObjectSwap(myObject, getMethod("addNextNode"), n.toString());
 					}
 					else{
 						//if condition is a button we set next directly
@@ -114,14 +110,8 @@ public class GameEditor extends EditorComponent{
 					
 				}
 				//add current node to map
-				try {
-					myReceiver.runOnObjectSwap(myObject, getMethod("addCurNode"), 
-							myReceiver.getFromObject(myObject, node.toString()));
-				} catch (IllegalArgumentException | IllegalAccessException
-						| NoSuchFieldException | SecurityException
-						| ClassNotFoundException e) {
-					e.printStackTrace();
-				}
+				myReceiver.runOnObject(myObject, getMethod("addReference"), node.toString());
+				myReceiver.runOnObjectSwap(myObject, getMethod("addCurNode"), node.toString());
 			}
 		}
 		

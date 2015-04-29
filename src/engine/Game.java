@@ -5,6 +5,7 @@ import interfaces.SpecialEditorAnnotation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import engine.gameLogic.GameObject;
@@ -22,10 +23,11 @@ public class Game extends GameObject {
 	private Map<String, GameNode> myIDMap;
 	
 	//used for constructing the adjacency list, all index based. 
-	private ArrayList<NodeState> myStates;
-	private ArrayList<GameNode> myNexts;
-	private ArrayList<Map<NodeState, GameNode>> myMap;
-	private ArrayList<GameNode> myCurs;
+	private String myReference;
+	private NodeState myState;
+	private GameNode myNext;
+	private Map<NodeState, GameNode> myMap;
+	private GameNode myCur;
 	
 	public Game() {
 		
@@ -42,18 +44,39 @@ public class Game extends GameObject {
 	 * used for gae
 	 * @param nodeState
 	 */
+	@SpecialEditorAnnotation(specialeditor=true, name = "addReference", fieldName = "myReferences")
+	public void addReference(String s){
+		myReference = s;
+		buildIDMap();
+	}
+	
+	private void buildIDMap() {
+		if(myReference != null && myCur != null){
+			myIDMap.put(myReference, myCur);
+			myReference = null;
+			myCur = null;
+		}
+		
+	}
+
+	/**
+	 * used for gae
+	 * @param nodeState
+	 */
 	@SpecialEditorAnnotation(specialeditor=true, name = "addNodeState", fieldName = "myStates")
 	public void addNodeState(NodeState nodeState){
-		myStates.add(nodeState);
+		myState = nodeState;
 		buildMap();
 		
 	}
 	
 	private void buildMap() {
-		if(myStates.size() == myNexts.size()){
+		if(myState != null && myNext != null){
 			Map<NodeState, GameNode> map = new HashMap<>();
-			map.put(myStates.get(myStates.size() - 1), myNexts.get(myNexts.size() - 1));
-			myMap.add(map);
+			map.put(myState, myNext);
+			myMap = map;
+			myState = null;
+			myNext = null;
 		}
 		
 	}
@@ -64,7 +87,7 @@ public class Game extends GameObject {
 	 */
 	@SpecialEditorAnnotation(specialeditor=true, name = "addNextNode", fieldName = "myNexts")
 	public void addNextNode(GameNode node){
-		myNexts.add(node);
+		myNext = node;
 		buildMap();
 	}
 	
@@ -74,8 +97,9 @@ public class Game extends GameObject {
 	 */
 	@SpecialEditorAnnotation(specialeditor=true, name = "addCurNode", fieldName = "myCurs")
 	public void addCurNode(GameNode node){
-		myCurs.add(node);
+		myCur = node;
 		setAdjacencyList();
+		buildIDMap();
 	}
 	
 	
@@ -90,8 +114,10 @@ public class Game extends GameObject {
 	}
 
 	private void setAdjacencyList(){
-		if(myCurs.size() == myMap.size()){
-			myAdjacencyList.put(myCurs.get(myCurs.size() - 1), myMap.get(myMap.size() - 1));
+		if(myCur != null && myMap != null){
+			myAdjacencyList.put(myCur, myMap);
+			myCur = null;
+			myMap = null;
 		}
 	}
 	
@@ -109,7 +135,7 @@ public class Game extends GameObject {
 		myCurNode.render();
 	}
 
-	@SpecialEditorAnnotation(specialeditor=true, name = "sethead", fieldName = "myStartNode")
+	@SpecialEditorAnnotation(specialeditor=true, name = "setHead", fieldName = "myStartNode")
 	public void setHead(GameNode head) {
 		myStartNode = head;
 	}
