@@ -45,11 +45,6 @@ public class MultipleSelectEditor extends EditorComponent{
 
 	@Override
 	public void setUpEditor() {
-		//Steps:
-		//1) need to get parameters -> objects of type...but what type...? []
-		//2) then need to construct UI [DONE]
-		//3) then set UI with getFromObject method [DONE]
-		//4) then create button to update inventory [DONE]
 		
 		Button btn = new Button("Select Access");
 //		this.getChildren().add(btn);
@@ -58,6 +53,7 @@ public class MultipleSelectEditor extends EditorComponent{
 			stage.setScene(new Scene(makeScene()));
 			stage.show();
 		});
+		this.getChildren().add(btn);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -72,12 +68,13 @@ public class MultipleSelectEditor extends EditorComponent{
 		TypeAnnotation typeAnnotation = myMethod
 				.getAnnotation(TypeAnnotation.class);
 		
-		String type = typeAnnotation.annotationType().getName();
+		String type = typeAnnotation.type();
 		Set<String> list = myReceiver.getList(type);
-		ArrayList<String> myChecked = (ArrayList<String>) myFetchedValue;
-		for (String o: list){
-			data.add(new GameObject(myChecked.contains(o) ? true : false, o));
-		}
+//		ArrayList<String> myChecked = (ArrayList<String>) myFetchedValue;
+			for (String o: list){
+				data.add(new GameObject(false, o));
+			}
+		
 
 		final ListView<GameObject> listView = new ListView<GameObject>();
 		listView.setPrefSize(200, 250);
@@ -103,8 +100,6 @@ public class MultipleSelectEditor extends EditorComponent{
 			ArrayList<String> accessArray = new ArrayList<>();
 			for (GameObject g : data) {
 				if(g.getSelected()){
-					System.out.println(g.getSelected());
-					System.out.println(g.getName());
 					accessArray.add(g.getName());
 				}
 			}

@@ -27,7 +27,7 @@ public class SingleSelectionEditor extends EditorComponent{
 		TypeAnnotation typeAnnotation = myMethod
 				.getAnnotation(TypeAnnotation.class);
 		
-		String type = typeAnnotation.annotationType().getName();
+		String type = typeAnnotation.type();
 		System.out.println(type);
 		
 		String buttonString = myFetchedValue == null ? "" : myFetchedValue.toString();
