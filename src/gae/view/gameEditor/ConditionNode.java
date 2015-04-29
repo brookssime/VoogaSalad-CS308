@@ -1,7 +1,5 @@
 package gae.view.gameEditor;
 
-import gae.model.Receiver;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import engine.NodeState;
+import engine.gameScreens.NodeButton;
 
 public class ConditionNode extends GameNode{
 	
@@ -26,6 +26,7 @@ public class ConditionNode extends GameNode{
 	private Color myColor = Color.YELLOW;
 	private GameNode myNext;
 	private boolean isButton;
+	NodeState nodeState;
 	
 	public ConditionNode() {
 		isButton = false;
@@ -58,7 +59,7 @@ public class ConditionNode extends GameNode{
 		
 		ListView<String> selection = new ListView<>();
 		ObservableList<String> data = FXCollections.observableArrayList();
-		data.addAll("ENEMIES_DEAD", "RUNNING", "BASE_DEAD", "COMPLETE");
+		data.addAll(NodeState.names());
 		selection.setItems(data);
 		
 		Button accept = new Button("Accept");
@@ -106,10 +107,12 @@ public class ConditionNode extends GameNode{
 			
 			ListView<String> buttonSelection = new ListView<>(); 
 			ObservableList<String> data2 = FXCollections.observableArrayList();
-//			data2.addAll(myReceiver.getButtonList(titleScreen));
+			ArrayList<NodeButton> buttons = (ArrayList<NodeButton>) myReceiver.getButtonList(titleScreen);
+			for(NodeButton b: buttons){
+				data2.add(b.myInfo);
+			}
 			accordion.getPanes().add(titleScreenPane);
 			
-
 			Button buttonAccept = new Button("Accept");
 			accept.setOnAction(e -> {
 				isButton = true;

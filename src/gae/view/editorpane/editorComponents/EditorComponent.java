@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 
 public abstract class EditorComponent extends VBox {
 
+	private static final double SPACING = 10;
 	protected Label fieldLabel;
 	protected Method myMethod;
 	protected String myFieldName;
@@ -33,7 +34,7 @@ public abstract class EditorComponent extends VBox {
 		myMethodName = methodAnnotation.name();
 		myFieldName = methodAnnotation.fieldName();
 		fieldLabel = new Label(myMethodName);
-
+		this.setSpacing(SPACING);
 		try {
 			try {
 				myFetchedValue = myReceiver.getFromObject(myObject, myFieldName);
