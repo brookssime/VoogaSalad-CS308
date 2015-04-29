@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
 
 
 //TODO: set up queue editor for waves
-//TODO: Make grid fit in scene
 //TODO: Implement with editor components
 //TODO: Return the correct info
 //TODO: Change content of each tab to sprite or tile
