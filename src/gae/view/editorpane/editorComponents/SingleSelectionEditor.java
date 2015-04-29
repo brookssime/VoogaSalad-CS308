@@ -28,9 +28,10 @@ public class SingleSelectionEditor extends EditorComponent{
 				.getAnnotation(TypeAnnotation.class);
 		
 		String type = typeAnnotation.annotationType().getName();
+		System.out.println(type);
 		
-		
-		Button openComponentsDialog = new Button(myFetchedValue.toString());
+		String buttonString = myFetchedValue == null ? "" : myFetchedValue.toString();
+		Button openComponentsDialog = new Button(buttonString);
 		openComponentsDialog.setOnAction(e -> {
 			ComponentsDialog dialog = new ComponentsDialog(type, myReceiver);
 			String ret = dialog.getElement();
