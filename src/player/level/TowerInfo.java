@@ -2,6 +2,7 @@ package player.level;
 
 
 import player.RunGamePlayer;
+import player.manager.PlayerManager;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -20,6 +21,7 @@ import engine.sprites.Tower;
 public class TowerInfo{
 	private StackPane image;
 	private String name;
+	private String spriteID;
 	private int price;
 	private int range;
 	private int damage;
@@ -31,21 +33,27 @@ public class TowerInfo{
 	private Label damageLabel;
 	private static final int LABELSPACING = 5;
 	private static final double IMAGESIZE =  80*(1400/877);
+	private LevelInfo myLevelInfo;
+	private Tower myTower;
 	
-	public TowerInfo(Tower t){
+	public TowerInfo(Tower t, LevelInfo info){
 		
-		//TODO: need get damage from Tower
-		this(t.getImagePath(),t.getName(),t.getMyPrice(),t.getRange(), 99);
+		//TODO: need get damage spriteID from Tower
+		myTower = t;
+		init(t.getImagePath(),t.getName(),t.getPrice(),t.getRange(), Integer.parseInt(t.getSpriteInfo().get("damage")), info);
+		myLevelInfo = info;
+		
 	}
 	
-	public TowerInfo(String imageFile, String name,int price,  int range, int damage ){
+	public void init(String imageFile, String name,int price,  int range, int damage, LevelInfo levelinfo ){
 		image = new StackPane();
-		Image towerimage = new Image((getClass().getResourceAsStream(imageFile)),IMAGESIZE,IMAGESIZE,false,false);
+		Image towerimage = PlayerManager.myImageLoader.loadImageFile(imageFile, IMAGESIZE);
+				//new Image((getClass().getResourceAsStream(imageFile)),IMAGESIZE,IMAGESIZE,false,false);
 		ImageView myimage = new ImageView(towerimage);
 		myimage.setFitHeight(IMAGESIZE);
 		myimage.setFitWidth(IMAGESIZE);
 		image.getChildren().add(myimage);
-		GraphicTower myTower = new GraphicTower(towerimage,display);
+		GraphicTower myTower = new GraphicTower(towerimage,display, levelinfo, this.myTower);
 		image.getChildren().add(myTower.getNode());
 		this.name = name;
 		this.price = price;

@@ -1,11 +1,14 @@
 package player.level;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import engine.*;
 import engine.gameLogic.Placement;
 import engine.gameScreens.LevelNode;
+import engine.gameScreens.NodeButton;
 import engine.gameScreens.Store;
 import engine.sprites.Sprite;
 import engine.sprites.Tower;
@@ -35,7 +38,7 @@ import javafx.util.Duration;
 
 
 
-public class GameLevelScene implements GraphicGameScene{
+public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 
 	// spaces out the bottom menu
 	private static final int MENU_SPACING = 50;
@@ -51,9 +54,9 @@ public class GameLevelScene implements GraphicGameScene{
 	private double adjustrate = 0;
 	private int gamespeed = 6;
 	private int currentTime = 0;
-	
+
 	//Group root;
-	private Scene myScene;
+	//private Scene myScene;
 	private double speed;
 	private double screenWidth;
 	private double screenHeight;
@@ -76,6 +79,7 @@ public class GameLevelScene implements GraphicGameScene{
 	private Button speedUpButton;
 	private Button slowDownButton;
 	private LevelManager myManager;
+	BorderPane root;
 	//private int currentTime
 	public GameLevelScene(Stage stage, double screenWidth, double screenHeight, LevelManager manager){
 		//this.root = new Group();
@@ -86,19 +90,21 @@ public class GameLevelScene implements GraphicGameScene{
 		moneyNum = 0;
 		scoreNum = 0;
 		adjustrate = screenWidth/1436;
-		BorderPane root = makePane();
-        myScene = new Scene(root, screenWidth, screenHeight);
-        initTimeLine();
+		root = makePane();
+        scene = new Scene(root, screenWidth, screenHeight);
+        buttons = new ArrayList<Button>();
+        myNodeManager = manager;
+        //initTimeLine();
 	}
 	
-	private void initTimeLine() {
-		animation = new Timeline();
-		frame = start(NUM_FRAMES_PER_SECOND);
-		animation.setCycleCount(Animation.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
-	}
-	
+//	private void initTimeLine() {
+//		animation = new Timeline();
+//		frame = start(NUM_FRAMES_PER_SECOND);
+//		animation.setCycleCount(Animation.INDEFINITE);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
+//	}
+//	
 	
 
 	private KeyFrame start(int framerate) {
@@ -114,7 +120,7 @@ public class GameLevelScene implements GraphicGameScene{
 
 	public void loadLevel(LevelNode level){
 		mylevelnode = level;
-		 myScene = new Scene(makePane(), screenWidth, screenHeight);
+		 scene = new Scene(makePane(), screenWidth, screenHeight);
 	}
 
 	
@@ -124,7 +130,7 @@ public class GameLevelScene implements GraphicGameScene{
 
 		Set<Tower> myTowersOnSale = store.getTowersOnSale();
 		for(Tower tower : myTowersOnSale){
-			TowerInfo t = new TowerInfo(tower);
+			TowerInfo t = new TowerInfo(tower, this);
 			//sample TowerInfo
 			//TowerInfo t = new TowerInfo("../../images/tower.jpg", "basic", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
 			towerInfo.getChildren().addAll(myLabel,t.getDisplay());
@@ -144,7 +150,9 @@ public class GameLevelScene implements GraphicGameScene{
 
 	private void updateGrid(Grid grid) {
 		Map<Sprite, Placement> myMap =grid.getSpriteMap();
+		myGrid.updateGrid(grid);
 		myGrid.updateSprite(myMap);
+		
 		
 		
 	}
@@ -176,8 +184,8 @@ public class GameLevelScene implements GraphicGameScene{
 		towerInfo = new VBox();
 		Label myLabel = new Label("Towers: ");
 		//sample TowerInfo
-		TowerInfo t = new TowerInfo("../../images/tower.jpg", "basic", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
-		towerInfo.getChildren().addAll(myLabel,t.getDisplay());
+		//TowerInfo t = new TowerInfo("../../images/tower.jpg", "basic", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
+		towerInfo.getChildren().addAll(myLabel);
 		return towerInfo;
 	}
 
@@ -249,16 +257,8 @@ public class GameLevelScene implements GraphicGameScene{
 	}
 	
 	
-	@Override
-	/**
-	 * Return the level game scene for prime stage to display
-	 * @return scene for prime stage to display
-	 */
-	public Scene getScene() {
-		
-		return myScene;
-	}
-	
+
+
 	
 	/**
 	 * Load the level based on the level number
@@ -275,7 +275,7 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void pause(){
-		animation.pause();
+		//animation.pause();
 	}
 	
 	/**
@@ -284,7 +284,8 @@ public class GameLevelScene implements GraphicGameScene{
 	 */
 	public void resume(){
 		//animation
-		animation.play();
+		//animation.play();
+		
 		
 	}
 	
@@ -294,8 +295,9 @@ public class GameLevelScene implements GraphicGameScene{
 	 */
 	public void speedUp(){
 		//animation.stop();
-		gamespeed = gamespeed/2;
-		if(gamespeed == 0) gamespeed = 1;
+		//gamespeed = gamespeed/2;
+		//if(gamespeed == 0) gamespeed = 1;
+		myManager.increaseGameSpeed();
 	}
 	
 	/**
@@ -303,8 +305,10 @@ public class GameLevelScene implements GraphicGameScene{
 	 * 
 	 */
 	public void slowDown(){
-		gamespeed = gamespeed*2;
-		if(gamespeed > 60) gamespeed = 60;
+		//gamespeed = gamespeed*2;
+		//if(gamespeed > 60) gamespeed = 60;
+		
+		myManager.decreaseGameSpeed();
 	}
 	
 	/**
@@ -345,6 +349,25 @@ public class GameLevelScene implements GraphicGameScene{
 		updateStore(store);
 		updateHUD(hud);
 		
+	}
+
+	@Override
+	public double getMoney(){
+		return moneyNum;
+	}
+
+	@Override
+	public double getScore() {
+		return scoreNum;
+	}
+
+	@Override
+	public double getHealth() {
+		return healthNum;
+	}
+	
+	public void updateDroppable(String spriteID){
+		myGrid.updateDroppable(spriteID);
 	}
 
 	

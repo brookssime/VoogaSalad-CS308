@@ -40,10 +40,10 @@ public class EnemyMovement implements MovementStrategy{
 					tileArray[i-2].getCenterLocation().y != tileArray[i].getCenterLocation().y){
 				
 				movements.add(makeStretch(lastStraight, tileArray[i-2], start));
-				movements.add(makeTurn(tileArray[i-2], tileArray[i-1], tileArray[i], movements.getLast().getLast()));
+				movements.add(makeTurn(tileArray[i-2], tileArray[i-1], tileArray[i], movements.getLast().getLastPlacement()));
 				
 				lastStraight = tileArray[i]; 
-				start = movements.getLast().getLast();
+				start = movements.getLast().getLastPlacement();
 				
 			}
 		}

@@ -1,6 +1,7 @@
-package gae.view.editorpane.editorComponents;
+package gae.view.gridEditor;
 
 import gae.model.Receiver;
+import gae.view.editorpane.editorComponents.EditorComponent;
 import interfaces.SpecialEditorAnnotation;
 
 import java.lang.reflect.Method;
@@ -31,6 +32,10 @@ import javafx.stage.Stage;
  *
  */
 
+//TODO: Make small editor things (except for queue)
+//TODO: Make grid editor show up in inventory
+//TODO: Figure out how to get created tiles and sprites
+//TODO: Sprites used are base, port, tower, (tile)
 
 //TODO: set up queue editor for waves
 //TODO: Implement with editor components
@@ -65,6 +70,7 @@ public class GridEditor extends EditorComponent{
 		});
 		this.getChildren().add(b1);
         
+		//get the annotations
         mySpecialMethods = new ArrayList<>(myReceiver.getSpecialEditorMethods(myObject));
 	}
 	
@@ -78,6 +84,7 @@ public class GridEditor extends EditorComponent{
 	}
 	
 	private Node height(){//TODO: use text field editor for this
+		//TODO: Call the text field editor with your receiver, method, etc
     	TestTextField text = new TestTextField();
     	text.setName("height");
     	text.setUpEditor();

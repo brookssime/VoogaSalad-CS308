@@ -1,5 +1,7 @@
 package player.level;
 
+import player.manager.LevelManager;
+import player.manager.PlayerManager;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -13,28 +15,41 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.ImageCursor;
 
+import java.awt.Point;
+
+import engine.gameLogic.Placement;
+import engine.sprites.Tile;
+
 public class GridCell{
 	private int row;
 	private int col;
 	private ImageView image;
 	private StackPane myPane;
 	private TowerOption toweroption;
-	private boolean dropable;
-	private String id;
+	private boolean droppable;
+	private String spriteID;  //the spriteID of tower which is on this cell
 	private boolean showOption;
+	private LevelManager myManager;
+	private Tile myTile;
 	public void setPosition(int r, int c){
 		row = r;
 		col =c;
 		
 		
 	}
-	public GridCell(Image im, int r, int c){
-		toweroption = new TowerOption();
-		image = new ImageView(im);
-		dropable = false;
+	public GridCell( Tile tile, int r, int c){
+		myTile = tile;
+		image = new ImageView(tile.getImagePath());
+		droppable = false;
 		showOption  =false;
 		init();
 		
+	}
+	public void setDroppable(String id){
+		if(id.equals(myTile.getName())){
+			droppable = true;
+			
+		}
 	}
 	public void setSize(double width, double height){
 		myPane = new StackPane();
@@ -42,24 +57,10 @@ public class GridCell{
 		image.setFitHeight(height);
 		image.setFitWidth(width);
 		myPane.setMaxSize(width, height);
-		image.setOnMouseClicked((MouseEvent e) ->{
-			if(showOption ==false) return;
-			System.out.println("show option");
-			toweroption.setPos(40, -60);
-			toweroption.getCircle().setCenterX(myPane.getScaleX()+40);
-			toweroption.getCircle().setCenterY(myPane.getScaleY()+40);
-			myPane.toFront();
-			if(toweroption.getShown()){
-				toweroption.hide();
-			} else
-			toweroption.show();
-			
-		//image.setClip(toweroption.getCircle());
-			
-		});
 		
 		
-		myPane.getChildren().addAll(toweroption.getPane(),image);
+		
+		myPane.getChildren().addAll(image);
 	}
 	public StackPane getPane(){
 		return myPane;
@@ -68,7 +69,7 @@ public class GridCell{
 		
 		image.setOnDragDropped((DragEvent t) -> {
 			 System.out.println("Drage dropped");
-			 if(dropable ==false) return;
+			 if(droppable ==false) return;
 		   Dragboard db = t.getDragboard();
 		   boolean success  = false;
 		   if(db.hasImage()){
@@ -78,9 +79,42 @@ public class GridCell{
 			   showOption = true;
 			   //ColorAdjust adjust = new ColorAdjust();
 			   //adjust.setSaturation(-1.0);
-		   }
+		   } else return;
+		   int range = 100;
+		   if(db.hasUrl()){
+			    range= Integer.parseInt(db.getUrl());
+		   } else return;
 		   if(db.hasString()){
-			   id = db.getString();
+			   spriteID = db.getString();
+			   Point p = new Point((int) myPane.getLayoutX(),(int) myPane.getLayoutY());
+			   
+			   Placement place = new Placement(p);
+			   myManager.placeSprite(spriteID, place);
+			   myManager.purchaseObject(spriteID);
+			   toweroption = new TowerOption(myManager, spriteID, place, range);
+			   image.setOnMouseClicked((MouseEvent x) ->{
+					if(showOption ==false) return;
+					System.out.println("show option");
+					toweroption.setPos(40, -60);
+					toweroption.getCircle().setCenterX(myPane.getScaleX()+40);
+					toweroption.getCircle().setCenterY(myPane.getScaleY()+40);
+					toweroption.setSell(e->{
+						myManager.sellObject(spriteID, place);
+						image.setImage(PlayerManager.myImageLoader.loadImageFile(myTile.getImagePath()));
+								//new Image(myTile.getImagePath()));
+						spriteID = null;
+					});
+					myPane.toFront();
+					if(toweroption.getShown()){
+						toweroption.hide();
+					} else
+					toweroption.show();
+					myPane.getChildren().add(toweroption.getPane());
+					
+				//image.setClip(toweroption.getCircle());
+					
+				});
+			   
 		   }
 		   t.setDropCompleted(success);
 		   t.consume();
@@ -91,7 +125,7 @@ public class GridCell{
 		});
 	}
 	public void setDropable(boolean b) {
-		dropable = b;
+		droppable = b;
 		
 	}
 }

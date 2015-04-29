@@ -14,7 +14,8 @@ public class MainMenu {
 	public MainMenu(Stage stage, double screenWidth, double screenHeight){
 		
 		Group root = new Group();
-		Button playGame = new Button("Play Game");
+		Button playGame = new Button("Load Game");
+		playGame.setPrefSize(150, 80);
 		this.playGame = playGame;
 		
 		playGame.setLayoutX(.5 * screenWidth);
@@ -26,7 +27,8 @@ public class MainMenu {
 	}
 	public MainMenu(double screenWidth, double screenHeight){
 		Group root = new Group();
-		Button playGame = new Button("Play Game");
+		Button playGame = new Button("Load Game");
+		playGame.setPrefSize(400, 300);
 		this.playGame = playGame;
 		
 		playGame.setLayoutX(.5 * screenWidth);

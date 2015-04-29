@@ -24,15 +24,17 @@ import engine.sprites.Sprite;
 public class GridManager {
 
 	private Grid myGrid;
+	
 	private List<Shootable> myShootables;
 	private List<Collidable> myCollidables;
 	private Set<Collidable> myDeadCollidables;
+	
 	private List<Sprite> mySprites;
 	private Queue<Wave> myWaves;
 	private long myStartTime;
 	private PathFinder myPathFinder;
 	private List<Base> myBases;
-	private boolean myGameWon; //remove these
+	
 
 	public GridManager(Grid grid){
 		myGrid = grid;
@@ -40,7 +42,9 @@ public class GridManager {
 		myPathFinder = new PathFinder(grid);
 	}
 
-	public void sortObjects(Map<Sprite, Placement> map){
+	/****Helpers--called locally**********/
+	
+	private void sortObjects(Map<Sprite, Placement> map){
 		for (Sprite o : map.keySet()){
 			if(Arrays.asList(o.getClass().getClasses()).contains(Collidable.class)){
 				myCollidables.add((Collidable) o);
@@ -53,37 +57,6 @@ public class GridManager {
 				mySprites.add(o);
 			}
 		}
-	}
-
-	public void update(){
-		checkCollidables();
-		checkShootables();
-		moveSprites();
-		clearSprites();
-		spawnEnemies();
-	}
-
-	public void start(){
-		myStartTime = System.nanoTime();
-	}
-
-	public boolean isComplete() {
-		if (calculateBaseHealth()==0) {
-			return true;
-		}
-		return myGameWon;
-	}
-
-	public int calculateBaseHealth() {
-		return myBases.stream().mapToInt(b -> b.getHealth()).sum();
-	}
-
-	public void setWaves(Queue<Wave> waves){
-		myWaves = waves;
-	}
-
-	public List<Base> getBases(){
-		return myBases;
 	}
 
 	private void checkCollidables() {
@@ -101,7 +74,7 @@ public class GridManager {
 			}
 		}
 	}
-
+	
 	private void checkShootables(){
 		for (Shootable s : myShootables){
 			s.update();
@@ -115,6 +88,7 @@ public class GridManager {
 		Collidable c = s.selectTarget(getObjectsInRange(s));
 		myPathFinder.generateProjectile(s.fire(), myPathFinder.target(s, c));
 	}
+	
 	private List<Collidable> getObjectsInRange(Shootable c){
 		return c.getRangeObject().getObjectsInRange();
 	}
@@ -125,15 +99,7 @@ public class GridManager {
 		}
 	}
 
-	private void clearSprites() {
-		myDeadCollidables.addAll(myCollidables.stream().filter(s -> s.isDead())
-				.collect(Collectors.toSet())); // filter to find dead objects
-		for (Collidable sprite : myDeadCollidables) {
-			myCollidables.remove(sprite);
-		}
-		myDeadCollidables.clear();
-	}
-
+	// REVIEW this currently doesn's do anything to the Grid
 	private void spawnEnemies() {
 		while (!myWaves.peek().isComplete()) {
 			Wave w = myWaves.peek();
@@ -148,9 +114,15 @@ public class GridManager {
 		}
 		myWaves.poll();
 	}
-
-	public Queue<Wave> getWaves() {
-		return myWaves;
+	
+	// REVIEW is this intended to remove them from the Grid? It currently is not doing that
+	private void clearSprites() { 
+		myDeadCollidables.addAll(myCollidables.stream().filter(s -> s.isDead())
+				.collect(Collectors.toSet())); // filter to find dead objects
+		for (Collidable sprite : myDeadCollidables) {
+			myCollidables.remove(sprite);
+		}
+		myDeadCollidables.clear();
 	}
 	
 	private boolean isCollision(Collidable spriteCollidedWith, Collidable spriteCollider){
@@ -166,4 +138,54 @@ public class GridManager {
 		areaA.intersect(areaB);
 		return !areaA.isEmpty();
 	}
+	
+	/*******Called by Grid********/
+	
+	public void update(){
+		checkCollidables();
+		checkShootables();
+		moveSprites();
+		clearSprites();
+		spawnEnemies();
+	}
+
+	public void setWaves(Queue<Wave> waves){
+		myWaves = waves;
+	}
+	
+	// REVIEW: this ONLY exists here for the sake of conditions--is there a workaround?
+	public Queue<Wave> getWaves() {
+		return myWaves;
+	}
+	
+	// REVIEW: this ONLY exists here for the sake of conditions--is there a workaround?
+	public int calculateBaseHealth() {
+			return myBases.stream().mapToInt(b -> b.getHealth()).sum();
+		}
+	
+		
+		
+	/*********outdated--delete once GAE is finalized *********/
+	
+	/*public void start(){
+		myStartTime = System.nanoTime();
+	}*/
+
+	/*public boolean isComplete() {
+		if (calculateBaseHealth()==0) {
+			return true;
+		}
+		return myGameWon;
+	}*/
+
+	/*public List<Base> getBases(){
+		return myBases;
+	}*/
+
+
+
+	
+
+	
+	
 }

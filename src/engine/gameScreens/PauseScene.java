@@ -1,5 +1,6 @@
 package engine.gameScreens;
 
+import player.manager.PlayerManager;
 import engine.NodeState;
 
 public class PauseScene extends GameNode{
@@ -9,7 +10,7 @@ public class PauseScene extends GameNode{
 	}
 
 	@Override
-	public void render() {
+	public void render(PlayerManager playerManager) {
 		// REVIEW: make sure these having nothing is fully functional
 	}
 	
