@@ -257,7 +257,15 @@ public class GameEditor extends EditorComponent{
 	@Override
 	public void setUpEditor() {
 		myNodes = new ArrayList<>();
-		this.getChildren().add(drawGameEditor());
+		Button button = new Button("Open Game Editor");
+		button.setOnAction(e -> {
+			Stage primaryStage = new Stage();
+			primaryStage.setScene(new Scene(drawGameEditor()));
+			primaryStage.setHeight(600);
+			primaryStage.setWidth(600);
+			primaryStage.show();
+		});
+		this.getChildren().add(button);
 		
 		//get special method annotations
 		mySpecialMethods = new ArrayList<>(myReceiver.getSpecialEditorMethods(myObject));
