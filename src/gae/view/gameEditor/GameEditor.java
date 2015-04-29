@@ -95,6 +95,7 @@ public class GameEditor extends EditorComponent{
 				}
 				for(GameNode condition: node.getChildren()){
 					if(!condition.isButton()){
+						System.out.println(condition.toString());
 						NodeState e = NodeState.valueOf(condition.toString());
 						String n = condition.getChildren() == null ? 
 								null : condition.getChildren().get(0).toString();
@@ -110,6 +111,7 @@ public class GameEditor extends EditorComponent{
 					
 				}
 				//add current node to map
+				System.out.println(node.toString());
 				myReceiver.runOnObject(myObject, getMethod("addReference"), node.toString());
 				myReceiver.runOnObjectSwap(myObject, getMethod("addCurNode"), node.toString());
 			}
@@ -129,7 +131,7 @@ public class GameEditor extends EditorComponent{
 	}
 	
 	private NodeButton fetchButton(GameNode condition) {
-		Set<String> titleScreens = myReceiver.getList("titleScene");
+		Set<String> titleScreens = myReceiver.getList("TitleScene");
 		for(String titleScene : titleScreens){
 			for(NodeButton button : myReceiver.getButtonList(titleScene)){
 				if(button.getInfo().equals(condition.toString())){
