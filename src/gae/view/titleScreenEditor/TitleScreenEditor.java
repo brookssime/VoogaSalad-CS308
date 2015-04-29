@@ -30,9 +30,9 @@ public class TitleScreenEditor extends EditorComponent implements IButton{
 	
 	private static final int BUTTON_PADDING = 40;
 	private static final int BUTTON_SPACING = 30;
-	private static final int SCROLLPANE_HEIGHT = 80;
 	private static final int VBOX_PADDING = 25;
 	private static final int VBOX_SPACING = 10;
+	private static final double V_SCALE = 0.8;
 	private VBox myButtons;
 	private HBox myWholeEditor;
 	private Visualizer v;
@@ -42,13 +42,11 @@ public class TitleScreenEditor extends EditorComponent implements IButton{
 
 	public TitleScreenEditor(Receiver receiver, Method setMethod, String objectName) {
 		super(receiver, setMethod, objectName);
-//		myWholeEditor = new HBox();
-//		myWholeEditor.getChildren().addAll(setVisualizerProperties(), setUpRootProperties());
 	}
 
 	//not implemented
 	private Parent setVisualizerProperties() {
-		v = new Visualizer();
+		v.setScale(V_SCALE);
 		return v.getPane();
 		
 	}
@@ -69,7 +67,7 @@ public class TitleScreenEditor extends EditorComponent implements IButton{
 		buttonPane.setContent(myButtons);
 		Button addButton = new Button("Add Button");
 		addButton.setOnAction(e -> {
-			ButtonEditor buttonEditor = new ButtonEditor(this);
+			ButtonEditor buttonEditor = new ButtonEditor(this, v);
 			buttonEditor.setUpEditor();
 		});
 		
@@ -98,6 +96,8 @@ public class TitleScreenEditor extends EditorComponent implements IButton{
 		TextField css = new TextField();
 		css.setPromptText("Add CSS Styling");
 		
+		v.setTextProperties(xPos.textProperty(), 
+				yPos.textProperty(), title.textProperty(), css.textProperty());
 		
 		temp.getChildren().addAll(title, loc, css);
 		return temp;
@@ -136,6 +136,9 @@ public class TitleScreenEditor extends EditorComponent implements IButton{
 	@Override
 	public void setUpEditor() {
 		myButtonList = new ArrayList<>();
-		setUpRootProperties();
+		myWholeEditor = new HBox();
+		v = new Visualizer();
+		myWholeEditor.getChildren().addAll(setUpRootProperties(), setVisualizerProperties());
+		this.getChildren().add(myWholeEditor);
 	}
 }

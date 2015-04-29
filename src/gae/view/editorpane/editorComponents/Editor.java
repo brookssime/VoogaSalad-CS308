@@ -35,8 +35,8 @@ public class Editor extends GAEPane {
 	private EditorComponentFactory myFactory;
 	private Receiver myReceiver;
 	
-	private int default_width = 500;
-	private int default_height = 500;
+	private int default_width = 900;
+	private int default_height = 700;
 
 	private String myObj;
 
