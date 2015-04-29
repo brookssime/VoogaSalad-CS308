@@ -4,6 +4,7 @@ import engine.NodeState;
 import engine.gameScreens.NodeButton;
 import gae.model.Receiver;
 import gae.view.editorpane.editorComponents.EditorComponent;
+import interfaces.SpecialEditorAnnotation;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -118,7 +119,9 @@ public class GameEditor extends EditorComponent{
 	
 	private Method getMethod(String name){
 		for(Method method : mySpecialMethods){
-			if(method.getName().equals(name)){
+			SpecialEditorAnnotation specialAnnotation = method
+					.getAnnotation(SpecialEditorAnnotation.class);
+			if(specialAnnotation.name().equals(name)){
 				return method;
 			}
 		}

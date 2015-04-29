@@ -69,4 +69,15 @@ public class NodeButton extends GameObject {
 	public String getDefaultStyle() {
 		return DEFAULT_CSS;
 	}
+	
+	@Override
+	public boolean equals(Object obj){
+		NodeButton button = (NodeButton) obj;
+		if(this.getInfo().equals(button.getInfo()) && this.getScale() ==(button.getScale()) 
+				&& this.getLocation().equals(button.getLocation())){
+			return true;
+		}
+		else return false;
+		
+	}
 }
