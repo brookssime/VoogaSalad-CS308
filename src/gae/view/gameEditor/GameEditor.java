@@ -1,5 +1,6 @@
 package gae.view.gameEditor;
 
+import engine.NodeState;
 import engine.gameScreens.NodeButton;
 import gae.model.Receiver;
 import gae.view.editorpane.editorComponents.EditorComponent;
@@ -7,6 +8,7 @@ import gae.view.editorpane.editorComponents.EditorComponent;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -43,6 +45,7 @@ public class GameEditor extends EditorComponent{
 	private Pane myRoot;
 	private ArrayList<GameNode> myNodes;
 	private GameNode myHead;
+	private ArrayList<Method> mySpecialMethods;
 	
 	
 	public GameEditor(Receiver receiver, Method method, String objectName){
@@ -81,41 +84,58 @@ public class GameEditor extends EditorComponent{
 	}
 
 	private void printMap() {
-		Map<String, Map<String, String>> nodeConditionMap = new HashMap<>();
 		for(int i = 0; i < myNodes.size(); i++){
-			Map<String, String> enumNodeMap = new HashMap<>();
 			GameNode node = myNodes.get(i);
 			//scene node
 			if(i % 2 == 0){
-				//latest thing is head.
 				if(node.isHead()){
 					myHead = node;
 				}
 				for(GameNode condition: node.getChildren()){
 					if(!condition.isButton()){
-						String e = condition.toString();
+						NodeState e = NodeState.valueOf(condition.toString());
 						String n = condition.getChildren() == null ? 
 								null : condition.getChildren().get(0).toString();
-						enumNodeMap.put(e, n);
+						//adds node state to instance
+						myReceiver.runOnObject(myObject, getMethod("addNodeState"), e);
+						//adds next node to instance
+						try {
+							myReceiver.runOnObjectSwap(myObject, getMethod("addNextNode"), myReceiver.getFromObject(myObject, n));
+						} catch (IllegalArgumentException
+								| IllegalAccessException | NoSuchFieldException
+								| SecurityException | ClassNotFoundException e1) {
+							e1.printStackTrace();
+						}
 					}
 					else{
-						//fetch button from titlescreen from receiver and update its next to be its next
-						//i.e. go through all titlescenes and see if it contains button. If it does, update
-						//button.
+						//if condition is a button we set next directly
 						fetchButton(condition).setTarget(condition.getChildren().get(0).getText());
 					}
 					
 				}
-				nodeConditionMap.put(node.toString(), enumNodeMap);
+				//add current node to map
+				try {
+					myReceiver.runOnObjectSwap(myObject, getMethod("addCurNode"), 
+							myReceiver.getFromObject(myObject, node.toString()));
+				} catch (IllegalArgumentException | IllegalAccessException
+						| NoSuchFieldException | SecurityException
+						| ClassNotFoundException e) {
+					e.printStackTrace();
+				}
 			}
-		}
-		for(String node: nodeConditionMap.keySet()){
-			System.out.print(node + ": " + nodeConditionMap.get(node) + "\n");
 		}
 		
 	}
-
-	//TODO: implement this
+	
+	private Method getMethod(String name){
+		for(Method method : mySpecialMethods){
+			if(method.getName().equals(name)){
+				return method;
+			}
+		}
+		return null;
+	}
+	
 	private NodeButton fetchButton(GameNode condition) {
 		Set<String> titleScreens = myReceiver.getList("titleScene");
 		for(String titleScene : titleScreens){
@@ -139,7 +159,6 @@ public class GameEditor extends EditorComponent{
 	}
 
 
-	//TODO: extract to its own class?
 	private void nodeChooseDialog(){
 		
 		Stage nodeDialog = new Stage();
@@ -252,6 +271,7 @@ public class GameEditor extends EditorComponent{
 		this.getChildren().add(drawGameEditor());
 		
 		//get special method annotations
+		mySpecialMethods = new ArrayList<Method>(myReceiver.getSpecialEditorMethods(myObject));
 	}
 	
 	
