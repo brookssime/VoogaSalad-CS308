@@ -47,11 +47,6 @@ public class TitleScene extends GameNode {
 	public List<NodeButton> getButtons() {
 		return myButtons;
 	}
-
-	@MethodAnnotation(editor=true, name = "Select Image", type = "imageselect", fieldName = "myImagePath")
-	public void setBackgroundPicturePath(String path) {
-		myBackgroundPicturePath = path;
-	}
 	
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Title Text", fieldName="myTitleText")
 	public void setTitleText(String text) {
