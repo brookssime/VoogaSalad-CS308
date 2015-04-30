@@ -35,7 +35,7 @@ public class ExampleUsage {
 		GameNode gn1 = new LevelNode();
 		gn1.setName("GAMENODE");
 		Game g1 = new Game(gn1);
-		g1.setName("Game 2");
+		g1.setName("Game 3");
 		Game g2  = new Game(null);
 
 		t1.setName("tower 1");
