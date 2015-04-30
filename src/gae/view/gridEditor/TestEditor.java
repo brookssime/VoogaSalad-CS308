@@ -52,13 +52,13 @@ public class TestEditor extends Application {
         
         //SETUP CODE TO TEST -> THESE ARE EDITOR COMPONENT THINGS
         Node width = width();
-        mainPane.add(width, 1, 1);
+        mainPane.add(width, 10, 10);
 		Node height = height();
-		mainPane.add(height, 1, 2);
+		mainPane.add(height, 10, 20);
 		
 		//ACTUAL GRID EDITOR CODE
 		Button gridDone = new Button("Create Grid");
-		mainPane.add(gridDone, 1, 4);
+		mainPane.add(gridDone, 10, 40);
 		gridDone.setOnAction(
                 new EventHandler<ActionEvent>() {
                     @Override
@@ -80,18 +80,6 @@ public class TestEditor extends Application {
                     	
                     }
                 });
-		Button waves = new Button("Make Wave Queue");
-		//TODO: make wave queue stage
-		waves.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(final ActionEvent e) {
-                    	System.out.println("Sprites Done ");
-                    	WaveMaker myWaves = new WaveMaker();
-                    	myWaves.setUp();
-                    }
-                });
-		mainPane.add(waves, 1, 5);
 		
         //NON-EDITOR CODE
 		root.getChildren().add(mainPane);
