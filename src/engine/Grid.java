@@ -23,6 +23,12 @@ public class Grid extends GameObject{
 	private Tile[][] myTiles;
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;	
+	private Queue<Wave> myWaves;
+	private Tile[][] gaeTiles;
+	private int tileR;
+	private int tileC;
+	private int spriteR;
+	private int spriteC;
 	
 	public Grid(){
 		setMyTiles(new Tile[myWidth][myHeight]);
@@ -54,20 +60,58 @@ public class Grid extends GameObject{
 		myWidth = width;
 	}
 	
-	@SpecialEditorAnnotation(specialeditor = true, name = "Set Waves", fieldName = "myGridManager.getWaves()")
+	@MethodAnnotation(editor=true, name = "Set Waves", type = "queueeditor", fieldName = "myWaves")
 	public void setWaves(Queue<Wave> waves){
+		myWaves = waves;
 		myGridManager.setWaves(waves);
 	}
 
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Tiles", fieldName="myTiles")
+<<<<<<< HEAD
 	public void setTiles(Tile[][] tiles){
 		setMyTiles(tiles);
 		initTiles();
+=======
+	public void setTiles(Tile tile){
+		gaeTiles[tileR][tileC] = tile;
+		if(tileR>=myHeight-1){
+			tileR = 0;
+		}
+		else{
+			tileR++;
+		}
+		if(tileC>=myWidth-1){
+			tileC = 0;
+		}
+		else{
+			tileC++;
+		}
+		
+		if(gaeTiles[0].length==myWidth && gaeTiles.length==myHeight){
+			myTiles = gaeTiles;
+			initTiles();
+		}
+>>>>>>> 15cc7b11a938fdf18bc0b92e3e36d0358c36e9d5
 	}
 	
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Sprite", fieldName="mySpriteMap")
-	public void setSprite(Sprite sprite, Point point) {
-		mySpriteMap.put(sprite, new Placement(point));
+	public void setSprite(Sprite sprite) {
+		if(sprite!=null){
+			Point point = new Point(spriteC, spriteR);
+			mySpriteMap.put(sprite, new Placement(point));
+		}
+		if(spriteR>=myHeight-1){
+			spriteR = 0;
+		}
+		else{
+			spriteR++;
+		}
+		if(spriteC>=myWidth-1){
+			spriteC = 0;
+		}
+		else{
+			spriteC++;
+		}
 	}
 
 

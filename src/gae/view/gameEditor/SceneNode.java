@@ -70,7 +70,7 @@ public class SceneNode extends GameNode{
 		
 		VBox selectionBox = new VBox(10);
 		selectionBox.setPadding(new Insets(10));
-		selectionBox.getChildren().addAll(selection, accept);
+		selectionBox.getChildren().addAll(selection, isHeadBox, accept);
 		sceneSelect.setScene(new Scene(selectionBox));
 		
 	}

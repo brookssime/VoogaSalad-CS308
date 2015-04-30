@@ -2,6 +2,7 @@ package gae.view.editorpane.editorComponents;
 
 import gae.model.Receiver;
 import gae.view.gameEditor.GameEditor;
+import gae.view.gridEditor.GridEditor;
 import gae.view.titleScreenEditor.TitleScreenEditor;
 
 import java.lang.reflect.Method;
