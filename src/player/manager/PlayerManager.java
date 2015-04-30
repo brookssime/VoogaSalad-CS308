@@ -216,10 +216,10 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		
 	}
 	@Override
-	public void purchaseObject(String spriteID) {
-		Object[] params = {spriteID};
+	public void purchaseObject(String spriteID, Placement p) {
+		Object[] params = {spriteID, p};
 		try {
-			myController.doSomething("purchaseObject", params);
+			myController.doSomething("purchaseSprite", params);
 		} catch (NoSuchMethodException | SecurityException
 				| IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {

@@ -97,7 +97,7 @@ public class GridCell{
 			   Placement place = new Placement(p);
 
 			   myManager.placeSprite(spriteID, place);
-			   myManager.purchaseObject(spriteID);
+			   myManager.purchaseObject(spriteID, place);
 			   toweroption = new TowerOption(myManager, spriteID, place, range);
 			   image.setOnMouseClicked((MouseEvent x) ->{
 					if(showOption ==false) return;
