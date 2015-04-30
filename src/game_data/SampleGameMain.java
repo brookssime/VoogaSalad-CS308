@@ -13,6 +13,7 @@ import engine.Grid;
 import engine.GridManager;
 import engine.HeadsUpDisplay;
 import engine.Movement;
+import engine.conditions.EnemyCondition;
 import engine.gameLogic.BasicMovement;
 import engine.gameLogic.Placement;
 import engine.gameLogic.ProjectileEffect;
@@ -34,6 +35,7 @@ public class SampleGameMain {
 	Game g2  = new Game(null);
 	XMLWriter myXMLWriter = new XMLWriter();
 	LevelNode levelNode = new LevelNode();
+	//levelNode.setState(NodeState.RUNNING);
 	ProjectileEffect effect = new ProjectileEffect();
 	Projectile projectile = new Projectile();
 	Range range = new Range();
@@ -55,6 +57,7 @@ public class SampleGameMain {
 	public Game createGame() {
 		
 		levelNode.setName("GAMENODE");
+		levelNode.addCondition(new EnemyCondition());
 		//WAVE
 		
 		//GAMESTATS?
@@ -65,6 +68,7 @@ public class SampleGameMain {
 		Tile[][] myTiles = new Tile[10][10];
 		for(int c = 0; c < 10; c++)
 			for (int r = 0; r < 10; r++){
+				myTiles[c][r] = new Tile();
 				myTiles[c][r].setGridLocation(new Point(c,r));
 				myTiles[c][r].setWidth(20);
 				myTiles[c][r].setName("NON-PATH");
@@ -95,6 +99,30 @@ public class SampleGameMain {
 		projectile.setImagePath("/voogasalad_TuffWizard/src/images/medium projectile.png");
 		//projectile.setpath? and other set methods...
 		
+		//ENEMY
+		
+				myEnemy.setCollisionHeight(2);
+				myEnemy.setCollisionWidth(2);
+				myEnemy.setDamage(10);
+				myEnemy.setHealth(10);
+				myEnemy.setImagePath("/voogasalad_TuffWizard/src/images/medium enemy.png");
+				myEnemy.setMovement(myMovement);
+				myEnemy.setName("Enemy");
+				myEnemy.setSpeed(10);
+				myEnemy.setSpriteHeight(5);
+				myEnemy.setSpriteWidth(5);
+				
+				// ADD WAVE OF ENEMIES TO GRID
+				List<Enemy> myEnemies = new ArrayList<Enemy>();
+				myEnemies.add(myEnemy);
+				myEnemies.add(myEnemy);
+				myWave.setEnemies(myEnemies);
+				List<Long> Delays = new ArrayList<Long>();
+				Delays.add((long) 10);
+				Delays.add((long) 10);
+				myWave.setDelays(Delays);
+				myWave.setPortName("testport");
+				grid.addWave(myWave);
 		
 		range.setCollisionHeight(5);
 		range.setCollisionWidth(5);
@@ -123,29 +151,7 @@ public class SampleGameMain {
 	
 
 	
-		//ENEMY
 		
-		myEnemy.setCollisionHeight(2);
-		myEnemy.setCollisionWidth(2);
-		myEnemy.setDamage(10);
-		myEnemy.setHealth(10);
-		myEnemy.setImagePath("/voogasalad_TuffWizard/src/images/medium enemy.png");
-		myEnemy.setMovement(myMovement);
-		myEnemy.setName("Enemy");
-		myEnemy.setSpeed(10);
-		myEnemy.setSpriteHeight(5);
-		myEnemy.setSpriteWidth(5);
-		
-		// ADD WAVE OF ENEMIES TO GRID
-		List<Enemy> myEnemies = new ArrayList<Enemy>();
-		myEnemies.add(myEnemy);
-		myWave.setEnemies(myEnemies);
-		List<Long> Delays = new ArrayList<Long>();
-		Delays.add((long) 1);
-		Delays.add((long) 1);
-		myWave.setDelays(Delays);
-		myWave.setPortName("testport");
-		grid.addWave(myWave);
 		
 		Port p = new Port();
 		p.setLocation(new Point(1,1));

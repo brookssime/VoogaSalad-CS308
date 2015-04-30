@@ -39,7 +39,7 @@ public class GridCell{
 	}
 	public GridCell( Tile tile, int r, int c){
 		myTile = tile;
-		image = new ImageView(tile.getImagePath());
+		image = new ImageView(PlayerManager.myImageLoader.loadImageFile(tile.getImagePath()));
 		droppable = false;
 		showOption  =false;
 		init();
