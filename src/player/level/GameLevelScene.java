@@ -142,7 +142,7 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 
 	private void updateHUD(HeadsUpDisplay hud) {
 		healthLabel.setText(Integer.toString(hud.displayHealth()));
-		scoreLabel.setText(Integer.toString(hud.displayScore()));
+		//scoreLabel.setText(Integer.toString(hud.displayScore()));
 		moneyLabel.setText(Integer.toString(hud.displayMoney()));
 		
 		

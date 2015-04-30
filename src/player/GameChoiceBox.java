@@ -2,6 +2,8 @@ package player;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import engine.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -14,10 +16,10 @@ public class GameChoiceBox extends AbstractOverlay {
 
 	//protected static int numButtons;
 	protected GameInfoBox gameInfoBox;
-	protected List<GameData> availGames;
+	protected List<Game> availGames;
 
 	public GameChoiceBox(double overlayWidth, double overlayHeight,
-			GameInfoBox gameInfoBox, List<GameData> availGames) {
+			GameInfoBox gameInfoBox, List<Game> availGames) {
 		super(overlayWidth, overlayHeight);
 
 		this.setMaxWidth(overlayWidth);
@@ -25,19 +27,16 @@ public class GameChoiceBox extends AbstractOverlay {
 		this.setPrefSize(overlayWidth, overlayHeight);
 		this.gameInfoBox = gameInfoBox;
 		this.availGames = availGames;
-
+		
+		this.setStyle("-fx-border-color: black;\n"
+                + "-fx-background-color: #4682b4;");
+		
 		// Entirely for testing, this will be populated by some game data
 		List<String> games = new ArrayList<String>();
-		games.add("Game 1");
-		games.add("Game 2");
-		games.add("Game 3");
-		games.add("Game 4");
-		games.add("Game 5");
-		games.add("Game 6");
 		createGameButtons(availGames);
 	}
 
-	void createGameButtons(List<GameData> availGames) {
+	void createGameButtons(List<Game> availGames) {
 
 		// Managing where to place the button
 		int numButtons = availGames.size();
@@ -52,7 +51,7 @@ public class GameChoiceBox extends AbstractOverlay {
 			String nextButtonLabel = null;
 
 			try {
-				nextButtonLabel = availGames.get(i).gameName; //in reality will be games.get(i).getName();
+				nextButtonLabel = availGames.get(i).getName(); //in reality will be games.get(i).getName();
 			} catch (Exception e) {
 				System.out
 						.println("AlgorithmOverlay.numButtons is set to be too large. "
@@ -71,7 +70,7 @@ public class GameChoiceBox extends AbstractOverlay {
 
 		VBox v = new VBox();
 		v.setTranslateY(centerX - buttonHeight / 2);
-		v.setTranslateX(overlayHeight / 3);
+		v.setTranslateX(overlayWidth * .1);
 
 		Button b = new Button(label);
 		b.getStylesheets().add("playerStyle.css");
@@ -94,7 +93,7 @@ public class GameChoiceBox extends AbstractOverlay {
 				//Set the selected game at the active game within the information box
 				System.out.println("Set Respective Button Actions");
 				
-				gameInfoBox.setGameData(availGames.get(i));
+				gameInfoBox.setActiveGame(availGames.get(i));
 				
 			}
 		});

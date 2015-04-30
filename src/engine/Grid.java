@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 import engine.gameLogic.GameObject;
@@ -24,7 +25,7 @@ public class Grid extends GameObject{
 	private Tile[][] myTiles;
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;
-	private Queue<Wave> myWaves;
+	private ArrayList<Wave> myWaves;
 	private Tile[][] gaeTiles;
 	private int tileR;
 	private int tileC;
@@ -32,7 +33,9 @@ public class Grid extends GameObject{
 	private int spriteC = 0;
 	
 	public Grid(){
-		
+		mySpriteMap = new HashMap<Sprite, Placement>();
+		myWaves = new ArrayList<Wave>();
+		myGridManager = new GridManager(this);
 	}
 	
 	public Grid(Integer height, Integer width){

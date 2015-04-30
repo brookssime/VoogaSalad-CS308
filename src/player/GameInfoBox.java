@@ -1,9 +1,16 @@
 package player;
 
+import java.io.IOException;
+
+import engine.Game;
+import game_data.GamesLoader;
+import game_data.SampleGameMain;
+import game_data.XMLWriter;
 import player.level.GameLevelScene;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -11,40 +18,44 @@ import javafx.stage.Stage;
 
 public class GameInfoBox extends AbstractOverlay{
 	
-	protected GameData gameData;
+	protected Game activeGame;
 	protected Text description;
 	protected Text title;
-	protected ImageView gameImage;
+	protected ImageView gameImageView; 
+	protected Image gameImage;
+	protected String gameImagePath;
 	protected Stage stage;
+	protected Button loadButton;
+	protected Button newGameButton;
+	private GamePlay myPlayer;
 
-	public GameInfoBox(Stage stage, double overlayWidth, double overlayHeight, GameData gameData) {
+	public GameInfoBox(Stage stage, double overlayWidth, double overlayHeight, Game game) {
 		super(overlayWidth, overlayHeight);
 		
-		this.gameData = gameData;
-		this.stage = stage;
-				
-		//MAGIC VALUES
-		this.description = new Text(10,50, gameData.gameDescription);
-		description.setFont(new Font(20));
-		description.setLayoutX(overlayWidth * .1);
-		description.setLayoutY(overlayHeight * .3);
-
-		this.title = new Text(10,50, gameData.gameName);
-		title.setFont(new Font(20));
-		title.setLayoutX(overlayWidth * .1);
-		title.setLayoutY(overlayHeight * .1);
 		
-		this.gameImage = new ImageView();
-		gameImage.setImage(gameData.getImage());
-		gameImage.setFitWidth(overlayWidth * .15);
-		gameImage.setPreserveRatio(true);
+		this.activeGame = game;
+		this.stage = stage;
+		this.title = new Text(10,50, game.getName());
+		title.setFont(new Font(20));
+		title.setStyle("-fx-fill: #bdb76b;\n" + "-fx-font-size: 32px;");
+		title.setLayoutX(overlayWidth * .4);
+		title.setLayoutY(overlayHeight * .035);
+		
+		this.setStyle("-fx-border-color: black;\n"
+                + "-fx-background-color: #4682b4;");
+		
+		this.gameImageView = new ImageView();
+		gameImagePath = game.getImagePath();
+		gameImage = new Image((getClass().getResourceAsStream(gameImagePath)));
+		gameImageView.setFitWidth(overlayWidth * .4);
+		gameImageView.setPreserveRatio(true);
 		
 		//MAGIC VALUES: CHANGE THIS
-		gameImage.setLayoutX(overlayWidth * .7);
-		gameImage.setLayoutY(overlayHeight * .1);
+		gameImageView.setLayoutX(overlayWidth * .3);
+		gameImageView.setLayoutY(overlayHeight * .15);
 		
-		this.getChildren().add(gameImage);
-		this.getChildren().add(description);
+		this.getChildren().add(gameImageView);
+		//this.getChildren().add(description);
 		this.getChildren().add(title);
 		this.getStylesheets().add("playerStyle.css");
 		addPlayButton();
@@ -52,12 +63,12 @@ public class GameInfoBox extends AbstractOverlay{
 		
 	}
 	
-	public GameData getGameData(){
-		return this.gameData;
+	public Game getActiveGame(){
+		return activeGame;
 	}
 	
-	public void setGameData(GameData gameData){
-		this.gameData = gameData;
+	public void setActiveGame(Game activeGame){
+		this.activeGame = activeGame;
 		updateGameInformation();
 		
 	}
@@ -70,32 +81,37 @@ public class GameInfoBox extends AbstractOverlay{
 	}
 
 	private void updateDescription() {
-		this.description.setText(this.gameData.gameDescription);
+		//this.description.setText(this.gameData.gameDescription);
 		
 	}
 
 	private void updateTitle() {
-		this.title.setText(this.gameData.gameName);
+		this.title.setText(activeGame.getName());
 		
 	}
 
 	private void updateImage() {
-		this.gameImage.setImage(this.gameData.getImage());
+		gameImage = new Image((getClass().getResourceAsStream(activeGame.getImagePath())));
+		this.gameImageView.setImage(gameImage);
 		
 	}
 
 	public void addPlayButton(){
-		Button newGame = new Button("New Game");
-		newGame.setLayoutX(overlayWidth * .6);
-		newGame.setLayoutY(overlayHeight * .8);
-		newGame.getStylesheets().add("playerStyle.css");
-		newGame.setOnAction(new EventHandler<ActionEvent>() {
+		newGameButton = new Button("New Game"); 
+		newGameButton.setLayoutX(overlayWidth * .65);
+		newGameButton.setLayoutY(overlayHeight * .85);
+		newGameButton.getStylesheets().add("playerStyle.css");
+		newGameButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 
 				//Open the level screen of Game Player and start a new game
 				System.out.println("Open The Level and Load The Game");
-				double screenHeight = stage.getHeight();
-				double screenWidth = stage.getWidth();
+				myPlayer = new GamePlay(stage,1400,800);
+				SampleGameMain sample = new SampleGameMain();
+				activeGame = sample.createGame();
+				myPlayer.getMyManager().setCurrGame(activeGame);
+				myPlayer.play();
+				stage.setScene(myPlayer.getScene());
 				
 				//GameLevelScene gameLevelScene = new GameLevelScene(stage, screenWidth, screenHeight);
 				//stage.setScene(gameLevelScene.getScene());
@@ -104,25 +120,28 @@ public class GameInfoBox extends AbstractOverlay{
 			}
 		});
 		
-		this.getChildren().add(newGame);
+		this.getChildren().add(newGameButton);
 	}
 	
 	public void addLoadButton(){
-		Button loadButton = new Button("Load Games");
-		loadButton.setLayoutX(overlayWidth * .2);
-		loadButton.setLayoutY(overlayHeight * .8);
-		loadButton.getStylesheets().add("playerStyle.css");
 		
-		loadButton.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				
-				System.out.println("Do Something to Load available Games");
-				
-			}
-		});
+		loadButton = new Button("Load Games");
+		loadButton.setLayoutX(overlayWidth * .25);
+		loadButton.setLayoutY(overlayHeight * .85);
+		loadButton.getStylesheets().add("playerStyle.css");
 		
 		this.getChildren().add(loadButton);
 	
+	}
+
+	public Button getLoadButton() {
+		
+		return loadButton;
+		
+	}
+	
+	public Button getNewGameButton(){
+		return newGameButton;
 	}
 
 }

@@ -11,11 +11,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+
+
 
 
 
@@ -41,6 +45,8 @@ public class GamesLoader extends JDialog{
 	private int iconWidth = 50;
 	private int iconHeight = 50;
 	
+	private List<Game> gameList;
+	
 	public GamesLoader(){
 		setModalityType(Dialog.ModalityType.TOOLKIT_MODAL);
 		setTitle("Select a game of your choice");
@@ -50,7 +56,7 @@ public class GamesLoader extends JDialog{
 		File folder = new File(gamesFolder);
 		File[] listOfFiles = folder.listFiles();
 		
-		
+		gameList = new ArrayList<Game>();
 		
 		for (File f : listOfFiles){
 			tryMakeGame(f);
@@ -96,6 +102,7 @@ public class GamesLoader extends JDialog{
 		
 		if (newGame!=null){
 			Image image;
+			gameList.add(newGame);
 			try {
 				//need to update imagePath to newGame.getImagePath
 				String imagePath = "/images/addImage.png";
@@ -103,25 +110,29 @@ public class GamesLoader extends JDialog{
 				image = image.getScaledInstance(iconWidth, iconHeight, 0);
 				ImageIcon imageicon = new ImageIcon(image);
 				
-				JLabel gameElement = new JLabel(newGame.getName(), imageicon, 0);
-				gameElement.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				add(gameElement);
-				
-				Game myGame = newGame;
-				gameElement.addMouseListener(new MouseAdapter()  
-				{  
-				    public void mouseClicked(MouseEvent e)  
-				    {  
-				    	selectedGame = myGame;
-				    	dispose();
-				    }  
-				}); 
+//				JLabel gameElement = new JLabel(newGame.getName(), imageicon, 0);
+//				gameElement.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+//				add(gameElement);
+//				
+//				Game myGame = newGame;
+//				gameElement.addMouseListener(new MouseAdapter()  
+//				{  
+//				    public void mouseClicked(MouseEvent e)  
+//				    {  
+//				    	selectedGame = myGame;
+//				    	dispose();
+//				    }  
+//				}); 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		
+	}
+	
+	public List<Game> getGameList(){
+		return gameList;
 	}
 
 	public Game getSelectedGame(){

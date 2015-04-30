@@ -96,7 +96,7 @@ public class GameEditor extends EditorComponent{
 				}
 				for(GameNode condition: node.getChildren()){
 					if(!condition.isButton()){
-						System.out.println(condition.toString());
+						System.out.println("Enum: " + condition.toString());
 						NodeState e = NodeState.valueOf(condition.toString());
 						String n = condition.getChildren() == null ? 
 								null : condition.getChildren().get(0).toString();
@@ -279,6 +279,7 @@ public class GameEditor extends EditorComponent{
 		
 		
 		exportButton.setOnAction(e->{
+			System.out.println(myObject);
 			myReceiver.exportFile(myObject);
 		});
 		

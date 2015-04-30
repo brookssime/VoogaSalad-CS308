@@ -3,26 +3,37 @@ package engine;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import player.GameChoiceScreen;
 import player.GamePlay;
 
 public class Main extends Application {
 
 	private GamePlay myPlayer;
 
-	public static void main(String[] args) {
-		launch(args);
-	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		stage.setTitle("Tuff Wizard");
-		myPlayer = new GamePlay( stage,1400,800);
-		stage.setScene(myPlayer.getScene()); //Fangyi: will this work?
+		
+		//OpenGameChoiceScreen
+		GameChoiceScreen gcs = new GameChoiceScreen(stage,1400,800);
+		//Set Game Choice Screen Scene
+		stage.setScene(gcs.getScene());
+		
+		//myPlayer = new GamePlay( stage,1400,800);
+		
+		//stage.setScene(myPlayer.getScene()); //Fangyi: will this work?
 		stage.setResizable(false);
 		stage.show();
+		//myPlayer.play();
+		
 		//Timeline animationTimeline = new Timeline();
 		//int frameRate = 1;
 		//myPlayer.manageTimeline(animationTimeline, frameRate);	//see below for an implementation of this method	
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
 	}
 	
 /*

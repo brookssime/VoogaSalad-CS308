@@ -138,6 +138,14 @@ public class Game extends GameObject {
 	}
 	
 	public void advanceNode(NodeState state) {
+		if(state == null){
+			System.out.print("state is null\n");
+			 return;
+		}
+		if(myAdjacencyList == null){
+			System.out.print("myAdjacencyList is null\n");
+			 return;
+		}
 		myCurNode = myAdjacencyList.get(myCurNode).get(state);
 		myCurNode.refreshNodeButtons(null);
 		myCurNode.render(myPlayerManager);
@@ -148,7 +156,7 @@ public class Game extends GameObject {
 		myCurNode.render(myPlayerManager);
 	}
 
-	@SpecialEditorAnnotation(specialeditor=true, name = "setHead", fieldName = "myStartNode")
+	@SpecialEditorAnnotation(specialeditor=true, name = "setHead", fieldName = "myCurNode")
 	public void setHead(GameNode head) {
 		myCurNode = head;
 	}
@@ -160,12 +168,13 @@ public class Game extends GameObject {
 
 	public void update(){
 		myCurNode.update();
-		if(myCurNode.checkState()!=NodeState.RUNNING){
+		myCurNode.render(myPlayerManager); // skipping logic for testing 
+		/*if(myCurNode.checkState()!=NodeState.RUNNING){
 			advanceNode(myCurNode.checkState());
 		}
 		else{
 			myCurNode.render(myPlayerManager);
-		}
+		}*/
 	}
 	// TODO: Check back on this
 	public void addStoreToLevel() {

@@ -19,17 +19,19 @@ public class Store extends GameObject {
 	private Integer mySellPercentage;
 	
 	public Store(){
-		
+		myTowerNames = new HashMap<String, Tower>();
+		myTowersOnSale = new HashMap<Tower, Integer>();
 	}
 		
 	public Store(Map<Tower, Integer> towersOnSale, String backgroundImagePath){
 		myTowersOnSale = towersOnSale;
 		myBackgroundImagePath = backgroundImagePath;
+		myTowerNames = new HashMap<String, Tower>();
 	}
 
-	public void setTowersOnSale(HashMap<Tower, Integer> towerOnSaleMap){
-		myTowersOnSale = towerOnSaleMap;
-	}
+//	public void setTowersOnSale(HashMap<Tower, Integer> towerOnSaleMap){
+//		myTowersOnSale = towerOnSaleMap;
+//	}
 	
 	public Set<Tower> getTowersOnSale(){
 		return myTowersOnSale.keySet();
@@ -40,6 +42,7 @@ public class Store extends GameObject {
 	public void setTowersOnSale(List<Tower> towers) {
 		for (Tower tower : towers) {
 			myTowersOnSale.put(tower, tower.getPrice());
+			myTowerNames.put(tower.getName(), tower);
 		}
 	}
 	
@@ -53,8 +56,8 @@ public class Store extends GameObject {
 		mySellPercentage = sellpercent;
 	}
 	
-	public Tower getTowerFromName(String ID){
-		return myTowerNames.get(ID);
+	public Tower getTowerFromName(String ID) throws CloneNotSupportedException{
+		return (Tower) myTowerNames.get(ID).clone();
 		// TODO make this CLONE the object instead of returning the same instance
 	}
 	
@@ -75,8 +78,10 @@ public class Store extends GameObject {
 	}
 	
 	public Tower getFromID(String TowerID){
+		System.out.print("TowerID: " + TowerID);
+	
 		for (String myTower: myTowerNames.keySet()){
-			if (myTower == TowerID){
+			if (myTower.equals( TowerID)){
 				return myTowerNames.get(myTower);
 			}
 		}
