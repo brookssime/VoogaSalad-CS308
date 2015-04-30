@@ -121,12 +121,15 @@ public class GridMaker {
     	int width1 = (int) grid.getPrefWidth();
     	System.out.println("My width3 " + width1);
     	
+    	myGrid.setAlignment(Pos.CENTER);
     	if((height1==0) | (width1==0)){
     		myGrid.add(new Text("No valid size entries. Try again"), 0, 0);
     	}
     	else{
     		for(int r=0; r<height1; r++){
     			for(int c=0; c<width1; c++){
+    				ColumnConstraints column = new ColumnConstraints(25);
+    				myGrid.getColumnConstraints().add(column);
     				Node single = single(type);
     				myGrid.add(single, c, r);
     			}
