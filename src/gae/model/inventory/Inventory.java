@@ -16,7 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import reflection.Reflection;
-import reflection.ReflectionException;
+import engine.Grid;
 import engine.gameLogic.GameObject;
 import engine.gameScreens.NodeButton;
 import engine.gameScreens.TitleScene;
@@ -74,7 +74,8 @@ public class Inventory {
 		ObservableMap<String, GameObject> map = myMaps.get(type);
 		// TODO only addes engine.sprites classes. needs to expand.
 		GameObject newThing = (GameObject) Reflection.createInstance("engine."
-				+ location + type);
+					+ location + type);
+		
 		String newName = "New" + type;
 		int vrsNum = 0;
 		while (map.containsKey(newName)) {

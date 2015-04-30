@@ -97,8 +97,6 @@ public class GridEditor extends EditorComponent{
 			
 			//MAKING THE QUEUE EDITOR -> the editor should be returning the value
 			//TODO: I promise, this will probs not work
-			QueueEditor myQueue = new QueueEditor(myReceiver, getMethod("setWaves"), "Queue");
-			myReceiver.runOnObject(myObject, getMethod("setWaves"), myQueue);
 
 			//mainPane.add(waves, 1, 5);
 			
@@ -131,7 +129,7 @@ public class GridEditor extends EditorComponent{
                     	String val = text.textVal.getCharacters().toString();
                     	myHeight = Integer.parseInt(val);
                     	System.out.println("My height: " + myHeight);
-                    	myReceiver.runOnObject(myObject, getMethod("setHeight"), myHeight);
+                    	myReceiver.runOnObject(myObject, getMethod("Set Height"), myHeight);
                     }
                 });
     	return text.box();
@@ -149,7 +147,7 @@ public class GridEditor extends EditorComponent{
                     	String val = text.textVal.getCharacters().toString();
                     	myWidth = Integer.parseInt(val);
                     	System.out.println("My width: " + myWidth);
-                    	myReceiver.runOnObject(myObject, getMethod("setWidth"), myWidth);
+                    	myReceiver.runOnObject(myObject, getMethod("Set Width"), myWidth);
                     }
                 });
     	return text.box();

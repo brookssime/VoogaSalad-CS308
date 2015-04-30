@@ -6,6 +6,7 @@ import interfaces.SpecialEditorAnnotation;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -31,6 +32,7 @@ public class Grid extends GameObject{
 	private int spriteC;
 	
 	public Grid(){
+		mySpriteMap = new HashMap<Sprite, Placement>();
 		setMyTiles(new Tile[myWidth][myHeight]);
 		myGridManager = new GridManager(this);
 		init();
