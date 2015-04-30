@@ -53,6 +53,8 @@ public class MenuPane extends GAEPane {
 		saveMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+S"));
 		saveMenuItem.setOnAction(e -> myReceiver.saveFile());
 		
+		fileMenu.getItems().add(saveMenuItem);
+		
 		menus.add(fileMenu);
 		
 		return menus;

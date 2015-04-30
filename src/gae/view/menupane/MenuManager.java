@@ -47,11 +47,13 @@ public class MenuManager implements MenuAdder {
 	public void addMenus(List<Menu> newMenus) {
 		if (newMenus != null) {
 			ObservableList<Menu> curMenus = myMenuBar.getMenus();
+			outerloop :
 			for (Menu newMenu : newMenus) {
 				for (Menu curMenu : curMenus) {
 					if (curMenu.getText().equals(newMenu.getText())) {
 						curMenu.getItems().add(new SeparatorMenuItem());
 						curMenu.getItems().addAll(newMenu.getItems());
+						continue outerloop;
 					}
 				}
 				curMenus.add(curMenus.size() - 2, newMenu);
