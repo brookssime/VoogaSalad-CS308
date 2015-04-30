@@ -72,12 +72,12 @@ public class SampleGameMain {
 				myTiles[c][r].setGridLocation(new Point(c,r));
 				myTiles[c][r].setWidth(20);
 				myTiles[c][r].setName("NON-PATH");
-				myTiles[c][r].setImagePath("/voogasalad_TuffWizard/src/images/basic.png");
+				myTiles[c][r].setImagePath("../images/basic.jpg");
 			}
 		
 		for(int i = 0; i < 10; i++){
 			myTiles[2][i].setName("Path");
-			myTiles[2][i].setImagePath("/voogasalad_TuffWizard/src/images/empty_tile.png");
+			myTiles[2][i].setImagePath("../images/empty_tile.jpg");
 					
 		}
 				
@@ -96,7 +96,7 @@ public class SampleGameMain {
 		projectile.setCollisionHeight(2);
 		projectile.setCollisionWidth(2);
 		projectile.setEffect(effect);
-		projectile.setImagePath("/voogasalad_TuffWizard/src/images/medium projectile.png");
+		projectile.setImagePath("../images/medium projectile.png");
 		//projectile.setpath? and other set methods...
 		
 		//ENEMY
@@ -105,7 +105,7 @@ public class SampleGameMain {
 				myEnemy.setCollisionWidth(2);
 				myEnemy.setDamage(10);
 				myEnemy.setHealth(10);
-				myEnemy.setImagePath("/voogasalad_TuffWizard/src/images/medium enemy.png");
+				myEnemy.setImagePath("../images/medium enemy.png");
 				myEnemy.setMovement(myMovement);
 				myEnemy.setName("Enemy");
 				myEnemy.setSpeed(10);
@@ -130,7 +130,7 @@ public class SampleGameMain {
 		
 		
 		
-		tower.setImagePath("/voogasalad_TuffWizard/src/images/basic tower.png");
+		tower.setImagePath("../images/basic tower.png");
 		tower.setFireRate(2);
 		tower.setHealth(100);
 		tower.setMyPrice(50);
@@ -140,7 +140,11 @@ public class SampleGameMain {
 		tower.setProjectile(projectile);
 		tower.setRangeObject(range);
 		
+		tower.fillSpriteInfo();
 		
+		List<String> accessNames = new ArrayList<String>();
+		accessNames.add("NON-PATH");
+		tower.setAccessNames(accessNames);
 		grid.move(tower, placement);
 		
 		
@@ -155,14 +159,14 @@ public class SampleGameMain {
 		
 		Port p = new Port();
 		p.setLocation(new Point(1,1));
-		p.setImagePath("/voogasalad_TuffWizard/src/images/home.png");
+		p.setImagePath("../images/home.png");
 		p.setName("testport");
 		
 		grid.move(myEnemy, placement2);
 		
 		
 		base.setHealth(100);
-		base.setImagePath("/voogasalad_TuffWizard/src/images/medium tower.png");
+		base.setImagePath("../images/medium tower.png");
 		base.setLocation(new Point(10, 8));
 		
 		//STORE

@@ -41,11 +41,11 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	private double screenHeight;
 	private Game currGame;
 	public static ImageLoader myImageLoader;
-	public PlayerManager(GameLevelScene level, DialogScene dialog, Controller controller){
-		myLevel = level;
-		myDialog = dialog;
-		myController = controller;
-	}
+//	public PlayerManager(GameLevelScene level, DialogScene dialog, Controller controller){
+//		myLevel = level;
+//		myDialog = dialog;
+//		myController = controller;
+//	}
 	public PlayerManager(Stage stage, double screenWidth, double screenHeight){
 		this.stage = stage;
 		this.screenHeight = screenHeight;

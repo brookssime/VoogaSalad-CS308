@@ -79,10 +79,14 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 	private Button speedUpButton;
 	private Button slowDownButton;
 	private LevelManager myManager;
+	private boolean firstInit = false;
+	private boolean storeupdated = false;
 	BorderPane root;
 	//private int currentTime
 	public GameLevelScene(Stage stage, double screenWidth, double screenHeight, LevelManager manager){
 		//this.root = new Group();
+        myNodeManager = manager;
+        myManager = manager;
 		primaryStage = stage;
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
@@ -90,10 +94,11 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 		moneyNum = 0;
 		scoreNum = 0;
 		adjustrate = screenWidth/1436;
-		root = makePane();
+		 root = makePane();
         scene = new Scene(root, screenWidth, screenHeight);
         buttons = new ArrayList<Button>();
-        myNodeManager = manager;
+
+       
         //initTimeLine();
 	}
 	
@@ -125,22 +130,27 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 
 	
 	private void updateStore(Store store) {
+		if(storeupdated != false){
+			return;
+		}
 		towerInfo.getChildren().clear();
 		Label myLabel = new Label("Towers: ");
 
 		Set<Tower> myTowersOnSale = store.getTowersOnSale();
 		for(Tower tower : myTowersOnSale){
+			if(tower == null) continue;
 			TowerInfo t = new TowerInfo(tower, this);
 			//sample TowerInfo
 			//TowerInfo t = new TowerInfo("../../images/tower.jpg", "basic", (int)(adjustrate* 100), (int)(adjustrate*300), (int)(adjustrate* 10));
 			towerInfo.getChildren().addAll(myLabel,t.getDisplay());
 		}
-		
+		storeupdated = true;
 		
 		
 	}
 
 	private void updateHUD(HeadsUpDisplay hud) {
+		if(hud == null) return;
 		healthLabel.setText(Integer.toString(hud.displayHealth()));
 		scoreLabel.setText(Integer.toString(hud.displayScore()));
 		moneyLabel.setText(Integer.toString(hud.displayMoney()));
@@ -150,7 +160,9 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 
 	private void updateGrid(Grid grid) {
 		Map<Sprite, Placement> myMap =grid.getSpriteMap();
+		if(firstInit == false)
 		myGrid.updateGrid(grid);
+		firstInit = true;
 		myGrid.updateSprite(myMap);
 		
 		
@@ -195,7 +207,7 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 	}
 
 	private Node makeGridDisplay() {
-		myGrid = new GraphicGrid(screenWidth, screenHeight);
+		myGrid = new GraphicGrid(screenWidth, screenHeight, myManager);
 		return myGrid.getNode();
 	}
 
