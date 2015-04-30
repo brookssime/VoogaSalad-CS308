@@ -31,6 +31,10 @@ public class Grid extends GameObject{
 	private int spriteR;
 	private int spriteC;
 	
+	public Grid(){
+		
+	}
+	
 	public Grid(Integer height, Integer width){
 		myHeight = height; myWidth = width;
 		mySpriteMap = new HashMap<Sprite, Placement>();
