@@ -149,8 +149,8 @@ public class GridManager {
 		spawnEnemies();
 	}
 
-	public void setWaves(Queue<Wave> waves){
-		myWaves = waves;
+	public void addWave(Wave wave){
+		myWaves.add(wave);
 	}
 	
 	// REVIEW: this ONLY exists here for the sake of conditions--is there a workaround?

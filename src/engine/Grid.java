@@ -32,9 +32,14 @@ public class Grid extends GameObject{
 	private int spriteC;
 	
 	public Grid(){
+		
+	}
+	
+	public Grid(Integer height, Integer width){
+		myHeight = height; myWidth = width;
 		mySpriteMap = new HashMap<Sprite, Placement>();
 		setMyTiles(new Tile[myWidth][myHeight]);
-		myGridManager = new GridManager(this);
+		//myGridManager = new GridManager(this);
 		init();
 	}
 
@@ -63,9 +68,9 @@ public class Grid extends GameObject{
 	}
 	
 	@MethodAnnotation(editor=true, name = "Set Waves", type = "queueeditor", fieldName = "myWaves")
-	public void setWaves(Queue<Wave> waves){
-		myWaves = waves;
-		myGridManager.setWaves(waves);
+	public void addWave(Wave wave){
+		myWaves.add(wave);
+		myGridManager.addWave(wave);
 	}
 
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Tiles", fieldName="myTiles")

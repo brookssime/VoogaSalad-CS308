@@ -46,6 +46,7 @@ public class GameEditor extends EditorComponent{
 	private ArrayList<GameNode> myNodes;
 	private GameNode myHead;
 	private ArrayList<Method> mySpecialMethods;
+	private Button exportButton;
 	
 	
 	public GameEditor(Receiver receiver, Method method, String objectName){
@@ -262,6 +263,7 @@ public class GameEditor extends EditorComponent{
 	@Override
 	public void setUpEditor() {
 		myNodes = new ArrayList<>();
+		exportButton = new Button("Export Game");
 		Button button = new Button("Open Game Editor");
 		button.setOnAction(e -> {
 			Stage primaryStage = new Stage();
@@ -270,10 +272,16 @@ public class GameEditor extends EditorComponent{
 			primaryStage.setWidth(600);
 			primaryStage.show();
 		});
-		this.getChildren().add(button);
+		this.getChildren().addAll(button, exportButton);
 		
 		//get special method annotations
 		mySpecialMethods = new ArrayList<>(myReceiver.getSpecialEditorMethods(myObject));
+		
+		
+		exportButton.setOnAction(e->{
+			myReceiver.exportFile(myObject);
+		});
+		
 	}
 	
 	
