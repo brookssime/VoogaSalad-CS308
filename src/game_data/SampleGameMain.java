@@ -52,6 +52,7 @@ public class SampleGameMain {
 	HashMap<Tower, Integer> storeMap = new HashMap<Tower, Integer>();
 	Store store = new Store();
 	Wave myWave = new Wave();
+	
 	public Game createGame() {
 		
 		levelNode.setName("GAMENODE");

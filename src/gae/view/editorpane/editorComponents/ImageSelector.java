@@ -8,8 +8,6 @@ import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import gae.model.Receiver;
 import javafx.scene.control.Button;
@@ -70,7 +68,7 @@ public class ImageSelector extends EditorComponent {
 		myBox.getChildren().addAll(selectButton, drawButton, myDisplay);
 
 		selectButton.setOnAction(e -> {
-			File selectedFile = getSaveFile();
+			selectedFile = getSaveFile();
 //			JFileChooser fileChooser = new JFileChooser(System.getProperties()
 //					.getProperty("user.dir") + "/src/images");
 //			FileNameExtensionFilter filter = new FileNameExtensionFilter(

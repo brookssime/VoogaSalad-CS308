@@ -64,9 +64,9 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	}
 	
 	public void setCurrGame(Game game){
-		SampleGameMain sample = new SampleGameMain();
-		currGame = sample.createGame();
-		//currGame = game;
+		//SampleGameMain sample = new SampleGameMain();
+		//currGame = sample.createGame();
+		currGame = game;
 
 		init();
 	}
