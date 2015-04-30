@@ -98,7 +98,7 @@ public class LevelNode extends GameNode {
 	@MethodAnnotation(editor = true, name = "Set Grid", type = "singleselect", fieldName = "myGrid")
 	@TypeAnnotation(type="Grid")
 	public void setGrid(Grid grid) {
-		myGrid = new Grid(grid, new GridManager(myGrid));
+		myGrid = new Grid(grid, new GridManager(grid));
 
 	}
 
