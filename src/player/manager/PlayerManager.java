@@ -17,6 +17,7 @@ import engine.gameScreens.NodeButton;
 import engine.gameScreens.Store;
 import engine.sprites.Tower;
 import game_data.ImageLoader;
+import game_data.SampleGameMain;
 import game_data.XMLWriter;
 import player.GameChoiceScreen;
 import player.GraphicGameScene;
@@ -55,16 +56,24 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		myLevel = new GameLevelScene(stage, screenWidth, screenHeight, this);
 		myDialog = new DialogScene(stage, screenWidth, screenHeight, this);
 		//TODO: create game from XML
-		currGame = new Game(null);
-		myController = new Controller(currGame);
+		SampleGameMain sample = new SampleGameMain();
+		
+		currGame = sample.createGame();
+		myController = new Controller(currGame,this);
+		
+		
+	}
+	public void play(){
+		myController.start();
 	}
 	public Scene getInitScene(){
 		//TODO: get the initScene
-		GameChoiceScreen gcs = new GameChoiceScreen(stage, screenWidth, screenHeight);
-		//MainMenu mainMenu = new MainMenu(stage,screenWidth,screenHeight);
-		createGameChoiceScreenButtons(gcs);
-		//Scene initScene = mainMenu.getScene();
-		Scene initScene = gcs.getScene();
+		//GameChoiceScreen gcs = new GameChoiceScreen(stage, screenWidth, screenHeight);
+		MainMenu mainMenu = new MainMenu(stage,screenWidth,screenHeight);
+		//createGameChoiceScreenButtons(gcs);
+		Scene initScene = mainMenu.getScene();
+		//Scene initScene = gcs.getScene();
+		
 		return initScene;
 	}
 	private void createGameChoiceScreenButtons(GameChoiceScreen gcs) { 
@@ -81,7 +90,7 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 
 			if(currGame !=null)
 			System.out.println(currGame.getName());
-			myController = new Controller(currGame);
+			myController = new Controller(currGame,this);
 			//stage.setScene(myLevel.getScene());
 			//stage.show();
 

@@ -24,7 +24,7 @@ public class Placement {
 	public void normalize(){
 		if((myHeading < 0)||(myHeading >= 360))
 			myHeading += (myHeading >= 360)?-360:360;
-		normalize();
+		//normalize();
 	}
 
 	public void setLocation(Point location){
