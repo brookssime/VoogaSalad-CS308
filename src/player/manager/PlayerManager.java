@@ -50,19 +50,27 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		this.stage = stage;
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
-		init();
 	}
+	
 	private void init(){
 		myLevel = new GameLevelScene(stage, screenWidth, screenHeight, this);
 		myDialog = new DialogScene(stage, screenWidth, screenHeight, this);
 		//TODO: create game from XML
-		SampleGameMain sample = new SampleGameMain();
+		//SampleGameMain sample = new SampleGameMain();
 		
-		currGame = sample.createGame();
 		myController = new Controller(currGame,this);
 		
 		
 	}
+	
+	public void setCurrGame(Game game){
+		SampleGameMain sample = new SampleGameMain();
+		currGame = sample.createGame();
+		//currGame = game;
+
+		init();
+	}
+	
 	public void play(){
 		myController.start();
 	}

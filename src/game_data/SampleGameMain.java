@@ -65,10 +65,11 @@ public class SampleGameMain {
 		Tile[][] myTiles = new Tile[10][10];
 		for(int c = 0; c < 10; c++)
 			for (int r = 0; r < 10; r++){
+				myTiles[c][r] = new Tile();
 				myTiles[c][r].setGridLocation(new Point(c,r));
 				myTiles[c][r].setWidth(20);
 				myTiles[c][r].setName("NON-PATH");
-				myTiles[c][r].setImagePath("/voogasalad_TuffWizard/src/images/basic.png");
+				myTiles[c][r].setImagePath("../images/basic.png");
 			}
 		
 		for(int i = 0; i < 10; i++){

@@ -27,7 +27,9 @@ public class GameChoiceBox extends AbstractOverlay {
 		this.setPrefSize(overlayWidth, overlayHeight);
 		this.gameInfoBox = gameInfoBox;
 		this.availGames = availGames;
-
+		
+		this.setStyle("-fx-background-color: #98fb98;");
+		
 		// Entirely for testing, this will be populated by some game data
 		List<String> games = new ArrayList<String>();
 		createGameButtons(availGames);
@@ -67,7 +69,7 @@ public class GameChoiceBox extends AbstractOverlay {
 
 		VBox v = new VBox();
 		v.setTranslateY(centerX - buttonHeight / 2);
-		v.setTranslateX(overlayHeight / 3);
+		v.setTranslateX(overlayWidth * .1);
 
 		Button b = new Button(label);
 		b.getStylesheets().add("playerStyle.css");

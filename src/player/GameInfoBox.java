@@ -26,26 +26,22 @@ public class GameInfoBox extends AbstractOverlay{
 	protected Stage stage;
 	protected Button loadButton;
 	protected Button newGameButton;
+	private GamePlay myPlayer;
 
 	public GameInfoBox(Stage stage, double overlayWidth, double overlayHeight, Game game) {
 		super(overlayWidth, overlayHeight);
 		
+		
 		this.activeGame = game;
 		this.stage = stage;
-				
-		//MAGIC VALUES
-//		this.description = new Text(10,50, gameData.gameDescription);
-//		description.setFont(new Font(20));
-//		description.setLayoutX(overlayWidth * .1);
-//		description.setLayoutY(overlayHeight * .3);
-
 		this.title = new Text(10,50, game.getName());
 		title.setFont(new Font(20));
 		title.setLayoutX(overlayWidth * .1);
 		title.setLayoutY(overlayHeight * .1);
 		
+		this.setStyle("-fx-background-color: #708090;");
+		
 		this.gameImageView = new ImageView();
-		//gameImage.setImage(gameData.getImage());
 		gameImagePath = game.getImagePath();
 		gameImage = new Image((getClass().getResourceAsStream(gameImagePath)));
 		gameImageView.setFitWidth(overlayWidth * .15);
@@ -107,9 +103,10 @@ public class GameInfoBox extends AbstractOverlay{
 
 				//Open the level screen of Game Player and start a new game
 				System.out.println("Open The Level and Load The Game");
-				double screenHeight = stage.getHeight();
-				double screenWidth = stage.getWidth();
-				
+				myPlayer = new GamePlay(stage,1400,800);
+				myPlayer.getMyManager().setCurrGame(activeGame);
+				stage.setScene(myPlayer.getScene());
+				myPlayer.play();
 				//GameLevelScene gameLevelScene = new GameLevelScene(stage, screenWidth, screenHeight);
 				//stage.setScene(gameLevelScene.getScene());
 				
@@ -121,34 +118,11 @@ public class GameInfoBox extends AbstractOverlay{
 	}
 	
 	public void addLoadButton(){
+		
 		loadButton = new Button("Load Games");
 		loadButton.setLayoutX(overlayWidth * .2);
 		loadButton.setLayoutY(overlayHeight * .8);
 		loadButton.getStylesheets().add("playerStyle.css");
-		
-//		loadButton.setOnAction(new EventHandler<ActionEvent>() {
-//			public void handle(ActionEvent event) {
-//				
-//				System.out.println("Do Something to Load available Games");
-//				
-//				GamesLoader gl = new GamesLoader();
-//				
-//				Game selectedGame = gl.getSelectedGame();
-//				
-//				if (selectedGame!=null){
-//					System.out.println(selectedGame.getName());
-//				}
-//				
-//				Game g2 = new Game(null);
-//				try {
-//					g2 = (Game) XMLWriter.LoadGameData();
-//				} catch (ClassNotFoundException e) {
-//					System.out.println("Class not found: " + e);
-//				} catch (IOException e) {
-//					System.out.println("IOException: " + e);
-//				}
-//			}
-//		});
 		
 		this.getChildren().add(loadButton);
 	
