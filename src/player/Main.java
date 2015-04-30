@@ -3,6 +3,8 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 
+import engine.Game;
+import game_data.GamesLoader;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -20,19 +22,7 @@ public class Main extends Application {
 		
 		// For Testing Purposes
 		
-		List<GameData> availGames = getAvailableGames();
-//		GameData game1 = new GameData("Game 1", "This is game 1", "../resources/tower-defense-games.png");
-//		GameData game2 = new GameData("Game 2", "This is game 1", "../resources/tower-defense-games.png");
-//		GameData game3 = new GameData("Game 3", "This is game 1", "../resources/tower-defense-games.png");
-//		GameData game4 = new GameData("Game 4", "This is game 1", "../resources/tower-defense-games.png");
-//		GameData game5 = new GameData("Game 5", "This is game 1", "../resources/tower-defense-games.png");
-//		
-//		List<GameData> availGames = new ArrayList<GameData>();
-//		availGames.add(game1);
-//		availGames.add(game2);
-//		availGames.add(game3);
-//		availGames.add(game4);
-//		availGames.add(game5);
+		List<Game> availGames = getAvailableGames();
 		
 		
 		GameChoiceScreen v = new GameChoiceScreen(stage, SCREENWIDTH, SCREENHEIGHT);
@@ -43,23 +33,15 @@ public class Main extends Application {
 		stage.show();
 	}
 	
-	private List<GameData> getAvailableGames() {
+	private List<Game> getAvailableGames() {
 		// Method For testing purposes
 		// Will eventually be populated with a list of available games. 
 		
-		GameData game1 = new GameData("Game 1", "This is game 1", "../resources/tower-defense-games.png");
-		GameData game2 = new GameData("Game 2", "This is game 2", "../resources/tower-defense-games.png");
-		GameData game3 = new GameData("Game 3", "This is game 3", "../resources/tower-defense-games.png");
-		GameData game4 = new GameData("Game 4", "This is game 4", "../resources/tower-defense-games.png");
-		GameData game5 = new GameData("Game 5", "This is game 5", "../resources/tower-defense-games.png");
+		ExistingGameLoader gl = new ExistingGameLoader();
 		
-		List<GameData> availGames = new ArrayList<GameData>();
+		List<Game> availGames = new ArrayList<Game>();
+		availGames = gl.getGameList();
 		
-		availGames.add(game1);
-		availGames.add(game2);
-		availGames.add(game3);
-		availGames.add(game4);
-		availGames.add(game5);
 		
 		return availGames;
 	}
