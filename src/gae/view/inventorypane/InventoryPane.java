@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import gae.model.Receiver;
 import gae.view.GAEPane;
+import gae.view.editorpane.EditorAdder;
 import gae.view.editorpane.EditorPane;
 import gae.view.menupane.MenuAdder;
 
@@ -30,9 +31,9 @@ public class InventoryPane extends GAEPane {
 	private String[] LOCATIONS;
 	private Accordion myAccordion;
 	private Receiver myReceiver;
-	private EditorPane myEditor;
+	private EditorAdder myEditor;
 
-	public InventoryPane(MenuAdder adder, Receiver rec, EditorPane ep) {
+	public InventoryPane(MenuAdder adder, Receiver rec, EditorAdder ep) {
 		super(InventoryPane.class.getSimpleName(), adder);
 		myAccordion = new Accordion();
 		myReceiver = rec;
@@ -66,6 +67,7 @@ public class InventoryPane extends GAEPane {
 		Button button = new Button("Add");
 		button.setOnMouseClicked(e -> {
 			myReceiver.addObject(type, location);
+			myEditor.addEditor("New "+type);
 		});
 		return button;
 	}
@@ -104,6 +106,7 @@ public class InventoryPane extends GAEPane {
 			String location = LOCATIONS[i];
 			newMenuItem.setOnAction(e -> {
 				myReceiver.addObject(type, location);
+				myEditor.addEditor("New "+type);
 			});
 			menuInventory.getItems().add(newMenuItem);
 		}

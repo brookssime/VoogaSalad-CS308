@@ -9,6 +9,7 @@ import java.util.List;
 
 
 
+
 import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -16,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import gae.model.Receiver;
 import gae.view.GAEPane;
+import gae.view.editorpane.EditorAdder;
 import gae.view.menupane.MenuAdder;
 
 public class Editor extends GAEPane {
@@ -34,16 +36,18 @@ public class Editor extends GAEPane {
 	private BorderPane myPane;
 	private EditorComponentFactory myFactory;
 	private Receiver myReceiver;
+	private EditorAdder myEditorAdder;
 	
 	private int default_width = 900;
 	private int default_height = 700;
 
 	private String myObj;
 
-	public Editor(MenuAdder adder, Receiver receiver, String obj) {
+	public Editor(MenuAdder adder, Receiver receiver, String obj, EditorAdder ea) {
 		super(Editor.class.getSimpleName(), adder);
 		myObj = obj;
 		myReceiver = receiver;
+		myEditorAdder = ea;
 
 		List<Method> objMethods = new ArrayList<Method>(myReceiver.getEditorMethods(obj));
 
@@ -62,7 +66,7 @@ public class Editor extends GAEPane {
 					.getAnnotation(MethodAnnotation.class);
 			String componentType = methodAnnotation.type();
 			EditorComponent fieldEditor = myFactory.generateComponent(
-					componentType, myReceiver, method, myObj);
+					componentType, myReceiver, method, myObj, myEditorAdder);
 			myForm.getChildren().add(fieldEditor);
 		}
 

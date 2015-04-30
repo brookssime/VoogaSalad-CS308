@@ -76,7 +76,7 @@ public class Inventory {
 		GameObject newThing = (GameObject) Reflection.createInstance("engine."
 					+ location + type);
 		
-		String newName = "New" + type;
+		String newName = "New " + type;
 		int vrsNum = 0;
 		while (map.containsKey(newName)) {
 			vrsNum++;
