@@ -10,9 +10,6 @@ public class Main extends Application {
 
 	private GamePlay myPlayer;
 
-	public static void main(String[] args) {
-		launch(args);
-	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -23,7 +20,7 @@ public class Main extends Application {
 		//Set Game Choice Screen Scene
 		stage.setScene(gcs.getScene());
 		
-		myPlayer = new GamePlay( stage,1400,800);
+		//myPlayer = new GamePlay( stage,1400,800);
 		
 		//stage.setScene(myPlayer.getScene()); //Fangyi: will this work?
 		stage.setResizable(false);
@@ -33,6 +30,10 @@ public class Main extends Application {
 		//Timeline animationTimeline = new Timeline();
 		//int frameRate = 1;
 		//myPlayer.manageTimeline(animationTimeline, frameRate);	//see below for an implementation of this method	
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
 	}
 	
 /*

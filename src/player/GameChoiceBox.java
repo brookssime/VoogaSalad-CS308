@@ -28,7 +28,8 @@ public class GameChoiceBox extends AbstractOverlay {
 		this.gameInfoBox = gameInfoBox;
 		this.availGames = availGames;
 		
-		this.setStyle("-fx-background-color: #98fb98;");
+		this.setStyle("-fx-border-color: black;\n"
+                + "-fx-background-color: #4682b4;");
 		
 		// Entirely for testing, this will be populated by some game data
 		List<String> games = new ArrayList<String>();
