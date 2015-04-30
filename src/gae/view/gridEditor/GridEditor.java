@@ -17,8 +17,13 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.geometry.Pos;
 
 /**
  * Grid Editor
@@ -48,7 +53,7 @@ public class GridEditor extends EditorComponent{
 	//private int myHeight;
 	private IntegerProperty myWidth;
 	private IntegerProperty myHeight;
-	private GridPane mainPane;
+	private VBox mainPane;
 	private ArrayList<Method> mySpecialMethods;
 	private GridPane tileGrid;
 	private GridPane spriteGrid;
@@ -67,16 +72,18 @@ public class GridEditor extends EditorComponent{
 			primaryStage.setTitle("Grid Editor");
 			Group root = new Group();
 			Scene scene = new Scene(root, 400, 400);
-			mainPane = new GridPane();
+			mainPane = new VBox(5);
+			mainPane.setSpacing(20);
 			mainPane.prefHeightProperty().bind(scene.heightProperty());
 			mainPane.prefWidthProperty().bind(scene.widthProperty());
+			mainPane.setAlignment(Pos.CENTER);
 			
 			//MAKING THE GRID
 			gridSize();
 			GridMaker myGrid = new GridMaker(myReceiver);
 						
 			Button gridDone = new Button("Create Grid");
-			mainPane.add(gridDone, 0, 4);
+			mainPane.getChildren().add(gridDone);
 			gridDone.setOnAction(
 	                new EventHandler<ActionEvent>() {
 	                    @Override
@@ -146,9 +153,9 @@ public class GridEditor extends EditorComponent{
 	
 	private void gridSize(){
 		Node width = width();
-        mainPane.add(width, 0, 0);
+        mainPane.getChildren().add(width);
 		Node height = height();
-		mainPane.add(height, 0, 2);
+		mainPane.getChildren().add(height);
 	}
 	
 	private Node height(){//TODO: Make sure the inputs are integers

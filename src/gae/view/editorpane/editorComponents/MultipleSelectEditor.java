@@ -100,7 +100,11 @@ public class MultipleSelectEditor extends EditorComponent{
 			ArrayList<String> accessArray = new ArrayList<>();
 			for (GameObject g : data) {
 				if(g.getSelected()){
+					System.out.println("Name " +g.getName());
 					accessArray.add(g.getName());
+					System.out.println("Here");
+					System.out.println(g.getName());
+					//myReceiver.runOnObjectSwap(myObject, myMethod, g.getName());
 				}
 			}
 			// update backend inventory
