@@ -7,6 +7,7 @@ import interfaces.SpecialEditorAnnotation;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -23,23 +24,25 @@ public class Grid extends GameObject{
 	private int myWidth;
 	private Tile[][] myTiles;
 	private GridManager myGridManager;
-	private Map<Sprite, Placement> mySpriteMap;	
+	private Map<Sprite, Placement> mySpriteMap;
 	private Queue<Wave> myWaves;
 	private Tile[][] gaeTiles;
 	private int tileR;
 	private int tileC;
-	private int spriteR;
-	private int spriteC;
+	private int spriteR = 0;
+	private int spriteC = 0;
 	
 	public Grid(){
-		
+		mySpriteMap = new HashMap<Sprite, Placement>();
+		myWaves = new LinkedList<Wave>();
+		myGridManager = new GridManager(this);
 	}
 	
 	public Grid(Integer height, Integer width){
 		myHeight = height; myWidth = width;
 		mySpriteMap = new HashMap<Sprite, Placement>();
 		setMyTiles(new Tile[myWidth][myHeight]);
-		//myGridManager = new GridManager(this);
+		myGridManager = new GridManager(this);
 		init();
 	}
 
@@ -177,6 +180,7 @@ public class Grid extends GameObject{
 	public void update(){
 		refreshHeadings();
 		myGridManager.update();
+		myGridManager.updateSpriteMap(mySpriteMap);
 		//myGridManager.checkComplete();
 	}
 	

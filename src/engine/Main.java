@@ -20,6 +20,7 @@ public class Main extends Application {
 		stage.setScene(myPlayer.getScene()); //Fangyi: will this work?
 		stage.setResizable(false);
 		stage.show();
+		myPlayer.play();
 		//Timeline animationTimeline = new Timeline();
 		//int frameRate = 1;
 		//myPlayer.manageTimeline(animationTimeline, frameRate);	//see below for an implementation of this method	
