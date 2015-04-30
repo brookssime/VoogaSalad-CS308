@@ -152,6 +152,10 @@ public class Game extends GameObject {
 	public void setHead(GameNode head) {
 		myCurNode = head;
 	}
+	
+	public GameNode getHead(){
+		return myCurNode;
+	}
 
 
 	public void update(){
