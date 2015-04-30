@@ -39,9 +39,9 @@ public class GridManager {
 
 	public GridManager(Grid grid){
 		myGrid = grid;
+		myWaves = new LinkedList<>();
 		//sortObjects(grid.getSpriteMap());
 		myPathFinder = new PathFinder(grid);
-		myWaves = new LinkedList<Wave>();
 	}
 
 	/****Helpers--called locally**********/
@@ -106,7 +106,7 @@ public class GridManager {
 
 	// REVIEW this currently doesn's do anything to the Grid
 	private void spawnEnemies() {
-		if(myWaves == null || myWaves.isEmpty()) return;
+		if(myWaves == null) return;
 		while (!myWaves.peek().isComplete()) {
 			Wave w = myWaves.peek();
 			List<Enemy> spawnedEnemies = w.update(myStartTime);

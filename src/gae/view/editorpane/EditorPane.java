@@ -23,7 +23,7 @@ import gae.view.menupane.MenuAdder;
  *         was not used yet.
  *
  */
-public class EditorPane extends GAEPane {
+public class EditorPane extends GAEPane implements EditorAdder {
 
 	/** The my tabs. */
 	private TabPane myTabs;
@@ -48,11 +48,22 @@ public class EditorPane extends GAEPane {
 		 //myTabs.getTabs().add(newTab);
 	}
 
+	@Override
 	public void addEditor(String obj) {
 		Tab newTab = new Tab(obj);
-		Editor newEditor = new Editor(myMenuAdder, myReceiver, obj);
+		Editor newEditor = new Editor(myMenuAdder, myReceiver, obj, (EditorAdder) this);
 		newTab.setContent(newEditor.getPane());
 		myTabs.getTabs().add(newTab);
+	}
+	
+	@Override
+	public void closeTab() {
+		for (Tab tab : myTabs.getTabs()) {
+			if (tab.isSelected()) {
+				myTabs.getTabs().remove(tab);
+				break;
+			}
+		}
 	}
 
 	/*
@@ -66,14 +77,7 @@ public class EditorPane extends GAEPane {
 
 		Menu menuEditor = new Menu("Editor");
 		MenuItem closeTabMenuItem = new MenuItem("Close Tab");
-		closeTabMenuItem.setOnAction(e -> {
-			for (Tab tab : myTabs.getTabs()) {
-				if (tab.isSelected()) {
-					myTabs.getTabs().remove(tab);
-					break;
-				}
-			}
-		});
+		closeTabMenuItem.setOnAction(e -> closeTab());
 		closeTabMenuItem.setAccelerator(KeyCombination
 				.keyCombination("shortcut+W"));
 		menuEditor.getItems().add(closeTabMenuItem);

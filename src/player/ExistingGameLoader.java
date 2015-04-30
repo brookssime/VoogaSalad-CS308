@@ -34,7 +34,7 @@ public class ExistingGameLoader{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private String gamesFolder = System.getProperties().getProperty("user.dir") +"/src/resources/game_data";
+	private String gamesFolder = System.getProperties().getProperty("user.dir") +"/src/resources/GameTest";
 	private FileInputStream fin;
 	private ObjectInputStream ois;
 	private XStream xstream = new XStream(new DomDriver());

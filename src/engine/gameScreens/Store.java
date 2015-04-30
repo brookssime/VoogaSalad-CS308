@@ -19,7 +19,7 @@ public class Store extends GameObject {
 	private Integer mySellPercentage;
 	
 	public Store(){
-		
+		myTowersOnSale = new HashMap<>();
 	}
 		
 	public Store(Map<Tower, Integer> towersOnSale, String backgroundImagePath){
@@ -35,12 +35,10 @@ public class Store extends GameObject {
 		return myTowersOnSale.keySet();
 	}
 	
-	@MethodAnnotation(editor=true, name="Set Towers and Prices", type="multiselect", fieldName="myTowersOnSale")
+	@MethodAnnotation(editor=true, name="Set Towers and Prices", type="multiselectobject", fieldName="myTowersOnSale")
 	@TypeAnnotation(type="Tower")
-	public void setTowersOnSale(List<Tower> towers) {
-		for (Tower tower : towers) {
+	public void setTowersOnSale(Tower tower) {
 			myTowersOnSale.put(tower, tower.getPrice());
-		}
 	}
 	
 	@MethodAnnotation(editor=true, name="Set Background Image", type="imageselect", fieldName="myBackgroundImagePath")

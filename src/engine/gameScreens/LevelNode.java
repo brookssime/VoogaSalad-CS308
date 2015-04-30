@@ -23,19 +23,17 @@ public class LevelNode extends GameNode {
 	private HeadsUpDisplay myHUD;
 	private ArrayList<Condition> myConditions;
 	private LevelStats myGameStats;
-	private long myStartTime;
-	private long myTotalTime;
+	private Long myStartTime;
+	private Long myTotalTime;
 
 	public LevelNode() {
 		super();
 		myStartTime = System.nanoTime();
-		myConditions = new ArrayList<Condition>();
 	}
 
 /*******Overridden from GameNode - Called by Game*********/
 	@Override
 	public void render(PlayerManager playerManager) {
-		//System.out.print("Calling update level node render\n");
 		playerManager.updateLevel(myGrid, myStore, myHUD);
 	}
 	
@@ -84,7 +82,7 @@ public class LevelNode extends GameNode {
 /********Called by GAE**********/
 
 	@MethodAnnotation(editor = true, name = "Set Time Limit", type = "textfield", fieldName = "myTotalTime")
-	public void setTotalTime(long time) {
+	public void setTotalTime(Long time) {
 		myTotalTime = time;
 	}
 
@@ -122,10 +120,6 @@ public class LevelNode extends GameNode {
 
 	public long calculateRemainingTime() {
 		return myTotalTime - myGameStats.getTimeElapsed(myStartTime);
-	}
-	
-	public void addCondition(Condition c){
-		myConditions.add(c);
 	}
 
 }

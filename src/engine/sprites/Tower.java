@@ -4,10 +4,10 @@ import interfaces.Collidable;
 import interfaces.MethodAnnotation;
 import interfaces.ParameterAnnotation;
 import interfaces.Shootable;
+import interfaces.TypeAnnotation;
 
 import java.awt.Point;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,8 +33,7 @@ public class Tower extends Sprite implements Shootable{
 
 	
 	public Tower() {
-		mySpriteInfo = new HashMap<String, String>();
-		//fillSpriteInfo();
+		myProjectile = new Projectile();
 	}
 
 	public Tower (XStream serializer, String data, Point2D location) {
@@ -49,9 +48,6 @@ public class Tower extends Sprite implements Shootable{
 		myRange = range;
 		myFireRate = fireRate;		
 		myHealth = health;
-		mySpriteInfo = new HashMap<String, String>();
-		fillSpriteInfo();
-		
 	}
 	
 	@Override
@@ -96,6 +92,8 @@ public class Tower extends Sprite implements Shootable{
 		myFireRate = fireRate;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Projectile", type = "singleselect", fieldName = "myProjectile")
+ 	@TypeAnnotation(type="Projectile")
 	public void setProjectile(Projectile projectile){
 		myProjectile = projectile;
 	}

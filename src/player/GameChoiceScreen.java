@@ -1,23 +1,18 @@
 package player;
 
 import engine.Game;
-import game_data.GamesLoader;
-import game_data.SampleGameMain;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class GameChoiceScreen {
 	
-	// Magic Values - Not sure what to do with these 
-	// as they are necessary for placement of objects within the screen
 	private double infoBoxWidthPct = .6;
 	private double infoBoxHeightPct = .7;
 	
@@ -34,9 +29,8 @@ public class GameChoiceScreen {
 	private double infoBoxHeight;
 	
 	private GameInfoBox gameInfoBox;
-	private GamesLoader gl;
+	private ExistingGameLoader gl;
 	
-	private Stage stage;
 	List<Game> availGames;
 	
 	public GameChoiceScreen(Stage stage, double screenWidth, double screenHeight){
@@ -47,57 +41,35 @@ public class GameChoiceScreen {
 		
 		this.infoBoxWidth = infoBoxWidthPct * screenWidth;
 		this.infoBoxHeight = infoBoxHeightPct * screenHeight;
-		this.stage = stage;
-		//availGames = getAvailableGames();
-		availGames = new ArrayList<Game>();
-		
-		ExistingGameLoader gl = new ExistingGameLoader();
-		//Game selectedGame = gl.getSelectedGame();
-		
-		SampleGameMain sample = new SampleGameMain();
-		Game selectedGame = sample.createGame();
-		System.out.println(selectedGame.getName());
-		availGames.add(selectedGame);
-		
-		
-		GameData gameData = new GameData("Inital Name", "Inital Description", "../resources/tower-defense-games.png");
-		
-		
-		gameInfoBox = new GameInfoBox(stage, infoBoxWidth, infoBoxHeight, selectedGame);
-		gameInfoBox.setLayoutX(.35 * screenWidth);
-		gameInfoBox.setLayoutY(.15 * screenHeight);
 		
 		double choiceBoxWidth = choiceBoxWidthPct * screenWidth;
 		double choiceBoxHeight = choiceBoxHeightPct * screenHeight; 
 		
-		//Map<GameData, GameInfoBox> gameInfoScreensMap = new HashMap<GameData, GameInfoBox>();
 		
-		generateGameInfoScreensMap(availGames);
+		gl = new ExistingGameLoader();
+		availGames = gl.getGameList();
+		Game selectedGame = availGames.get(0);
+		
+		//GameData gameData = new GameData("Inital Name", "Inital Description", "../resources/tower-defense-games.png");
+		
+		gameInfoBox = new GameInfoBox(stage, infoBoxWidth, infoBoxHeight, selectedGame);
+		gameInfoBox.setLayoutX(.35 * screenWidth);
+		gameInfoBox.setLayoutY(.25 * screenHeight);
+		
 		GameChoiceBox gameChoiceBox = new GameChoiceBox(choiceBoxWidth, choiceBoxHeight, gameInfoBox, availGames);
+		gameChoiceBox.setLayoutX(.1 * screenWidth);
+		gameChoiceBox.setLayoutY(.25 * screenHeight);
+		
+		Text title = new Text("TuffWizard");
+		title.setFont(new Font(40));
+		title.setLayoutX(screenWidth * .45);
+		title.setLayoutY(screenHeight * .2);
+		title.setStyle("-fx-color:#00008b");
+		
 		root.getChildren().add(gameChoiceBox);
 		root.getChildren().add(gameInfoBox);
+		root.getChildren().add(title);
 		
-		//gameChoiceBox.setLayoutX(.1 * screenWidth);
-		gameChoiceBox.setLayoutY(.15 * screenHeight);
-		
-		
-	}
-	
-	private List<Game> getAvailableGames() {
-		// Method For testing purposes
-		// Will eventually be populated with a list of available games. 
-		
-		List<Game> availGames = new ArrayList<Game>();		
-		return availGames;
-	}
-	
-	private void generateGameInfoScreensMap(List<Game> availGames) {
-		
-		Map<Game, GameInfoBox> gameInfoScreensMap = new HashMap<Game, GameInfoBox>();
-		for(Game game: availGames){	
-			GameInfoBox gameInfoBox = new GameInfoBox(stage, infoBoxWidth, infoBoxHeight, game);
-			gameInfoScreensMap.put(game, gameInfoBox);	
-		}
 	}
 
 	public Scene getScene(){

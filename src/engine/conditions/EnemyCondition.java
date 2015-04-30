@@ -13,7 +13,6 @@ public class EnemyCondition extends Condition{
 	public NodeState evaluate(LevelNode levelNode) {
 		if(levelNode.getGrid().getWaves().isEmpty()){
 			return NodeState.ENEMIES_DEAD;
-			//return NodeState.RUNNING; //for testing
 		}
 		else{
 			return NodeState.RUNNING;

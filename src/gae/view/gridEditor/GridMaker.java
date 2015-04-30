@@ -24,8 +24,10 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -58,7 +60,6 @@ public class GridMaker {
                     @Override
                     public void handle(final ActionEvent e) {
                     	System.out.println("Tiles Done ");
-                    	tabPane.getTabs().remove(0);
                     	if(tabPane.getTabs().size()>1){
                 			tabPane.getTabs().remove(0);
                     	}
@@ -111,18 +112,24 @@ public class GridMaker {
     	myGrid.prefWidthProperty().bind(s.widthProperty());
     	myGrid.setAlignment(Pos.CENTER);
     	myGrid.setPadding(new Insets(5));
+    
+    	//myGrid.getColumnConstraints().add(new ColumnConstraints(50));
+    	//myGrid.getRowConstraints().add(new RowConstraints(50));
     	
     	System.out.println("My height3 " + grid.getHeight());
     	int height1 = (int) grid.getPrefHeight();
     	int width1 = (int) grid.getPrefWidth();
     	System.out.println("My width3 " + width1);
     	
+    	myGrid.setAlignment(Pos.CENTER);
     	if((height1==0) | (width1==0)){
     		myGrid.add(new Text("No valid size entries. Try again"), 0, 0);
     	}
     	else{
     		for(int r=0; r<height1; r++){
     			for(int c=0; c<width1; c++){
+    				ColumnConstraints column = new ColumnConstraints(25);
+    				myGrid.getColumnConstraints().add(column);
     				Node single = single(type);
     				myGrid.add(single, c, r);
     			}

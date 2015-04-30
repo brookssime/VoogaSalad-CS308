@@ -17,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 /**
@@ -85,8 +86,7 @@ public class ImageSelector extends EditorComponent {
 			String[] path = selectedFile.toURI().toString().split("/");
 			myImagePath = "/" + path[path.length - 2] + "/"
 					+ path[path.length - 1];
-			myDisplay.setImage(new Image(getClass().getResourceAsStream(
-					myImagePath)));
+			myDisplay.setImage(new Image(getClass().getResourceAsStream(myImagePath)));
 			myReceiver.runOnObject(myObject, myMethod, myImagePath);
 		});
 
@@ -97,20 +97,19 @@ public class ImageSelector extends EditorComponent {
 
 	}
 
-	
 	public  File getSaveFile(){
 		FileChooser fileChooser = getNewChooser();
 
-        fileChooser.setTitle("Save as");
+        fileChooser.setTitle("Select Image");
         File file = fileChooser.showOpenDialog(new Stage());
         return file;
 	}
 	
 	private  FileChooser getNewChooser(){
 		FileChooser fileChooser = new FileChooser();
-//        fileChooser.getExtensionFilters()
-//                .add(
-//                     new FileChooser.ExtensionFilter("PNG, JPG & GIF Images", "jpg", "gif", "png"));
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+		File initDir = new File(System.getProperties().getProperty("user.dir") +"/src/images");
+		fileChooser.setInitialDirectory(initDir);
         return fileChooser;
 	}
 	
