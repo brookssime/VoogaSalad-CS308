@@ -1,6 +1,11 @@
 package gae.view.gridEditor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,6 +22,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
@@ -32,6 +38,7 @@ public class TestEditor extends Application {
 	private int myHeight;
 	private GridPane mainPane;
 	private GridPane myGrid;
+	private Stage gridStage;
 	
     @Override
     public void start(Stage primaryStage) {
@@ -56,7 +63,7 @@ public class TestEditor extends Application {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(final ActionEvent e) {
-                    	Stage gridStage = new Stage();
+                    	gridStage = new Stage();
                     	gridStage.setTitle("Make your grid");
                     	Group gridGroup = new Group();
                     	Scene gridScene = new Scene(gridGroup, myHeight*10, myWidth*10);
@@ -75,6 +82,16 @@ public class TestEditor extends Application {
                 });
 		Button waves = new Button("Make Wave Queue");
 		//TODO: make wave queue stage
+		waves.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(final ActionEvent e) {
+                    	System.out.println("Sprites Done ");
+                    	WaveMaker myWaves = new WaveMaker();
+                    	myWaves.setUp();
+                    }
+                });
+		mainPane.add(waves, 1, 5);
 		
         //NON-EDITOR CODE
 		root.getChildren().add(mainPane);
@@ -84,7 +101,10 @@ public class TestEditor extends Application {
     
     private Node single() {
     	TestSingleSelect single = new TestSingleSelect();
-    	single.setUpEditor();
+    	Set<String> mySet = new HashSet<String>();
+    	mySet.add("1");
+    	mySet.add("Five");
+    	single.setUpEditor(mySet);
 		return single.root();
 	}
 
@@ -98,13 +118,20 @@ public class TestEditor extends Application {
         Tab tiles = new Tab("Tiles");
         tiles.setClosable(false);
         makeGrid(s);
-        Button tileDone = gridDone();
+        Button tileDone = new Button("Tile Grid Done");
         tileDone.setOnAction(
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(final ActionEvent e) {
                     	System.out.println("Tiles Done ");
-                    	//TODO: Iterate through the grid
+                    	//TODO: Iterate through the grid for tiles
+                    	tabPane.getTabs().remove(0);
+                    	if(tabPane.getTabs().size()>1){
+                			tabPane.getTabs().remove(0);
+                    	}
+                    	else{
+                    		gridStage.close();
+                    	}
                     }
                 });
         bp1.setTop(tileDone);
@@ -113,11 +140,29 @@ public class TestEditor extends Application {
         tiles.setContent(bp1);
         tabPane.getTabs().add(tiles);
         
+        
         Tab sprites = new Tab("Sprites");
         sprites.setClosable(false);
         makeGrid(s);
+        Button spriteDone = new Button("Sprites Grid Done");
+        spriteDone.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(final ActionEvent e) {
+                    	System.out.println("Sprites Done ");
+                    	//TODO: Iterate through the grid for sprites
+                    	if(tabPane.getTabs().size()>1){
+                    			tabPane.getTabs().remove(1);
+                    	}
+                    	else{
+                    		gridStage.close();
+                    	}
+                    }
+                });
+        bp2.setTop(spriteDone);
         scrollPane2.setContent(myGrid);
-        sprites.setContent(scrollPane2);
+        bp2.setCenter(scrollPane2);
+        sprites.setContent(bp2);
         tabPane.getTabs().add(sprites);
         
         tabPane.prefHeightProperty().bind(s.heightProperty());
@@ -133,10 +178,15 @@ public class TestEditor extends Application {
     	myGrid.setAlignment(Pos.CENTER);
     	myGrid.setPadding(new Insets(5));
     	
-    	for(int r=0; r<myHeight; r++){
-    		for(int c=0; c<myWidth; c++){
-    			Node single = single();
-    			myGrid.add(single, c, r);
+    	if((myHeight==0) | (myWidth==0)){
+    		myGrid.add(new Text("No valid size entries. Try again"), 0, 0);
+    	}
+    	else{
+    		for(int r=0; r<myHeight; r++){
+    			for(int c=0; c<myWidth; c++){
+    				Node single = single();
+    				myGrid.add(single, c, r);
+    			}
     		}
     	}
     }
@@ -145,15 +195,17 @@ public class TestEditor extends Application {
     	TestTextField text = new TestTextField();
     	text.setName("height");
     	text.setUpEditor();
+    	
     	text.btn.setOnAction(
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(final ActionEvent e) {
-                    	String val = text.width.getCharacters().toString();
+                    	String val = text.textVal.getCharacters().toString();
                     	myHeight = Integer.parseInt(val);
                     	System.out.println("My height: " + myHeight);
                     }
                 });
+    	
     	return text.box();
     }
     
@@ -166,7 +218,7 @@ public class TestEditor extends Application {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(final ActionEvent e) {
-                    	String val = text.width.getCharacters().toString();
+                    	String val = text.textVal.getCharacters().toString();
                     	myWidth = Integer.parseInt(val);
                     	System.out.println("My width: " + myWidth);
                     }
