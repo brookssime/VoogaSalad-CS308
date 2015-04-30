@@ -17,7 +17,9 @@ import engine.gameScreens.NodeButton;
 import engine.gameScreens.Store;
 import engine.sprites.Tower;
 import game_data.ImageLoader;
+import game_data.SampleGameMain;
 import game_data.XMLWriter;
+import player.GameChoiceScreen;
 import player.GraphicGameScene;
 import player.MainMenu;
 import player.dialogue.DialogScene;
@@ -54,39 +56,52 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		myLevel = new GameLevelScene(stage, screenWidth, screenHeight, this);
 		myDialog = new DialogScene(stage, screenWidth, screenHeight, this);
 		//TODO: create game from XML
-		currGame = new Game(null);
-		myController = new Controller(currGame);
+		SampleGameMain sample = new SampleGameMain();
+		
+		currGame = sample.createGame();
+		myController = new Controller(currGame,this);
+		
+		
+	}
+	public void play(){
+		myController.start();
 	}
 	public Scene getInitScene(){
 		//TODO: get the initScene
+		//GameChoiceScreen gcs = new GameChoiceScreen(stage, screenWidth, screenHeight);
 		MainMenu mainMenu = new MainMenu(stage,screenWidth,screenHeight);
-		createMainMenuButtons(mainMenu);
+		//createGameChoiceScreenButtons(gcs);
 		Scene initScene = mainMenu.getScene();
+		//Scene initScene = gcs.getScene();
+		
 		return initScene;
 	}
-	private void createMainMenuButtons(MainMenu mainMenu) {
-		Button playGame = mainMenu.getPlayButton();
-		playGame.setOnAction((event) -> {
-			//GameChoiceScreen gameChoiceScreen = new GameChoiceScreen(stage, screenWidth, screenHeight);
+	private void createGameChoiceScreenButtons(GameChoiceScreen gcs) { 
+		Button loadGame = gcs.getLoadButton();
+		loadGame.setOnAction((event) -> {
 			
 			try {
-				currGame = (Game) XMLWriter.loadGameData();
+				currGame = (Game) XMLWriter.LoadGameData();
 			} catch (ClassNotFoundException e) {
-				System.out.println("Class not found: " + e);
+				System.out.println("Class not found: " + e); 
 			} catch (IOException e) {
 				System.out.println("IOException: " + e);
 			}
 
-			// test if t2 is now t1
 			if(currGame !=null)
 			System.out.println(currGame.getName());
-			myController = new Controller(currGame);
+			myController = new Controller(currGame,this);
 			//stage.setScene(myLevel.getScene());
 			//stage.show();
-			
 
 		});
 		
+		Button newGame = gcs.getNewGameButton();
+		newGame.setOnAction((event) -> {
+			
+			System.out.println("Do Something to start a New Game");
+
+		});
 		
 	}
 

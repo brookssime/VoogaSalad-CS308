@@ -108,7 +108,7 @@ public class Game extends GameObject {
 	
 	
 	@MethodAnnotation(editor=true, name = "Game Editor", type = "gameeditor", fieldName = "")
-	public void fakeMethod() {
+	public void getGAEComponent() {
 		return;
 	}
 	
@@ -148,9 +148,13 @@ public class Game extends GameObject {
 		myCurNode.render(myPlayerManager);
 	}
 
-	@SpecialEditorAnnotation(specialeditor=true, name = "setHead", fieldName = "myStartNode")
+	@SpecialEditorAnnotation(specialeditor=true, name = "setHead", fieldName = "myCurNode")
 	public void setHead(GameNode head) {
 		myCurNode = head;
+	}
+	
+	public GameNode getHead(){
+		return myCurNode;
 	}
 
 

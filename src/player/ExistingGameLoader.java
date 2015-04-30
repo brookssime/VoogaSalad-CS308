@@ -1,4 +1,4 @@
-package game_data;
+package player;
 
 import java.awt.Cursor;
 import java.awt.Dialog;
@@ -30,7 +30,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import engine.Game;
 
-public class GamesLoader extends JDialog{
+public class ExistingGameLoader{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -47,10 +47,10 @@ public class GamesLoader extends JDialog{
 	
 	private List<Game> gameList;
 	
-	public GamesLoader(){
-		setModalityType(Dialog.ModalityType.TOOLKIT_MODAL);
-		setTitle("Select a game of your choice");
-		setLayout(new GridLayout());
+	public ExistingGameLoader(){
+//		setModalityType(Dialog.ModalityType.TOOLKIT_MODAL);
+//		setTitle("Select a game of your choice");
+//		setLayout(new GridLayout());
 		
 		selectedGame = null;
 		File folder = new File(gamesFolder);
@@ -63,8 +63,8 @@ public class GamesLoader extends JDialog{
 		}
 			
 			
-		setSize(dialogWidth, dialogHeight);
-		setVisible(true);
+//		setSize(dialogWidth, dialogHeight);
+//		setVisible(true);
 	}
 	
 	private void tryMakeGame(File f){

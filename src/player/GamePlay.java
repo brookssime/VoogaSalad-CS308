@@ -42,6 +42,9 @@ public class GamePlay {
 		//GameLevelScene g = new GameLevelScene(stage, screenWidth, screenHeight, myManager);
 		return myManager.getInitScene();
 	}
+	public void play(){
+		myManager.play();
+	}
 	public void manageTimeline(Timeline animationTimeline, int frameRate) {
 		// TODO Auto-generated method stub
 		

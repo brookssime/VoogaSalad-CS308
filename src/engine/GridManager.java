@@ -38,7 +38,7 @@ public class GridManager {
 
 	public GridManager(Grid grid){
 		myGrid = grid;
-		sortObjects(grid.getSpriteMap());
+		//sortObjects(grid.getSpriteMap());
 		myPathFinder = new PathFinder(grid);
 	}
 
@@ -60,6 +60,7 @@ public class GridManager {
 	}
 
 	private void checkCollidables() {
+		if(myCollidables == null) return;
 		for (Collidable sprite : myCollidables) {
 			for (Collidable collider : myCollidables) {
 				if (!(sprite.equals(collider) && isCollision(sprite, collider))) {
@@ -76,6 +77,7 @@ public class GridManager {
 	}
 	
 	private void checkShootables(){
+		if(myShootables == null) return;
 		for (Shootable s : myShootables){
 			s.update();
 			if(s.isReady()){
@@ -94,6 +96,7 @@ public class GridManager {
 	}
 
 	private void moveSprites() {
+		if(mySprites == null) return;
 		for (Sprite sprite : mySprites) {
 			myGrid.move(sprite, sprite.move()); 
 		}
@@ -101,6 +104,7 @@ public class GridManager {
 
 	// REVIEW this currently doesn's do anything to the Grid
 	private void spawnEnemies() {
+		if(myWaves == null) return;
 		while (!myWaves.peek().isComplete()) {
 			Wave w = myWaves.peek();
 			List<Enemy> spawnedEnemies = w.update(myStartTime);
@@ -117,6 +121,7 @@ public class GridManager {
 	
 	// REVIEW is this intended to remove them from the Grid? It currently is not doing that
 	private void clearSprites() { 
+		if(myCollidables == null) return;
 		myDeadCollidables.addAll(myCollidables.stream().filter(s -> s.isDead())
 				.collect(Collectors.toSet())); // filter to find dead objects
 		for (Collidable sprite : myDeadCollidables) {
@@ -162,6 +167,11 @@ public class GridManager {
 	public int calculateBaseHealth() {
 			return myBases.stream().mapToInt(b -> b.getHealth()).sum();
 		}
+
+	public void updateSpriteMap(Map<Sprite, Placement> mySpriteMap) {
+		sortObjects(mySpriteMap);
+		
+	}
 	
 		
 		

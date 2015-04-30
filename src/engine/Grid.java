@@ -23,13 +23,13 @@ public class Grid extends GameObject{
 	private int myWidth;
 	private Tile[][] myTiles;
 	private GridManager myGridManager;
-	private Map<Sprite, Placement> mySpriteMap;	
+	private Map<Sprite, Placement> mySpriteMap;
 	private Queue<Wave> myWaves;
 	private Tile[][] gaeTiles;
 	private int tileR;
 	private int tileC;
-	private int spriteR;
-	private int spriteC;
+	private int spriteR = 0;
+	private int spriteC = 0;
 	
 	public Grid(){
 		
@@ -39,7 +39,7 @@ public class Grid extends GameObject{
 		myHeight = height; myWidth = width;
 		mySpriteMap = new HashMap<Sprite, Placement>();
 		setMyTiles(new Tile[myWidth][myHeight]);
-		//myGridManager = new GridManager(this);
+		myGridManager = new GridManager(this);
 		init();
 	}
 
@@ -53,7 +53,7 @@ public class Grid extends GameObject{
 	/********Called by GAE**********/
 	
 	@MethodAnnotation(editor=true, name = "Grid Editor", type = "grid", fieldName = "")
-	public void fakeMethod() {
+	public void getGAEComponent() {
 		return;
 	}
 	
@@ -177,6 +177,7 @@ public class Grid extends GameObject{
 	public void update(){
 		refreshHeadings();
 		myGridManager.update();
+		myGridManager.updateSpriteMap(mySpriteMap);
 		//myGridManager.checkComplete();
 	}
 	
