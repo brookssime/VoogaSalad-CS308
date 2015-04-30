@@ -73,7 +73,7 @@ public class GridEditor extends EditorComponent{
 			
 			//MAKING THE GRID
 			gridSize();
-			GridMaker myGrid = new GridMaker();
+			GridMaker myGrid = new GridMaker(myReceiver);
 			
 			//myGrid.grid(mainPane, myHeight, myWidth, myReceiver);
 			

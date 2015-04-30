@@ -35,6 +35,10 @@ public class GridMaker {
 	private GridPane finishTG; //Final Tile grid
 	private GridPane finishSG; //Final Sprite grid
 	
+	public GridMaker(Receiver r){
+		myReceiver = r;
+	}
+	
 	protected Node paneForGrid(Scene s, GridPane grid){
     	TabPane tabPane = new TabPane();
     	ScrollPane scrollPane = new ScrollPane();
