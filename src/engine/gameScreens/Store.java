@@ -19,7 +19,7 @@ public class Store extends GameObject {
 	private Integer mySellPercentage;
 	
 	public Store(){
-		
+		myTowersOnSale = new HashMap<>();
 	}
 		
 	public Store(Map<Tower, Integer> towersOnSale, String backgroundImagePath){
