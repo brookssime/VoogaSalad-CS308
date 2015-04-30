@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -33,16 +36,17 @@ public class XMLWriter {
 		XStream xstream = new XStream(new DomDriver());
 		String xml = xstream.toXML(myData);
 
-		JFrame parentFrame = new JFrame();
-		File myFile = new File("name" + ".xml");
-		JFileChooser fileChooser = new JFileChooser(System.getProperties()
-				.getProperty("user.dir") + "/src/resources/game_data");
-		fileChooser.setDialogTitle("Specify a file to save");
-		fileChooser.setSelectedFile(myFile);
-		int userSelection = fileChooser.showSaveDialog(parentFrame);
+		//JFrame parentFrame = new JFrame();
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setInitialDirectory(new File(System.getProperties()
+				.getProperty("user.dir") + "/src/resources/game_data"));
+		fileChooser.setTitle("Specify a file to save");
+		ExtensionFilter filter = new ExtensionFilter("XML", "*.xml");
+		fileChooser.getExtensionFilters().add(filter);
+		File selectedFile = fileChooser.showOpenDialog(null);
 
-		if (userSelection == JFileChooser.APPROVE_OPTION) {
-			File fileToSave = fileChooser.getSelectedFile();
+		if (selectedFile != null) {
+			File fileToSave = selectedFile;
 			FileOutputStream fout = new FileOutputStream(fileToSave);
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
 			oos.writeObject(xml);
@@ -58,16 +62,16 @@ public class XMLWriter {
 	public static Object LoadGameData() throws IOException,
 			ClassNotFoundException {
 		XStream xstream = new XStream(new DomDriver());
-		JFileChooser fileChooser = new JFileChooser(System.getProperties()
-				.getProperty("user.dir") + "/src/resources/game_data");
-		FileNameExtensionFilter XMLfilter = new FileNameExtensionFilter("XML","xml");
-		fileChooser.addChoosableFileFilter(XMLfilter);
-		fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		int retval = fileChooser.showOpenDialog(null);
-		if (retval != JFileChooser.APPROVE_OPTION) {
-			return null;
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setInitialDirectory(new File(System.getProperties()
+				.getProperty("user.dir") + "/src/resources/game_data"));
+		ExtensionFilter XMLfilter = new ExtensionFilter("XML","xml");
+		fileChooser.getExtensionFilters().add(XMLfilter);
+		File selectedFile = fileChooser.showOpenDialog(null);
+		if (selectedFile == null) {
+			System.out.println("no file selected");
 		}
-		FileInputStream fin = new FileInputStream(fileChooser.getSelectedFile());
+		FileInputStream fin = new FileInputStream(selectedFile);
 		ObjectInputStream ois = new ObjectInputStream(fin);
 		Object obj = xstream.fromXML((String) ois.readObject());
 		ois.close();
