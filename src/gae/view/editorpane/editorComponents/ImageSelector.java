@@ -83,11 +83,9 @@ public class ImageSelector extends EditorComponent {
 //				return;
 //			}
 //			selectedFile = fileChooser.getSelectedFile();
-			System.out.println(selectedFile.toURI().toString());
 			String[] path = selectedFile.toURI().toString().split("/");
 			myImagePath = "/" + path[path.length - 2] + "/"
 					+ path[path.length - 1];
-			System.out.println(myImagePath);
 			myDisplay.setImage(new Image(getClass().getResourceAsStream(myImagePath)));
 			myReceiver.runOnObject(myObject, myMethod, myImagePath);
 		});
