@@ -6,6 +6,7 @@ import interfaces.Shootable;
 import java.awt.Shape;
 import java.awt.geom.Area;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -38,8 +39,9 @@ public class GridManager {
 
 	public GridManager(Grid grid){
 		myGrid = grid;
-		sortObjects(grid.getSpriteMap());
+		//sortObjects(grid.getSpriteMap());
 		myPathFinder = new PathFinder(grid);
+		myWaves = new LinkedList<Wave>();
 	}
 
 	/****Helpers--called locally**********/
@@ -104,7 +106,7 @@ public class GridManager {
 
 	// REVIEW this currently doesn's do anything to the Grid
 	private void spawnEnemies() {
-		if(myWaves == null) return;
+		if(myWaves == null || myWaves.isEmpty()) return;
 		while (!myWaves.peek().isComplete()) {
 			Wave w = myWaves.peek();
 			List<Enemy> spawnedEnemies = w.update(myStartTime);
@@ -167,6 +169,11 @@ public class GridManager {
 	public int calculateBaseHealth() {
 			return myBases.stream().mapToInt(b -> b.getHealth()).sum();
 		}
+
+	public void updateSpriteMap(Map<Sprite, Placement> mySpriteMap) {
+		sortObjects(mySpriteMap);
+		
+	}
 	
 		
 		

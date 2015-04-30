@@ -20,14 +20,15 @@ public class Placement {
 		myLocation = location;
 		myHeading = d;
 	}
-	
-	public void normalize() {
-		if ((myHeading < 0) || (myHeading >= 360)) {
-			myHeading += (myHeading >= 360) ? -360 : 360;
+
+	public void normalize(){
+		if((myHeading < 0)||(myHeading >= 360)){
+			myHeading += (myHeading >= 360)?-360:360;
 			normalize();
-		} else {
-			return;
 		}
+		else
+			return;		
+
 	}
 
 	public void setLocation(Point location){
