@@ -59,7 +59,7 @@ public class TitleScene extends GameNode {
 	}
 	
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Title Position", fieldName="myTitlePos")
-	public void setTitlePos(int x, int y) {
+	public void setTitlePos(Integer x, Integer y) {
 		myTitlePos.x = x;
 		myTitlePos.y = y;
 	}

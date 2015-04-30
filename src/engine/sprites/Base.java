@@ -27,7 +27,7 @@ public class Base extends Sprite implements Collidable{
 	}
 	
 	@MethodAnnotation(editor=true, name = "Set Health", type = "textfield", fieldName = "myHealth")
-	public void setHealth(int health){
+	public void setHealth(Integer health){
 		myHealth = health;
 	}
 	
@@ -99,8 +99,5 @@ public class Base extends Sprite implements Collidable{
 		myLocation = location;
 	}
 	
-	public void setHealth(Integer health){
-		myHealth = health;
-	}
 	
 }

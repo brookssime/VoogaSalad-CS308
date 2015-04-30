@@ -53,12 +53,12 @@ public class Grid extends GameObject{
 	}
 	
 	@SpecialEditorAnnotation(specialeditor = true, name = "Set Height", fieldName = "myHeight")
-	public void setHeight(int height) {
+	public void setHeight(Integer height) {
 		myHeight = height;
 	}
 	
 	@SpecialEditorAnnotation(specialeditor = true, name = "Set Width", fieldName = "myWidth")
-	public void setWidth(int width) {
+	public void setWidth(Integer width) {
 		myWidth = width;
 	}
 	

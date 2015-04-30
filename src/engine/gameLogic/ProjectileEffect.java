@@ -32,7 +32,7 @@ public class ProjectileEffect extends GameObject{
 	}
 
 	@MethodAnnotation(editor = true, name = "Set Speed Damage", type = "textfield", fieldName = "mySpeedDamage") 
-	public void setSpeedDamage(int x){
+	public void setSpeedDamage(Integer x){
 		mySpeedDamage = x;
 	}
 
@@ -52,7 +52,7 @@ public class ProjectileEffect extends GameObject{
 	}
 
 	@MethodAnnotation(editor = true, name = "Set Health Damage", type = "textfield", fieldName = "myHealthDamage") 
-	public void setHealthDamage(int x){
+	public void setHealthDamage(Integer x){
 		myHealthDamage = x;
 	}
 
@@ -62,7 +62,7 @@ public class ProjectileEffect extends GameObject{
 	}
 
 	@MethodAnnotation(editor = true, name = "Set Health Repetitions", type = "textfield", fieldName = "myHealthReps") 
-	public void setHealthReps(int x){
+	public void setHealthReps(Integer x){
 		myHealthReps = x;
 	}
 
