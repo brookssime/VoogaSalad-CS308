@@ -15,6 +15,7 @@ import engine.HeadsUpDisplay;
 import engine.Movement;
 import engine.conditions.EnemyCondition;
 import engine.gameLogic.BasicMovement;
+import engine.gameLogic.LevelStats;
 import engine.gameLogic.Placement;
 import engine.gameLogic.ProjectileEffect;
 import engine.gameLogic.Range;
@@ -51,7 +52,7 @@ public class SampleGameMain {
 	Enemy myEnemy = new Enemy();
 	Base base = new Base();
 	HeadsUpDisplay HUD = new HeadsUpDisplay();
-	HashMap<Tower, Integer> storeMap = new HashMap<Tower, Integer>();
+	List<Tower> storeMap = new ArrayList<Tower>();
 	Store store = new Store();
 	Wave myWave = new Wave();
 	public Game createGame() {
@@ -171,7 +172,7 @@ public class SampleGameMain {
 		
 		//STORE
 		
-		storeMap.put(tower, 10);
+		storeMap.add(tower);
 		store.setTowersOnSale(storeMap);
 		
 		//somehow put these on grid
@@ -181,6 +182,8 @@ public class SampleGameMain {
 	
 		levelNode.setGrid(grid);
 		levelNode.setStore(store);
+		LevelStats stats = new LevelStats();
+		levelNode.setGameStats(stats);
 		g1.setHead(levelNode);
 		return g1;
 		

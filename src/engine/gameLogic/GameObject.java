@@ -1,9 +1,11 @@
 package engine.gameLogic;
 
+import java.io.Serializable;
+
 import interfaces.MethodAnnotation;
 import interfaces.ParameterAnnotation;
 
-public abstract class GameObject {
+public abstract class GameObject implements Serializable{
 	
 	protected String myName;
 	protected String myImagePath;

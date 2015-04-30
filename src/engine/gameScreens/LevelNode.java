@@ -62,7 +62,7 @@ public class LevelNode extends GameNode {
 		myGrid.placeSpriteAt(myStore.getFromID(SpriteID), spritePlacement);
 	}
 	
-	public void placeSprite(String SpriteID, Placement spritePlacement) {
+	public void placeSprite(String SpriteID, Placement spritePlacement) throws CloneNotSupportedException {
 		myGrid.placeSpriteAt(myStore.getTowerFromName(SpriteID),
 				spritePlacement);
 

@@ -5,6 +5,7 @@ import interfaces.MethodAnnotation;
 import interfaces.TypeAnnotation;
 
 import java.awt.Shape;
+import java.io.Serializable;
 
 import engine.Path;
 import engine.gameLogic.Placement;
@@ -15,7 +16,7 @@ import engine.gameLogic.ProjectileEffect;
  * 
  * @author Brooks, Patrick, Robert, and Sid.
  */
-public class Projectile extends Sprite implements Collidable{
+public class Projectile extends Sprite implements Collidable, Serializable{
 	
 	private String myImageString; //Necessary?
 	private Integer mySpeed; 
