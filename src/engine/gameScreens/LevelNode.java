@@ -23,8 +23,8 @@ public class LevelNode extends GameNode {
 	private HeadsUpDisplay myHUD;
 	private ArrayList<Condition> myConditions;
 	private LevelStats myGameStats;
-	private long myStartTime;
-	private long myTotalTime;
+	private Long myStartTime;
+	private Long myTotalTime;
 
 	public LevelNode() {
 		super();
@@ -82,7 +82,7 @@ public class LevelNode extends GameNode {
 /********Called by GAE**********/
 
 	@MethodAnnotation(editor = true, name = "Set Time Limit", type = "textfield", fieldName = "myTotalTime")
-	public void setTotalTime(long time) {
+	public void setTotalTime(Long time) {
 		myTotalTime = time;
 	}
 
