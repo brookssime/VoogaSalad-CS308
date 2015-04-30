@@ -39,7 +39,7 @@ public class Grid extends GameObject{
 		myHeight = height; myWidth = width;
 		mySpriteMap = new HashMap<Sprite, Placement>();
 		setMyTiles(new Tile[myWidth][myHeight]);
-		//myGridManager = new GridManager(this);
+		myGridManager = new GridManager(this);
 		init();
 	}
 
@@ -177,6 +177,7 @@ public class Grid extends GameObject{
 	public void update(){
 		refreshHeadings();
 		myGridManager.update();
+		myGridManager.updateSpriteMap(mySpriteMap);
 		//myGridManager.checkComplete();
 	}
 	

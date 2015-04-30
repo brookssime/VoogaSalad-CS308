@@ -38,7 +38,7 @@ public class GridManager {
 
 	public GridManager(Grid grid){
 		myGrid = grid;
-		sortObjects(grid.getSpriteMap());
+		//sortObjects(grid.getSpriteMap());
 		myPathFinder = new PathFinder(grid);
 	}
 
@@ -162,6 +162,11 @@ public class GridManager {
 	public int calculateBaseHealth() {
 			return myBases.stream().mapToInt(b -> b.getHealth()).sum();
 		}
+
+	public void updateSpriteMap(Map<Sprite, Placement> mySpriteMap) {
+		sortObjects(mySpriteMap);
+		
+	}
 	
 		
 		
