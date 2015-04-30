@@ -1,6 +1,7 @@
 package gae.view.editorpane.editorComponents;
 
 import gae.model.Receiver;
+import gae.view.editorpane.EditorAdder;
 import gae.view.gameEditor.GameEditor;
 import gae.view.gridEditor.GridEditor;
 import gae.view.titleScreenEditor.TitleScreenEditor;
@@ -10,9 +11,9 @@ import java.lang.reflect.Method;
 public class EditorComponentFactory {
 
 	public EditorComponent generateComponent(String editorType,
-			Receiver receiver, Method setMethod, String objName) {
+			Receiver receiver, Method setMethod, String objName, EditorAdder editoradder) {
 		if (editorType.equalsIgnoreCase("textfield")) {
-			return (new TextFieldEditor(receiver, setMethod, objName));
+			return (new TextFieldEditor(receiver, setMethod, objName, editoradder));
 		} else if (editorType.equalsIgnoreCase("imageselect")) {
 			return (new ImageSelector(receiver, setMethod, objName));
 		} else if (editorType.equalsIgnoreCase("slider")) {

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import engine.Game;
 import game_data.GamesLoader;
+import game_data.SampleGameMain;
 import game_data.XMLWriter;
 import player.level.GameLevelScene;
 import javafx.event.ActionEvent;
@@ -36,20 +37,22 @@ public class GameInfoBox extends AbstractOverlay{
 		this.stage = stage;
 		this.title = new Text(10,50, game.getName());
 		title.setFont(new Font(20));
-		title.setLayoutX(overlayWidth * .1);
-		title.setLayoutY(overlayHeight * .1);
+		title.setStyle("-fx-fill: #bdb76b;\n" + "-fx-font-size: 32px;");
+		title.setLayoutX(overlayWidth * .4);
+		title.setLayoutY(overlayHeight * .035);
 		
-		this.setStyle("-fx-background-color: #708090;");
+		this.setStyle("-fx-border-color: black;\n"
+                + "-fx-background-color: #4682b4;");
 		
 		this.gameImageView = new ImageView();
 		gameImagePath = game.getImagePath();
 		gameImage = new Image((getClass().getResourceAsStream(gameImagePath)));
-		gameImageView.setFitWidth(overlayWidth * .15);
+		gameImageView.setFitWidth(overlayWidth * .4);
 		gameImageView.setPreserveRatio(true);
 		
 		//MAGIC VALUES: CHANGE THIS
-		gameImageView.setLayoutX(overlayWidth * .7);
-		gameImageView.setLayoutY(overlayHeight * .1);
+		gameImageView.setLayoutX(overlayWidth * .3);
+		gameImageView.setLayoutY(overlayHeight * .15);
 		
 		this.getChildren().add(gameImageView);
 		//this.getChildren().add(description);
@@ -95,8 +98,8 @@ public class GameInfoBox extends AbstractOverlay{
 
 	public void addPlayButton(){
 		newGameButton = new Button("New Game"); 
-		newGameButton.setLayoutX(overlayWidth * .6);
-		newGameButton.setLayoutY(overlayHeight * .8);
+		newGameButton.setLayoutX(overlayWidth * .65);
+		newGameButton.setLayoutY(overlayHeight * .85);
 		newGameButton.getStylesheets().add("playerStyle.css");
 		newGameButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
@@ -104,6 +107,8 @@ public class GameInfoBox extends AbstractOverlay{
 				//Open the level screen of Game Player and start a new game
 				System.out.println("Open The Level and Load The Game");
 				myPlayer = new GamePlay(stage,1400,800);
+				SampleGameMain sample = new SampleGameMain();
+				activeGame = sample.createGame();
 				myPlayer.getMyManager().setCurrGame(activeGame);
 				stage.setScene(myPlayer.getScene());
 				myPlayer.play();
@@ -120,8 +125,8 @@ public class GameInfoBox extends AbstractOverlay{
 	public void addLoadButton(){
 		
 		loadButton = new Button("Load Games");
-		loadButton.setLayoutX(overlayWidth * .2);
-		loadButton.setLayoutY(overlayHeight * .8);
+		loadButton.setLayoutX(overlayWidth * .25);
+		loadButton.setLayoutY(overlayHeight * .85);
 		loadButton.getStylesheets().add("playerStyle.css");
 		
 		this.getChildren().add(loadButton);

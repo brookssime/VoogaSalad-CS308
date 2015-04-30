@@ -55,7 +55,7 @@ public class QueueEditor extends EditorComponent{
 		getChildren().addAll(elementsDisplay, lowerBox);
 		
 		if (myFetchedValue!=null){
-			for (Object element : (ArrayList<Object>) myFetchedValue){
+			for (Object element : (ArrayList<Object>)myFetchedValue){
 				addToList(element.toString());
 			}
 		}
