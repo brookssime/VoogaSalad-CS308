@@ -2,12 +2,16 @@ package engine.sprites;
 
 import interfaces.Collidable;
 import interfaces.MethodAnnotation;
-import interfaces.ParameterAnnotation;
 import interfaces.Shootable;
-import interfaces.TypeAnnotation;
 
 import java.awt.Point;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +23,7 @@ import engine.Path;
 import engine.gameLogic.Placement;
 import engine.gameLogic.Range;
 
-public class Tower extends Sprite implements Shootable{
+public class Tower extends Sprite implements Shootable, Serializable{
 
 	private Integer myFireRate;
 	private Integer myHealth;
@@ -33,7 +37,8 @@ public class Tower extends Sprite implements Shootable{
 
 	
 	public Tower() {
-		myProjectile = new Projectile();
+		mySpriteInfo = new HashMap<String, String>();
+		//fillSpriteInfo();
 	}
 
 	public Tower (XStream serializer, String data, Point2D location) {
@@ -48,6 +53,9 @@ public class Tower extends Sprite implements Shootable{
 		myRange = range;
 		myFireRate = fireRate;		
 		myHealth = health;
+		mySpriteInfo = new HashMap<String, String>();
+		fillSpriteInfo();
+		
 	}
 	
 	@Override
@@ -92,8 +100,6 @@ public class Tower extends Sprite implements Shootable{
 		myFireRate = fireRate;
 	}
 	
-	@MethodAnnotation(editor=true, name = "Set Projectile", type = "singleselect", fieldName = "myProjectile")
- 	@TypeAnnotation(type="Projectile")
 	public void setProjectile(Projectile projectile){
 		myProjectile = projectile;
 	}
@@ -178,6 +184,20 @@ public class Tower extends Sprite implements Shootable{
 
 	}
 	
+	public Object clone() throws CloneNotSupportedException{
+		try{
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ObjectOutputStream oos = new ObjectOutputStream(baos);
+		oos.writeObject(this);
+		ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+		ObjectInputStream ois = new ObjectInputStream(bais);
+		return ois.readObject();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 	public void setRotationSpeed (double rotationSpeed){
 		myRotationSpeed = rotationSpeed;
 	}

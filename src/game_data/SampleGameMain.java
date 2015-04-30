@@ -13,7 +13,9 @@ import engine.Grid;
 import engine.GridManager;
 import engine.HeadsUpDisplay;
 import engine.Movement;
+import engine.conditions.EnemyCondition;
 import engine.gameLogic.BasicMovement;
+import engine.gameLogic.LevelStats;
 import engine.gameLogic.Placement;
 import engine.gameLogic.ProjectileEffect;
 import engine.gameLogic.Range;
@@ -34,6 +36,7 @@ public class SampleGameMain {
 	Game g2  = new Game(null);
 	XMLWriter myXMLWriter = new XMLWriter();
 	LevelNode levelNode = new LevelNode();
+	//levelNode.setState(NodeState.RUNNING);
 	ProjectileEffect effect = new ProjectileEffect();
 	Projectile projectile = new Projectile();
 	Range range = new Range();
@@ -49,13 +52,14 @@ public class SampleGameMain {
 	Enemy myEnemy = new Enemy();
 	Base base = new Base();
 	HeadsUpDisplay HUD = new HeadsUpDisplay();
-	HashMap<Tower, Integer> storeMap = new HashMap<Tower, Integer>();
+	List<Tower> storeMap = new ArrayList<Tower>();
 	Store store = new Store();
 	Wave myWave = new Wave();
 	
 	public Game createGame() {
 		
 		levelNode.setName("GAMENODE");
+		levelNode.addCondition(new EnemyCondition());
 		//WAVE
 		
 		//GAMESTATS?
@@ -70,12 +74,12 @@ public class SampleGameMain {
 				myTiles[c][r].setGridLocation(new Point(c,r));
 				myTiles[c][r].setWidth(20);
 				myTiles[c][r].setName("NON-PATH");
-				myTiles[c][r].setImagePath("../images/basic.png");
+				myTiles[c][r].setImagePath("../images/basic.jpg");
 			}
 		
 		for(int i = 0; i < 10; i++){
 			myTiles[2][i].setName("Path");
-			myTiles[2][i].setImagePath("../images/empty_tile.png");
+			myTiles[2][i].setImagePath("../images/empty_tile.jpg");
 					
 		}
 				
@@ -97,6 +101,30 @@ public class SampleGameMain {
 		projectile.setImagePath("../images/medium projectile.png");
 		//projectile.setpath? and other set methods...
 		
+		//ENEMY
+		
+				myEnemy.setCollisionHeight(2);
+				myEnemy.setCollisionWidth(2);
+				myEnemy.setDamage(10);
+				myEnemy.setHealth(10);
+				myEnemy.setImagePath("../images/medium enemy.png");
+				myEnemy.setMovement(myMovement);
+				myEnemy.setName("Enemy");
+				myEnemy.setSpeed(10);
+				myEnemy.setSpriteHeight(5);
+				myEnemy.setSpriteWidth(5);
+				
+				// ADD WAVE OF ENEMIES TO GRID
+				List<Enemy> myEnemies = new ArrayList<Enemy>();
+				myEnemies.add(myEnemy);
+				myEnemies.add(myEnemy);
+				myWave.setEnemies(myEnemies);
+				List<Long> Delays = new ArrayList<Long>();
+				Delays.add((long) 10);
+				Delays.add((long) 10);
+				myWave.setDelays(Delays);
+				myWave.setPortName("testport");
+				grid.addWave(myWave);
 		
 		range.setCollisionHeight(5);
 		range.setCollisionWidth(5);
@@ -114,7 +142,11 @@ public class SampleGameMain {
 		tower.setProjectile(projectile);
 		tower.setRangeObject(range);
 		
+		tower.fillSpriteInfo();
 		
+		List<String> accessNames = new ArrayList<String>();
+		accessNames.add("NON-PATH");
+		tower.setAccessNames(accessNames);
 		grid.move(tower, placement);
 		
 		
@@ -125,29 +157,7 @@ public class SampleGameMain {
 	
 
 	
-		//ENEMY
 		
-		myEnemy.setCollisionHeight(2);
-		myEnemy.setCollisionWidth(2);
-		myEnemy.setDamage(10);
-		myEnemy.setHealth(10);
-		myEnemy.setImagePath("../images/medium enemy.png");
-		myEnemy.setMovement(myMovement);
-		myEnemy.setName("Enemy");
-		myEnemy.setSpeed(10);
-		myEnemy.setSpriteHeight(5);
-		myEnemy.setSpriteWidth(5);
-		
-		// ADD WAVE OF ENEMIES TO GRID
-		List<Enemy> myEnemies = new ArrayList<Enemy>();
-		myEnemies.add(myEnemy);
-		myWave.setEnemies(myEnemies);
-		List<Long> Delays = new ArrayList<Long>();
-		Delays.add((long) 1);
-		Delays.add((long) 1);
-		myWave.setDelays(Delays);
-		myWave.setPortName("testport");
-		grid.addWave(myWave);
 		
 		Port p = new Port();
 		p.setLocation(new Point(1,1));
@@ -163,7 +173,7 @@ public class SampleGameMain {
 		
 		//STORE
 		
-		storeMap.put(tower, 10);
+		storeMap.add(tower);
 		store.setTowersOnSale(storeMap);
 		
 		//somehow put these on grid
@@ -173,6 +183,8 @@ public class SampleGameMain {
 	
 		levelNode.setGrid(grid);
 		levelNode.setStore(store);
+		LevelStats stats = new LevelStats();
+		levelNode.setGameStats(stats);
 		g1.setHead(levelNode);
 		return g1;
 		

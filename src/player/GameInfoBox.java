@@ -110,8 +110,9 @@ public class GameInfoBox extends AbstractOverlay{
 				SampleGameMain sample = new SampleGameMain();
 				activeGame = sample.createGame();
 				myPlayer.getMyManager().setCurrGame(activeGame);
-				stage.setScene(myPlayer.getScene());
 				myPlayer.play();
+				stage.setScene(myPlayer.getScene());
+				
 				//GameLevelScene gameLevelScene = new GameLevelScene(stage, screenWidth, screenHeight);
 				//stage.setScene(gameLevelScene.getScene());
 				
