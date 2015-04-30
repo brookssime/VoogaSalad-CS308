@@ -25,14 +25,31 @@ import engine.sprites.Projectile;
 import engine.sprites.Tower;
 
 public class SampleGameMain {
-
-	public static void main(String[] args) {
+	
+	Game g2  = new Game(null);
+	XMLWriter myXMLWriter = new XMLWriter();
+	LevelNode levelNode = new LevelNode();
+	ProjectileEffect effect = new ProjectileEffect();
+	Projectile projectile = new Projectile();
+	Range range = new Range();
+	Game g1 = new Game();
+	Placement placement = new Placement(new Point());
+	Point p = new Point(50,50);
+	Placement placement2 = new Placement(p);
+	Tower tower = new Tower();
+	Grid grid = new Grid(10,10);
+	GridManager GM = new GridManager(grid);
+	LinkedList<Placement> myPlaces= new LinkedList<Placement>();
+	BasicMovement myMovement = new BasicMovement();
+	Enemy myEnemy = new Enemy();
+	Base base = new Base();
+	HeadsUpDisplay HUD = new HeadsUpDisplay();
+	HashMap<Tower, Integer> storeMap = new HashMap<Tower, Integer>();
+	Store store = new Store();
+	
+	public Game createGame() {
 		
-		Game g2  = new Game(null);
-		XMLWriter myXMLWriter = new XMLWriter();
-		LevelNode levelNode = new LevelNode();
 		levelNode.setName("GAMENODE");
-		Game g1 = new Game();
 		//WAVE
 		
 		//GAMESTATS?
@@ -41,7 +58,7 @@ public class SampleGameMain {
 		//Grid grid = new Grid(5, 5);
 
 		
-		ProjectileEffect effect = new ProjectileEffect();
+	
 		effect.setHealthDamage(10);
 		effect.setHealthFrequency(0.0);
 		effect.setHealthReps(0);
@@ -50,23 +67,20 @@ public class SampleGameMain {
 		effect.setSpeedDamageDuration(0.0);
 		effect.setSpeedFrequency(0.0);
 		
-		Projectile projectile = new Projectile();
+		
 		projectile.setCollisionHeight(2);
 		projectile.setCollisionWidth(2);
 		projectile.setEffect(effect);
 		projectile.setImagePath("/voogasalad_TuffWizard/src/images/medium projectile.png");
 		//projectile.setpath? and other set methods...
 		
-		Range range = new Range();
+		
 		range.setCollisionHeight(5);
 		range.setCollisionWidth(5);
 	
-		Placement placement = new Placement(new Point());
-		Point p = new Point();
-		p.setLocation(50, 50);
-		Placement placement2 = new Placement(p);
-	
-		Tower tower = new Tower();
+		
+		
+		
 		tower.setImagePath("/voogasalad_TuffWizard/src/images/basic tower.png");
 		tower.setFireRate(2);
 		tower.setHealth(100);
@@ -77,19 +91,19 @@ public class SampleGameMain {
 		tower.setProjectile(projectile);
 		tower.setRangeObject(range);
 		
-		Grid grid = new Grid(10,10);
+		
 		grid.move(tower, placement);
 		
-		GridManager GM = new GridManager(grid);
 		
-		LinkedList<Placement> myPlaces= new LinkedList<Placement>();
+		
+		
 		myPlaces.add(placement2);
-		BasicMovement myMovement = new BasicMovement();
+		
 	
 
 	
 		//ENEMY
-		Enemy myEnemy = new Enemy();
+		
 		myEnemy.setCollisionHeight(2);
 		myEnemy.setCollisionWidth(2);
 		myEnemy.setDamage(10);
@@ -103,34 +117,34 @@ public class SampleGameMain {
 		
 		grid.move(myEnemy, placement2);
 		
-		Base base = new Base();
+		
 		base.setHealth(100);
 		base.setImagePath("/voogasalad_TuffWizard/src/images/medium tower.png");
 		base.setLocation(new Point(10, 50));
 		
 		//STORE
-		HashMap<Tower, Integer> storeMap = new HashMap<Tower, Integer>();
+		
 		storeMap.put(tower, 10);
-		Store store = new Store();
+		
 		store.setTowersOnSale(storeMap);
 		
 		//PORT?
 		
 		//somehow put these on grid
 		
-		HeadsUpDisplay HUD = new HeadsUpDisplay();
+	
 		levelNode.setGrid(grid);
 		g1.setHead(levelNode);
-		
+		return g1;
 		
 
 		
-		// saving g1 to a file named by the user's choice.
-		try {
-			XMLWriter.SaveGameData(g1);
-		} catch (IOException e) {
-			System.out.println("Failed to save file: " + e);
-		}
+//		// saving g1 to a file named by the user's choice.
+//		try {
+//			XMLWriter.SaveGameData(g1);
+//		} catch (IOException e) {
+//			System.out.println("Failed to save file: " + e);
+//		}
 
 //		// loading the file into t2
 //		try {
@@ -145,4 +159,8 @@ public class SampleGameMain {
 //		System.out.println(g2.getHead().getName());
 	}
 	
+//	public static void main (String[] args){
+//		SampleGameMain o = new SampleGameMain();
+//		o.createGame();
+//	}
 }
