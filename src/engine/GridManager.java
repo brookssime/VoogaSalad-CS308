@@ -106,7 +106,7 @@ public class GridManager {
 
 	// REVIEW this currently doesn's do anything to the Grid
 	private void spawnEnemies() {
-		if(myWaves == null) return;
+		if(myWaves == null || myWaves.isEmpty()) return;
 		while (!myWaves.peek().isComplete()) {
 			Wave w = myWaves.peek();
 			List<Enemy> spawnedEnemies = w.update(myStartTime);

@@ -7,8 +7,12 @@ public class LevelStats {
 	
 	private int myMoney;
 	private int myBaseHealth;
-	private int myScore;
+	//private int myScore;
 	private long myTimeElapsed;
+	
+	public LevelStats(){
+		myMoney = 1000;
+	}
 	
 	public void updateMoney(int money){
 		myMoney += money;
@@ -26,13 +30,13 @@ public class LevelStats {
 		return myBaseHealth;
 	}
 	
-	public void updateScore(int score){
-		myScore += score;
-	}
-	
-	public Integer getScore(){
-		return myScore;
-	}
+//	public void updateScore(int score){
+//		myScore += score;
+//	}
+//	
+//	public Integer getScore(){
+//		return myScore;
+//	}
 	
 	public long getTimeElapsed(long startTime){
 		myTimeElapsed = System.nanoTime() - startTime;

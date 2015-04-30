@@ -27,9 +27,9 @@ public class HeadsUpDisplay {
 		//TODO: fix this somehow
 	}
 	
-	public int displayScore(){
-		return myData.getScore();
-	}
-	
+//	public int displayScore(){
+//		return myData.getScore();
+//	}
+//	
 	
 }
