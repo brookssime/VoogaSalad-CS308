@@ -5,6 +5,7 @@ package gae.view;
 
 import gae.BundleGrabber;
 import gae.model.Receiver;
+import gae.view.editorpane.EditorAdder;
 import gae.view.editorpane.EditorPane;
 import gae.view.inventorypane.InventoryPane;
 import gae.view.menupane.MenuAdder;
@@ -111,7 +112,7 @@ public class Display {
 	 */
 	private Pane setupInventoryPane() {
 		InventoryPane inventoryPane = new InventoryPane(myMenuAdder,
-				myReceiver, myEditor);
+				myReceiver, (EditorAdder) myEditor);
 		return inventoryPane.getPane();
 	}
 

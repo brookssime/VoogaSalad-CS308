@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import gae.model.Receiver;
+import gae.view.editorpane.EditorAdder;
 import reflection.Reflection;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,6 +26,7 @@ import javafx.scene.layout.HBox;
  */
 public class TextFieldEditor extends EditorComponent {
 
+	private EditorAdder myEditorAdder;
 	private HBox myBox;
 	private TextField[] textFields;
 	private Button setButton;
@@ -46,8 +48,9 @@ public class TextFieldEditor extends EditorComponent {
 	// Method getMethod, String objectName) {
 	// super(receiver, setMethod, getMethod, objectName);
 	// =======
-	public TextFieldEditor(Receiver receiver, Method method, String objectName) {
+	public TextFieldEditor(Receiver receiver, Method method, String objectName, EditorAdder editoradder) {
 		super(receiver, method, objectName);
+		myEditorAdder = editoradder;
 	}
 
 	@Override
@@ -96,6 +99,10 @@ public class TextFieldEditor extends EditorComponent {
 				paramObjects[index] = arg;
 			}
 			myReceiver.runOnObject(myObject, myMethod, paramObjects);
+			if (myFieldName.equals("myName")) {
+				myEditorAdder.closeTab();
+				myEditorAdder.addEditor(paramObjects[0].toString());
+			}
 		});
 		myBox.getChildren().add(setButton);
 
