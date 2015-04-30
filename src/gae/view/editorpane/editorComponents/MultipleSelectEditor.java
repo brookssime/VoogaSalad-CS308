@@ -5,6 +5,7 @@ import interfaces.TypeAnnotation;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javafx.beans.property.BooleanProperty;
@@ -36,7 +37,7 @@ import javafx.util.Callback;
  *         .java?r=96
  *
  */
-public class MultipleSelectEditor extends EditorComponent{
+public abstract class MultipleSelectEditor extends EditorComponent{
 
 	public MultipleSelectEditor(Receiver receiver, Method setMethod,
 			String objectName) {
@@ -104,7 +105,7 @@ public class MultipleSelectEditor extends EditorComponent{
 				}
 			}
 			// update backend inventory
-			myReceiver.runOnObject(myObject, myMethod, accessArray);
+			sendToInventory(accessArray);
 			stage.close();
 			
 		});
@@ -116,7 +117,7 @@ public class MultipleSelectEditor extends EditorComponent{
 		return root;
 	}
 
-	
+	protected abstract void sendToInventory(List<String> list);
 	
 	class GameObject {
 		private SimpleBooleanProperty selected;
@@ -152,5 +153,6 @@ public class MultipleSelectEditor extends EditorComponent{
 			return getName();
 		}
 	}
+	
 
 }

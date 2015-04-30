@@ -6,6 +6,7 @@ import interfaces.Shootable;
 import java.awt.Shape;
 import java.awt.geom.Area;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -38,6 +39,7 @@ public class GridManager {
 
 	public GridManager(Grid grid){
 		myGrid = grid;
+		myWaves = new LinkedList<>();
 		//sortObjects(grid.getSpriteMap());
 		myPathFinder = new PathFinder(grid);
 	}

@@ -35,6 +35,7 @@ public class Grid extends GameObject{
 	public Grid(){
 		mySpriteMap = new HashMap<Sprite, Placement>();
 		myWaves = new ArrayList<Wave>();
+		myGridManager = new GridManager(this);
 	}
 	
 	public Grid(Integer height, Integer width){

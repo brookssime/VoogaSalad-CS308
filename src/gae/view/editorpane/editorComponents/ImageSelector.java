@@ -85,8 +85,7 @@ public class ImageSelector extends EditorComponent {
 			String[] path = selectedFile.toURI().toString().split("/");
 			myImagePath = "/" + path[path.length - 2] + "/"
 					+ path[path.length - 1];
-			myDisplay.setImage(new Image(getClass().getResourceAsStream(
-					myImagePath)));
+			myDisplay.setImage(new Image(getClass().getResourceAsStream(myImagePath)));
 			myReceiver.runOnObject(myObject, myMethod, myImagePath);
 		});
 
@@ -97,7 +96,6 @@ public class ImageSelector extends EditorComponent {
 
 	}
 
-	
 	public  File getSaveFile(){
 		FileChooser fileChooser = getNewChooser();
 

@@ -26,8 +26,10 @@ public class EditorComponentFactory {
 		} else if (editorType.equalsIgnoreCase("titlescene")){
 			return (new TitleScreenEditor(receiver, setMethod, objName));
 		} else if (editorType.equalsIgnoreCase("multiselect")) {
-			return (new MultipleSelectEditor(receiver, setMethod, objName));
-		} else if (editorType.equalsIgnoreCase("singleselect")){
+			return (new MultipleSelectionEditorString(receiver, setMethod, objName));
+		} else if(editorType.equalsIgnoreCase("multiselectobject")) {
+			return (new MultipleSelectionEditorObject(receiver, setMethod, objName));
+		}else if (editorType.equalsIgnoreCase("singleselect")){
 			return (new SingleSelectionEditor(receiver, setMethod, objName));
 		}
 
