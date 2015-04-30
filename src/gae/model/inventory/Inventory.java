@@ -3,12 +3,6 @@
  */
 package gae.model.inventory;
 
-import exceptions.ObjectDoesntExistException;
-import gae.view.inventorypane.UpdateListener;
-import engine.gameLogic.GameObject;
-import engine.gameScreens.NodeButton;
-import engine.gameScreens.TitleScene;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,10 +12,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import reflection.Reflection;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
+import reflection.Reflection;
+import engine.Grid;
+import engine.gameLogic.GameObject;
+import engine.gameScreens.NodeButton;
+import engine.gameScreens.TitleScene;
+import exceptions.ObjectDoesntExistException;
+import gae.view.inventorypane.UpdateListener;
 
 /**
  * The Class Inventory.
@@ -73,10 +73,9 @@ public class Inventory {
 	public void addObject(String type, String location) {
 		ObservableMap<String, GameObject> map = myMaps.get(type);
 		// TODO only addes engine.sprites classes. needs to expand.
-		System.out.println("engine."
-				+ location + type);
 		GameObject newThing = (GameObject) Reflection.createInstance("engine."
-				+ location + type);
+					+ location + type);
+		
 		String newName = "New" + type;
 		int vrsNum = 0;
 		while (map.containsKey(newName)) {

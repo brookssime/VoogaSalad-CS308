@@ -6,6 +6,7 @@ import interfaces.SpecialEditorAnnotation;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -20,19 +21,31 @@ public class Grid extends GameObject{
 
 	private int myHeight;
 	private int myWidth;
-	public Tile[][] myTiles;
+	private Tile[][] myTiles;
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;	
+	private Queue<Wave> myWaves;
+	private Tile[][] gaeTiles;
+	private int tileR;
+	private int tileC;
+	private int spriteR;
+	private int spriteC;
 	
 	public Grid(){
-		myTiles = new Tile[myWidth][myHeight];
-		myGridManager = new GridManager(this);
+		
+	}
+	
+	public Grid(Integer height, Integer width){
+		myHeight = height; myWidth = width;
+		mySpriteMap = new HashMap<Sprite, Placement>();
+		setMyTiles(new Tile[myWidth][myHeight]);
+		//myGridManager = new GridManager(this);
 		init();
 	}
 
 	public Grid(Grid grid, GridManager gm){
 		myName = grid.myName;
-		myTiles = grid.myTiles;
+		setMyTiles(grid.getMyTiles());
 		mySpriteMap = grid.mySpriteMap;
 		myGridManager = gm;
 	}
@@ -40,34 +53,66 @@ public class Grid extends GameObject{
 	/********Called by GAE**********/
 	
 	@MethodAnnotation(editor=true, name = "Grid Editor", type = "grid", fieldName = "")
-	public void fakeMethod() {
+	public void getGAEComponent() {
 		return;
 	}
 	
 	@SpecialEditorAnnotation(specialeditor = true, name = "Set Height", fieldName = "myHeight")
-	public void setHeight(int height) {
+	public void setHeight(Integer height) {
 		myHeight = height;
 	}
 	
 	@SpecialEditorAnnotation(specialeditor = true, name = "Set Width", fieldName = "myWidth")
-	public void setWidth(int width) {
+	public void setWidth(Integer width) {
 		myWidth = width;
 	}
 	
-	@SpecialEditorAnnotation(specialeditor = true, name = "Set Waves", fieldName = "myGridManager.getWaves()")
-	public void setWaves(Queue<Wave> waves){
-		myGridManager.setWaves(waves);
+	@MethodAnnotation(editor=true, name = "Set Waves", type = "queueeditor", fieldName = "myWaves")
+	public void addWave(Wave wave){
+		myWaves.add(wave);
+		myGridManager.addWave(wave);
 	}
 
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Tiles", fieldName="myTiles")
-	public void setTiles(Tile[][] tiles){
-		myTiles = tiles;
-		initTiles();
+	public void setTiles(Tile tile){
+		gaeTiles[tileR][tileC] = tile;
+		if(tileR>=myHeight-1){
+			tileR = 0;
+		}
+		else{
+			tileR++;
+		}
+		if(tileC>=myWidth-1){
+			tileC = 0;
+		}
+		else{
+			tileC++;
+		}
+		
+		if(gaeTiles[0].length==myWidth && gaeTiles.length==myHeight){
+			myTiles = gaeTiles;
+			initTiles();
+		}
 	}
 	
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Sprite", fieldName="mySpriteMap")
-	public void setSprite(Sprite sprite, Point point) {
-		mySpriteMap.put(sprite, new Placement(point));
+	public void setSprite(Sprite sprite) {
+		if(sprite!=null){
+			Point point = new Point(spriteC, spriteR);
+			mySpriteMap.put(sprite, new Placement(point));
+		}
+		if(spriteR>=myHeight-1){
+			spriteR = 0;
+		}
+		else{
+			spriteR++;
+		}
+		if(spriteC>=myWidth-1){
+			spriteC = 0;
+		}
+		else{
+			spriteC++;
+		}
 	}
 
 
@@ -92,29 +137,29 @@ public class Grid extends GameObject{
 	/********Helpers********/
 	
 	private void init(){
-		for (int x = 0; x < myTiles.length; x++)
-			for (int y = 0; y < myTiles.length; y++){
-				myTiles[x][y] = new Tile(x, y);
+		for (int x = 0; x < getMyTiles().length; x++)
+			for (int y = 0; y < getMyTiles().length; y++){
+				getMyTiles()[x][y] = new Tile(x, y);
 			}	
 	}
 
 	private void initTiles(){
 		
 		// adjust Tile y locations such that (0,0) is bottom right
-		for (int x = 0; x < myTiles.length; x++)
-			for(int i = 0; i < myTiles[0].length / 2; i++)
+		for (int x = 0; x < getMyTiles().length; x++)
+			for(int i = 0; i < getMyTiles()[0].length / 2; i++)
 			{
-				Tile temp = myTiles[x][i];
-				myTiles[x][i] = myTiles[x][myTiles.length - i - 1];
-				myTiles[x][myTiles.length - i - 1] = temp;
+				Tile temp = getMyTiles()[x][i];
+				getMyTiles()[x][i] = getMyTiles()[x][getMyTiles().length - i - 1];
+				getMyTiles()[x][getMyTiles().length - i - 1] = temp;
 			}
 		
 		
 		// clone Tiles and set their locations
-		for (int x = 0; x < myTiles.length; x++)
-			for (int y = 0; y < myTiles[0].length; y++){
-				myTiles[x][y] = myTiles[x][y].clone();
-				myTiles[x][y].setGridLocation(new Point(x,y));
+		for (int x = 0; x < getMyTiles().length; x++)
+			for (int y = 0; y < getMyTiles()[0].length; y++){
+				getMyTiles()[x][y] = getMyTiles()[x][y].clone();
+				getMyTiles()[x][y].setGridLocation(new Point(x,y));
 			}
 		
 		
@@ -152,7 +197,7 @@ public class Grid extends GameObject{
 					p = mySpriteMap.get(o);	
 		}
 		
-		return myTiles[(int) Math.floor(p.getLocation().getX())][(int) Math.floor(p.getLocation().getY())]; 
+		return getMyTiles()[(int) Math.floor(p.getLocation().getX())][(int) Math.floor(p.getLocation().getY())]; 
 		// REVIEW: this might cause errors because Tile's array location will NOT be related to each object's location
 	}
 
@@ -165,11 +210,11 @@ public class Grid extends GameObject{
 		int[] dy = {0, 0, 1, -1};
 		
 		for (int i = 0; i < dx.length; i++){
-			if(x + dx[i] < myTiles.length && 
+			if(x + dx[i] < getMyTiles().length && 
 					x + dx[i] >= 0 &&
-					y + dy[i] < myTiles[0].length &&
+					y + dy[i] < getMyTiles()[0].length &&
 					y + dy[i] >= 0){
-				Tile temp = (myTiles[x + dx[i]][y + dy[i]]);
+				Tile temp = (getMyTiles()[x + dx[i]][y + dy[i]]);
 				neighbors.add(temp);
 			}
 		}
@@ -186,6 +231,14 @@ public class Grid extends GameObject{
 
 	public Placement getPlacement(Collidable s){
 		return mySpriteMap.get(s);
+	}
+
+	public Tile[][] getMyTiles() {
+		return myTiles;
+	}
+
+	public void setMyTiles(Tile[][] myTiles) {
+		this.myTiles = myTiles;
 	}
 	
 	

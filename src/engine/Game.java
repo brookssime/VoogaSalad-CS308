@@ -108,7 +108,7 @@ public class Game extends GameObject {
 	
 	
 	@MethodAnnotation(editor=true, name = "Game Editor", type = "gameeditor", fieldName = "")
-	public void fakeMethod() {
+	public void getGAEComponent() {
 		return;
 	}
 	

@@ -50,14 +50,14 @@ public class MultipleSelectEditor extends EditorComponent{
 //		this.getChildren().add(btn);
 		btn.setOnAction(e -> {
 			Stage stage = new Stage();
-			stage.setScene(new Scene(makeScene()));
+			stage.setScene(new Scene(makeScene(stage)));
 			stage.show();
 		});
 		this.getChildren().add(btn);
 	}
 
 	@SuppressWarnings("unchecked")
-	private Parent makeScene() {
+	private Parent makeScene(Stage stage) {
 		ObservableList<GameObject> data = FXCollections.observableArrayList();
 		
 		
@@ -105,6 +105,8 @@ public class MultipleSelectEditor extends EditorComponent{
 			}
 			// update backend inventory
 			myReceiver.runOnObject(myObject, myMethod, accessArray);
+			stage.close();
+			
 		});
 
 		VBox vb = new VBox();

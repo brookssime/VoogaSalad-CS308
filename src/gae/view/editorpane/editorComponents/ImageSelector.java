@@ -16,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * A file selector editor type.
@@ -67,18 +69,19 @@ public class ImageSelector extends EditorComponent {
 		myBox.getChildren().addAll(selectButton, drawButton, myDisplay);
 
 		selectButton.setOnAction(e -> {
-			JFileChooser fileChooser = new JFileChooser(System.getProperties()
-					.getProperty("user.dir") + "/src/images");
-			FileNameExtensionFilter filter = new FileNameExtensionFilter(
-					"PNG, JPG & GIF Images", "jpg", "gif", "png");
-			fileChooser.setFileFilter(filter);
-			fileChooser
-					.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-			int retval = fileChooser.showOpenDialog(null);
-			if (retval != JFileChooser.APPROVE_OPTION) {
-				return;
-			}
-			selectedFile = fileChooser.getSelectedFile();
+			File selectedFile = getSaveFile();
+//			JFileChooser fileChooser = new JFileChooser(System.getProperties()
+//					.getProperty("user.dir") + "/src/images");
+//			FileNameExtensionFilter filter = new FileNameExtensionFilter(
+//					"PNG, JPG & GIF Images", "jpg", "gif", "png");
+//			fileChooser.setFileFilter(filter);
+//			fileChooser
+//					.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+//			int retval = fileChooser.showOpenDialog(null);
+//			if (retval != JFileChooser.APPROVE_OPTION) {
+//				return;
+//			}
+//			selectedFile = fileChooser.getSelectedFile();
 			String[] path = selectedFile.toURI().toString().split("/");
 			myImagePath = "/" + path[path.length - 2] + "/"
 					+ path[path.length - 1];
@@ -94,6 +97,23 @@ public class ImageSelector extends EditorComponent {
 
 	}
 
+	
+	public  File getSaveFile(){
+		FileChooser fileChooser = getNewChooser();
+
+        fileChooser.setTitle("Save as");
+        File file = fileChooser.showOpenDialog(new Stage());
+        return file;
+	}
+	
+	private  FileChooser getNewChooser(){
+		FileChooser fileChooser = new FileChooser();
+//        fileChooser.getExtensionFilters()
+//                .add(
+//                     new FileChooser.ExtensionFilter("PNG, JPG & GIF Images", "jpg", "gif", "png"));
+        return fileChooser;
+	}
+	
 	private void setupImageView() {
 		myImagePath = defaultImagePath;
 		if (myFetchedValue != null) {

@@ -26,7 +26,7 @@ import javafx.scene.layout.HBox;
  * @author Negatu
  *
  */
-public class TestTextField {
+public class GridTextField {
 
 	private HBox myBox;
 	private TextField[] textFields;
@@ -34,7 +34,7 @@ public class TestTextField {
 	private String myName;
 	private int myVal;
 	protected Button btn;
-	protected TextField width;
+	protected TextField textVal;
 
 	/** The parameters length. */
 	private Integer parametersLength;
@@ -61,8 +61,8 @@ public class TestTextField {
 		fieldLabel.setText(myName);
 		myBox.getChildren().add(fieldLabel);
 		
-		width = new TextField();
-		myBox.getChildren().add(width);
+		textVal = new TextField();
+		myBox.getChildren().add(textVal);
 		
 		btn = new Button("Done");
 		myBox.getChildren().add(btn);

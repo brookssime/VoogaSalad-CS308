@@ -30,17 +30,17 @@ public class Enemy extends Sprite implements Collidable {
 	}
 
 	@MethodAnnotation(editor=true, name = "Set Health", type = "textfield", fieldName = "myHealth")
-	public void setHealth(int x){
+	public void setHealth(Integer x){
 		myHealth = x;
 	}
 	
 	@MethodAnnotation(editor=true, name = "Set Speed", type = "textfield", fieldName = "mySpeed")
-	public void setSpeed(int x){
+	public void setSpeed(Integer x){
 		mySpeed = x;
 	}
 	
 	@MethodAnnotation(editor=true, name = "Set Damage", type = "textfield", fieldName = "myDamage")
-	public void setDamage(int x){
+	public void setDamage(Integer x){
 		myDamage = x;
 	}
 	

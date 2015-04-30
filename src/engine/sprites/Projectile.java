@@ -48,7 +48,7 @@ public class Projectile extends Sprite implements Collidable{
 	}
 
 	@MethodAnnotation(editor=true, name = "Set Radius", type = "textfield", fieldName = "myRadius")
-	public void setRadius(int x){
+	public void setRadius(Integer x){
 		myRadius = x;
 	}
 

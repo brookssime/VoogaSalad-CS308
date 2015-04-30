@@ -49,7 +49,7 @@ public class Store extends GameObject {
 	}
 	
 	@MethodAnnotation(editor=true, name="Set Sell Percentage", type="textfield", fieldName="mySellPercentage")
-	public void setSellPercentage(int sellpercent) {
+	public void setSellPercentage(Integer sellpercent) {
 		mySellPercentage = sellpercent;
 	}
 	
@@ -60,10 +60,6 @@ public class Store extends GameObject {
 	
 	public void setBackgroundImagePath(String imagePath){
 		myBackgroundImagePath = imagePath;
-	}
-	
-	public void setSellPercentage(Integer sellPercentage){
-		mySellPercentage = sellPercentage;
 	}
 	
 	public Integer getTowerCost(Tower tower){

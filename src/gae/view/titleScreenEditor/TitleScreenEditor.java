@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import reflection.Reflection;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -164,8 +165,6 @@ public class TitleScreenEditor extends EditorComponent implements IButton{
 		v = new Visualizer();
 		
 		mySpecialMethods = new ArrayList<>(myReceiver.getSpecialEditorMethods(myObject));
-		
-		
 		
 		myWholeEditor.getChildren().addAll(setUpRootProperties(), setVisualizerProperties());
 		this.getChildren().add(myWholeEditor);
