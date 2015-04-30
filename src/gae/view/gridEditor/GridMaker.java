@@ -42,6 +42,10 @@ public class GridMaker {
 		myReceiver = r;
 		height = myHeight;
 		width = myWidth;
+		
+		System.out.println("Height: "+height);
+		System.out.println("Width: " + width);
+		
 		mainPane = p;
 		Button gridDone = new Button("Create Grid");
 		mainPane.add(gridDone, 1, 4);
@@ -50,6 +54,7 @@ public class GridMaker {
                     @Override
                     public void handle(final ActionEvent e) {
                     	gridStage = new Stage();
+                    	gridStage.show();
                     	gridStage.setTitle("Make your grid");
                     	Group gridGroup = new Group();
                     	Scene gridScene = new Scene(gridGroup, myHeight*10, myWidth*10);
@@ -61,9 +66,8 @@ public class GridMaker {
                     	}
                     	gridGroup.getChildren().add(paneForGrid(gridScene));
                     	gridStage.setScene(gridScene);
-                    	gridStage.show();
-                    	System.out.println("Grid Created");
                     	
+                    	System.out.println("Grid Created");
                     }
                 });
 	}

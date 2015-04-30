@@ -60,7 +60,7 @@ public class GridEditor extends EditorComponent{
 			Stage primaryStage = new Stage();
 			primaryStage.setTitle("Grid Editor");
 			Group root = new Group();
-			Scene scene = new Scene(root, 800, 800);
+			Scene scene = new Scene(root, 400, 400);
 			mainPane = new GridPane();
 			mainPane.prefHeightProperty().bind(scene.heightProperty());
 			mainPane.prefWidthProperty().bind(scene.widthProperty());
@@ -89,7 +89,6 @@ public class GridEditor extends EditorComponent{
 	                new EventHandler<ActionEvent>() {
 	                    @Override
 	                    public void handle(final ActionEvent e) {
-	                    	System.out.println("Waves");
 	                    	WaveMaker myWaves = new WaveMaker();
 	                    	myWaves.setUp();
 	                    }
@@ -128,7 +127,7 @@ public class GridEditor extends EditorComponent{
                     public void handle(final ActionEvent e) {
                     	String val = text.textVal.getCharacters().toString();
                     	myHeight = Integer.parseInt(val);
-                    	System.out.println("My height: " + myHeight);
+                    	System.out.println(myHeight);
                     	myReceiver.runOnObject(myObject, getMethod("Set Height"), myHeight);
                     }
                 });
@@ -146,7 +145,6 @@ public class GridEditor extends EditorComponent{
                     public void handle(final ActionEvent e) {
                     	String val = text.textVal.getCharacters().toString();
                     	myWidth = Integer.parseInt(val);
-                    	System.out.println("My width: " + myWidth);
                     	myReceiver.runOnObject(myObject, getMethod("Set Width"), myWidth);
                     }
                 });
