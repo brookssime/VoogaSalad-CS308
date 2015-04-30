@@ -25,7 +25,7 @@ public class TitleScene extends GameNode {
 	}
 	
 	@MethodAnnotation(editor=true, name="Title Scene Editor", type="titlescene", fieldName="")
-	public void fakeMethod() {
+	public void getGAEComponent() {
 		return;
 	}
 

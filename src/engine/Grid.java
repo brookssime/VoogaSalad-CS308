@@ -48,7 +48,7 @@ public class Grid extends GameObject{
 	/********Called by GAE**********/
 	
 	@MethodAnnotation(editor=true, name = "Grid Editor", type = "grid", fieldName = "")
-	public void fakeMethod() {
+	public void getGAEComponent() {
 		return;
 	}
 	
