@@ -74,7 +74,7 @@ public class GridMaker {
         
         Tab sprites = new Tab("Sprites");
         sprites.setClosable(false);
-        spriteGrid = makeGrid(s, "Base", grid); //TODO: Not sure if will work
+        spriteGrid = makeGrid(s, "Tower", grid); //TODO: Not sure if will work
         Button spriteDone = new Button("Sprites Grid Done");
         spriteDone.setOnAction(
                 new EventHandler<ActionEvent>() {
@@ -130,12 +130,14 @@ public class GridMaker {
 	
 	private Node single(String type) {//TODO: Get stuff from the receiver
     	GridSingleSelect single = new GridSingleSelect();
-    	Set<String> mySet = (Set<String>) myReceiver.getList(type); 
-    	if(type=="Base"){
-    		mySet.addAll((Set<String>) myReceiver.getList("Port"));
-    		mySet.addAll((Set<String>) myReceiver.getList("Tower"));
+    	Set<String> mySet =  myReceiver.getList(type); 
+    	/*if(type.equals("Base")){
+    		Set<String> temp1 = myReceiver.getList("Port");
+    		Set<String> temp2 = myReceiver.getList("Tower");
+    		mySet.addAll(temp1);
+    		mySet.addAll(temp2);
     		//TODO: Not sure if above code with work
-    	}
+    	}*/
     	single.setUpEditor(mySet);
 		return single.root();
 	}

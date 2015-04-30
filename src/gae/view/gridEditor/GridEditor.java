@@ -96,6 +96,7 @@ public class GridEditor extends EditorComponent{
 	                    	//grid.setPrefHeight((int) myHeight.getValue());
 	                    	//grid.setPrefWidth((int) myWidth.getValue());
 	                    	grid.setPrefSize((int) myWidth.getValue(), (int) myHeight.getValue());
+	                    	//grid.setPrefColumnSize(20);
 	                    	System.out.println("Grid width"+grid.getPrefWidth());
 	                    	System.out.println("My height2 " + myHeight.getValue());
 	                    	System.out.println("My width2 " + myWidth.getValue());
@@ -116,7 +117,7 @@ public class GridEditor extends EditorComponent{
 			
 			tileGrid = myGrid.tiles();
 			spriteGrid = myGrid.sprites(); //Only works when the user is done 
-			/*for(int r=0; r<myHeight.getValue(); r++){
+			for(int r=0; r<myHeight.getValue(); r++){
 				for(int c=0; c<myWidth.getValue(); c++){
 					Node tile = getNodeByRowColumnIndex(r, c, tileGrid);
 					//String tileArray = 
@@ -126,7 +127,7 @@ public class GridEditor extends EditorComponent{
 					myReceiver.runOnObjectSwap(myObject, getMethod("setSprite"), sprite.toString());
 				}
 				
-			}*/
+			}
 			
 			//MAKING THE QUEUE (Currently useless code) 
 			Button waves = new Button("Make Wave Queue");
