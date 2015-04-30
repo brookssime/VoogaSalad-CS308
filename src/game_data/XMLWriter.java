@@ -43,7 +43,7 @@ public class XMLWriter {
 		fileChooser.setTitle("Specify a file to save");
 		ExtensionFilter filter = new ExtensionFilter("XML", "*.xml");
 		fileChooser.getExtensionFilters().add(filter);
-		File selectedFile = fileChooser.showOpenDialog(null);
+		File selectedFile = fileChooser.showSaveDialog(null);
 
 		if (selectedFile != null) {
 			File fileToSave = selectedFile;
