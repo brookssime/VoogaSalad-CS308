@@ -3,12 +3,16 @@
  */
 package gae.view.menupane;
 
+import gae.model.Receiver;
 import gae.view.GAEPane;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCombination;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -19,6 +23,8 @@ import javafx.scene.control.MenuBar;
  *
  */
 public class MenuPane extends GAEPane {
+	
+	private Receiver myReceiver;
 
 	/**
 	 * Instantiates a new menu pane.
@@ -28,8 +34,9 @@ public class MenuPane extends GAEPane {
 	 * @param mb
 	 *            the mb
 	 */
-	public MenuPane(MenuAdder adder, MenuBar mb) {
+	public MenuPane(MenuAdder adder, MenuBar mb, Receiver receiver) {
 		super(MenuPane.class.getSimpleName(), adder);
+		myReceiver = receiver;
 		myRoot.getChildren().add(mb);
 	}
 
@@ -40,7 +47,15 @@ public class MenuPane extends GAEPane {
 	 */
 	@Override
 	public List<Menu> getMenus() {
-		return null;
+		List<Menu> menus = new ArrayList<Menu>();
+		Menu fileMenu = new Menu("File");
+		MenuItem saveMenuItem = new MenuItem("Save GAE");
+		saveMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+S"));
+		saveMenuItem.setOnAction(e -> myReceiver.saveFile());
+		
+		menus.add(fileMenu);
+		
+		return menus;
 	}
 
 }

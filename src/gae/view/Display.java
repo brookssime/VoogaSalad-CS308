@@ -87,7 +87,7 @@ public class Display {
 	private Pane setupMenuPane() {
 		MenuManager menuManager = new MenuManager();
 		myMenuAdder = (MenuAdder) menuManager;
-		MenuPane menuPane = new MenuPane(myMenuAdder, menuManager.getMenuBar());
+		MenuPane menuPane = new MenuPane(myMenuAdder, menuManager.getMenuBar(), myReceiver);
 		return menuPane.getPane();
 	}
 
