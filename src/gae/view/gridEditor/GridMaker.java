@@ -28,9 +28,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class GridMaker {
-	private GridPane mainPane;
-	private int height;
-	private int width;
 	private GridPane tileGrid;
 	private GridPane spriteGrid;
 	private Receiver myReceiver;
@@ -38,41 +35,7 @@ public class GridMaker {
 	private GridPane finishTG; //Final Tile grid
 	private GridPane finishSG; //Final Sprite grid
 	
-	protected void grid(GridPane p, int myHeight, int myWidth, Receiver r){
-		myReceiver = r;
-		height = myHeight;
-		width = myWidth;
-		
-		System.out.println("Height: "+height);
-		System.out.println("Width: " + width);
-		
-		mainPane = p;
-		Button gridDone = new Button("Create Grid");
-		mainPane.add(gridDone, 1, 4);
-		gridDone.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(final ActionEvent e) {
-                    	gridStage = new Stage();
-                    	gridStage.show();
-                    	gridStage.setTitle("Make your grid");
-                    	Group gridGroup = new Group();
-                    	Scene gridScene = new Scene(gridGroup, myHeight*10, myWidth*10);
-                    	if(myHeight<50){
-                    		gridStage.setHeight(500);
-                    	}
-                    	else if(myWidth<50){
-                    		gridStage.setWidth(500);
-                    	}
-                    	gridGroup.getChildren().add(paneForGrid(gridScene));
-                    	gridStage.setScene(gridScene);
-                    	
-                    	System.out.println("Grid Created");
-                    }
-                });
-	}
-	
-	private Node paneForGrid(Scene s){
+	protected Node paneForGrid(Scene s, GridPane grid){
     	TabPane tabPane = new TabPane();
     	ScrollPane scrollPane = new ScrollPane();
     	ScrollPane scrollPane2 = new ScrollPane();
@@ -81,7 +44,7 @@ public class GridMaker {
     	
         Tab tiles = new Tab("Tiles");
         tiles.setClosable(false);
-        tileGrid = makeGrid(s, "Tile"); //This may not work
+        tileGrid = makeGrid(s, "Tile", grid); //This may not work
         Button tileDone = new Button("Tile Grid Done");
         tileDone.setOnAction(
                 new EventHandler<ActionEvent>() {
@@ -107,7 +70,7 @@ public class GridMaker {
         
         Tab sprites = new Tab("Sprites");
         sprites.setClosable(false);
-        spriteGrid = makeGrid(s, "Base"); //TODO: Not sure if will work
+        spriteGrid = makeGrid(s, "Base", grid); //TODO: Not sure if will work
         Button spriteDone = new Button("Sprites Grid Done");
         spriteDone.setOnAction(
                 new EventHandler<ActionEvent>() {
@@ -135,19 +98,24 @@ public class GridMaker {
         return tabPane;
     }
 	
-	private GridPane makeGrid(Scene s, String type){
+	private GridPane makeGrid(Scene s, String type, GridPane grid){
     	GridPane myGrid = new GridPane();
     	myGrid.prefHeightProperty().bind(s.heightProperty());
     	myGrid.prefWidthProperty().bind(s.widthProperty());
     	myGrid.setAlignment(Pos.CENTER);
     	myGrid.setPadding(new Insets(5));
     	
-    	if((height==0) | (width==0)){
+    	System.out.println("My height3 " + grid.getHeight());
+    	int height1 = (int) grid.getPrefHeight();
+    	int width1 = (int) grid.getPrefWidth();
+    	System.out.println("My width3 " + width1);
+    	
+    	if((height1==0) | (width1==0)){
     		myGrid.add(new Text("No valid size entries. Try again"), 0, 0);
     	}
     	else{
-    		for(int r=0; r<height; r++){
-    			for(int c=0; c<width; c++){
+    		for(int r=0; r<height1; r++){
+    			for(int c=0; c<width1; c++){
     				Node single = single(type);
     				myGrid.add(single, c, r);
     			}
@@ -158,7 +126,7 @@ public class GridMaker {
 	
 	private Node single(String type) {//TODO: Get stuff from the receiver
     	GridSingleSelect single = new GridSingleSelect();
-    	Set<String> mySet = (Set<String>) myReceiver.getList(type);
+    	Set<String> mySet = (Set<String>) myReceiver.getList(type); 
     	if(type=="Base"){
     		mySet.addAll((Set<String>) myReceiver.getList("Port"));
     		mySet.addAll((Set<String>) myReceiver.getList("Tower"));
