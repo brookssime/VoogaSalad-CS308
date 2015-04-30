@@ -24,7 +24,7 @@ public class Grid extends GameObject{
 	private Tile[][] myTiles;
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;
-	private Queue<Wave> myWaves;
+	private ArrayList<Wave> myWaves;
 	private Tile[][] gaeTiles;
 	private int tileR;
 	private int tileC;
@@ -32,7 +32,8 @@ public class Grid extends GameObject{
 	private int spriteC = 0;
 	
 	public Grid(){
-		
+		myWaves = new ArrayList<>();
+		mySpriteMap = new HashMap<>();
 	}
 	
 	public Grid(Integer height, Integer width){

@@ -277,7 +277,6 @@ public class GameEditor extends EditorComponent{
 		//get special method annotations
 		mySpecialMethods = new ArrayList<>(myReceiver.getSpecialEditorMethods(myObject));
 		
-		
 		exportButton.setOnAction(e->{
 			myReceiver.exportFile(myObject);
 		});

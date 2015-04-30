@@ -54,7 +54,6 @@ public class XMLWriter {
 	 * Returns a stored file as an object, ready for the user to cast it into
 	 * the target object.
 	 */
-
 	public static Object LoadGameData() throws IOException,
 			ClassNotFoundException {
 		XStream xstream = new XStream(new DomDriver());
