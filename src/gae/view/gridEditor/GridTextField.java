@@ -26,7 +26,7 @@ import javafx.scene.layout.HBox;
  * @author Negatu
  *
  */
-public class TestTextField {
+public class GridTextField {
 
 	private HBox myBox;
 	private TextField[] textFields;

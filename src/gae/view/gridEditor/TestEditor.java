@@ -100,7 +100,7 @@ public class TestEditor extends Application {
     }
     
     private Node single() {
-    	TestSingleSelect single = new TestSingleSelect();
+    	GridSingleSelect single = new GridSingleSelect();
     	Set<String> mySet = new HashSet<String>();
     	mySet.add("1");
     	mySet.add("Five");
@@ -192,7 +192,7 @@ public class TestEditor extends Application {
     }
     
     private Node height(){
-    	TestTextField text = new TestTextField();
+    	GridTextField text = new GridTextField();
     	text.setName("height");
     	text.setUpEditor();
     	
@@ -210,7 +210,7 @@ public class TestEditor extends Application {
     }
     
     private Node width(){
-    	TestTextField text = new TestTextField();
+    	GridTextField text = new GridTextField();
     	text.setName("width");
     	text.setUpEditor();
     	

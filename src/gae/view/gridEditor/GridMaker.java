@@ -153,7 +153,7 @@ public class GridMaker {
     }
 	
 	private Node single(String type) {//TODO: Get stuff from the receiver
-    	TestSingleSelect single = new TestSingleSelect();
+    	GridSingleSelect single = new GridSingleSelect();
     	Set<String> mySet = (Set<String>) myReceiver.getList(type);
     	if(type=="Base"){
     		mySet.addAll((Set<String>) myReceiver.getList("Port"));

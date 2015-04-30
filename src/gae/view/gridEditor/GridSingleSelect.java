@@ -23,7 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class TestSingleSelect {
+public class GridSingleSelect {
 	private Button openSelection;
 	Button open;
 	HBox root;
