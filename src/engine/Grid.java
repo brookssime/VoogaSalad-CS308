@@ -24,6 +24,11 @@ public class Grid extends GameObject{
 	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;	
 	private Queue<Wave> myWaves;
+	private Tile[][] gaeTiles;
+	private int tileR;
+	private int tileC;
+	private int spriteR;
+	private int spriteC;
 	
 	public Grid(){
 		myTiles = new Tile[myWidth][myHeight];
@@ -62,14 +67,45 @@ public class Grid extends GameObject{
 	}
 
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Tiles", fieldName="myTiles")
-	public void setTiles(Tile[][] tiles){
-		myTiles = tiles;
-		initTiles();
+	public void setTiles(Tile tile){
+		gaeTiles[tileR][tileC] = tile;
+		if(tileR>=myHeight-1){
+			tileR = 0;
+		}
+		else{
+			tileR++;
+		}
+		if(tileC>=myWidth-1){
+			tileC = 0;
+		}
+		else{
+			tileC++;
+		}
+		
+		if(gaeTiles[0].length==myWidth && gaeTiles.length==myHeight){
+			myTiles = gaeTiles;
+			initTiles();
+		}
 	}
 	
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Sprite", fieldName="mySpriteMap")
-	public void setSprite(Sprite sprite, Point point) {
-		mySpriteMap.put(sprite, new Placement(point));
+	public void setSprite(Sprite sprite) {
+		if(sprite!=null){
+			Point point = new Point(spriteC, spriteR);
+			mySpriteMap.put(sprite, new Placement(point));
+		}
+		if(spriteR>=myHeight-1){
+			spriteR = 0;
+		}
+		else{
+			spriteR++;
+		}
+		if(spriteC>=myWidth-1){
+			spriteC = 0;
+		}
+		else{
+			spriteC++;
+		}
 	}
 
 

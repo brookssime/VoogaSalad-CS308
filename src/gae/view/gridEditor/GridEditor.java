@@ -8,6 +8,7 @@ import interfaces.SpecialEditorAnnotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -70,11 +71,19 @@ public class GridEditor extends EditorComponent{
 			myGrid.grid(mainPane, myHeight, myWidth, myReceiver);
 			tileGrid = myGrid.tiles();
 			spriteGrid = myGrid.sprites(); //Only works when the user is done 
+			for(int r=0; r<myHeight; r++){
+				for(int c=0; c<myWidth; c++){
+					Node tile = getNodeByRowColumnIndex(r, c, tileGrid);
+					//String tileArray = 
+					myReceiver.runOnObjectSwap(myObject, getMethod("setTiles"), tile.toString());
+					//might not be a string
+					Node sprite = getNodeByRowColumnIndex(r, c, spriteGrid);
+					myReceiver.runOnObjectSwap(myObject, getMethod("setSprite"), sprite.toString());
+				}
+				
+			}
 			
-			//TODO: iterate through the tiles -> Figure out how to make an object
-			//Use reflection to get the object type
-			
-			//MAKING THE WAVES QUEUE
+			//MAKING THE QUEUE (Currently useless code) 
 			Button waves = new Button("Make Wave Queue");
 			waves.setOnAction(
 	                new EventHandler<ActionEvent>() {
@@ -88,7 +97,7 @@ public class GridEditor extends EditorComponent{
 			
 			//MAKING THE QUEUE EDITOR -> the editor should be returning the value
 			//TODO: I promise, this will probs not work
-			QueueEditor myQueue = new QueueEditor(myReceiver, getMethod("Set Waves"), "Queue");
+			QueueEditor myQueue = new QueueEditor(myReceiver, getMethod("setWaves"), "Queue");
 			myReceiver.runOnObject(myObject, getMethod("setWaves"), myQueue);
 
 			//mainPane.add(waves, 1, 5);
@@ -112,7 +121,7 @@ public class GridEditor extends EditorComponent{
 	}
 	
 	private Node height(){//TODO: Make sure the inputs are integers
-    	TestTextField text = new TestTextField();
+    	GridTextField text = new GridTextField();
     	text.setName("height");
     	text.setUpEditor();
     	text.btn.setOnAction(
@@ -129,7 +138,7 @@ public class GridEditor extends EditorComponent{
     }
     
     private Node width(){//TODO: Make sure text field only accepts integers
-    	TestTextField text = new TestTextField();
+    	GridTextField text = new GridTextField();
     	text.setName("width");
     	text.setUpEditor();
     	
@@ -156,5 +165,17 @@ public class GridEditor extends EditorComponent{
 		}
 		return null;
 	}
+    
+    public Node getNodeByRowColumnIndex(int row, int column, GridPane gridPane) {
+        Node result = null;
+        ObservableList<Node> childrens = gridPane.getChildren();
+        for(Node node : childrens) {
+            if(gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
+                result = node;
+                break;
+            }
+        }
+        return result;
+    }
 
 }
