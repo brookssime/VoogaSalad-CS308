@@ -148,7 +148,7 @@ public class Game extends GameObject {
 		myCurNode.render(myPlayerManager);
 	}
 
-	@SpecialEditorAnnotation(specialeditor=true, name = "setHead", fieldName = "myStartNode")
+	@SpecialEditorAnnotation(specialeditor=true, name = "setHead", fieldName = "myCurNode")
 	public void setHead(GameNode head) {
 		myCurNode = head;
 	}
