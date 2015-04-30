@@ -67,11 +67,6 @@ public class Grid extends GameObject{
 	}
 
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Tiles", fieldName="myTiles")
-<<<<<<< HEAD
-	public void setTiles(Tile[][] tiles){
-		setMyTiles(tiles);
-		initTiles();
-=======
 	public void setTiles(Tile tile){
 		gaeTiles[tileR][tileC] = tile;
 		if(tileR>=myHeight-1){
@@ -91,7 +86,6 @@ public class Grid extends GameObject{
 			myTiles = gaeTiles;
 			initTiles();
 		}
->>>>>>> 15cc7b11a938fdf18bc0b92e3e36d0358c36e9d5
 	}
 	
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Sprite", fieldName="mySpriteMap")
