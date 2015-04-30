@@ -4,6 +4,7 @@ import interfaces.Collidable;
 import interfaces.MethodAnnotation;
 import interfaces.ParameterAnnotation;
 import interfaces.Shootable;
+import interfaces.TypeAnnotation;
 
 import java.awt.Point;
 import java.util.Collections;
@@ -32,7 +33,7 @@ public class Tower extends Sprite implements Shootable{
 
 	
 	public Tower() {
-		
+		myProjectile = new Projectile();
 	}
 
 	public Tower (XStream serializer, String data, Point2D location) {
@@ -91,6 +92,8 @@ public class Tower extends Sprite implements Shootable{
 		myFireRate = fireRate;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Projectile", type = "singleselect", fieldName = "myProjectile")
+ 	@TypeAnnotation(type="Projectile")
 	public void setProjectile(Projectile projectile){
 		myProjectile = projectile;
 	}

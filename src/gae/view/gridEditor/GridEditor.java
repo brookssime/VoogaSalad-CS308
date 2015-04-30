@@ -96,13 +96,6 @@ public class GridEditor extends EditorComponent{
 	                    	GridPane grid = new GridPane();
 	                    	grid.setPrefSize((int) myWidth.getValue(), (int) myHeight.getValue());
 	                    	
-	                    	if(myHeight.getValue()<50){
-	                    		gridStage.setHeight(500);
-	                    	}
-	                    	else if(myWidth.getValue()<50){
-	                    		gridStage.setWidth(500);
-	                    	}
-	                    	
 	                    	gridGroup.getChildren().add(myGrid.paneForGrid(gridScene, grid, gridStage));
 	                    	gridStage.setScene(gridScene);
 	                    	
