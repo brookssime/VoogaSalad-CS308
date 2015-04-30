@@ -1,16 +1,22 @@
 package gae.view.editorpane.editorComponents;
 
 import gae.model.Receiver;
-import gae.view.editorpane.ComponentsDialog;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Set;
 
-import reflection.Reflection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import reflection.Reflection;
 
 public class QueueEditor extends EditorComponent{
 	
@@ -61,7 +67,7 @@ public class QueueEditor extends EditorComponent{
 		}
 		
 		addButton.setOnAction(e->{
-			addToList(getElement());
+			getElement();
 		});
 
 		loadQueue.setOnAction(e->{
@@ -82,11 +88,29 @@ public class QueueEditor extends EditorComponent{
 	
 	private String getElement(){
 		if (engineElement){
-			ComponentsDialog dialog = new ComponentsDialog(elementType, myReceiver);
-			return dialog.getElement();
+			Stage stage = new Stage();
+			createSelection(stage, elementType);
+//			ComponentsDialog dialog = new ComponentsDialog(elementType, myReceiver);
 		}
 		StringInputDialog dialog = new StringInputDialog();
 		return dialog.getElement();
+	}
+	
+	
+	private void createSelection(Stage stage, String type) {
+		VBox root = new VBox(5);
+		ListView<String> selection = new ListView<String>();
+		ObservableList<String> data = FXCollections.observableArrayList();
+		Set<String> objects = (Set<String>) myReceiver.getList(type);
+		data.addAll(objects);
+		selection.setItems(data);
+		
+		Button accept = new Button("Accept");
+		accept.setOnAction(e -> {
+			addToList(selection.getSelectionModel().getSelectedItem());
+			stage.close();
+		});
+		root.getChildren().addAll(selection, accept);
 	}
 	
 	private void exportElements(){
