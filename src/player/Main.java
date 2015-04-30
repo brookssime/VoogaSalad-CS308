@@ -35,7 +35,7 @@ public class Main extends Application {
 //		availGames.add(game5);
 		
 		
-		GameChoiceScreen v = new GameChoiceScreen(stage, SCREENWIDTH, SCREENHEIGHT, availGames);
+		GameChoiceScreen v = new GameChoiceScreen(stage, SCREENWIDTH, SCREENHEIGHT);
 		
 		stage.setTitle("Game Chooser");
 		stage.setScene(v.getScene());

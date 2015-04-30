@@ -2,6 +2,12 @@ package engine;
 
 import java.lang.reflect.InvocationTargetException;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+import player.manager.PlayerManager;
+
 
 
 public class Controller {
@@ -16,8 +22,10 @@ public class Controller {
 	
 
 	private Game myGame;
+	private PlayerManager myPlayerManager;
 	
-	public Controller(Game game){
+	public Controller(Game game, PlayerManager manager){
+		myPlayerManager = manager;
 		myGame = game;
 	}
 
@@ -27,7 +35,12 @@ public class Controller {
 	}
 	
 	public void start(){
-		
+		myGame.setPlayerManager(myPlayerManager);
+		Timeline timeline = new Timeline();
+		timeline.setCycleCount(Animation.INDEFINITE);
+		KeyFrame frame = new KeyFrame(Duration.seconds(.02), e -> myGame.update());
+		timeline.getKeyFrames().add(frame);
+		timeline.play();
 	}
 	
 	// allows for generalized action on GameNodes

@@ -23,13 +23,13 @@ public class Grid extends GameObject{
 	private int myWidth;
 	private Tile[][] myTiles;
 	private GridManager myGridManager;
-	private Map<Sprite, Placement> mySpriteMap;	
+	private Map<Sprite, Placement> mySpriteMap;
 	private Queue<Wave> myWaves;
 	private Tile[][] gaeTiles;
 	private int tileR;
 	private int tileC;
-	private int spriteR;
-	private int spriteC;
+	private int spriteR = 0;
+	private int spriteC = 0;
 	
 	public Grid(){
 		

@@ -40,11 +40,12 @@ public class LevelNode extends GameNode {
 	@Override
 	public void update() {
 		myGrid.update();
-		myGameStats.getTimeElapsed(myStartTime);
+		if(myGameStats != null)myGameStats.getTimeElapsed(myStartTime);
 	}
 	
 	@Override
 	public NodeState checkState() {
+		if(myConditions == null) return null;
 		return myConditions.stream().map(c -> c.evaluate(this))
 				.filter(s -> s != NodeState.RUNNING)
 				.collect(Collectors.toList()).get(0); //returns the first state that is non
