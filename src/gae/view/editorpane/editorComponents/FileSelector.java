@@ -15,6 +15,9 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  * A file selector editor type.
@@ -58,20 +61,24 @@ public class FileSelector extends EditorComponent {
 		myBox.getChildren().addAll(selectButton, drawButton, myDisplay);
 
 		selectButton.setOnAction(e -> {
-			JFileChooser fileChooser = new JFileChooser(System.getProperties()
-					.getProperty("user.dir") + "/src/images");
-			FileNameExtensionFilter filter = new FileNameExtensionFilter(
-			        "PNG, JPG & GIF Images", "jpg", "gif", "png");
-			fileChooser.setFileFilter(filter);
-			fileChooser
-					.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-			int retval = fileChooser.showOpenDialog(null);
-			if (retval != JFileChooser.APPROVE_OPTION) {
-				return;
+			File selectedFile = getSaveFile();
+//			FileChooser fileChooser = new FileChooser();
+//			fileChooser.setInitialDirectory(new File(System.getProperties()
+//					.getProperty("user.dir") + "/src/images"));
+//			ExtensionFilter filter = new ExtensionFilter(
+//			        "PNG, JPG & GIF Images", "jpg", "gif", "png");
+//			fileChooser.getExtensionFilters().add(filter);
+//			File selectedFile = fileChooser.showOpenDialog(null);
+//			
+//			//fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+//			//int retval = fileChooser.showOpenDialog(null);
+			if (selectedFile == null) {
+				System.out.println("No file chosen");
 			}
-			selectedFile = fileChooser.getSelectedFile();
-			myDisplay.setImage(new Image(selectedFile.toURI().toString()));
-			myReceiver.runOnObject(myObject, myMethod, selectedFile);
+			else{
+				myDisplay.setImage(new Image(selectedFile.toURI().toString()));
+				myReceiver.runOnObject(myObject, myMethod, selectedFile.getAbsolutePath());
+			}
 		});
 		
 		drawButton.setOnAction(e->{
@@ -81,6 +88,22 @@ public class FileSelector extends EditorComponent {
 
 	}
 
+	public  File getSaveFile(){
+		FileChooser fileChooser = getNewChooser();
+
+        fileChooser.setTitle("Save as");
+        File file = fileChooser.showSaveDialog(new Stage());
+        return file;
+	}
+	
+	private  FileChooser getNewChooser(){
+		FileChooser fileChooser = new FileChooser();
+//        fileChooser.getExtensionFilters()
+//                .add(
+//                     new FileChooser.ExtensionFilter("PNG, JPG & GIF Images", "jpg", "gif", "png"));
+        return fileChooser;
+	}
+	
 	private void setupImageView() {
 		Image myImage = new Image(getClass().getResourceAsStream(
 				defaultImagePath));

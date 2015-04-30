@@ -88,6 +88,7 @@ public class LevelNode extends GameNode {
 	@MethodAnnotation(editor = true, name = "Set Store", type = "singleselect", fieldName = "myStore")
 	@TypeAnnotation(type="Store")
 	public void setStore(Store store) {
+		System.out.println(store);
 		myStore = store;
 	}
 

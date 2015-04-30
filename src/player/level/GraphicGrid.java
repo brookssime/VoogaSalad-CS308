@@ -87,7 +87,7 @@ public class GraphicGrid{
 			return;
 		}
 		
-		Tile[][] mytiles = grid.myTiles;
+		Tile[][] mytiles = grid.getMyTiles();
 		if(mytiles == null) {
 			System.out.println("null tiles");
 			return;

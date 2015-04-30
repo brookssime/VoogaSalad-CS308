@@ -8,6 +8,8 @@ import interfaces.SpecialEditorAnnotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -42,8 +44,10 @@ import javafx.stage.Stage;
 //TODO: Change content of each tab to sprite or tile
 
 public class GridEditor extends EditorComponent{
-	private int myWidth;
-	private int myHeight;
+	//private int myWidth;
+	//private int myHeight;
+	private IntegerProperty myWidth;
+	private IntegerProperty myHeight;
 	private GridPane mainPane;
 	private ArrayList<Method> mySpecialMethods;
 	private GridPane tileGrid;
@@ -55,24 +59,66 @@ public class GridEditor extends EditorComponent{
 
 	@Override
 	public void setUpEditor() {
+		myWidth = new SimpleIntegerProperty();
+		myHeight = new SimpleIntegerProperty();
 		Button b1 = new Button("Open Grid Editor");
 		b1.setOnAction(e -> {
 			Stage primaryStage = new Stage();
 			primaryStage.setTitle("Grid Editor");
 			Group root = new Group();
-			Scene scene = new Scene(root, 800, 800);
+			Scene scene = new Scene(root, 400, 400);
 			mainPane = new GridPane();
 			mainPane.prefHeightProperty().bind(scene.heightProperty());
 			mainPane.prefWidthProperty().bind(scene.widthProperty());
 			
 			//MAKING THE GRID
 			gridSize();
-			GridMaker myGrid = new GridMaker();
-			myGrid.grid(mainPane, myHeight, myWidth, myReceiver);
+			GridMaker myGrid = new GridMaker(myReceiver);
+			
+			//myGrid.grid(mainPane, myHeight, myWidth, myReceiver);
+			
+			Button gridDone = new Button("Create Grid");
+			mainPane.add(gridDone, 1, 4);
+			gridDone.setOnAction(
+	                new EventHandler<ActionEvent>() {
+	                    @Override
+	                    public void handle(final ActionEvent e) {
+	                    	Stage gridStage = new Stage();
+	                    	gridStage.show();
+	                    	gridStage.setTitle("Make your grid");
+	                    	Group gridGroup = new Group();
+	                    	Scene gridScene = new Scene(gridGroup, myHeight.getValue()*10, myWidth.getValue()*10);
+	                    	GridPane grid = new GridPane();
+	                    	//grid.prefWidthProperty().bind(myWidth);
+	                    	//grid.prefHeightProperty().bind(myHeight);
+	                    	System.out.println("My height1 " + myHeight.getValue());
+	                    	System.out.println("My width1 " + myWidth.getValue());
+	                    	//grid.setPrefHeight((int) myHeight.getValue());
+	                    	//grid.setPrefWidth((int) myWidth.getValue());
+	                    	grid.setPrefSize((int) myWidth.getValue(), (int) myHeight.getValue());
+	                    	//grid.setPrefColumnSize(20);
+	                    	System.out.println("Grid width"+grid.getPrefWidth());
+	                    	System.out.println("My height2 " + myHeight.getValue());
+	                    	System.out.println("My width2 " + myWidth.getValue());
+	                    	
+	                    	if(myHeight.getValue()<50){
+	                    		gridStage.setHeight(500);
+	                    	}
+	                    	else if(myWidth.getValue()<50){
+	                    		gridStage.setWidth(500);
+	                    	}
+	                    	
+	                    	gridGroup.getChildren().add(myGrid.paneForGrid(gridScene, grid));
+	                    	gridStage.setScene(gridScene);
+	                    	
+	                    	System.out.println("Grid Created");
+	                    }
+	                });
+			
 			tileGrid = myGrid.tiles();
 			spriteGrid = myGrid.sprites(); //Only works when the user is done 
-			for(int r=0; r<myHeight; r++){
-				for(int c=0; c<myWidth; c++){
+			for(int r=0; r<myHeight.getValue(); r++){
+				for(int c=0; c<myWidth.getValue(); c++){
 					Node tile = getNodeByRowColumnIndex(r, c, tileGrid);
 					//String tileArray = 
 					myReceiver.runOnObjectSwap(myObject, getMethod("setTiles"), tile.toString());
@@ -89,7 +135,6 @@ public class GridEditor extends EditorComponent{
 	                new EventHandler<ActionEvent>() {
 	                    @Override
 	                    public void handle(final ActionEvent e) {
-	                    	System.out.println("Waves");
 	                    	WaveMaker myWaves = new WaveMaker();
 	                    	myWaves.setUp();
 	                    }
@@ -97,8 +142,6 @@ public class GridEditor extends EditorComponent{
 			
 			//MAKING THE QUEUE EDITOR -> the editor should be returning the value
 			//TODO: I promise, this will probs not work
-			QueueEditor myQueue = new QueueEditor(myReceiver, getMethod("setWaves"), "Queue");
-			myReceiver.runOnObject(myObject, getMethod("setWaves"), myQueue);
 
 			//mainPane.add(waves, 1, 5);
 			
@@ -129,9 +172,9 @@ public class GridEditor extends EditorComponent{
                     @Override
                     public void handle(final ActionEvent e) {
                     	String val = text.textVal.getCharacters().toString();
-                    	myHeight = Integer.parseInt(val);
-                    	System.out.println("My height: " + myHeight);
-                    	myReceiver.runOnObject(myObject, getMethod("setHeight"), myHeight);
+                    	myHeight.setValue(Integer.parseInt(val)); 
+                    	System.out.println(myHeight);
+                    	myReceiver.runOnObject(myObject, getMethod("Set Height"), myHeight.getValue());
                     }
                 });
     	return text.box();
@@ -147,9 +190,8 @@ public class GridEditor extends EditorComponent{
                     @Override
                     public void handle(final ActionEvent e) {
                     	String val = text.textVal.getCharacters().toString();
-                    	myWidth = Integer.parseInt(val);
-                    	System.out.println("My width: " + myWidth);
-                    	myReceiver.runOnObject(myObject, getMethod("setWidth"), myWidth);
+                    	myWidth.setValue(Integer.parseInt(val)); 
+                    	myReceiver.runOnObject(myObject, getMethod("Set Width"), myWidth.getValue());
                     }
                 });
     	return text.box();

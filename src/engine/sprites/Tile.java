@@ -33,7 +33,7 @@ public class Tile extends GameObject{
 	}
 	
 	@MethodAnnotation(editor=true, name = "Set Width", type = "textfield", fieldName = "myWidth")
-	public void setWidth(int width){
+	public void setWidth(Integer width){
 		myWidth = width;
 	}
 
