@@ -54,13 +54,21 @@ public class GameChoiceScreen {
 
 		gl = new ExistingGameLoader();
 		availGames = gl.getGameList();
-		Game selectedGame = availGames.get(0);
+
+		Game selectedGame = availGames.get(1);
+		
+		//GameData gameData = new GameData("Inital Name", "Inital Description", "../resources/tower-defense-games.png");
+		
+		gameInfoBox = new GameInfoBox(stage, infoBoxWidth, infoBoxHeight, selectedGame);
+
+		selectedGame = availGames.get(0);
 
 		// GameData gameData = new GameData("Inital Name", "Inital Description",
 		// "../resources/tower-defense-games.png");
 
 		gameInfoBox = new GameInfoBox(stage, infoBoxWidth, infoBoxHeight,
 				selectedGame);
+
 		gameInfoBox.setLayoutX(.35 * screenWidth);
 		gameInfoBox.setLayoutY(.25 * screenHeight);
 

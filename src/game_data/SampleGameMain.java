@@ -55,6 +55,7 @@ public class SampleGameMain {
 	List<Tower> storeMap = new ArrayList<Tower>();
 	Store store = new Store();
 	Wave myWave = new Wave();
+	
 	public Game createGame() {
 		
 		levelNode.setName("GAMENODE");
