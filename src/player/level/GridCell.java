@@ -37,13 +37,9 @@ public class GridCell{
 		
 		
 	}
-	public GridCell( Tile tile, int r, int c, LevelManager manager){
-		myManager = manager;
+	public GridCell( Tile tile, int r, int c){
 		myTile = tile;
-		System.out.println(tile.getImagePath());
-		image = new ImageView();
-		image.setImage(PlayerManager.myImageLoader.loadImageFile(tile.getImagePath()));
-		
+		image = new ImageView(tile.getImagePath());
 		droppable = false;
 		showOption  =false;
 		init();
@@ -70,7 +66,7 @@ public class GridCell{
 		return myPane;
 	}
 	public void init(){
-		 //System.out.println("Drage dropped");
+		
 		image.setOnDragDropped((DragEvent t) -> {
 			 System.out.println("Drage dropped");
 			 if(droppable ==false) return;
@@ -85,19 +81,16 @@ public class GridCell{
 			   //adjust.setSaturation(-1.0);
 		   } else return;
 		   int range = 100;
-		   //if(db.hasUrl()){
-			 //   range= Integer.parseInt(db.getUrl());
-		   //} else return;
+		   if(db.hasUrl()){
+			    range= Integer.parseInt(db.getUrl());
+		   } else return;
 		   if(db.hasString()){
-			   String[] info = db.getString().split(" ");
-			   spriteID = info[0];
-			   range = Integer.parseInt(info[1]);
+			   spriteID = db.getString();
 			   Point p = new Point((int) myPane.getLayoutX(),(int) myPane.getLayoutY());
 			   
 			   Placement place = new Placement(p);
-
 			   myManager.placeSprite(spriteID, place);
-			   myManager.purchaseObject(spriteID, place);
+			   myManager.purchaseObject(spriteID);
 			   toweroption = new TowerOption(myManager, spriteID, place, range);
 			   image.setOnMouseClicked((MouseEvent x) ->{
 					if(showOption ==false) return;

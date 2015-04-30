@@ -2,7 +2,6 @@ package player;
 
 import engine.Game;
 import game_data.GamesLoader;
-import game_data.SampleGameMain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,15 +48,10 @@ public class GameChoiceScreen {
 		this.infoBoxHeight = infoBoxHeightPct * screenHeight;
 		this.stage = stage;
 		//availGames = getAvailableGames();
-		availGames = new ArrayList<Game>();
 		
 		ExistingGameLoader gl = new ExistingGameLoader();
-		//Game selectedGame = gl.getSelectedGame();
-		
-		SampleGameMain sample = new SampleGameMain();
-		Game selectedGame = sample.createGame();
-		System.out.println(selectedGame.getName());
-		availGames.add(selectedGame);
+		Game selectedGame = gl.getSelectedGame();
+		availGames = getAvailableGames();
 		
 		
 		GameData gameData = new GameData("Inital Name", "Inital Description", "../resources/tower-defense-games.png");

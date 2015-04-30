@@ -56,7 +56,7 @@ public class GameInfoBox extends AbstractOverlay{
 		gameImageView.setLayoutY(overlayHeight * .1);
 		
 		this.getChildren().add(gameImageView);
-		//this.getChildren().add(description);
+		this.getChildren().add(description);
 		this.getChildren().add(title);
 		this.getStylesheets().add("playerStyle.css");
 		addPlayButton();

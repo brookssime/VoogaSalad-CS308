@@ -41,11 +41,11 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	private double screenHeight;
 	private Game currGame;
 	public static ImageLoader myImageLoader;
-//	public PlayerManager(GameLevelScene level, DialogScene dialog, Controller controller){
-//		myLevel = level;
-//		myDialog = dialog;
-//		myController = controller;
-//	}
+	public PlayerManager(GameLevelScene level, DialogScene dialog, Controller controller){
+		myLevel = level;
+		myDialog = dialog;
+		myController = controller;
+	}
 	public PlayerManager(Stage stage, double screenWidth, double screenHeight){
 		this.stage = stage;
 		this.screenHeight = screenHeight;
@@ -53,7 +53,6 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		init();
 	}
 	private void init(){
-		myImageLoader = new ImageLoader();
 		myLevel = new GameLevelScene(stage, screenWidth, screenHeight, this);
 		myDialog = new DialogScene(stage, screenWidth, screenHeight, this);
 		//TODO: create game from XML
@@ -113,7 +112,6 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	
 	@Override
 	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud){
-		
 		if(currScene != myLevel){
 			changeScene(myLevel);
 		}
@@ -122,7 +120,6 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 
 	}
 	private void changeScene(GraphicGameScene myScene) {
-		System.out.print("change scene\n");
 		currScene = myScene;
 		stage.setScene(currScene.getScene());
 		stage.show();
@@ -216,10 +213,10 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		
 	}
 	@Override
-	public void purchaseObject(String spriteID, Placement p) {
-		Object[] params = {spriteID, p};
+	public void purchaseObject(String spriteID) {
+		Object[] params = {spriteID};
 		try {
-			myController.doSomething("purchaseSprite", params);
+			myController.doSomething("purchaseObject", params);
 		} catch (NoSuchMethodException | SecurityException
 				| IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {

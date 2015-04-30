@@ -7,9 +7,9 @@ import interfaces.SpecialEditorAnnotation;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 import engine.gameLogic.GameObject;
@@ -33,10 +33,8 @@ public class Grid extends GameObject{
 	private int spriteC = 0;
 	
 	public Grid(){
-		myWaves = new ArrayList<>();
-		mySpriteMap = new HashMap<>();
 		mySpriteMap = new HashMap<Sprite, Placement>();
-		myGridManager = new GridManager(this);
+		myWaves = new ArrayList<Wave>();
 	}
 	
 	public Grid(Integer height, Integer width){
