@@ -178,6 +178,8 @@ public class SampleGameMain {
 		levelNode.setGrid(grid);
 		levelNode.setStore(store);
 		g1.setHead(levelNode);
+		g1.setName("Game 1");
+		g1.setImagePath("../resources/tower-defense-games.png");
 		return g1;
 		
 		

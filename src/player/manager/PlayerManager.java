@@ -69,11 +69,11 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	}
 	public Scene getInitScene(){
 		//TODO: get the initScene
-		//GameChoiceScreen gcs = new GameChoiceScreen(stage, screenWidth, screenHeight);
-		MainMenu mainMenu = new MainMenu(stage,screenWidth,screenHeight);
-		//createGameChoiceScreenButtons(gcs);
-		Scene initScene = mainMenu.getScene();
-		//Scene initScene = gcs.getScene();
+		GameChoiceScreen gcs = new GameChoiceScreen(stage, screenWidth, screenHeight);
+		//MainMenu mainMenu = new MainMenu(stage,screenWidth,screenHeight);
+		createGameChoiceScreenButtons(gcs);
+		//Scene initScene = mainMenu.getScene();
+		Scene initScene = gcs.getScene();
 		
 		return initScene;
 	}
