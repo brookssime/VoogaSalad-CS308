@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import player.manager.LevelManager;
 import player.manager.PlayerManager;
 import engine.Grid;
 import engine.gameLogic.Placement;
@@ -22,9 +23,11 @@ public class GraphicGrid{
 	private StackPane myPane;
 	private double screenWidth, screenHeight;
 	private List<GridCell> myCells;
+	private LevelManager myManager;
 	
 	
-	public GraphicGrid(double screenWidth, double screenHeight){
+	public GraphicGrid(double screenWidth, double screenHeight, LevelManager manager){
+		myManager = manager;
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
 		myPane = new StackPane();
@@ -94,7 +97,7 @@ public class GraphicGrid{
 		}
 		for(int row = 0; row < mytiles.length;row ++){
 			for(int col = 0; col < mytiles[0].length;col++){
-				GridCell c= new GridCell(mytiles[row][col],row,col);
+				GridCell c= new GridCell(mytiles[row][col],row,col, myManager);
 				c.setSize(80*screenWidth/1436, 80*(screenHeight/877));
 				//TODO: need a name for the place on which a tower can be placed
 				if(mytiles[0][0].getName()=="walls"){

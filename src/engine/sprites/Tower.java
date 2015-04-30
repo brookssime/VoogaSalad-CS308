@@ -7,6 +7,7 @@ import interfaces.Shootable;
 
 import java.awt.Point;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,7 +33,8 @@ public class Tower extends Sprite implements Shootable{
 
 	
 	public Tower() {
-		
+		mySpriteInfo = new HashMap<String, String>();
+		//fillSpriteInfo();
 	}
 
 	public Tower (XStream serializer, String data, Point2D location) {
@@ -47,6 +49,9 @@ public class Tower extends Sprite implements Shootable{
 		myRange = range;
 		myFireRate = fireRate;		
 		myHealth = health;
+		mySpriteInfo = new HashMap<String, String>();
+		fillSpriteInfo();
+		
 	}
 	
 	@Override

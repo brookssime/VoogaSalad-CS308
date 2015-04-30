@@ -13,11 +13,11 @@ import engine.sprites.Tower;
 
 public interface LevelManager extends NodeManager{
 	public void placeSprite(String spriteID, Placement place);
-	public void purchaseObject(String spriteID);
 	public void sellObject(String spriteID, Placement place);
 	public void examinSprite(String SpriteID, Placement place);
 	public void increaseGameSpeed();
 	public void decreaseGameSpeed();
+	public void purchaseObject(String spriteID, Placement p);
 	
 	
 }

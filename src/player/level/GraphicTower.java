@@ -68,24 +68,26 @@ public class GraphicTower{
         currentImage.setFitHeight(IMAGESIZE);
 		currentImage.setFitWidth(IMAGESIZE);
 		//placed =false;
+		 System.out.println("graphic tower set dragable");
 		 currentImage.setOnDragDetected((MouseEvent event) -> {
 			 	//update grid droppable
 			 	for(String id : myTower.getAccessNames()){
 			 		levelinfo.updateDroppable(id);
 			 	}
-	        	if(myTower.getPrice()>myLevelInfo.getMoney()) return;
+	        	//if(myTower.getPrice()>myLevelInfo.getMoney()) return;
 	            //activate();
 			 	System.out.println("Drage Detected");
 	            Dragboard db = currentImage.startDragAndDrop(TransferMode.MOVE);
 	            
 	            ClipboardContent content = new ClipboardContent();
 	            // input range as url
-	            content.putUrl(Integer.toString( myTower.getRange()));
+	            //content.putUrl(Integer.toString( myTower.getRange()));
+	          
 	            // Store node ID in order to know what is dragged.
 	            //content.putString(currentImage.getId());
 	            content.putImage(images);
 	            //TODO: need spriteID
-	            content.putString(myTower.getName());
+	            content.putString(myTower.getName()+" "+myTower.getRange());
 	            
 	            //Image myimage = new Image(images, IMAGESIZE,IMAGESIZE,false,false); 
 	            //ImageCursor myCursor = new ImageCursor(myimage);
