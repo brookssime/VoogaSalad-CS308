@@ -50,7 +50,7 @@ public class GameChoiceScreen {
 		//availGames = getAvailableGames();
 		
 		ExistingGameLoader gl = new ExistingGameLoader();
-		Game selectedGame = gl.getSelectedGame();
+		Game selectedGame = gl.getGameList().get(0);
 		availGames = getAvailableGames();
 		
 		
