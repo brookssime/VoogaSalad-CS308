@@ -43,6 +43,7 @@ public class Projectile extends Sprite implements Collidable{
 		this.myAccessNames = projectile.myAccessNames;
 	}
 	
+	
 	public void setPath(Path p){
 		myPath = p;
 	}
@@ -87,7 +88,12 @@ public class Projectile extends Sprite implements Collidable{
 	@MethodAnnotation(editor=true, name = "Set Effect", type = "singleselect", fieldName = "myEffect")
 	@TypeAnnotation(type="ProjectileEffect")
 	public void setEffect(ProjectileEffect pe) {
+		init(pe);
 		myEffect = pe;
+		
+	}
+	public void init(ProjectileEffect pe){
+		
 	}
 	
 	public ProjectileEffect getEffect(){

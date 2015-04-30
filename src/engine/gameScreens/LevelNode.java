@@ -29,11 +29,13 @@ public class LevelNode extends GameNode {
 	public LevelNode() {
 		super();
 		myStartTime = System.nanoTime();
+		myConditions = new ArrayList<Condition>();
 	}
 
 /*******Overridden from GameNode - Called by Game*********/
 	@Override
 	public void render(PlayerManager playerManager) {
+		//System.out.print("Calling update level node render\n");
 		playerManager.updateLevel(myGrid, myStore, myHUD);
 	}
 	
@@ -120,6 +122,10 @@ public class LevelNode extends GameNode {
 
 	public long calculateRemainingTime() {
 		return myTotalTime - myGameStats.getTimeElapsed(myStartTime);
+	}
+	
+	public void addCondition(Condition c){
+		myConditions.add(c);
 	}
 
 }

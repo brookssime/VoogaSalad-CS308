@@ -92,7 +92,7 @@ public class TestEditor extends Application {
     	Set<String> mySet = new HashSet<String>();
     	mySet.add("1");
     	mySet.add("Five");
-    	single.setUpEditor(mySet);
+    	single.setUpEditor(mySet, null, false, null);
 		return single.root();
 	}
 
