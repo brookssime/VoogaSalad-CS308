@@ -4,18 +4,21 @@ package engine.sprites;
 import interfaces.Collidable;
 import interfaces.MethodAnnotation;
 
-import java.awt.Shape;
 import java.awt.Point;
+import java.awt.Shape;
 
-import interfaces.Collidable;
+import com.sun.javafx.geom.Ellipse2D;
+
 import engine.gameLogic.Placement;
 
 public class Base extends Sprite implements Collidable{
 
 	private Integer myHealth;
-	private int myCollisionHeight;
-	private int myCollisionWidth;
 	private Point myLocation;
+	protected Placement myPlacement;
+	private Integer myCollisionHeight;
+	private Integer myCollisionWidth;
+	private Shape myCollisionBounds;
 	
 	public Base() {
 		
@@ -31,18 +34,13 @@ public class Base extends Sprite implements Collidable{
 		myHealth = health;
 	}
 	
-//	@MethodAnnotation(editor=true, name = "Set Radius", type = "textfield", fieldName = "myRadius")
-//	public void setRadius(int radius){
-//		myRadius = radius;
-//	}
-	
 	public int getHealth(){
 		return myHealth;
 	}
 	
 	@Override
 	public void evaluateCollision(Collidable collider){
-		if (collider.getClass().isAssignableFrom(Enemy.class)) {
+		if (isCollision(collider) && collider.getClass().isAssignableFrom(Enemy.class)) {
 			myHealth -= ((Enemy) collider).getEnemyDamage();
 		}
 	}
@@ -68,17 +66,13 @@ public class Base extends Sprite implements Collidable{
 		mySpriteInfo.put("Name", myName);
 		mySpriteInfo.put("Health", myHealth.toString());
 	}
-
-	@Override
-	@MethodAnnotation(editor=true, name = "Set Collision Height", type = "textfield", fieldName = "myCollisionHeight")
-	public void setCollisionHeight(Integer height) {
-		myCollisionHeight = height;
+	
+	public Point getLocation(){
+		return myLocation;
 	}
-
-	@Override
-	@MethodAnnotation(editor=true, name = "Set Collision Width", type = "textfield", fieldName = "myCollisionWidth")
-	public void setCollisionWidth(Integer width) {
-		myCollisionWidth = width;	
+	
+	public void setLocation(Point location){
+		myLocation = location;
 	}
 
 	@Override
@@ -90,14 +84,35 @@ public class Base extends Sprite implements Collidable{
 	public Integer getCollisionWidth() {
 		return myCollisionWidth;
 	}
-	
-	public Point getLocation(){
-		return myLocation;
+
+	@Override
+	public void setCollisionHeight(Integer height) {
+		myCollisionHeight = height;
+		
 	}
-	
-	public void setLocation(Point location){
-		myLocation = location;
+
+	@Override
+	public void setCollisionWidth(Integer width) {
+		myCollisionWidth = width;
+		
 	}
-	
-	
+
+	@Override
+	public void setCollisionBounds(Integer height, Integer width) {
+		myCollisionBounds = (Shape) new Ellipse2D(myPlacement.getLocation().x, myPlacement.getLocation().y, myCollisionHeight, myCollisionWidth);
+	}
+
+	@Override
+	public Shape getCollisionBounds() {
+		return myCollisionBounds;
+	}
+
+	/**
+	 * this and other set methods would be used by GAE
+	 * @param placement
+	 */
+	@Override
+	public void setPlacement(Placement placement) {
+		myPlacement = placement;
+	}	
 }

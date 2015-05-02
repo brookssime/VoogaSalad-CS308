@@ -1,12 +1,5 @@
 package player;
 
-import java.io.IOException;
-
-import engine.Game;
-import game_data.GamesLoader;
-import game_data.SampleGameMain;
-import game_data.XMLWriter;
-import player.level.GameLevelScene;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -15,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import engine.Game;
 
 public class GameInfoBox extends AbstractOverlay{
 	
@@ -104,7 +98,7 @@ public class GameInfoBox extends AbstractOverlay{
 		newGameButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 
-				//Open the level screen of Game Player and start a new game
+		/*		//Open the level screen of Game Player and start a new game
 				System.out.println("Open The Level and Load The Game");
 				myPlayer = new GamePlay(stage,1400,800);
 				SampleGameMain sample = new SampleGameMain();
@@ -115,7 +109,7 @@ public class GameInfoBox extends AbstractOverlay{
 				//GameLevelScene gameLevelScene = new GameLevelScene(stage, screenWidth, screenHeight);
 				//stage.setScene(gameLevelScene.getScene());
 				
-				
+				*/
 			}
 		});
 		

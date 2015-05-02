@@ -1,11 +1,12 @@
+// This entire file is part of my masterpiece.
+// SID GOPINATH
+
 package engine;
 
 import interfaces.MethodAnnotation;
 import interfaces.SpecialEditorAnnotation;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import player.manager.PlayerManager;
@@ -17,104 +18,58 @@ import engine.gameScreens.Store;
 
 public class Game extends GameObject {
 	
+	private GameNode myStartNode;
 	private GameNode myCurNode;
 	private Store myStore;
 	private Map<GameNode, Map<NodeState, GameNode>> myAdjacencyList;
 	private Map<String, GameNode> myIDMap;
-    
 	private PlayerManager myPlayerManager;
-	
-	//used for constructing the adjacency list, all index based. 
 	private String myReference;
 	private NodeState myState;
 	private GameNode myNext;
 	private Map<NodeState, GameNode> myMap;
 	private GameNode myCur;
-	
+
 	public Game() {
 		myAdjacencyList = new HashMap<GameNode, Map<NodeState, GameNode>>();
 		myIDMap = new HashMap<String, GameNode>();
 	}
-
+	
 	public Game(GameNode head) {
-		myCurNode = head;
+		myStartNode = head;
 		myAdjacencyList = new HashMap<GameNode, Map<NodeState, GameNode>>();
 		myIDMap = new HashMap<String, GameNode>();
 		addStoreToLevel();
 	}
 	
-	/**
-	 * used for gae
-	 * @param nodeState
-	 */
-	@SpecialEditorAnnotation(specialeditor=true, name = "addReference", fieldName = "myReferences")
-	public void addReference(String s){
-		myReference = s;
-		buildIDMap();
-	}
-	
 	private void buildIDMap() {
-		if(myReference != null && myCur != null){
-			myIDMap.put(myReference, myCur);
-			myReference = null;
-			myCur = null;
-		}
-		
-	}
-
-	/**
-	 * used for gae
-	 * @param nodeState
-	 */
-	@SpecialEditorAnnotation(specialeditor=true, name = "addNodeState", fieldName = "myStates")
-	public void addNodeState(NodeState nodeState){
-		myState = nodeState;
-		buildMap();
-		
+		myIDMap.put(myReference, myCur);
 	}
 	
 	private void buildMap() {
-		if(myState != null && myNext != null){
-			Map<NodeState, GameNode> map = new HashMap<>();
-			map.put(myState, myNext);
-			myMap = map;
-			myState = null;
-			myNext = null;
-		}
-		
-	}
-
-	/**
-	 * Used in gae
-	 * @param node
-	 */
-	@SpecialEditorAnnotation(specialeditor=true, name = "addNextNode", fieldName = "myNexts")
-	public void addNextNode(GameNode node){
-		myNext = node;
-		buildMap();
+		Map<NodeState, GameNode> map = new HashMap<>();
+		map.put(myState, myNext);
+		myMap = map;	
 	}
 	
-	/**
-	 * used in gae
-	 * @param node
-	 */
-	@SpecialEditorAnnotation(specialeditor=true, name = "addCurNode", fieldName = "myCurs")
-	public void addCurNode(GameNode node){
-		myCur = node;
-		setAdjacencyList();
-		buildIDMap();
-	}
-	
-	
-	
-	@MethodAnnotation(editor=true, name = "Game Editor", type = "gameeditor", fieldName = "")
-	public void getGAEComponent() {
-		return;
-	}
-	
-	// To be called by Player
 	public void setPlayerManager(PlayerManager playerManager){
 		myPlayerManager = playerManager;
+	}
+
+	public void addStoreToLevel() {
+		if (myStartNode instanceof LevelNode) {
+			((LevelNode) myStartNode).setStore(myStore);
+		}
+	}
+
+	public void update(){
+		myCurNode.update();
+		if(myCurNode.checkState()!=NodeState.RUNNING){
+			advanceNode(myCurNode.checkState());
+		}
+		else{
+			myCurNode.render(myPlayerManager);
+		}
 	}
 
 	public GameNode getCurNode() {
@@ -122,21 +77,13 @@ public class Game extends GameObject {
 	}
 
 	private void setAdjacencyList(){
-		if(myCur != null && myMap != null){
-			if(myAdjacencyList == null){
-				System.out.println("wtf");
-			}
-			myAdjacencyList.put(myCur, myMap);
-			myCur = null;
-			myMap = null;
-		}
-		System.out.println(myAdjacencyList);
+		myAdjacencyList.put(myCur, myMap);
 	}
-	
+
 	public void setIDMap(Map<String, GameNode> idMap){
 		myIDMap = idMap;
 	}
-	
+
 	public void advanceNode(NodeState state) {
 		myCurNode = myAdjacencyList.get(myCurNode).get(state);
 		myCurNode.refreshNodeButtons(null);
@@ -148,30 +95,43 @@ public class Game extends GameObject {
 		myCurNode.render(myPlayerManager);
 	}
 
-	@SpecialEditorAnnotation(specialeditor=true, name = "setHead", fieldName = "myCurNode")
-	public void setHead(GameNode head) {
-		myCurNode = head;
-	}
-	
 	public GameNode getHead(){
 		return myCurNode;
 	}
 
-
-	public void update(){
-		myCurNode.update();
-		if(myCurNode.checkState()!=NodeState.RUNNING){
-			advanceNode(myCurNode.checkState());
-		}
-		else{
-			myCurNode.render(myPlayerManager);
-		}
-	}
-	// TODO: Check back on this
-	public void addStoreToLevel() {
-		if (myCurNode instanceof LevelNode) {
-			((LevelNode) myCurNode).setStore(myStore);
-		}
+	/*****Used by GAE*****/
+	@SpecialEditorAnnotation(specialeditor=true, name = "addReference", fieldName = "myReferences")
+	public void addReference(String s){
+		myReference = s;
+		buildIDMap();
 	}
 
+	@SpecialEditorAnnotation(specialeditor=true, name = "addNodeState", fieldName = "myStates")
+	public void addNodeState(NodeState nodeState){
+		myState = nodeState;
+		buildMap();
+	}
+	
+	@MethodAnnotation(editor=true, name = "Grid Editor", type = "grid", fieldName = "")
+	public void getGAEComponent() {
+		return;
+	}
+
+	@SpecialEditorAnnotation(specialeditor=true, name = "addNextNode", fieldName = "myNexts")
+	public void addNextNode(GameNode node){
+		myNext = node;
+		buildMap();
+	}
+
+	@SpecialEditorAnnotation(specialeditor=true, name = "addCurNode", fieldName = "myCurs")
+	public void addCurNode(GameNode node){
+		myCur = node;
+		setAdjacencyList();
+		buildIDMap();
+	}
+	
+	@SpecialEditorAnnotation(specialeditor=true, name = "setHead", fieldName = "myCurNode")
+	public void setHead(GameNode head) {
+		myCurNode = head;
+	}
 }

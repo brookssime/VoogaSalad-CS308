@@ -4,9 +4,10 @@ import interfaces.Collidable;
 import interfaces.MethodAnnotation;
 import interfaces.MovementStrategy;
 
-import java.util.LinkedList;
+import java.awt.Shape;
 import java.util.List;
-import java.util.Timer;
+
+import com.sun.javafx.geom.Ellipse2D;
 
 import engine.Path;
 import engine.gameLogic.Placement;
@@ -18,11 +19,11 @@ public class Enemy extends Sprite implements Collidable {
 	private MovementStrategy myMovement;
 	private Integer myDamage;
 	private Integer myHealth;
-	//private List<Tile> myTilePath;
-	private Timer myTimer;
 	private Path myPath;
 	private Integer myCollisionHeight;
 	private Integer myCollisionWidth;
+	protected Placement myPlacement;
+	private Shape myCollisionBounds;
 	
 	
 	public Enemy(){
@@ -71,13 +72,6 @@ public class Enemy extends Sprite implements Collidable {
 	public void setPath(Path p) {
 		myPath = p;
 	}
-
-
-
-	//public void setTilePath(LinkedList<Tile> tilePath) {
-		//myTilePath = tilePath;
-	//}
-
 	public Integer getEnemyDamage() {
 		return myDamage;
 	}
@@ -100,7 +94,7 @@ public class Enemy extends Sprite implements Collidable {
 
 	@Override
 	public void evaluateCollision(Collidable collider) {
-		if (collider.getClass().isAssignableFrom(Projectile.class)) {
+		if (isCollision(collider) && collider.getClass().isAssignableFrom(Projectile.class)) {
 			executeEffect((Projectile) collider);
 		}
 	}
@@ -118,18 +112,6 @@ public class Enemy extends Sprite implements Collidable {
 	}
 
 	@Override
-	@MethodAnnotation(editor=true, name = "Set Collision Height", type = "textfield", fieldName = "myCollisionHeight")
-	public void setCollisionHeight(Integer height) {
-		myCollisionHeight = height;
-	}
-
-	@Override
-	@MethodAnnotation(editor=true, name = "Set Collision Width", type = "textfield", fieldName = "myCollisionWidth")
-	public void setCollisionWidth(Integer width) {
-		myCollisionWidth = width;	
-	}
-
-	@Override
 	public Integer getCollisionHeight() {
 		return myCollisionHeight;
 	}
@@ -141,5 +123,30 @@ public class Enemy extends Sprite implements Collidable {
 	
 	public void setMovement(MovementStrategy movement){
 		myMovement = movement;
+	}
+
+	@Override
+	public void setCollisionHeight(Integer height) {
+		myCollisionHeight = height;	
+	}
+
+	@Override
+	public void setCollisionWidth(Integer width) {
+		myCollisionWidth = width;
+	}
+
+	@Override
+	public void setCollisionBounds(Integer height, Integer width) {
+		myCollisionBounds = (Shape) new Ellipse2D(myPlacement.getLocation().x, myPlacement.getLocation().y, myCollisionHeight, myCollisionWidth);
+	}
+
+	@Override
+	public Shape getCollisionBounds() {
+		return myCollisionBounds;
+	}
+
+	@Override
+	public void setPlacement(Placement placement) {
+		myPlacement = placement;
 	}
 }

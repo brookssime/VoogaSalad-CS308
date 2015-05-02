@@ -1,24 +1,11 @@
 package player.level;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import engine.*;
-import engine.gameLogic.Placement;
-import engine.gameScreens.LevelNode;
-import engine.gameScreens.NodeButton;
-import engine.gameScreens.Store;
-import engine.sprites.Sprite;
-import engine.sprites.Tower;
-import player.GraphicGameScene;
-import player.manager.LevelManager;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -32,6 +19,16 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import player.GraphicGameScene;
+import player.manager.LevelManager;
+import engine.Grid;
+import engine.GridManager;
+import engine.HeadsUpDisplay;
+import engine.gameLogic.Placement;
+import engine.gameScreens.LevelNode;
+import engine.gameScreens.Store;
+import engine.sprites.Sprite;
+import engine.sprites.Tower;
 /**
  * This class is to display the level
  */
@@ -44,19 +41,11 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 	private static final int MENU_SPACING = 50;
 	private static final int SLIDER_SPACING = 10;
 	private static final int NUM_FRAMES_PER_SECOND = 60;
-	//private Controller myController = new  Controller();
 	private LevelNode mylevelnode;
-	//private double infoBoxWidthPct = .6;
-	//private double infoBoxHeightPct = .7;
 	private Slider animationSpeedSlider;
-	//private double choiceBoxWidthPct = .2;
-	//private double choiceBoxHeightPct = 7;
 	private double adjustrate = 0;
 	private int gamespeed = 6;
 	private int currentTime = 0;
-
-	//Group root;
-	//private Scene myScene;
 	private double speed;
 	private double screenWidth;
 	private double screenHeight;
@@ -71,7 +60,6 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 	private Label healthLabel;
 	private double healthNum;
 	private VBox towerInfo;
-	//private GridPane myGrid;
 	private GraphicGrid myGrid;
 	private Stage primaryStage;
 	private KeyFrame frame;
@@ -79,10 +67,9 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 	private Button speedUpButton;
 	private Button slowDownButton;
 	private LevelManager myManager;
-	BorderPane root;
-	//private int currentTime
+	private BorderPane root;
+	
 	public GameLevelScene(Stage stage, double screenWidth, double screenHeight, LevelManager manager){
-		//this.root = new Group();
 		primaryStage = stage;
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
@@ -94,18 +81,8 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
         scene = new Scene(root, screenWidth, screenHeight);
         buttons = new ArrayList<Button>();
         myNodeManager = manager;
-        //initTimeLine();
 	}
-	
-//	private void initTimeLine() {
-//		animation = new Timeline();
-//		frame = start(NUM_FRAMES_PER_SECOND);
-//		animation.setCycleCount(Animation.INDEFINITE);
-//		animation.getKeyFrames().add(frame);
-//		animation.play();
-//	}
-//	
-	
+
 
 	private KeyFrame start(int framerate) {
 		// TODO Auto-generated method stub
@@ -148,13 +125,10 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 		
 	}
 
-	private void updateGrid(Grid grid) {
-		Map<Sprite, Placement> myMap =grid.getSpriteMap();
-		myGrid.updateGrid(grid);
+	private void updateGrid(GridManager gridManager) {
+		Map<Sprite, Placement> myMap =gridManager.getSpriteMap();
+		myGrid.updateGrid(gridManager);
 		myGrid.updateSprite(myMap);
-		
-		
-		
 	}
 
 	public void displayError(String errorMessage){
@@ -343,12 +317,11 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 		
 	}
 
-	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud) {
+	public void updateLevel(GridManager gridManager, Store store, HeadsUpDisplay hud) {
 		// TODO Auto-generated method stub
-		updateGrid(grid);
+		updateGrid(gridManager);
 		updateStore(store);
 		updateHUD(hud);
-		
 	}
 
 	@Override

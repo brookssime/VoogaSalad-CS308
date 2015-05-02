@@ -1,4 +1,4 @@
-package game_data;
+/*package game_data;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ public class SampleGameCreater {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		SampleGameMain game = new SampleGameMain();
+		//SampleGameMain game = new SampleGameMain();
 		
 		try {			
 			XMLWriter.SaveGameData(game);
@@ -18,3 +18,4 @@ public class SampleGameCreater {
 	}
 
 }
+*/

@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// SID GOPINATH
+
 package engine;
 
 import interfaces.Collidable;
@@ -9,8 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 import engine.gameLogic.GameObject;
 import engine.gameLogic.Placement;
@@ -23,38 +24,28 @@ public class Grid extends GameObject{
 	private int myHeight;
 	private int myWidth;
 	private Tile[][] myTiles;
-	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;
 	private ArrayList<Wave> myWaves;
-	private Tile[][] gaeTiles;
-	private int tileR;
-	private int tileC;
-	private int spriteR = 0;
-	private int spriteC = 0;
+	private Tile[][] myGAETiles;
+	private int myTileRow;
+	private int myTileColumn;
+	private int mySpriteRow;
+	private int mySpriteColumn;
 	
 	public Grid(){
 		mySpriteMap = new HashMap<Sprite, Placement>();
 		myWaves = new ArrayList<Wave>();
-		myGridManager = new GridManager(this);
-	}
-	
-	public Grid(Integer height, Integer width){
-		myHeight = height; myWidth = width;
-		mySpriteMap = new HashMap<Sprite, Placement>();
-		setMyTiles(new Tile[myWidth][myHeight]);
-		myGridManager = new GridManager(this);
-		init();
+		mySpriteRow = 0;
+		mySpriteColumn = 0;
 	}
 
-	public Grid(Grid grid, GridManager gm){
+	public Grid(Grid grid){
 		myName = grid.myName;
 		setMyTiles(grid.getMyTiles());
 		mySpriteMap = grid.mySpriteMap;
-		myGridManager = gm;
 	}
 	
 	/********Called by GAE**********/
-	
 	@MethodAnnotation(editor=true, name = "Grid Editor", type = "grid", fieldName = "")
 	public void getGAEComponent() {
 		return;
@@ -73,27 +64,25 @@ public class Grid extends GameObject{
 	@MethodAnnotation(editor=true, name = "Set Waves", type = "queueeditor", fieldName = "myWaves")
 	public void addWave(Wave wave){
 		myWaves.add(wave);
-		myGridManager.addWave(wave);
 	}
 
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Tiles", fieldName="myTiles")
 	public void setTiles(Tile tile){
-		gaeTiles[tileR][tileC] = tile;
-		if(tileR>=myHeight-1){
-			tileR = 0;
+		myGAETiles[myTileRow][myTileColumn] = tile;
+		if(myTileRow>=myHeight-1){
+			myTileRow = 0;
 		}
 		else{
-			tileR++;
+			myTileRow++;
 		}
-		if(tileC>=myWidth-1){
-			tileC = 0;
+		if(myTileColumn>=myWidth-1){
+			myTileColumn = 0;
 		}
 		else{
-			tileC++;
+			myTileColumn++;
 		}
-		
-		if(gaeTiles[0].length==myWidth && gaeTiles.length==myHeight){
-			myTiles = gaeTiles;
+		if(myGAETiles[0].length==myWidth && myGAETiles.length==myHeight){
+			myTiles = myGAETiles;
 			initTiles();
 		}
 	}
@@ -101,89 +90,52 @@ public class Grid extends GameObject{
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Sprite", fieldName="mySpriteMap")
 	public void setSprite(Sprite sprite) {
 		if(sprite!=null){
-			Point point = new Point(spriteC, spriteR);
+			Point point = new Point(mySpriteColumn, mySpriteRow);
 			mySpriteMap.put(sprite, new Placement(point));
 		}
-		if(spriteR>=myHeight-1){
-			spriteR = 0;
+		if(mySpriteRow>=myHeight-1){
+			mySpriteRow = 0;
 		}
 		else{
-			spriteR++;
+			mySpriteRow++;
 		}
-		if(spriteC>=myWidth-1){
-			spriteC = 0;
+		if(mySpriteColumn>=myWidth-1){
+			mySpriteColumn = 0;
 		}
 		else{
-			spriteC++;
+			mySpriteColumn++;
 		}
 	}
 
-
-	/*******Called by Condition classes********/ // REVIEW Condition / Grid / LevelNode access
-	
-	public int getBaseHealth(){
-		return myGridManager.calculateBaseHealth();
-	}
-	
-	public Queue<Wave> getWaves() {
-		return myGridManager.getWaves();
-	}
-	
-	
 	/******Called by Player and GridManager*********/
-	
 	public Map<Sprite, Placement> getSpriteMap(){
 		return mySpriteMap;
 	}
 
-	
-	/********Helpers********/
-	
-	private void init(){
-		for (int x = 0; x < getMyTiles().length; x++)
-			for (int y = 0; y < getMyTiles().length; y++){
-				getMyTiles()[x][y] = new Tile(x, y);
-			}	
-	}
-
+	/******Helper Methods********/
 	private void initTiles(){
-		
-		// adjust Tile y locations such that (0,0) is bottom right
 		for (int x = 0; x < getMyTiles().length; x++)
-			for(int i = 0; i < getMyTiles()[0].length / 2; i++)
-			{
+			for (int i = 0; i < getMyTiles()[0].length / 2; i++) {
 				Tile temp = getMyTiles()[x][i];
-				getMyTiles()[x][i] = getMyTiles()[x][getMyTiles().length - i - 1];
+				getMyTiles()[x][i] = getMyTiles()[x][getMyTiles().length - i
+						- 1];
 				getMyTiles()[x][getMyTiles().length - i - 1] = temp;
 			}
-		
-		
-		// clone Tiles and set their locations
-		for (int x = 0; x < getMyTiles().length; x++)
-			for (int y = 0; y < getMyTiles()[0].length; y++){
+		for (int x = 0; x < getMyTiles().length; x++){
+			for (int y = 0; y < getMyTiles()[0].length; y++) {
 				getMyTiles()[x][y] = getMyTiles()[x][y].clone();
-				getMyTiles()[x][y].setGridLocation(new Point(x,y));
+				getMyTiles()[x][y].setGridLocation(new Point(x, y));
 			}
-		
-		
+		}
 	}
 	
-	private void refreshHeadings(){
+	protected void refreshHeadings(){
 		for(Sprite s : mySpriteMap.keySet()){
 			mySpriteMap.get(s).normalize();
 		}
 	}
 	
-	
 	/*********Called by LevelNode*******/
-	
-	public void update(){
-		refreshHeadings();
-		myGridManager.update();
-		myGridManager.updateSpriteMap(mySpriteMap);
-		//myGridManager.checkComplete();
-	}
-	
 	public void placeSpriteAt(Sprite sprite, Placement spritePlacement){
 		mySpriteMap.put(sprite, spritePlacement);
 	}
@@ -193,26 +145,21 @@ public class Grid extends GameObject{
 	}
 
 	/*******Called by PathFinder***********/
-
-	public Tile getPortFor(Wave w) {
-		Placement p = new Placement();
-		for(Sprite o : mySpriteMap.keySet()){
-			if(o.getName().equals(w.getPortName()))
-					p = mySpriteMap.get(o);	
+	public Tile getPortFor(Wave wave) {
+		Placement placement = new Placement();
+		for(Sprite sprite : mySpriteMap.keySet()){
+			if(sprite.getName().equals(wave.getPortName()))
+					placement = mySpriteMap.get(sprite);	
 		}
-		
-		return getMyTiles()[(int) Math.floor(p.getLocation().getX())][(int) Math.floor(p.getLocation().getY())]; 
-		// REVIEW: this might cause errors because Tile's array location will NOT be related to each object's location
+		return getMyTiles()[(int) Math.floor(placement.getLocation().getX())][(int) Math.floor(placement.getLocation().getY())]; 
 	}
 
-	public List<Tile> getTileNeighbors(Tile t) {
-		int x = t.getGridLocation().x;
-		int y = t.getGridLocation().y;
-		
+	public List<Tile> getTileNeighbors(Tile tile) {
+		int x = tile.getGridLocation().x;
+		int y = tile.getGridLocation().y;
 		List<Tile> neighbors = new ArrayList<Tile>();
 		int[] dx = {1, -1, 0, 0};
 		int[] dy = {0, 0, 1, -1};
-		
 		for (int i = 0; i < dx.length; i++){
 			if(x + dx[i] < getMyTiles().length && 
 					x + dx[i] >= 0 &&
@@ -222,54 +169,27 @@ public class Grid extends GameObject{
 				neighbors.add(temp);
 			}
 		}
-
 		return neighbors;
 	}
 	
 	/*******Called by GridManager*********/
-	
-	public void move(Sprite sprite, Placement move) {
+	protected void move(Sprite sprite, Placement move) {
 		mySpriteMap.put(sprite, move);
-		
 	}
 
-	public Placement getPlacement(Collidable s){
+	protected Placement getPlacement(Collidable s){
 		return mySpriteMap.get(s);
 	}
 
-	public Tile[][] getMyTiles() {
+	protected Tile[][] getMyTiles() {
 		return myTiles;
 	}
 
-	public void setMyTiles(Tile[][] myTiles) {
-		this.myTiles = myTiles;
+	protected void setMyTiles(Tile[][] tiles) {
+		myTiles = tiles;
 	}
 	
-	
-	/*********outdated--delete once GAE is finalized *********/
-	
-	/*public boolean isComplete() {
-	return myGridManager.isComplete();
-}*/
-	
-	
-	//maybe we'll need this idk
-//	public Sprite getSpritefromPlacement (Placement p){
-//		for (Sprite mySprite : mySpriteMap.keySet()){
-//			if (mySpriteMap.get(mySprite).equals(p))
-//				return mySprite;
-//		}
-//		return null;
-//	}
-	
-	/*public void start(){
-	myGridManager.start();
-}*/
-	// REVIEW: uncomment this if needed, but it shouldn't be unless by the game player
-/*	public Tile[][] getTiles(){
-		return myTiles;
-	}*/
-
-
-	
+	protected ArrayList<Wave> getWaves(){
+		return myWaves;
+	}
 }

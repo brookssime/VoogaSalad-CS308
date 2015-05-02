@@ -11,7 +11,7 @@ public class EnemyCondition extends Condition{
 
 	@Override
 	public NodeState evaluate(LevelNode levelNode) {
-		if(levelNode.getGrid().getWaves().isEmpty()){
+		if(levelNode.getGridManager().getWaves().isEmpty()){
 			return NodeState.ENEMIES_DEAD;
 		}
 		else{

@@ -1,6 +1,6 @@
 package player.manager;
 
-import engine.Grid;
+import engine.GridManager;
 import engine.HeadsUpDisplay;
 import engine.gameScreens.DialogueBox;
 import engine.gameScreens.Store;
@@ -14,7 +14,7 @@ import engine.gameScreens.Store;
 
 public interface UpdateView {
 	public void displayError(String errormessage);
-	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud);
+	public void updateLevel(GridManager gridManager, Store store, HeadsUpDisplay hud);
 	public void updateDialogue(DialogueBox dialog);
 		
 	

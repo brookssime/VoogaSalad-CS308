@@ -6,6 +6,8 @@ import interfaces.TypeAnnotation;
 
 import java.awt.Shape;
 
+import com.sun.javafx.geom.Ellipse2D;
+
 import engine.Path;
 import engine.gameLogic.Placement;
 import engine.gameLogic.ProjectileEffect;
@@ -25,11 +27,11 @@ public class Projectile extends Sprite implements Collidable{
 	private Path myPath;
 	private Integer myCollisionHeight;
 	private Integer myCollisionWidth;
+	protected Placement myPlacement;
 	
 	public Projectile(){
 		
 	}
-	
 	
 	public Projectile(Projectile projectile) {
 		this.myName = projectile.myName;
@@ -59,11 +61,7 @@ public class Projectile extends Sprite implements Collidable{
 
 	/**
 	 * no method body because projectile's effect evaluated by enemy.
-	 *
-	 * @param collider the collider
-	 * @return true, if successful
 	 */
-	
 	@Override
 	public void evaluateCollision(Collidable collider) {
 		
@@ -96,7 +94,6 @@ public class Projectile extends Sprite implements Collidable{
 	
 	@Override
 	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -105,7 +102,7 @@ public class Projectile extends Sprite implements Collidable{
 		mySpriteInfo.put("Name", myName);
 		mySpriteInfo.put("Speed", mySpeed.toString());
 	}
-
+	
 	@Override
 	@MethodAnnotation(editor=true, name = "Set Collision Height", type = "textfield", fieldName = "myCollisionHeight")
 	public void setCollisionHeight(Integer height) {
@@ -134,5 +131,21 @@ public class Projectile extends Sprite implements Collidable{
 	
 	public void setSpeed(int speed){
 		mySpeed = speed;
+	}
+
+
+	@Override
+	public void setCollisionBounds(Integer height, Integer width) {
+		myCollisionBounds = (Shape) new Ellipse2D(myPlacement.getLocation().x, myPlacement.getLocation().y, myCollisionHeight, myCollisionWidth);
+	}
+
+	@Override
+	public Shape getCollisionBounds() {
+		return myCollisionBounds;
+	}
+
+	@Override
+	public void setPlacement(Placement placement) {
+		myPlacement = placement;
 	}	
 }

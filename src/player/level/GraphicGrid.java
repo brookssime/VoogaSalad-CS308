@@ -8,6 +8,7 @@ import java.util.Observer;
 
 import player.manager.PlayerManager;
 import engine.Grid;
+import engine.GridManager;
 import engine.gameLogic.Placement;
 import engine.sprites.Sprite;
 import engine.sprites.Tile;
@@ -79,15 +80,15 @@ public class GraphicGrid{
 		return myPane;
 	}
 	
-	public void updateGrid(Grid grid){
+	public void updateGrid(GridManager gridManager){
 		myGrid.getChildren().clear();
 		myCells.clear();
-		if(grid == null) {
+		if(gridManager == null) {
 			System.out.println("null grid");
 			return;
 		}
 		
-		Tile[][] mytiles = grid.getMyTiles();
+		Tile[][] mytiles = gridManager.getMyTiles();
 		if(mytiles == null) {
 			System.out.println("null tiles");
 			return;

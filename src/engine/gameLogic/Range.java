@@ -3,7 +3,10 @@ package engine.gameLogic;
 import interfaces.Collidable;
 import interfaces.MethodAnnotation;
 
+import java.awt.Shape;
 import java.util.ArrayList;
+
+import com.sun.javafx.geom.Ellipse2D;
 
 import engine.sprites.Sprite;
 
@@ -12,6 +15,8 @@ public class Range extends Sprite implements Collidable{
 	private ArrayList<Collidable> objectsInRange = new ArrayList<Collidable>();
 	private Integer myCollisionHeight;
 	private Integer myCollisionWidth;
+	private Shape myCollisionBounds;
+	Placement myPlacement;
 
 	public Range(){
 		
@@ -72,5 +77,20 @@ public class Range extends Sprite implements Collidable{
 	@Override
 	public void fillSpriteInfo() {
 		
+	}
+
+	@Override
+	public void setCollisionBounds(Integer height, Integer width) {
+		myCollisionBounds = (Shape) new Ellipse2D(myPlacement.getLocation().x, myPlacement.getLocation().y, myCollisionHeight, myCollisionWidth);
+	}
+
+	@Override
+	public Shape getCollisionBounds() {
+		return myCollisionBounds;
+	}
+
+	@Override
+	public void setPlacement(Placement placement) {
+		myPlacement = placement;
 	}
 }

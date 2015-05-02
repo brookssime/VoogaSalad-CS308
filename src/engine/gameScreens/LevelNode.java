@@ -25,6 +25,7 @@ public class LevelNode extends GameNode {
 	private LevelStats myGameStats;
 	private Long myStartTime;
 	private Long myTotalTime;
+	private GridManager myGridManager;
 
 	public LevelNode() {
 		super();
@@ -34,26 +35,22 @@ public class LevelNode extends GameNode {
 /*******Overridden from GameNode - Called by Game*********/
 	@Override
 	public void render(PlayerManager playerManager) {
-		playerManager.updateLevel(myGrid, myStore, myHUD);
+		playerManager.updateLevel(myGridManager, myStore, myHUD);
 	}
 	
 	@Override
 	public void update() {
-		myGrid.update();
-		if(myGameStats != null)myGameStats.getTimeElapsed(myStartTime);
+		myGridManager.update();
 	}
 	
 	@Override
 	public NodeState checkState() {
-		if(myConditions == null) return null;
 		return myConditions.stream().map(c -> c.evaluate(this))
 				.filter(s -> s != NodeState.RUNNING)
-				.collect(Collectors.toList()).get(0); //returns the first state that is non
+				.collect(Collectors.toList()).get(0);
 	}
 
-
 /*******Called using reflection in Controller.doSomething()*********/
-	
 	public void purchaseSprite(String SpriteID, Placement spritePlacement) {
 		myGameStats.updateMoney(-1
 				* myStore.getTowerCost(myStore.getFromID(SpriteID)));
@@ -63,24 +60,17 @@ public class LevelNode extends GameNode {
 	public void placeSprite(String SpriteID, Placement spritePlacement) {
 		myGrid.placeSpriteAt(myStore.getTowerFromName(SpriteID),
 				spritePlacement);
-
 	}
 
 	public void sellObject(String spriteID, Placement spritePlacement) {
 		myGameStats.updateMoney(myStore.getFromID(spriteID).getPrice()
-
 				* -myStore.getSellPercentage());
 		myGrid.removeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
 		myGrid.removeSpriteAt(myStore.getFromID(spriteID).getRangeObject(),
 				spritePlacement);
 	}
 
-	void examineSprite(String SpriteID, Placement spritePlacement) {
-		// REVIEW make sure that the Player accurately displays range and Tower info when selected...no backend implementation of examineSprite for now
-	}
-
 /********Called by GAE**********/
-
 	@MethodAnnotation(editor = true, name = "Set Time Limit", type = "textfield", fieldName = "myTotalTime")
 	public void setTotalTime(Long time) {
 		myTotalTime = time;
@@ -100,8 +90,7 @@ public class LevelNode extends GameNode {
 	@MethodAnnotation(editor = true, name = "Set Grid", type = "singleselect", fieldName = "myGrid")
 	@TypeAnnotation(type="Grid")
 	public void setGrid(Grid grid) {
-		myGrid = new Grid(grid, new GridManager(grid));
-
+		myGrid = new Grid(grid);
 	}
 
 	public void setGameStats(LevelStats gamestats) {
@@ -109,13 +98,12 @@ public class LevelNode extends GameNode {
 	}
 
 /**********Called by by Condition subclasses***********/
-	
 	public long getTotalTime() {
 		return myTotalTime;
 	}
 
-	public Grid getGrid() {
-		return myGrid;
+	public GridManager getGridManager() {
+		return myGridManager;
 	}
 
 	public long calculateRemainingTime() {

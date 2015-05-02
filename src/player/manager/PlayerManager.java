@@ -7,23 +7,21 @@ import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import engine.Game;
-import engine.Grid;
-import engine.HeadsUpDisplay;
-import engine.Controller;
-import engine.gameLogic.Placement;
-import engine.gameScreens.DialogueBox;
-import engine.gameScreens.NodeButton;
-import engine.gameScreens.Store;
-import engine.sprites.Tower;
-import game_data.ImageLoader;
-import game_data.SampleGameMain;
-import game_data.XMLWriter;
 import player.GameChoiceScreen;
 import player.GraphicGameScene;
 import player.MainMenu;
 import player.dialogue.DialogScene;
 import player.level.GameLevelScene;
+import engine.Controller;
+import engine.Game;
+import engine.GridManager;
+import engine.HeadsUpDisplay;
+import engine.gameLogic.Placement;
+import engine.gameScreens.DialogueBox;
+import engine.gameScreens.NodeButton;
+import engine.gameScreens.Store;
+import game_data.ImageLoader;
+import game_data.XMLWriter;
 
 
 /**
@@ -119,12 +117,12 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	//for controller
 	
 	@Override
-	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud){
+	public void updateLevel(GridManager gridManager, Store store, HeadsUpDisplay hud){
 		if(currScene != myLevel){
 			changeScene(myLevel);
 		}
 		
-		myLevel.updateLevel(grid, store, hud);
+		myLevel.updateLevel(gridManager, store, hud);
 
 	}
 	private void changeScene(GraphicGameScene myScene) {
@@ -251,24 +249,6 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	public void makeNodeButton(List<NodeButton> nodeButtons){
 		currScene.makeNodeButton(nodeButtons);
 	}
-	
-	
-	
-	
-	//for dialog scene use
-	
-	/*
-	@Override
-	public String getNextDialogueText() {
-		return myController.updateDialogueText();
-	}
-	@Override
-	public String getNextDialogueImage() {
-		return myController.updateDialogueImage();
-	}
-	*/
 
-	
 
-	
 }
