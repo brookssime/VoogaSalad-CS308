@@ -10,6 +10,10 @@ import javafx.scene.paint.Color;
  *	
  *	This class represents the drawing canvas - drawing area. 
  */
+
+//This entire file is part of my masterpiece.
+//Negatu Asmamaw.
+
 public class DrawingCanvas extends Canvas {
 	
 	private Point mousePosition;
