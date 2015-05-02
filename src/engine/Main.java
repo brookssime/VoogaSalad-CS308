@@ -1,6 +1,3 @@
-// This entire file is part of my masterpiece.
-// SID GOPINATH
-
 package engine;
 
 import javafx.application.Application;
