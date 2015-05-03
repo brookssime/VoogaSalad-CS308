@@ -90,7 +90,7 @@ public class ImageSelector extends EditorComponent {
 
 		drawButton.setOnAction(e -> {
 			Drawer d = new Drawer();
-			d.getImageFile();
+			d.start();
 		});
 
 	}
