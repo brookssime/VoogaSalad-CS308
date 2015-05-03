@@ -1,15 +1,12 @@
 package image_drawer;
 
 import java.awt.BorderLayout;
-import java.io.File;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 
 import javax.swing.JDialog;
@@ -33,7 +30,6 @@ public class Drawer extends JDialog {
 	private int defHeight = 500;
 
 	private DrawingCanvas myCanvas;
-	private File myFile;
 
 	public Drawer() {
 		setTitle("ImageEditor - Brought to you by Team TuffWizard");
@@ -73,36 +69,9 @@ public class Drawer extends JDialog {
 	}
 
 	private void setupMenu(Group group) {
-		MenuBar menuBar = new MenuBar();
-		Menu setting = new Menu("Setting");
-		Menu file = new Menu("File");
-		MenuItem saveItem = new MenuItem("Save Image");
-		MenuItem colorItem = new MenuItem("Pen Color");
-		MenuItem canvasSizeItem = new MenuItem("Canvas Size");
-
-		setting.getItems().addAll(colorItem, canvasSizeItem);
-		file.getItems().addAll(saveItem);
-		menuBar.getMenus().addAll(file, setting);
+		MenuBar menuBar = new MainMenu(myCanvas);
 		group.getChildren().add(menuBar);
-
-		saveItem.setOnAction(e -> {
-			SaveDialog save = new SaveDialog(myCanvas);
-			save.start();
-		});
-
-		canvasSizeItem.setOnAction(e -> {
-			SizeDialog size = new SizeDialog(myCanvas);
-			size.start();
-		});
-
-		colorItem.setOnAction(e -> {
-			ColorDialog color = new ColorDialog(myCanvas);
-			color.start();
-		});
 	}
 
-	public File getImageFile() {
-		return myFile;
-	}
 
 }
