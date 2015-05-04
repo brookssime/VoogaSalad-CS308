@@ -160,10 +160,14 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 
 	private void updateGrid(Grid grid) {
 		Map<Sprite, Placement> myMap =grid.getSpriteMap();
-		if(firstInit == false)
-		myGrid.updateGrid(grid);
+		if(firstInit == false){
+			myGrid.updateGrid(grid);
+			myGrid.updateSprite(myMap);
+		}
+		
 		firstInit = true;
-		myGrid.updateSprite(myMap);
+		//myGrid.updateSprite(myMap);
+		
 		
 		
 		
@@ -357,6 +361,7 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 
 	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud) {
 		// TODO Auto-generated method stub
+		System.out.println("update level");
 		updateGrid(grid);
 		updateStore(store);
 		updateHUD(hud);

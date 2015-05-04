@@ -16,11 +16,12 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 public class GraphicGrid{
 	private GridPane myGrid;
-	private StackPane myPane;
+	private Pane myPane;
 	private double screenWidth, screenHeight;
 	private List<GridCell> myCells;
 	private LevelManager myManager;
@@ -30,7 +31,7 @@ public class GraphicGrid{
 		myManager = manager;
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
-		myPane = new StackPane();
+		myPane = new Pane();
 		myCells = new ArrayList<GridCell>();
 	}
 	public Node getNode(){
@@ -123,6 +124,13 @@ public class GraphicGrid{
 		myPane.getChildren().add(sprite);
 		sprite.setLayoutX(placement.getLocation().x);
 		sprite.setLayoutY(placement.getLocation().y);
+		System.out.println(mySprite.getName());
+//		System.out.println("x " +placement.getLocation().x);
+//		System.out.println("y " +placement.getLocation().y);
+		System.out.println("x " +sprite.getLayoutX());
+		System.out.println("y " +sprite.getLayoutY());
+
+		
 		
 	}
 	public void updateDroppable(String spriteID) {

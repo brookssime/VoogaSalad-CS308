@@ -5,6 +5,7 @@ import interfaces.Shootable;
 
 import java.awt.Shape;
 import java.awt.geom.Area;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class GridManager {
 		//sortObjects(grid.getSpriteMap());
 		myPathFinder = new PathFinder(grid);
 		myWaves = new LinkedList<Wave>();
+		myBases = new ArrayList<Base>();
 	}
 
 	/****Helpers--called locally**********/
@@ -108,13 +110,17 @@ public class GridManager {
 	private void spawnEnemies() {
 		if(myWaves == null || myWaves.isEmpty()) return;
 		while (!myWaves.peek().isComplete()) {
+			
 			Wave w = myWaves.peek();
 			List<Enemy> spawnedEnemies = w.update(myStartTime);
 			for (Enemy e : spawnedEnemies){
 				myPathFinder.setEnemyPath(e, w);
 			}
 			while (spawnedEnemies != null) {
+				myGrid.placeSpriteAt(spawnedEnemies.get(0), spawnedEnemies.get(0).move());
+				spawnedEnemies.remove(0);
 				mySprites.addAll(spawnedEnemies);
+				
 				myCollidables.addAll(spawnedEnemies);
 			}
 		}
@@ -173,6 +179,9 @@ public class GridManager {
 	public void updateSpriteMap(Map<Sprite, Placement> mySpriteMap) {
 		sortObjects(mySpriteMap);
 		
+	}
+	public void addBase(Base base){
+		myBases.add(base);
 	}
 	
 		

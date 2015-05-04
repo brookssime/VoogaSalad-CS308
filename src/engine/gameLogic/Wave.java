@@ -60,7 +60,7 @@ public class Wave extends GameObject{
 
 	public List<Enemy> update(long startTime) {
 		List<Enemy> toSpawn = null;
-		long elapsedTime = startTime - System.nanoTime();
+		long elapsedTime = System.nanoTime() - startTime;
 		for (int i = 0; i < myDelays.size(); i++) {
 			if (myDelays.get(i) <= elapsedTime) {
 				toSpawn.add(myEnemies.get(i));
@@ -72,9 +72,9 @@ public class Wave extends GameObject{
 	}
 
 	public boolean isComplete() {
-		if (myCurrentEnemy >= myEnemies.size()) {
+	/*	if (myCurrentEnemy >= myEnemies.size()) {
 			return true;
-		}
+		}*/
 		return false;
 	}
 }

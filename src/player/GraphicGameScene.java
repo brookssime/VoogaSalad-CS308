@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// Fangyi Chen
 package player;
 
 import java.util.List;
@@ -13,6 +15,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+
+/**
+ * Parent class of GameLevelScene and DialogScene
+ * 
+ * @author fangyichen
+ *
+ */
 public abstract class GraphicGameScene {
 	protected Pane root;
 	protected Stage stage;
@@ -23,10 +32,7 @@ public abstract class GraphicGameScene {
 	protected List<Button> buttons;
 	
 	
-//	public GraphicGameScene(Stage stage, double screenWidth, double screenHeight, PlayerManager manager){
-//		
-//	}
-	
+
 	/**
 	 * Return the level game scene for prime stage to display
 	 * @return scene for prime stage to display
@@ -35,6 +41,11 @@ public abstract class GraphicGameScene {
 	public Scene getScene(){
 		return scene;
 	}
+	
+	/**
+	 * make NodeButton for users to change which scene they would like to go
+	 * @param nodeButtons
+	 */
 	public void makeNodeButton(List<NodeButton> nodeButtons) {
 		clearButtons();
 		for(NodeButton nodebutton : nodeButtons){

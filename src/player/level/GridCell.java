@@ -110,6 +110,7 @@ public class GridCell{
 						image.setImage(PlayerManager.myImageLoader.loadImageFile(myTile.getImagePath()));
 								//new Image(myTile.getImagePath()));
 						spriteID = null;
+						toweroption.hide();
 					});
 					myPane.toFront();
 					if(toweroption.getShown()){

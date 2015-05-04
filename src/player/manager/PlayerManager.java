@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// Fangyi Chen
 package player.manager;
 
 import java.io.IOException;
@@ -27,10 +29,18 @@ import player.level.GameLevelScene;
 
 
 /**
- * For controller to use, can be casted as interface updateview
+ * --------Controller use-----------
+ * UpdateView is for Engine to use to update the view in player side
+ * 
+ * --------Player use--------------
+ * DialogueManager is the interface which  let dialogScene tell controller to update dialog
+ * LevelManager is the interface for GameLevelScene. It has some method to let controller know what operation 
+ * is made by player.
+ * 
  * @author Fangyi Chen
  *
  */
+
 public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	private GameLevelScene myLevel;
 	private DialogScene myDialog;
@@ -41,75 +51,52 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	private double screenHeight;
 	private Game currGame;
 	public static ImageLoader myImageLoader;
-//	public PlayerManager(GameLevelScene level, DialogScene dialog, Controller controller){
-//		myLevel = level;
-//		myDialog = dialog;
-//		myController = controller;
-//	}
+
 	public PlayerManager(Stage stage, double screenWidth, double screenHeight){
 		this.stage = stage;
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
 		init();
 	}
+	
+	/**
+	 * init the class
+	 */
 	private void init(){
 		myImageLoader = new ImageLoader();
 		myLevel = new GameLevelScene(stage, screenWidth, screenHeight, this);
 		myDialog = new DialogScene(stage, screenWidth, screenHeight, this);
-		//TODO: create game from XML
 		SampleGameMain sample = new SampleGameMain();
-		
 		currGame = sample.createGame();
 		myController = new Controller(currGame,this);
 		
 		
 	}
+	
+	/**
+	 * give the control to myController
+	 * Update will be called when engine part changed something
+	 */
 	public void play(){
 		myController.start();
 	}
+	
+	/**
+	 * return initial scene for player
+	 */
 	public Scene getInitScene(){
-		//TODO: get the initScene
-		//GameChoiceScreen gcs = new GameChoiceScreen(stage, screenWidth, screenHeight);
+		
 		MainMenu mainMenu = new MainMenu(stage,screenWidth,screenHeight);
-		//createGameChoiceScreenButtons(gcs);
+
 		Scene initScene = mainMenu.getScene();
-		//Scene initScene = gcs.getScene();
 		
 		return initScene;
 	}
-	private void createGameChoiceScreenButtons(GameChoiceScreen gcs) { 
-		Button loadGame = gcs.getLoadButton();
-		loadGame.setOnAction((event) -> {
-			
-			try {
-				currGame = (Game) XMLWriter.LoadGameData();
-			} catch (ClassNotFoundException e) {
-				System.out.println("Class not found: " + e); 
-			} catch (IOException e) {
-				System.out.println("IOException: " + e);
-			}
+	
 
-			if(currGame !=null)
-			System.out.println(currGame.getName());
-			myController = new Controller(currGame,this);
-			//stage.setScene(myLevel.getScene());
-			//stage.show();
-
-		});
-		
-		Button newGame = gcs.getNewGameButton();
-		newGame.setOnAction((event) -> {
-			
-			System.out.println("Do Something to start a New Game");
-
-		});
-		
-	}
-
-	public void moveToNode(String nodeID){
-		myController.moveToNode(nodeID);
-	}
-	//for controller
+	/**
+	 * ----------------this is for controller to use
+	 */
 	
 	@Override
 	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud){
@@ -121,8 +108,8 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		myLevel.updateLevel(grid, store, hud);
 
 	}
+	
 	private void changeScene(GraphicGameScene myScene) {
-		System.out.print("change scene\n");
 		currScene = myScene;
 		stage.setScene(currScene.getScene());
 		stage.show();
@@ -143,7 +130,20 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		
 	}
 	
-	//for level scene
+	
+	/**
+	 * make nodebutton for users to change scene
+	 */
+	@Override
+	public void makeNodeButton(List<NodeButton> nodeButtons){
+		currScene.makeNodeButton(nodeButtons);
+	}
+	
+	/**
+	 * -------------this is for levelscene to use
+	 * 
+	 * 
+	 */
 
 	@Override
 	public void sellObject(String spriteID, Placement place) {
@@ -155,7 +155,6 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 			} catch (NoSuchMethodException | SecurityException
 					| IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		
@@ -171,11 +170,11 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		} catch (NoSuchMethodException | SecurityException
 				| IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
+	
 	@Override
 	public void examinSprite(String spriteID, Placement place) {
 		Object[] params = {spriteID, place};
@@ -184,7 +183,6 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		} catch (NoSuchMethodException | SecurityException
 				| IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -210,7 +208,6 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		} catch (NoSuchMethodException | SecurityException
 				| IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -223,10 +220,16 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		} catch (NoSuchMethodException | SecurityException
 				| IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	
+	/**
+	 * ---------this is for dialogScene to use
+	 * 
+	 * 
+	 */
 	@Override
 	public void showNextDialogue() {
 		Object[] params = {};
@@ -235,35 +238,19 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 		} catch (NoSuchMethodException | SecurityException
 				| IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
 	
 	
-	
-	public void makeNodeButton(List<NodeButton> nodeButtons){
-		currScene.makeNodeButton(nodeButtons);
-	}
-	
-	
-	
-	
-	//for dialog scene use
-	
-	/*
-	@Override
-	public String getNextDialogueText() {
-		return myController.updateDialogueText();
-	}
-	@Override
-	public String getNextDialogueImage() {
-		return myController.updateDialogueImage();
-	}
-	*/
+	/**
+	 * -------this is for both levelscene and dialogscene to use to change from one scene to another
+	 * 
+	 */
 
-	
 
-	
+	public void moveToNode(String nodeID){
+		myController.moveToNode(nodeID);
+	}
 }

@@ -57,6 +57,10 @@ public class SampleGameMain {
 	Wave myWave = new Wave();
 	public Game createGame() {
 		
+		// LOCATIONS
+		
+		placement = new Placement(new Point(8,8), 0);
+		
 		levelNode.setName("GAMENODE");
 		levelNode.addCondition(new EnemyCondition());
 		//WAVE
@@ -71,14 +75,14 @@ public class SampleGameMain {
 			for (int r = 0; r < 10; r++){
 				myTiles[c][r] = new Tile();
 				myTiles[c][r].setGridLocation(new Point(c,r));
-				myTiles[c][r].setWidth(20);
+				myTiles[c][r].setWidth(32);
 				myTiles[c][r].setName("NON-PATH");
-				myTiles[c][r].setImagePath("../images/basic.jpg");
+				myTiles[c][r].setImagePath("../images/wall.png");
 			}
 		
 		for(int i = 0; i < 10; i++){
 			myTiles[2][i].setName("Path");
-			myTiles[2][i].setImagePath("../images/empty_tile.jpg");
+			myTiles[2][i].setImagePath("../images/path.png");
 					
 		}
 				
@@ -131,7 +135,7 @@ public class SampleGameMain {
 		
 		
 		
-		tower.setImagePath("../images/basic tower.png");
+		tower.setImagePath("../images/advanced enemy.png");
 		tower.setFireRate(2);
 		tower.setHealth(100);
 		tower.setMyPrice(50);
@@ -143,10 +147,12 @@ public class SampleGameMain {
 		
 		tower.fillSpriteInfo();
 		
+		placement.setLocation(new Point());
+		
 		List<String> accessNames = new ArrayList<String>();
 		accessNames.add("NON-PATH");
 		tower.setAccessNames(accessNames);
-		grid.move(tower, placement);
+	 	grid.move(tower, new Placement(new Point(800, 800)));
 		
 		
 		
@@ -159,16 +165,19 @@ public class SampleGameMain {
 		
 		
 		Port p = new Port();
-		p.setLocation(new Point(1,1));
+		p.setLocation(new Point(5,5));
 		p.setImagePath("../images/home.png");
 		p.setName("testport");
+		grid.placeSpriteAt(p, new Placement(p.getLocation(), 0));
 		
-		grid.move(myEnemy, placement2);
+		grid.placeSpriteAt(myEnemy, placement2);
 		
 		
 		base.setHealth(100);
 		base.setImagePath("../images/medium tower.png");
-		base.setLocation(new Point(10, 8));
+		base.setLocation(new Point(40, -60));
+		GM.addBase(base);
+		
 		
 		//STORE
 		

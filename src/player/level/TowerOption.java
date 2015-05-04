@@ -20,7 +20,7 @@ public class TowerOption {
 		myManager = manager;
 		myPane = new Pane();
 		sell = new Option();
-		 circle= new Circle(range,Color.web("green", 0.2));
+		 circle= new Circle(100,Color.web("green", 0.2));
 		 sell.setText("$");
 		myPane.getChildren().add(circle);
 		myPane.getChildren().add(sell.getButton());
