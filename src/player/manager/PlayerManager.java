@@ -35,6 +35,7 @@ import player.level.GameLevelScene;
  *
  */
 public class PlayerManager implements DialogueManager, LevelManager, UpdateView {
+	
 	private GameLevelScene myLevel;
 	private DialogScene myDialog;
 	private Controller myController;
@@ -59,6 +60,7 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView 
 	}
 
 	private void init() {
+		
 		myLevel = new GameLevelScene(stage, screenWidth, screenHeight, this);
 		myDialog = new DialogScene(stage, screenWidth, screenHeight, this);
 		myController = new Controller(currGame, this);

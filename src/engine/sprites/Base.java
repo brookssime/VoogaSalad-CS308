@@ -31,10 +31,6 @@ public class Base extends Sprite implements Collidable{
 		myHealth = health;
 	}
 	
-//	@MethodAnnotation(editor=true, name = "Set Radius", type = "textfield", fieldName = "myRadius")
-//	public void setRadius(int radius){
-//		myRadius = radius;
-//	}
 	
 	public int getHealth(){
 		return myHealth;
@@ -54,7 +50,6 @@ public class Base extends Sprite implements Collidable{
 
 
 	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

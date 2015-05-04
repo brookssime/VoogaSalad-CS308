@@ -24,22 +24,14 @@ public class GamePlay {
 
 		Group root = new Group();
 		playGame = createPlayGameButton();
+
 		this.stage = stage;
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
-		root.getChildren().add(playGame);
 		this.scene = new Scene(root, screenWidth, screenHeight);
+
+		root.getChildren().add(playGame);
 		myManager = new PlayerManager(stage, screenWidth, screenHeight);
-
-	}
-
-	private Button createPlayGameButton() {
-
-		Button playGameButton = new Button("Play Game");
-		playGameButton.setLayoutX(.5 * screenWidth);
-		playGameButton.setLayoutY(.5 * screenHeight);
-
-		return playGameButton;
 	}
 
 	public Scene getScene() {
@@ -59,5 +51,16 @@ public class GamePlay {
 
 	public void manageTimeline(Timeline animationTimeline, int frameRate) {
 
+	}
+
+	private Button createPlayGameButton() {
+
+		Button playGameButton = new Button("Play Game");
+		// Values are used for placement, button goes in middle of screen so
+		// magic value OK.
+		playGameButton.setLayoutX(screenWidth / 2);
+		playGameButton.setLayoutY(screenHeight / 2);
+
+		return playGameButton;
 	}
 }
