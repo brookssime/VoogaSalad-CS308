@@ -1,4 +1,4 @@
-package gae.view.gameEditor;
+package gae.view.gameeditor;
 
 import gae.model.Model;
 import gae.model.Receiver;

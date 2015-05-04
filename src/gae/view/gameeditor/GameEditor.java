@@ -1,4 +1,4 @@
-package gae.view.gameEditor;
+package gae.view.gameeditor;
 
 import engine.NodeState;
 import engine.gameScreens.NodeButton;
@@ -43,7 +43,7 @@ public class GameEditor extends EditorComponent{
 	
 	private static final int CHOICE_SPACING = 10;
 	private Pane myRoot;
-	private ArrayList<GameNode> myNodes;
+	private List<GameNode> myNodes;
 	private GameNode myHead;
 	private ArrayList<Method> mySpecialMethods;
 	private Button exportButton;
@@ -209,7 +209,7 @@ public class GameEditor extends EditorComponent{
 			
 			//if outnode is selected and outnode is not innode
 			if(outNode.getMyOut().isSelected().getValue() && !outNode.equals(inNode) 
-					&& outNode.draw() &&inNode.draw()){
+					&& outNode.canDraw() &&inNode.canDraw()){
 				//draw line
 				Line line = drawLine(inNode, outNode);
 				

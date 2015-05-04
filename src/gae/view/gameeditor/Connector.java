@@ -1,4 +1,4 @@
-package gae.view.gameEditor;
+package gae.view.gameeditor;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.effect.ColorAdjust;

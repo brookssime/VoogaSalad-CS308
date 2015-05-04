@@ -1,4 +1,4 @@
-package gae.view.gameEditor;
+package gae.view.gameeditor;
 
 import javafx.scene.paint.Color;
 

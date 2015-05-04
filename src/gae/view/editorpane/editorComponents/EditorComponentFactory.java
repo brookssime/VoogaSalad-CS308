@@ -2,7 +2,7 @@ package gae.view.editorpane.editorComponents;
 
 import gae.model.Receiver;
 import gae.view.editorpane.EditorAdder;
-import gae.view.gameEditor.GameEditor;
+import gae.view.gameeditor.GameEditor;
 import gae.view.gridEditor.GridEditor;
 import gae.view.titleScreenEditor.TitleScreenEditor;
 

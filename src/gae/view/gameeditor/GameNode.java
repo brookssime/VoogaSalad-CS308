@@ -1,8 +1,11 @@
-package gae.view.gameEditor;
+// This entire file is part of my masterpiece.
+// YOUR NAME
+
+package gae.view.gameeditor;
 
 import gae.model.Receiver;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
@@ -11,7 +14,18 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * The superclass for nodes in the Game Editor. This class defines the general properties of all the nodes
+ * and also defines some abstract mehtods that each node must implement.
+ * @author sunjeevdevulapalli
+ *
+ */
 public abstract class GameNode {
+	
+	private static final int TEXT_BUFFER = 5;
+	private static final int DIVIDE_TWO = 2;
+	private static final int CENTER_SCREEN_Y = 270;
+	private static final int CENTER_SCREEN_X = 260;
 	
 	protected Label myText;
 	protected Group myGroup;
@@ -22,7 +36,7 @@ public abstract class GameNode {
 	protected Receiver myReceiver;
 	protected boolean isButton;
 
-	public GameNode() {
+	protected GameNode() {
 		myGroup = new Group();
 		myText = new Label("");
 		isHead = false;
@@ -32,10 +46,12 @@ public abstract class GameNode {
 		myReceiver = receiver;
 	}
 	
+	/**
+	 * sets up the common node interactions such as if it's dragged or clicked.
+	 */
 	protected void commonNodeInteraction() {
-		//better way to center node?
-		myBody.setTranslateX(260);
-		myBody.setTranslateY(270);
+		myBody.setTranslateX(CENTER_SCREEN_X);
+		myBody.setTranslateY(CENTER_SCREEN_Y);
 		
 		myBody.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
@@ -58,9 +74,9 @@ public abstract class GameNode {
 
 			@Override
 			public void handle(MouseEvent event) {
-				if(event.getClickCount() == 2) {
+				if(2 == event.getClickCount()) {
 					openDialog();
-				};
+				}
 			}
 			
 		});
@@ -70,14 +86,23 @@ public abstract class GameNode {
 	}
 
 	private void moveNode(MouseEvent event) {
-		myBody.setTranslateX(event.getSceneX() - myBody.getWidth() / 2);
-		myBody.setTranslateY(event.getSceneY() - myBody.getHeight() / 2);
+		myBody.setTranslateX(event.getSceneX() - myBody.getWidth() / DIVIDE_TWO);
+		myBody.setTranslateY(event.getSceneY() - myBody.getHeight() / DIVIDE_TWO);
 	}
 	
+	/**
+	 * Represents the visual of this node. Used by the game editor to place it in the screen.
+	 * @return
+	 */
 	public Group getGroup(){
 		return myGroup;
 	}
 	
+	/**
+	 * Called by subclass in formatNode.
+	 * @param x
+	 * @param y
+	 */
 	protected void addIn(double x, double y) {
 		myIn = new In();
 		formatConnector(x, y, myIn);
@@ -91,15 +116,28 @@ public abstract class GameNode {
 		myGroup.getChildren().add(c.getBody());
 	}
 
+	/**
+	 * Called by subclass in formatNode
+	 * @param x
+	 * @param y
+	 */
 	protected void addOut(double x, double y) {
 		myOut = new Out();
 		formatConnector(x, y, myOut);
 	}
 
+	/**
+	 * Used by game editor to determine if this was selected.
+	 * @return
+	 */
 	public Connector getMyIn() {
 		return myIn;
 	}
 
+	/**
+	 * Used by game editor to determine if this was selected.
+	 * @return
+	 */
 	public Connector getMyOut() {
 		return myOut;
 	}
@@ -114,15 +152,10 @@ public abstract class GameNode {
 		myText.setPickOnBounds(false);
 		//buffer with binding
 		myText.setPrefSize(length, height);
-		myText.translateXProperty().bind(Bindings.add(5, myBody.translateXProperty()));
+		myText.translateXProperty().bind(Bindings.add(TEXT_BUFFER, myBody.translateXProperty()));
 		myText.translateYProperty().bind(myBody.translateYProperty());
 		
-		//TODO: FIX THIS
-		try{
-			myGroup.getChildren().add(myText);
-		} catch(IllegalArgumentException e){
-			System.out.println("fix this later");
-		}
+		myGroup.getChildren().add(myText);
 	}
 	
 	public void setHead(boolean bool){
@@ -139,22 +172,40 @@ public abstract class GameNode {
 	}
  
 	/**
-	 * format the position, color, and size of node
+	 * Formats the body of the node. This includes the shape, color, and its In and Out connectors
 	 */
 	protected abstract void formatNode();
 	
 	/**
-	 * open a dialog that adds respective information to a node on double click of node
+	 * This method is what is called when a node is double clicked. For Scene node this will
+	 * pop open a list of all the possible scenes in which the designer must choose from.
 	 */
 	protected abstract void openDialog();
 
+	/**
+	 * Adds a child to this node. A child is any condition node.
+	 */
 	protected abstract void addChild(GameNode node);
 	
+	/**
+	 * removes a condition node. This is called when the game designer chooses to remove a connection
+	 * between nodes.
+	 */
 	protected abstract void removeChild(GameNode node);
 	
-	public abstract ArrayList<GameNode> getChildren();
+	/**
+	 * Return all of this node's children
+	 */
+	public abstract List<GameNode> getChildren();
 	
-	public abstract boolean draw();
+	/**
+	 * Used by the game editor class to determine whether it can draw a line from this node. 
+	 */
+	public abstract boolean canDraw();
 	
+	/**
+	 * Used by game editor class to determine if this node is a button. This is always false for Scene
+	 * Nodes.
+	 */
 	public abstract boolean isButton();
 }

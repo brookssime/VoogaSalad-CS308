@@ -1,4 +1,4 @@
-package gae.view.gameEditor;
+package gae.view.gameeditor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +33,9 @@ public class ConditionNode extends GameNode{
 		formatNode();
 	}
 
+	/**
+	 * Formats the body of the node. This includes the shape, color, and its In and Out connectors
+	 */
 	@Override
 	protected void formatNode() {
 		myBody = new Rectangle(NODE_BODY_LENGTH, NODE_BODY_HEIGHT);
@@ -43,7 +46,10 @@ public class ConditionNode extends GameNode{
 		commonNodeInteraction();
 	}
 
-	//TODO: refactor
+	/**
+	 * This method is what is called when a node is double clicked. For Scene node this will
+	 * pop open a list of all the possible scenes in which the designer must choose from.
+	 */
 	@Override
 	protected void openDialog() {
 		Stage sceneSelect = new Stage();
@@ -144,7 +150,7 @@ public class ConditionNode extends GameNode{
 	}
 
 	@Override
-	public boolean draw() {
+	public boolean canDraw() {
 		return myNext == null;
 	}
 
