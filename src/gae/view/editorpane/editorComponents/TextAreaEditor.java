@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// REYINA SENATUS
+
 package gae.view.editorpane.editorComponents;
 
 import java.lang.reflect.Method;
@@ -15,8 +18,8 @@ import gae.model.Receiver;
  */
 
 public class TextAreaEditor extends EditorComponent{
-	TextArea areaField;
-	String contents;
+	private TextArea areaField;
+	private String contents;
 	private final static int DEFAULT_COL = 20;
 	
 	public TextAreaEditor(Receiver receiver, Method method, String objectName) {
@@ -26,26 +29,14 @@ public class TextAreaEditor extends EditorComponent{
 	@Override
 	public void setUpEditor() {
 		Button area = new Button("Done");
-		
-		if (myFetchedValue!= null){
-            areaField = new TextArea(myFetchedValue.toString());
-        }
-		else{
-			areaField = new TextArea();
-		}
+		areaField = (myFetchedValue != null) ? new TextArea(myFetchedValue.toString()) : new TextArea();
 		areaField.setWrapText(true);
 		areaField.setPrefColumnCount(DEFAULT_COL);
 		
-		area.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(final ActionEvent e) {
-                    	contents = areaField.getParagraphs().toString();
-                    }
+		area.setOnAction(e -> {
+                    contents = areaField.getParagraphs().toString();
                 });
 		myReceiver.runOnObject(myObject, myMethod, contents);	
 		this.getChildren().add(areaField);
-	}
-
-	
+	}	
 }

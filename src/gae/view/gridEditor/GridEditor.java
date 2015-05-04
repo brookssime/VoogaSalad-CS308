@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// REYINA SENATUS
+
 package gae.view.gridEditor;
 
 import gae.model.Receiver;
@@ -41,16 +44,8 @@ import javafx.geometry.Pos;
  *
  */
 
-//TODO: Make small editor things (except for queue)
-//TODO: Make grid editor show up in inventory
-//TODO: Figure out how to get created tiles and sprites
-//TODO: Sprites used are base, port, tower, (tile)
-//TODO: set up queue editor for waves
-//TODO: Change content of each tab to sprite or tile
 
 public class GridEditor extends EditorComponent{
-	//private int myWidth;
-	//private int myHeight;
 	private IntegerProperty myWidth;
 	private IntegerProperty myHeight;
 	private VBox mainPane;
@@ -84,54 +79,29 @@ public class GridEditor extends EditorComponent{
 						
 			Button gridDone = new Button("Create Grid");
 			mainPane.getChildren().add(gridDone);
-			gridDone.setOnAction(
-	                new EventHandler<ActionEvent>() {
-	                    @Override
-	                    public void handle(final ActionEvent e) {
-	                    	Stage gridStage = new Stage();
-	                    	gridStage.show();
-	                    	gridStage.setTitle("Make your grid");
-	                    	Group gridGroup = new Group();
-	                    	Scene gridScene = new Scene(gridGroup, 800, 800);
-	                    	GridPane grid = new GridPane();
-	                    	grid.setPrefSize((int) myWidth.getValue(), (int) myHeight.getValue());
-	                    	
-	                    	gridGroup.getChildren().add(myGrid.paneForGrid(gridScene, grid, gridStage));
-	                    	gridStage.setScene(gridScene);
-	                    	
-	                    	System.out.println("Grid Created");
-	                    }
-	                });
+			gridDone.setOnAction(o -> {
+				Stage gridStage = new Stage();
+	            gridStage.show();
+	            gridStage.setTitle("Make your grid");
+	            Group gridGroup = new Group();
+	            Scene gridScene = new Scene(gridGroup, 800, 800);
+	            GridPane grid = new GridPane();
+	            grid.setPrefSize((int) myWidth.getValue(), (int) myHeight.getValue());
+	            gridGroup.getChildren().add(myGrid.paneForGrid(gridScene, grid, gridStage));
+	            gridStage.setScene(gridScene);
+	        });
 			
 			tileGrid = myGrid.tiles();
 			spriteGrid = myGrid.sprites(); //Only works when the user is done 
 			for(int r=0; r<myHeight.getValue(); r++){
 				for(int c=0; c<myWidth.getValue(); c++){
 					Node tile = getNodeByRowColumnIndex(r, c, tileGrid);
-					//String tileArray = 
 					myReceiver.runOnObjectSwap(myObject, getMethod("setTiles"), tile.toString());
-					//might not be a string
 					Node sprite = getNodeByRowColumnIndex(r, c, spriteGrid);
 					myReceiver.runOnObjectSwap(myObject, getMethod("setSprite"), sprite.toString());
 				}
 				
 			}
-			
-			//MAKING THE QUEUE (Currently useless code) 
-			Button waves = new Button("Make Wave Queue");
-			waves.setOnAction(
-	                new EventHandler<ActionEvent>() {
-	                    @Override
-	                    public void handle(final ActionEvent e) {
-	                    	WaveMaker myWaves = new WaveMaker();
-	                    	myWaves.setUp();
-	                    }
-	                });
-			
-			//MAKING THE QUEUE EDITOR -> the editor should be returning the value
-			//TODO: I promise, this will probs not work
-
-			//mainPane.add(waves, 1, 5);
 			
 			//ADDING EVERYTHING TO THE VIEW
 			root.getChildren().add(mainPane);
@@ -145,42 +115,28 @@ public class GridEditor extends EditorComponent{
 	
 	
 	private void gridSize(){
-		Node width = width();
+		Node width = setSize("Width");
         mainPane.getChildren().add(width);
-		Node height = height();
+		Node height = setSize("Height");
 		mainPane.getChildren().add(height);
 	}
-	
-	private Node height(){//TODO: Make sure the inputs are integers
-    	GridTextField text = new GridTextField();
-    	text.setName("height");
-    	text.setUpEditor();
-    	text.btn.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(final ActionEvent e) {
-                    	String val = text.textVal.getCharacters().toString();
-                    	myHeight.setValue(Integer.parseInt(val)); 
-                    	System.out.println(myHeight);
-                    	myReceiver.runOnObject(myObject, getMethod("Set Height"), myHeight.getValue());
-                    }
-                });
-    	return text.box();
-    }
     
-    private Node width(){//TODO: Make sure text field only accepts integers
+    private Node setSize(String s){//TODO: Make sure text field only accepts integers
     	GridTextField text = new GridTextField();
-    	text.setName("width");
+    	text.setName(s);
     	text.setUpEditor();
     	
-    	text.btn.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(final ActionEvent e) {
-                    	String val = text.textVal.getCharacters().toString();
-                    	myWidth.setValue(Integer.parseInt(val)); 
-                    	myReceiver.runOnObject(myObject, getMethod("Set Width"), myWidth.getValue());
-                    }
+    	text.btn.setOnAction(e -> {
+    		String val = text.textVal.getCharacters().toString();
+    		
+    		if (s == "Width"){
+    			myWidth.setValue(Integer.parseInt(val)); 
+                myReceiver.runOnObject(myObject, getMethod("Set " + s), myWidth.getValue());
+    		}
+    		else{
+    			myHeight.setValue(Integer.parseInt(val)); 
+                myReceiver.runOnObject(myObject, getMethod("Set " + s), myHeight.getValue());
+    		}
                 });
     	return text.box();
     }
@@ -196,7 +152,11 @@ public class GridEditor extends EditorComponent{
 		return null;
 	}
     
-    public Node getNodeByRowColumnIndex(int row, int column, GridPane gridPane) {
+    /** 
+     * Method from a stack overflow resource to find the index of a node in
+     * a GridPane
+     */
+    private Node getNodeByRowColumnIndex(int row, int column, GridPane gridPane) {
         Node result = null;
         ObservableList<Node> childrens = gridPane.getChildren();
         for(Node node : childrens) {

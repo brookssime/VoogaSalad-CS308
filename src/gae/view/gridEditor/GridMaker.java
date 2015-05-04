@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// REYINA SENATUS
+
 package gae.view.gridEditor;
 /**
  * Helper class for gridEditor
@@ -38,6 +41,7 @@ public class GridMaker {
 	private Stage gridStage;
 	private GridPane finishTG; //Final Tile grid
 	private GridPane finishSG; //Final Sprite grid
+	private TabPane tabPane;
 	
 	public GridMaker(Receiver r){
 		myReceiver = r;
@@ -45,66 +49,51 @@ public class GridMaker {
 	
 	protected Node paneForGrid(Scene s, GridPane grid, Stage st){
 		gridStage = st;
-    	TabPane tabPane = new TabPane();
-    	ScrollPane scrollPane = new ScrollPane();
-    	ScrollPane scrollPane2 = new ScrollPane();
-    	BorderPane bp1 = new BorderPane();
-    	BorderPane bp2 = new BorderPane(); 
+    	tabPane = new TabPane();
     	
-        Tab tiles = new Tab("Tiles");
-        tiles.setClosable(false);
-        tileGrid = makeGrid(s, "Tile", grid); //This may not work
-        Button tileDone = new Button("Tile Grid Done");
-        tileDone.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(final ActionEvent e) {
-                    	System.out.println("Tiles Done ");
+    	grid("Tile", grid, s); //Makes the tile grid
+    	grid("Sprite", grid, s); //Makes the sprites grid
+    	
+        tabPane.prefHeightProperty().bind(s.heightProperty());
+        tabPane.prefWidthProperty().bind(s.widthProperty());
+        return tabPane;
+    }
+	
+	private void grid(String str, GridPane grid, Scene s){
+    	ScrollPane scrollPane = new ScrollPane();
+    	BorderPane bp1 = new BorderPane();
+        Tab t = new Tab(str);
+        t.setClosable(false);
+        if(str == "Tile"){
+        	tileGrid = makeGrid(s, "Tile", grid); 
+        }
+        else{
+        	spriteGrid = makeGrid(s, "Base", grid);
+        }
+        
+        Button done = new Button(s + " Grid Done");
+        done.setOnAction(e -> {
+                    	System.out.println(s + "s Done ");
                     	if(tabPane.getTabs().size()>1){
                 			tabPane.getTabs().remove(0);
                     	}
                     	else{
                     		gridStage.close();
-                    		finishTG = tiles();
+                    		if(str == "Sprite"){
+                    			finishSG = sprites();
+                    		}
+                    		else{
+                    			finishTG = tiles();
+                    		}
                     	}
-                    }
                 });
-        bp1.setTop(tileDone);
+        
+        bp1.setTop(done);
         scrollPane.setContent(tileGrid);
         bp1.setCenter(scrollPane);
-        tiles.setContent(bp1);
-        tabPane.getTabs().add(tiles);
-        
-        
-        Tab sprites = new Tab("Sprites");
-        sprites.setClosable(false);
-        spriteGrid = makeGrid(s, "Base", grid); 
-        Button spriteDone = new Button("Sprites Grid Done");
-        spriteDone.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(final ActionEvent e) {
-                    	System.out.println("Sprites Done ");
-                    	if(tabPane.getTabs().size()>1){
-                    			tabPane.getTabs().remove(1);
-                    	}
-                    	else{
-                    		gridStage.close();
-                    		finishSG = sprites();
-                    	}
-                    }
-                });
-        bp2.setTop(spriteDone);
-        scrollPane2.setContent(spriteGrid);
-        bp2.setCenter(scrollPane2);
-        sprites.setContent(bp2);
-        tabPane.getTabs().add(sprites);
-        
-        tabPane.prefHeightProperty().bind(s.heightProperty());
-        tabPane.prefWidthProperty().bind(s.widthProperty());
-        //tabPane.setContent();
-        return tabPane;
-    }
+        t.setContent(bp1);
+        tabPane.getTabs().add(t);
+	}
 	
 	private GridPane makeGrid(Scene s, String type, GridPane grid){
     	GridPane myGrid = new GridPane();
@@ -112,14 +101,9 @@ public class GridMaker {
     	myGrid.prefWidthProperty().bind(s.widthProperty());
     	myGrid.setAlignment(Pos.CENTER);
     	myGrid.setPadding(new Insets(5));
-    
-    	//myGrid.getColumnConstraints().add(new ColumnConstraints(50));
-    	//myGrid.getRowConstraints().add(new RowConstraints(50));
     	
-    	System.out.println("My height3 " + grid.getHeight());
     	int height1 = (int) grid.getPrefHeight();
     	int width1 = (int) grid.getPrefWidth();
-    	System.out.println("My width3 " + width1);
     	
     	myGrid.setAlignment(Pos.CENTER);
     	if((height1==0) | (width1==0)){
@@ -142,7 +126,6 @@ public class GridMaker {
     	GridSingleSelect single = new GridSingleSelect();
     	
     	Set<String> mySet = myReceiver.getList(type); 
-    	System.out.println("My set "+mySet.size());
     	
     	if(type.equals("Base")){
     		single.setUpEditor(mySet, type, true, myReceiver);

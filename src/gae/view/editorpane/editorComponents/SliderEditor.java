@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// REYINA SENATUS
+
 package gae.view.editorpane.editorComponents;
 
 import gae.model.Receiver;
@@ -32,22 +35,24 @@ public class SliderEditor extends EditorComponent{
 
     @Override
     public void setUpEditor() {
+    	h = new HBox();
+    	mySlider = new Slider();
     	myMin = DEFAULT_MIN;
         myMax = DEFAULT_MAX;
         myCur = Math.floor((myMax-myMin)/2);
-        h = new HBox();
-        mySlider = new Slider();
+        
         if (myFetchedValue!= null){
             val = Double.parseDouble(myFetchedValue.toString());
             mySlider.setValue(val);
             myCur = val;
         }
+        
         h.getChildren().add(mySlider);
         sliderSetUp();
         this.getChildren().add(h);
     }
 
-    public void sliderSetUp() {
+    private void sliderSetUp() {
         System.out.println(myMax + myMin);
         mySlider.setMax(myMax);
         mySlider.setMin(myMin);
@@ -59,21 +64,11 @@ public class SliderEditor extends EditorComponent{
         final Label sliderVal = new Label(Double.toString(mySlider.getValue()));
         h.getChildren().add(sliderVal);
 
-        mySlider.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov,
-                    Number old_val, Number new_val) {
+        mySlider.valueProperty().addListener(e -> {
                 sliderVal.setText(Double.toString(mySlider.getValue()));
-                //Integer myVal = (int) mySlider.getValue();
-                //sliderVal.setText(myVal.toString());
                 myReceiver.runOnObject(myObject, myMethod, mySlider.getValue());
-            }
         });
     }
-
-    /*public Integer intValue() {// This is to be used on save event
-        int myVal = (int) mySlider.getValue();
-        return myVal;
-    }*/
     
     public Double doubleValue() {// This is to be used on save event
         return val;
