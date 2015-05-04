@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Brooks Sime
+
 package player.manager;
 
 import java.io.IOException;
@@ -9,8 +12,8 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import engine.Game;
 import engine.Grid;
-import engine.HeadsUpDisplay;
 import engine.Controller;
+import engine.gameLogic.LevelStats;
 import engine.gameLogic.Placement;
 import engine.gameScreens.DialogueBox;
 import engine.gameScreens.NodeButton;
@@ -119,12 +122,12 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	//for controller
 	
 	@Override
-	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud){
+	public void updateLevel(Grid grid, Store store, LevelStats stats){
 		if(currScene != myLevel){
 			changeScene(myLevel);
 		}
 		
-		myLevel.updateLevel(grid, store, hud);
+		myLevel.updateLevel(grid, store, stats);
 
 	}
 	private void changeScene(GraphicGameScene myScene) {

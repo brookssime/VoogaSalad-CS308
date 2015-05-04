@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Brooks Sime
+
 package engine.sprites;
 
 import interfaces.Collidable;
@@ -9,6 +12,7 @@ import java.util.List;
 import java.util.Timer;
 
 import engine.Path;
+import engine.gameLogic.LevelStats;
 import engine.gameLogic.Placement;
 import engine.gameLogic.ProjectileEffect;
 
@@ -23,7 +27,8 @@ public class Enemy extends Sprite implements Collidable {
 	private Path myPath;
 	private Integer myCollisionHeight;
 	private Integer myCollisionWidth;
-	
+	private Integer myScore;
+	private LevelStats myGameStats;
 	
 	public Enemy(){
 		
@@ -44,6 +49,11 @@ public class Enemy extends Sprite implements Collidable {
 		myDamage = x;
 	}
 	
+	@MethodAnnotation(editor=true, name = "Set Score", type = "textfield", fieldName = "myScore")
+	public void setScore (Integer x){
+		myScore = x;
+	}
+	
 	public int getHealth(){
 		return myHealth;
 	}
@@ -52,7 +62,10 @@ public class Enemy extends Sprite implements Collidable {
 		return mySpeed;
 	}
 	
-	
+	public int getScore(){
+		
+		return myScore;
+	}
 	public void executeEffect(Projectile projectile) {
 		ProjectileEffect currentEffect = projectile.getEffect();
 		mySpeed -= currentEffect.getSpeedDamage();
@@ -60,6 +73,7 @@ public class Enemy extends Sprite implements Collidable {
 				currentEffect.reverseSpeedEffect(this);
 			}
 		currentEffect.causeHealthDamage(this);
+		
 		}
 		
 	
@@ -81,7 +95,6 @@ public class Enemy extends Sprite implements Collidable {
 	public Integer getEnemyDamage() {
 		return myDamage;
 	}
-
 
 	@Override
 	public boolean isDead() {
@@ -115,6 +128,8 @@ public class Enemy extends Sprite implements Collidable {
 		mySpriteInfo.put("Health", myHealth.toString());
 		mySpriteInfo.put("Speed", mySpeed.toString());
 		mySpriteInfo.put("Damage", myDamage.toString());
+		mySpriteInfo.put("Score", myScore.toString());
+		
 	}
 
 	@Override
@@ -141,5 +156,13 @@ public class Enemy extends Sprite implements Collidable {
 	
 	public void setMovement(MovementStrategy movement){
 		myMovement = movement;
+	}
+
+	@Override
+	public void addToMoney() {
+		if (isDead()){
+			myGameStats.updateScore(getScore());
+		}
+		
 	}
 }

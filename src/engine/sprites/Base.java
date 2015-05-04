@@ -8,6 +8,7 @@ import java.awt.Shape;
 import java.awt.Point;
 
 import interfaces.Collidable;
+import engine.gameLogic.LevelStats;
 import engine.gameLogic.Placement;
 
 public class Base extends Sprite implements Collidable{
@@ -16,6 +17,7 @@ public class Base extends Sprite implements Collidable{
 	private int myCollisionHeight;
 	private int myCollisionWidth;
 	private Point myLocation;
+
 	
 	public Base() {
 		
@@ -80,6 +82,7 @@ public class Base extends Sprite implements Collidable{
 	public void setCollisionWidth(Integer width) {
 		myCollisionWidth = width;	
 	}
+	
 
 	@Override
 	public Integer getCollisionHeight() {
@@ -91,6 +94,7 @@ public class Base extends Sprite implements Collidable{
 		return myCollisionWidth;
 	}
 	
+	
 	public Point getLocation(){
 		return myLocation;
 	}
@@ -98,6 +102,8 @@ public class Base extends Sprite implements Collidable{
 	public void setLocation(Point location){
 		myLocation = location;
 	}
+	
+
 	
 	
 }

@@ -8,6 +8,7 @@ import java.awt.Shape;
 import java.io.Serializable;
 
 import engine.Path;
+import engine.gameLogic.LevelStats;
 import engine.gameLogic.Placement;
 import engine.gameLogic.ProjectileEffect;
 
@@ -119,6 +120,9 @@ public class Projectile extends Sprite implements Collidable, Serializable{
 		myCollisionWidth = width;	
 	}
 
+
+	
+	
 	@Override
 	public Integer getCollisionHeight() {
 		return myCollisionHeight;
@@ -135,5 +139,8 @@ public class Projectile extends Sprite implements Collidable, Serializable{
 	
 	public void setSpeed(int speed){
 		mySpeed = speed;
-	}	
+	}
+	
+		
+	
 }

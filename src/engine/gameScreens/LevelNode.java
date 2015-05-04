@@ -1,3 +1,7 @@
+// This entire file is part of my masterpiece.
+// Brooks Sime
+
+
 package engine.gameScreens;
 
 import interfaces.MethodAnnotation;
@@ -9,7 +13,6 @@ import java.util.stream.Collectors;
 import player.manager.PlayerManager;
 import engine.Grid;
 import engine.GridManager;
-import engine.HeadsUpDisplay;
 import engine.NodeState;
 import engine.conditions.Condition;
 import engine.gameLogic.LevelStats;
@@ -20,7 +23,6 @@ public class LevelNode extends GameNode {
 
 	private Store myStore;
 	private Grid myGrid;
-	private HeadsUpDisplay myHUD;
 	private ArrayList<Condition> myConditions;
 	private LevelStats myGameStats;
 	private long myStartTime;
@@ -36,7 +38,7 @@ public class LevelNode extends GameNode {
 	@Override
 	public void render(PlayerManager playerManager) {
 		//System.out.print("Calling update level node render\n");
-		playerManager.updateLevel(myGrid, myStore, myHUD);
+		playerManager.updateLevel(myGrid, myStore, myGameStats);
 	}
 	
 	@Override
@@ -95,8 +97,8 @@ public class LevelNode extends GameNode {
 		myStore = store;
 	}
 
-	public void setHUD(HeadsUpDisplay HUD){
-		myHUD = HUD;
+	public void setHUD(LevelStats HUD){
+		myGameStats = HUD;
 	}
 
 	@MethodAnnotation(editor = true, name = "Set Grid", type = "singleselect", fieldName = "myGrid")

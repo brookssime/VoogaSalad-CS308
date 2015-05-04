@@ -35,7 +35,6 @@ public class GridManager {
 	private long myStartTime;
 	private PathFinder myPathFinder;
 	private List<Base> myBases;
-	
 
 	public GridManager(Grid grid){
 		myGrid = grid;
@@ -174,26 +173,6 @@ public class GridManager {
 		sortObjects(mySpriteMap);
 		
 	}
-	
-		
-		
-	/*********outdated--delete once GAE is finalized *********/
-	
-	/*public void start(){
-		myStartTime = System.nanoTime();
-	}*/
-
-	/*public boolean isComplete() {
-		if (calculateBaseHealth()==0) {
-			return true;
-		}
-		return myGameWon;
-	}*/
-
-	/*public List<Base> getBases(){
-		return myBases;
-	}*/
-
 
 
 	

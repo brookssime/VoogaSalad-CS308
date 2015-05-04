@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Brooks Sime
+
 package player.level;
 
 import java.util.ArrayList;
@@ -6,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.*;
+import engine.gameLogic.LevelStats;
 import engine.gameLogic.Placement;
 import engine.gameScreens.LevelNode;
 import engine.gameScreens.NodeButton;
@@ -140,10 +144,10 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 		
 	}
 
-	private void updateHUD(HeadsUpDisplay hud) {
-		healthLabel.setText(Integer.toString(hud.displayHealth()));
-		//scoreLabel.setText(Integer.toString(hud.displayScore()));
-		moneyLabel.setText(Integer.toString(hud.displayMoney()));
+	private void updateHUD(LevelStats myStats) {
+		healthLabel.setText(Integer.toString(myStats.getBaseHealth()));
+		scoreLabel.setText(Integer.toString(myStats.getScore()));
+		moneyLabel.setText(Integer.toString(myStats.getMoney()));
 		
 		
 	}
@@ -343,11 +347,11 @@ public class GameLevelScene extends GraphicGameScene implements LevelInfo{
 		
 	}
 
-	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud) {
+	public void updateLevel(Grid grid, Store store, LevelStats stats) {
 		// TODO Auto-generated method stub
 		updateGrid(grid);
 		updateStore(store);
-		updateHUD(hud);
+		updateHUD(stats);
 		
 	}
 

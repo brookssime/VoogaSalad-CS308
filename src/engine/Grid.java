@@ -236,6 +236,14 @@ public class Grid extends GameObject{
 	public Placement getPlacement(Collidable s){
 		return mySpriteMap.get(s);
 	}
+	
+	public Sprite getSpritefromPlacement (Placement p){
+		for (Sprite mySprite : mySpriteMap.keySet()){
+			if (mySpriteMap.get(mySprite).equals(p))
+				return mySprite;
+		}
+		return null;
+	}
 
 	public Tile[][] getMyTiles() {
 		return myTiles;
@@ -248,28 +256,7 @@ public class Grid extends GameObject{
 	
 	/*********outdated--delete once GAE is finalized *********/
 	
-	/*public boolean isComplete() {
-	return myGridManager.isComplete();
-}*/
 	
 	
-	//maybe we'll need this idk
-//	public Sprite getSpritefromPlacement (Placement p){
-//		for (Sprite mySprite : mySpriteMap.keySet()){
-//			if (mySpriteMap.get(mySprite).equals(p))
-//				return mySprite;
-//		}
-//		return null;
-//	}
-	
-	/*public void start(){
-	myGridManager.start();
-}*/
-	// REVIEW: uncomment this if needed, but it shouldn't be unless by the game player
-/*	public Tile[][] getTiles(){
-		return myTiles;
-	}*/
-
-
 	
 }

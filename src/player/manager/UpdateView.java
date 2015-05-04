@@ -1,7 +1,11 @@
+// This entire file is part of my masterpiece.
+// Brooks Sime
+
 package player.manager;
 
 import engine.Grid;
 import engine.HeadsUpDisplay;
+import engine.gameLogic.LevelStats;
 import engine.gameScreens.DialogueBox;
 import engine.gameScreens.Store;
 
@@ -14,7 +18,7 @@ import engine.gameScreens.Store;
 
 public interface UpdateView {
 	public void displayError(String errormessage);
-	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud);
+	public void updateLevel(Grid grid, Store store, LevelStats stats);
 	public void updateDialogue(DialogueBox dialog);
 		
 	
