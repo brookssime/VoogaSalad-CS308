@@ -4,6 +4,7 @@ import interfaces.MethodAnnotation;
 import interfaces.ParameterAnnotation;
 import interfaces.TypeAnnotation;
 
+import java.awt.Point;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,8 @@ public abstract class Sprite extends GameObject{
 	}
 
 	public abstract Placement move();
+	
+	public abstract void render(Point location);
 	
 	public abstract void fillSpriteInfo();
 	

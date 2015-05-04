@@ -3,6 +3,7 @@ package engine.gameLogic;
 import interfaces.Collidable;
 import interfaces.MethodAnnotation;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 import engine.sprites.Sprite;
@@ -71,6 +72,11 @@ public class Range extends Sprite implements Collidable{
 
 	@Override
 	public void fillSpriteInfo() {
+		
+	}
+
+	@Override
+	public void render(Point location) {
 		
 	}
 }
