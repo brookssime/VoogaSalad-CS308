@@ -10,7 +10,7 @@ public class PauseScene extends GameNode{
 	}
 
 	@Override
-	public void render(PlayerManager playerManager) {
+	public void renderLevel(PlayerManager playerManager) {
 		// REVIEW: make sure these having nothing is fully functional
 	}
 	

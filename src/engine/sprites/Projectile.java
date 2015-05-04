@@ -18,7 +18,6 @@ import engine.gameLogic.ProjectileEffect;
  */
 public class Projectile extends Sprite implements Collidable, Serializable{
 	
-	private String myImageString; //Necessary?
 	private Integer mySpeed; 
 	private ProjectileEffect myEffect;
 	private int myRadius; //RADIUS AND COLLISION HEIGHT/WIDTH?
@@ -34,7 +33,6 @@ public class Projectile extends Sprite implements Collidable, Serializable{
 	
 	public Projectile(Projectile projectile) {
 		this.myName = projectile.myName;
-		this.myImageString = projectile.myImageString;
 		this.mySpeed = projectile.mySpeed;
 		this.myEffect = projectile.myEffect;
 		this.myRadius = projectile.myRadius;
@@ -127,10 +125,6 @@ public class Projectile extends Sprite implements Collidable, Serializable{
 	@Override
 	public Integer getCollisionWidth() {
 		return myCollisionWidth;
-	}
-	
-	public void setImageString(String image){
-		myImageString = image;
 	}
 	
 	public void setSpeed(int speed){

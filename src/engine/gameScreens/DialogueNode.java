@@ -33,7 +33,7 @@ public class DialogueNode extends GameNode{
 	}
 	
 	@Override
-	public void render(PlayerManager playerManager) {
+	public void renderLevel(PlayerManager playerManager) {
 		playerManager.updateDialogue(myDialogueBoxes.poll());
 		
 	}

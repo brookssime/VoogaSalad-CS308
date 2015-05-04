@@ -18,7 +18,6 @@ public class Enemy extends Sprite implements Collidable {
 	private MovementStrategy myMovement;
 	private Integer myDamage;
 	private Integer myHealth;
-	//private List<Tile> myTilePath;
 	private Timer myTimer;
 	private Path myPath;
 	private Integer myCollisionHeight;

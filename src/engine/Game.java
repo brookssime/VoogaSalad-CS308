@@ -148,12 +148,12 @@ public class Game extends GameObject {
 		}
 		myCurNode = myAdjacencyList.get(myCurNode).get(state);
 		myCurNode.refreshNodeButtons(null);
-		myCurNode.render(myPlayerManager);
+		myCurNode.renderLevel(myPlayerManager);
 	}
 
 	public void goToNode(String nodeID) {
 		myCurNode = myIDMap.get(nodeID);
-		myCurNode.render(myPlayerManager);
+		myCurNode.renderLevel(myPlayerManager);
 	}
 
 	@SpecialEditorAnnotation(specialeditor=true, name = "setHead", fieldName = "myCurNode")
@@ -168,7 +168,7 @@ public class Game extends GameObject {
 
 	public void update(){
 		myCurNode.update();
-		myCurNode.render(myPlayerManager); // skipping logic for testing 
+		myCurNode.renderLevel(myPlayerManager); // skipping logic for testing 
 		/*if(myCurNode.checkState()!=NodeState.RUNNING){
 			advanceNode(myCurNode.checkState());
 		}

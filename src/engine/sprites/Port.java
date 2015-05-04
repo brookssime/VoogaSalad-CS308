@@ -2,6 +2,7 @@ package engine.sprites;
 
 import java.awt.Point;
 
+import player.manager.PlayerManager;
 import engine.gameLogic.Placement;
 
 public class Port extends Sprite{
@@ -30,4 +31,6 @@ public class Port extends Sprite{
 	public void fillSpriteInfo() {
 		mySpriteInfo.put("Name", myName);
 	}
+
+	
 }

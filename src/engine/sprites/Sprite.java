@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// Robert Vann
 package engine.sprites;
 
 import interfaces.MethodAnnotation;
@@ -8,6 +10,7 @@ import java.awt.Point;
 import java.util.List;
 import java.util.Map;
 
+import player.manager.PlayerManager;
 import engine.gameLogic.GameObject;
 import engine.gameLogic.Placement;
 
@@ -40,7 +43,9 @@ public abstract class Sprite extends GameObject{
 
 	public abstract Placement move();
 	
-	public abstract void render(Point location);
+	public void render(PlayerManager player, Placement placement){
+		player.displaySprite(placement, myImagePath);
+	}
 	
 	public abstract void fillSpriteInfo();
 	

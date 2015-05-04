@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Robert Vann
+
 package engine.gameScreens;
 
 import interfaces.MethodAnnotation;
@@ -19,7 +22,8 @@ import engine.gameLogic.Placement;
 public class LevelNode extends GameNode {
 
 	private Store myStore;
-	private Grid myGrid;
+	private PlayerManager myPlayerManager;
+	private GridManager myGridManager;
 	private HeadsUpDisplay myHUD;
 	private ArrayList<Condition> myConditions;
 	private LevelStats myGameStats;
@@ -34,14 +38,13 @@ public class LevelNode extends GameNode {
 
 /*******Overridden from GameNode - Called by Game*********/
 	@Override
-	public void render(PlayerManager playerManager) {
-		//System.out.print("Calling update level node render\n");
-		playerManager.updateLevel(myGrid, myStore, myHUD);
+	public void renderLevel(PlayerManager playerManager) {
+		myPlayerManager.updateLevel(myGridManager.getGrid(), myStore, myHUD);
 	}
 	
 	@Override
 	public void update() {
-		myGrid.update();
+		myGridManager.update();
 		if(myGameStats != null)myGameStats.getTimeElapsed(myStartTime);
 	}
 	
@@ -59,11 +62,11 @@ public class LevelNode extends GameNode {
 	public void purchaseSprite(String SpriteID, Placement spritePlacement) {
 		myGameStats.updateMoney(-1
 				* myStore.getTowerCost(myStore.getFromID(SpriteID)));
-		myGrid.placeSpriteAt(myStore.getFromID(SpriteID), spritePlacement);
+		myGridManager.placeSpriteAt(myStore.getFromID(SpriteID), spritePlacement);
 	}
 	
 	public void placeSprite(String SpriteID, Placement spritePlacement) throws CloneNotSupportedException {
-		myGrid.placeSpriteAt(myStore.getTowerFromName(SpriteID),
+		myGridManager.placeSpriteAt(myStore.getTowerFromName(SpriteID),
 				spritePlacement);
 
 	}
@@ -72,8 +75,8 @@ public class LevelNode extends GameNode {
 		myGameStats.updateMoney(myStore.getFromID(spriteID).getPrice()
 
 				* -myStore.getSellPercentage());
-		myGrid.removeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
-		myGrid.removeSpriteAt(myStore.getFromID(spriteID).getRangeObject(),
+		myGridManager.removeSpriteAt(myStore.getFromID(spriteID), spritePlacement);
+		myGridManager.removeSpriteAt(myStore.getFromID(spriteID).getRangeObject(),
 				spritePlacement);
 	}
 
@@ -99,11 +102,14 @@ public class LevelNode extends GameNode {
 		myHUD = HUD;
 	}
 
-	@MethodAnnotation(editor = true, name = "Set Grid", type = "singleselect", fieldName = "myGrid")
+	@MethodAnnotation(editor = true, name = "Set Grid", type = "singleselect", fieldName = "myGridManager")
 	@TypeAnnotation(type="Grid")
-	public void setGrid(Grid grid) {
-		myGrid = new Grid(grid, new GridManager(grid));
+	public void setGridManager(GridManager gm) {
+		myGridManager = gm;
 
+	}
+	public GridManager getGridManager() {
+		return myGridManager;
 	}
 
 	public void setGameStats(LevelStats gamestats) {
@@ -116,9 +122,6 @@ public class LevelNode extends GameNode {
 		return myTotalTime;
 	}
 
-	public Grid getGrid() {
-		return myGrid;
-	}
 
 	public long calculateRemainingTime() {
 		return myTotalTime - myGameStats.getTimeElapsed(myStartTime);

@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import player.manager.PlayerManager;
+
 import com.sun.javafx.geom.Point2D;
 import com.thoughtworks.xstream.XStream;
 
@@ -38,7 +40,6 @@ public class Tower extends Sprite implements Shootable, Serializable{
 	
 	public Tower() {
 		mySpriteInfo = new HashMap<String, String>();
-		//fillSpriteInfo();
 	}
 
 	public Tower (XStream serializer, String data, Point2D location) {
@@ -201,4 +202,6 @@ public class Tower extends Sprite implements Shootable, Serializable{
 	public void setRotationSpeed (double rotationSpeed){
 		myRotationSpeed = rotationSpeed;
 	}
+
+	
 }

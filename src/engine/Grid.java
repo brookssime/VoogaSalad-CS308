@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// Robert Vann
 package engine;
 
 import interfaces.Collidable;
@@ -23,7 +25,6 @@ public class Grid extends GameObject{
 	private int myHeight;
 	private int myWidth;
 	private Tile[][] myTiles;
-	private GridManager myGridManager;
 	private Map<Sprite, Placement> mySpriteMap;
 	private ArrayList<Wave> myWaves;
 	private Tile[][] gaeTiles;
@@ -35,22 +36,19 @@ public class Grid extends GameObject{
 	public Grid(){
 		mySpriteMap = new HashMap<Sprite, Placement>();
 		myWaves = new ArrayList<Wave>();
-		myGridManager = new GridManager(this);
 	}
 	
 	public Grid(Integer height, Integer width){
 		myHeight = height; myWidth = width;
 		mySpriteMap = new HashMap<Sprite, Placement>();
 		setMyTiles(new Tile[myWidth][myHeight]);
-		myGridManager = new GridManager(this);
 		init();
 	}
 
-	public Grid(Grid grid, GridManager gm){
+	public Grid(Grid grid){
 		myName = grid.myName;
 		setMyTiles(grid.getMyTiles());
 		mySpriteMap = grid.mySpriteMap;
-		myGridManager = gm;
 	}
 	
 	/********Called by GAE**********/
@@ -70,11 +68,6 @@ public class Grid extends GameObject{
 		myWidth = width;
 	}
 	
-	@MethodAnnotation(editor=true, name = "Set Waves", type = "queueeditor", fieldName = "myWaves")
-	public void addWave(Wave wave){
-		myWaves.add(wave);
-		myGridManager.addWave(wave);
-	}
 
 	@SpecialEditorAnnotation(specialeditor=true, name="Set Tiles", fieldName="myTiles")
 	public void setTiles(Tile tile){
@@ -119,16 +112,6 @@ public class Grid extends GameObject{
 	}
 
 
-	/*******Called by Condition classes********/ // REVIEW Condition / Grid / LevelNode access
-	
-	public int getBaseHealth(){
-		return myGridManager.calculateBaseHealth();
-	}
-	
-	public Queue<Wave> getWaves() {
-		return myGridManager.getWaves();
-	}
-	
 	
 	/******Called by Player and GridManager*********/
 	
@@ -179,9 +162,7 @@ public class Grid extends GameObject{
 	
 	public void update(){
 		refreshHeadings();
-		myGridManager.update();
-		myGridManager.updateSpriteMap(mySpriteMap);
-		//myGridManager.checkComplete();
+		
 	}
 	
 	public void placeSpriteAt(Sprite sprite, Placement spritePlacement){
@@ -233,8 +214,8 @@ public class Grid extends GameObject{
 		
 	}
 
-	public Placement getPlacement(Collidable s){
-		return mySpriteMap.get(s);
+	public Placement getPlacement(Collidable spriteCollider){
+		return mySpriteMap.get(spriteCollider);
 	}
 
 	public Tile[][] getMyTiles() {
@@ -245,31 +226,5 @@ public class Grid extends GameObject{
 		this.myTiles = myTiles;
 	}
 	
-	
-	/*********outdated--delete once GAE is finalized *********/
-	
-	/*public boolean isComplete() {
-	return myGridManager.isComplete();
-}*/
-	
-	
-	//maybe we'll need this idk
-//	public Sprite getSpritefromPlacement (Placement p){
-//		for (Sprite mySprite : mySpriteMap.keySet()){
-//			if (mySpriteMap.get(mySprite).equals(p))
-//				return mySprite;
-//		}
-//		return null;
-//	}
-	
-	/*public void start(){
-	myGridManager.start();
-}*/
-	// REVIEW: uncomment this if needed, but it shouldn't be unless by the game player
-/*	public Tile[][] getTiles(){
-		return myTiles;
-	}*/
-
-
 	
 }

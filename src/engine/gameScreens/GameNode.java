@@ -30,7 +30,7 @@ public abstract class GameNode extends GameObject {
 
 	public abstract NodeState checkState();
 
-	public abstract void render(PlayerManager playerManager);
+	public abstract void renderLevel(PlayerManager playerManager);
 
 	public void refreshNodeButtons(PlayerManager p){
 		// TODO : once PlayerManager has the method written, write in the NodeButtons

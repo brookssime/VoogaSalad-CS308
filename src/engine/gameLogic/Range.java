@@ -74,9 +74,4 @@ public class Range extends Sprite implements Collidable{
 	public void fillSpriteInfo() {
 		
 	}
-
-	@Override
-	public void render(Point location) {
-		
-	}
 }

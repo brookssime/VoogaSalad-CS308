@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import engine.Game;
 import game_data.GamesLoader;
-import game_data.SampleGameMain;
+
 import game_data.XMLWriter;
 import player.level.GameLevelScene;
 import javafx.event.ActionEvent;
@@ -107,8 +107,8 @@ public class GameInfoBox extends AbstractOverlay{
 				//Open the level screen of Game Player and start a new game
 				System.out.println("Open The Level and Load The Game");
 				myPlayer = new GamePlay(stage,1400,800);
-				SampleGameMain sample = new SampleGameMain();
-				activeGame = sample.createGame();
+				//SampleGameMain sample = new SampleGameMain();
+				//activeGame = sample.createGame();
 				myPlayer.getMyManager().setCurrGame(activeGame);
 				myPlayer.play();
 				stage.setScene(myPlayer.getScene());

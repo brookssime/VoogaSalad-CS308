@@ -17,7 +17,7 @@ import engine.gameScreens.NodeButton;
 import engine.gameScreens.Store;
 import engine.sprites.Tower;
 import game_data.ImageLoader;
-import game_data.SampleGameMain;
+
 import game_data.XMLWriter;
 import player.GameChoiceScreen;
 import player.GraphicGameScene;
@@ -250,6 +250,10 @@ public class PlayerManager implements DialogueManager, LevelManager, UpdateView{
 	
 	public void makeNodeButton(List<NodeButton> nodeButtons){
 		currScene.makeNodeButton(nodeButtons);
+	}
+	public void displaySprite(Placement placement, String imagePath) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

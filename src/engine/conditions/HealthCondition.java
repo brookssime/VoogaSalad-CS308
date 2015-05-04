@@ -12,7 +12,7 @@ public class HealthCondition extends Condition{
 
 	@Override
 	public NodeState evaluate(LevelNode levelNode) {
-		if(levelNode.getGrid().getBaseHealth()==0){
+		if(levelNode.getGridManager().calculateBaseHealth()==0){
 			return NodeState.BASE_DEAD;
 		}
 		else{

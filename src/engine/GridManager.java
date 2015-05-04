@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Robert Vann
+
 package engine;
 
 import interfaces.Collidable;
@@ -13,6 +16,8 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import player.manager.PlayerManager;
+
 import com.sun.javafx.geom.Ellipse2D;
 
 import engine.gameLogic.PathFinder;
@@ -21,15 +26,14 @@ import engine.gameLogic.Wave;
 import engine.sprites.Base;
 import engine.sprites.Enemy;
 import engine.sprites.Sprite;
+import engine.sprites.Tower;
 
 public class GridManager {
 
 	private Grid myGrid;
-	
 	private List<Shootable> myShootables;
 	private List<Collidable> myCollidables;
 	private Set<Collidable> myDeadCollidables;
-	
 	private List<Sprite> mySprites;
 	private Queue<Wave> myWaves;
 	private long myStartTime;
@@ -154,18 +158,24 @@ public class GridManager {
 		moveSprites();
 		clearSprites();
 		spawnEnemies();
+		renderSprites();
+	}
+
+	public Grid getGrid(){
+		return myGrid;
+	}
+	private void renderSprites() {
+		
 	}
 
 	public void addWave(Wave wave){
 		myWaves.add(wave);
 	}
 	
-	// REVIEW: this ONLY exists here for the sake of conditions--is there a workaround?
-	public Queue<Wave> getWaves() {
+	public Queue<Wave> getWaves(){
 		return myWaves;
 	}
 	
-	// REVIEW: this ONLY exists here for the sake of conditions--is there a workaround?
 	public int calculateBaseHealth() {
 			return myBases.stream().mapToInt(b -> b.getHealth()).sum();
 		}
@@ -174,30 +184,18 @@ public class GridManager {
 		sortObjects(mySpriteMap);
 		
 	}
-	
+
+	public void placeSpriteAt(Sprite sprite, Placement spritePlacement) {
+		mySprites.add(sprite);
+		myGrid.placeSpriteAt(sprite, spritePlacement);
 		
+	}
+
+	public void removeSpriteAt(Sprite sprite, Placement spritePlacement) {
+		mySprites.remove(sprite);
+		myGrid.removeSpriteAt(sprite, spritePlacement);
 		
-	/*********outdated--delete once GAE is finalized *********/
-	
-	/*public void start(){
-		myStartTime = System.nanoTime();
-	}*/
-
-	/*public boolean isComplete() {
-		if (calculateBaseHealth()==0) {
-			return true;
-		}
-		return myGameWon;
-	}*/
-
-	/*public List<Base> getBases(){
-		return myBases;
-	}*/
-
-
-
+	}
 	
 
-	
-	
 }
