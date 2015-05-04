@@ -1,19 +1,15 @@
+// This entire file is part of my masterpiece.
+// Patrick Wickham
 package engine;
 
-import interfaces.MethodAnnotation;
 import interfaces.SpecialEditorAnnotation;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import player.manager.PlayerManager;
 import engine.gameLogic.GameObject;
 import engine.gameScreens.GameNode;
 import engine.gameScreens.LevelNode;
 import engine.gameScreens.Store;
-
 
 public class Game extends GameObject {
 	
@@ -21,20 +17,13 @@ public class Game extends GameObject {
 	private Store myStore;
 	private Map<GameNode, Map<NodeState, GameNode>> myAdjacencyList;
 	private Map<String, GameNode> myIDMap;
-    
 	private PlayerManager myPlayerManager;
-	
-	//used for constructing the adjacency list, all index based. 
 	private String myReference;
 	private NodeState myState;
 	private GameNode myNext;
 	private Map<NodeState, GameNode> myMap;
 	private GameNode myCur;
-	
-	public Game() {
-		myAdjacencyList = new HashMap<GameNode, Map<NodeState, GameNode>>();
-		myIDMap = new HashMap<String, GameNode>();
-	}
+
 
 	public Game(GameNode head) {
 		myCurNode = head;
@@ -43,9 +32,29 @@ public class Game extends GameObject {
 		addStoreToLevel();
 	}
 	
+	public void update(){
+		myCurNode.update();
+		if(myCurNode.checkState()!=NodeState.RUNNING){
+			advanceNode(myCurNode.checkState());
+		}
+		else{
+			myCurNode.render(myPlayerManager);
+		}
+	}
+	
+	public void advanceNode(NodeState state) {
+		myCurNode = myAdjacencyList.get(myCurNode).get(state);
+		myCurNode.refreshNodeButtons(null);
+		myCurNode.render(myPlayerManager);
+	}
+	
+	public void addStoreToLevel() {
+		if (myCurNode instanceof LevelNode) {
+			((LevelNode) myCurNode).setStore(myStore);
+		}
+	}
 	/**
-	 * used for gae
-	 * @param nodeState
+	 *  called by GAE
 	 */
 	@SpecialEditorAnnotation(specialeditor=true, name = "addReference", fieldName = "myReferences")
 	public void addReference(String s){
@@ -61,11 +70,6 @@ public class Game extends GameObject {
 		}
 		
 	}
-
-	/**
-	 * used for gae
-	 * @param nodeState
-	 */
 	@SpecialEditorAnnotation(specialeditor=true, name = "addNodeState", fieldName = "myStates")
 	public void addNodeState(NodeState nodeState){
 		myState = nodeState;
@@ -84,20 +88,12 @@ public class Game extends GameObject {
 		
 	}
 
-	/**
-	 * Used in gae
-	 * @param node
-	 */
 	@SpecialEditorAnnotation(specialeditor=true, name = "addNextNode", fieldName = "myNexts")
 	public void addNextNode(GameNode node){
 		myNext = node;
 		buildMap();
 	}
-	
-	/**
-	 * used in gae
-	 * @param node
-	 */
+
 	@SpecialEditorAnnotation(specialeditor=true, name = "addCurNode", fieldName = "myCurs")
 	public void addCurNode(GameNode node){
 		myCur = node;
@@ -105,22 +101,6 @@ public class Game extends GameObject {
 		buildIDMap();
 	}
 	
-	
-	
-	@MethodAnnotation(editor=true, name = "Game Editor", type = "gameeditor", fieldName = "")
-	public void getGAEComponent() {
-		return;
-	}
-	
-	// To be called by Player
-	public void setPlayerManager(PlayerManager playerManager){
-		myPlayerManager = playerManager;
-	}
-
-	public GameNode getCurNode() {
-		return myCurNode;
-	}
-
 	private void setAdjacencyList(){
 		if(myCur != null && myMap != null){
 			if(myAdjacencyList == null){
@@ -132,46 +112,29 @@ public class Game extends GameObject {
 		}
 		System.out.println(myAdjacencyList);
 	}
+
+	/*
+	 * called by Player
+	 */
 	
-	public void setIDMap(Map<String, GameNode> idMap){
-		myIDMap = idMap;
-	}
-	
-	public void advanceNode(NodeState state) {
-		myCurNode = myAdjacencyList.get(myCurNode).get(state);
-		myCurNode.refreshNodeButtons(null);
-		myCurNode.render(myPlayerManager);
+	public void setPlayerManager(PlayerManager playerManager){
+		myPlayerManager = playerManager;
 	}
 
+
+
+	/*
+	 * called by Controller
+	 */
 	public void goToNode(String nodeID) {
 		myCurNode = myIDMap.get(nodeID);
 		myCurNode.render(myPlayerManager);
 	}
 
-	@SpecialEditorAnnotation(specialeditor=true, name = "setHead", fieldName = "myCurNode")
-	public void setHead(GameNode head) {
-		myCurNode = head;
-	}
-	
-	public GameNode getHead(){
+	public GameNode getCurNode() {
 		return myCurNode;
 	}
-
-
-	public void update(){
-		myCurNode.update();
-		if(myCurNode.checkState()!=NodeState.RUNNING){
-			advanceNode(myCurNode.checkState());
-		}
-		else{
-			myCurNode.render(myPlayerManager);
-		}
-	}
-	// TODO: Check back on this
-	public void addStoreToLevel() {
-		if (myCurNode instanceof LevelNode) {
-			((LevelNode) myCurNode).setStore(myStore);
-		}
-	}
+	
+	
 
 }

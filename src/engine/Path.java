@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import engine.gameLogic.Placement;
 
@@ -8,7 +9,7 @@ public class Path {
 
 	LinkedList<Movement> myMovements;
 	
-	public Path(LinkedList<Movement> movements){
+	public Path(List<Movement> movements){
 		myMovements = movements;
 	}
 	

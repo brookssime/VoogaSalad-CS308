@@ -1,23 +1,23 @@
+// This entire file is part of my masterpiece.
+// Patrick Wickham
 package engine.gameScreens;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import player.manager.PlayerManager;
 import engine.NodeState;
-import engine.gameLogic.GameObject;
+
 /**
- * The Class GameScene.
+ * The Class GameNode.
  * 
- * @author Brooks, Patrick, Robert, and Sid.
+ * @author Patrick
  * 
+ * An abstract class to encapsulate the shared behaviors of various 
+ * Game scenes--example subclasses include LevelNode, PauseScene, and DialogueNode
  * 
  */
-public abstract class GameNode extends GameObject {
+public abstract class GameNode {
 
-
-	//protected PlayerManager myPlayerManager; 
-	// TODO ensure that this ^^ is set correctly AFTER the node is recreated from Xstream
 	private List<NodeButton> myNodeButtons;
 	protected NodeState myState;
 
@@ -26,14 +26,26 @@ public abstract class GameNode extends GameObject {
 		myState = NodeState.RUNNING;
 	}
 
+	/*
+	 * appropriately updates subclass-specific state
+	 */
 	public abstract void update();
 
+	/*
+	 * forces the called node to check its own state in a subclass-specific way
+	 */
 	public abstract NodeState checkState();
 
+	/*
+	 * updates subclass-specific GUI components
+	 */
 	public abstract void render(PlayerManager playerManager);
 
-	public void refreshNodeButtons(PlayerManager p){
-		// TODO : once PlayerManager has the method written, write in the NodeButtons
+	/*
+	 * default, updates the NodeButtons in the Player
+	 */
+	public void refreshNodeButtons(PlayerManager playerManager){
+		playerManager.makeNodeButton(myNodeButtons);
 	}
 	
 	// for use by the author
@@ -41,9 +53,5 @@ public abstract class GameNode extends GameObject {
 		myNodeButtons = nodeButtons;
 	}
 
-	// for use by the player
-	public List<NodeButton> getNodeButtons() {
-		return myNodeButtons;
-	}
 
 }
