@@ -39,7 +39,7 @@ public class GameChoiceScreen {
 
 	List<Game> availGames;
 
-	public GameChoiceScreen(Stage stage, double screenWidth, double screenHeight){
+	public GameChoiceScreen(Stage stage, double screenWidth, double screenHeight) {
 
 		this.root = new Pane();
 		root.setStyle("-fx-background-color: #708090;");
@@ -54,18 +54,10 @@ public class GameChoiceScreen {
 
 		gl = new ExistingGameLoader();
 		availGames = gl.getGameList();
-
 		Game selectedGame = availGames.get(1);
-		
-		//GameData gameData = new GameData("Inital Name", "Inital Description", "../resources/tower-defense-games.png");
-		
-		gameInfoBox = new GameInfoBox(stage, infoBoxWidth, infoBoxHeight, selectedGame);
-
+		gameInfoBox = new GameInfoBox(stage, infoBoxWidth, infoBoxHeight,
+				selectedGame);
 		selectedGame = availGames.get(0);
-
-		// GameData gameData = new GameData("Inital Name", "Inital Description",
-		// "../resources/tower-defense-games.png");
-
 		gameInfoBox = new GameInfoBox(stage, infoBoxWidth, infoBoxHeight,
 				selectedGame);
 
@@ -74,6 +66,7 @@ public class GameChoiceScreen {
 
 		GameChoiceBox gameChoiceBox = new GameChoiceBox(choiceBoxWidth,
 				choiceBoxHeight, gameInfoBox, availGames);
+
 		gameChoiceBox.setLayoutX(.1 * screenWidth);
 		gameChoiceBox.setLayoutY(.25 * screenHeight);
 
@@ -114,13 +107,6 @@ public class GameChoiceScreen {
 		text2.setStyle("linear-gradient(#ffea6a, #efaa22)");
 		text2.setStyle("linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%)");
 		text2.setStyle("linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));");
-		//text2.setStyle( "-fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.9) , 1, 0.0 , 0 , 10 );");
-//                "linear-gradient(#ffea6a, #efaa22)",
-//                "linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%)",
-//                "linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));"
-//        "-fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.9) , 1, 0.0 , 0 , 10 );"
-// }); 
-		
 		hb2.getChildren().add(text2);
 		root.getChildren().add(hb2);
 	}
