@@ -13,9 +13,9 @@ import engine.gameScreens.Store;
  */
 
 public interface UpdateView {
-	public void displayError(String errormessage);
-	public void updateLevel(Grid grid, Store store, HeadsUpDisplay hud);
-	public void updateDialogue(DialogueBox dialog);
+	void displayError(String errormessage);
+	void updateLevel(Grid grid, Store store, HeadsUpDisplay hud);
+	void updateDialogue(DialogueBox dialog);
 		
 	
 }

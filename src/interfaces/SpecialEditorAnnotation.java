@@ -13,6 +13,6 @@ public @interface SpecialEditorAnnotation {
 	 *
 	 */
 	boolean specialeditor();
-	public String name();
-	public String fieldName();
+	String name();
+	String fieldName();
 }

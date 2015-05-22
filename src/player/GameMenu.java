@@ -1,13 +1,13 @@
 package player;
 
 public interface GameMenu {
-	public void newGame();
-	public void detectSavedGame();
-	public void loadSavedGame(String gameFileName);
-	public void saveGame();
+	void newGame();
+	void detectSavedGame();
+	void loadSavedGame(String gameFileName);
+	void saveGame();
 	
-	public void replayGame();
-	public void backToChooser();
+	void replayGame();
+	void backToChooser();
 	
 	
 }

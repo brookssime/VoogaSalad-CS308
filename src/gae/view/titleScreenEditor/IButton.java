@@ -4,5 +4,5 @@ import engine.gameScreens.NodeButton;
 
 public interface IButton {
 
-	public void addButton(NodeButton myButton);
+	void addButton(NodeButton myButton);
 }

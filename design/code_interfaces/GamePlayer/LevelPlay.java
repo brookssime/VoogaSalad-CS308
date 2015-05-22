@@ -1,12 +1,12 @@
 
 public interface LevelPlay {
-	public void loadLevel();
-	public void pause();
-	public void resume();
-	public void speedUp();
-	public void slowDown();
-	public void win();
-	public void lose();
-	public void updateLevel();
-	public void startNextWave();
+	void loadLevel();
+	void pause();
+	void resume();
+	void speedUp();
+	void slowDown();
+	void win();
+	void lose();
+	void updateLevel();
+	void startNextWave();
 }

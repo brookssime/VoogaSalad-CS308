@@ -19,6 +19,6 @@ public interface MenuAdder {
 	 * @param newMenus
 	 *            the new menus
 	 */
-	public void addMenus(List<Menu> newMenus);
+	void addMenus(List<Menu> newMenus);
 
 }

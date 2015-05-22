@@ -97,9 +97,9 @@ public class Reflection {
 	public static Object callMethod(Object target, String name)
 			throws ReflectionException {
 		try {
-			Method toCall = target.getClass().getDeclaredMethod(name,
-					new Class[0]);
-			return toCall.invoke(target, new Object[0]);
+			Method toCall = target.getClass().getDeclaredMethod(name
+			);
+			return toCall.invoke(target);
 		} catch (Exception e) {
 			throw new ReflectionException(
 					"No matching public method %s for %s", name, target

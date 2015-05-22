@@ -14,39 +14,39 @@ import java.util.Set;
  */
 public interface Receiver {
 	
-	public void addMap(String type);
+	void addMap(String type);
 
 	//not using
-	public void addObject(String type, String location);
+	void addObject(String type, String location);
 
 	//obj is name of object, method is actual method (set), param is what goes into method
-	public void runOnObject(String obj, Method method, Object... params);
+	void runOnObject(String obj, Method method, Object... params);
 	
-	public void runOnObjectSwap(String obj, Method method, Object... params);
+	void runOnObjectSwap(String obj, Method method, Object... params);
 	
-	public boolean isInvObject(String type);
+	boolean isInvObject(String type);
 	
-	public List<Method> getEditorMethods(String obj);
+	List<Method> getEditorMethods(String obj);
 	
-	public List<Method> getSpecialEditorMethods(String obj);
+	List<Method> getSpecialEditorMethods(String obj);
 
 	//get version of above //still check for null
-	public Object getFromObject(String obj, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException;
+	Object getFromObject(String obj, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException;
 
-	public List<NodeButton> getButtonList(String obj);
+	List<NodeButton> getButtonList(String obj);
 	
-	public void removeObject(String obj);
+	void removeObject(String obj);
 
-	public String getType(String obj);
+	String getType(String obj);
 
-	public Set<String> getList(String type);
+	Set<String> getList(String type);
 									
 
-	public void saveFile();
+	void saveFile();
 
-	public void exportFile(String game);
+	void exportFile(String game);
 
-	public void setListener(String type, UpdateListener ul);
+	void setListener(String type, UpdateListener ul);
 
 	// type is the name of the editor like the class name
 	// obj is the name of the string key

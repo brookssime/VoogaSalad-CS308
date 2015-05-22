@@ -1,9 +1,9 @@
 
 public interface TowerOption {
-	public void show();
-	public void hide();
-	public void sell();
-	public void upGrade(int value);
-	public void addOption();
+	void show();
+	void hide();
+	void sell();
+	void upGrade(int value);
+	void addOption();
 	
 }

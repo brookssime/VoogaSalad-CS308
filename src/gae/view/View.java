@@ -38,7 +38,7 @@ public class View {
 		myModel = new Model();
 		myStage = stage;
 		myStage.setTitle("TuffWizard GAE");
-		myDisplay = new Display((Receiver) myModel);
+		myDisplay = new Display(myModel);
 		myStage.setScene(myDisplay.init());
 		myStage.show();
 	}

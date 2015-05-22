@@ -12,6 +12,6 @@ import engine.gameScreens.DialogueBox;
 public interface DialogueManager extends NodeManager{
 	//public String getNextDialogueText();
 	//public String getNextDialogueImage();
-	public void showNextDialogue();
+	void showNextDialogue();
 	//public void moveToNode(String NodeID);
 }

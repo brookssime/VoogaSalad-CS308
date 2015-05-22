@@ -50,7 +50,7 @@ public class SingleSelectionEditor extends EditorComponent{
 		VBox root = new VBox(5);
 		ListView<String> selection = new ListView<String>();
 		ObservableList<String> data = FXCollections.observableArrayList();
-		Set<String> objects = (Set<String>) myReceiver.getList(type);
+		Set<String> objects = myReceiver.getList(type);
 		data.addAll(objects);
 		selection.setItems(data);
 		

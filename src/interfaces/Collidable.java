@@ -10,7 +10,7 @@ public interface Collidable extends Comparable{
 	void setCollisionWidth(Integer width);
 	Integer getCollisionHeight();
 	Integer getCollisionWidth();
-	abstract boolean isDead();
+	boolean isDead();
 	
 	
 }

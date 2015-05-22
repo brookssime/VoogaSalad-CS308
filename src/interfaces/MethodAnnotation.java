@@ -23,7 +23,7 @@ public @interface MethodAnnotation {
 	 *
 	 */
 	boolean editor();
-	public String name();
-	public String type();
-	public String fieldName();
+	String name();
+	String type();
+	String fieldName();
 }

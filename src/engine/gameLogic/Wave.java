@@ -72,9 +72,6 @@ public class Wave extends GameObject{
 	}
 
 	public boolean isComplete() {
-		if (myCurrentEnemy >= myEnemies.size()) {
-			return true;
-		}
-		return false;
+		return myCurrentEnemy >= myEnemies.size();
 	}
 }

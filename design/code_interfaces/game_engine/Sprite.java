@@ -12,6 +12,6 @@ package game_engine;
  */
 
 
-public abstract interface Sprite {
+public interface Sprite {
 
 }

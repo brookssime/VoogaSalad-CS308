@@ -1,5 +1,5 @@
 package player.manager;
 
 public interface NodeManager {
-	public void moveToNode(String NodeID);
+	void moveToNode(String NodeID);
 }

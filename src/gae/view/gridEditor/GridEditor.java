@@ -94,7 +94,7 @@ public class GridEditor extends EditorComponent{
 	                    	Group gridGroup = new Group();
 	                    	Scene gridScene = new Scene(gridGroup, 800, 800);
 	                    	GridPane grid = new GridPane();
-	                    	grid.setPrefSize((int) myWidth.getValue(), (int) myHeight.getValue());
+	                    	grid.setPrefSize(myWidth.getValue(), myHeight.getValue());
 	                    	
 	                    	gridGroup.getChildren().add(myGrid.paneForGrid(gridScene, grid, gridStage));
 	                    	gridStage.setScene(gridScene);
@@ -200,7 +200,7 @@ public class GridEditor extends EditorComponent{
         Node result = null;
         ObservableList<Node> childrens = gridPane.getChildren();
         for(Node node : childrens) {
-            if(gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
+            if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
                 result = node;
                 break;
             }

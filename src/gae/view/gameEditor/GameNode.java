@@ -60,7 +60,7 @@ public abstract class GameNode {
 			public void handle(MouseEvent event) {
 				if(event.getClickCount() == 2) {
 					openDialog();
-				};
+				}
 			}
 			
 		});

@@ -86,7 +86,7 @@ public class Display {
 	 */
 	private Pane setupMenuPane() {
 		MenuManager menuManager = new MenuManager();
-		myMenuAdder = (MenuAdder) menuManager;
+		myMenuAdder = menuManager;
 		MenuPane menuPane = new MenuPane(myMenuAdder, menuManager.getMenuBar(), myReceiver);
 		return menuPane.getPane();
 	}
@@ -112,7 +112,7 @@ public class Display {
 	 */
 	private Pane setupInventoryPane() {
 		InventoryPane inventoryPane = new InventoryPane(myMenuAdder,
-				myReceiver, (EditorAdder) myEditor);
+				myReceiver, myEditor);
 		return inventoryPane.getPane();
 	}
 

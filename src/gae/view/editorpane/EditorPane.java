@@ -51,7 +51,7 @@ public class EditorPane extends GAEPane implements EditorAdder {
 	@Override
 	public void addEditor(String obj) {
 		Tab newTab = new Tab(obj);
-		Editor newEditor = new Editor(myMenuAdder, myReceiver, obj, (EditorAdder) this);
+		Editor newEditor = new Editor(myMenuAdder, myReceiver, obj, this);
 		newTab.setContent(newEditor.getPane());
 		myTabs.getTabs().add(newTab);
 	}

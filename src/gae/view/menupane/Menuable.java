@@ -22,6 +22,6 @@ public interface Menuable {
 	 *
 	 * @return the menus
 	 */
-	public List<Menu> getMenus();
+	List<Menu> getMenus();
 
 }

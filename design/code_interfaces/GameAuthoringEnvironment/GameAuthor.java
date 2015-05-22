@@ -14,11 +14,11 @@ public interface GameAuthor {
 	 * and determines the size of your game is also set here.
 	 * 
 	 */
-	public void launchGame();
+	void launchGame();
 	
-	public void setGameName(String s);
+	void setGameName(String s);
 	
-	public void setWindowSize();
+	void setWindowSize();
 		
 	
 	/**
@@ -32,16 +32,16 @@ public interface GameAuthor {
 	 * able to be uploaded to the game authoring environment to be further modified.
 	 * 
 	 */
+
+	ArrayList<gameScene> sceneList();
 	
-	public ArrayList<gameScene> sceneList();
+	void setScene(gameScene gs);
 	
-	public void setScene(gameScene gs);
+	String sceneID(String s);
 	
-	public String sceneID(String s);
+	gameScene updateScene(gameObject g);
 	
-	public gameScene updateScene(gameObject g);
-	
-	public void loadScene();
+	void loadScene();
 	
 	
 	/**
@@ -51,12 +51,12 @@ public interface GameAuthor {
 	 * and create from scratch as well as the resources that are created from gameObject as final
 	 * options to be added to your game. Resource is essentially a library of created gameObjects.
 	 */
+
+	void setUpWorkspace(Workspace w);
 	
-	public void setUpWorkspace(Workspace w);
+	void Editor();
 	
-	public void Editor();
-	
-	public void Resources();
+	void Resources();
 	
 	/**
 	 * GameObject
@@ -64,10 +64,10 @@ public interface GameAuthor {
 	 * Create, modify, and load gameObjects. GameObjects include towers, enemies, and 
 	 * environmental data
 	 */
-	
-	public void createGameObject();
-	public void updateGameObject();
-	public void loadGameObject();
+
+	void createGameObject();
+	void updateGameObject();
+	void loadGameObject();
 	
 	/**
 	 * Sandbox
@@ -76,12 +76,12 @@ public interface GameAuthor {
 	 * as a placeholder should you choose to leave in the middle of a game and want to come
 	 * back.
 	 */
+
+	Sandbox setNewSandbox();
 	
-	public Sandbox setNewSandbox();
+	void saveSandbox();
 	
-	public void saveSandbox();
-	
-	public void loadSandbox();
+	void loadSandbox();
 	
 	
 	

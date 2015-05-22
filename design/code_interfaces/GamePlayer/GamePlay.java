@@ -1,8 +1,8 @@
 
 public interface GamePlay {
-	public int getMoney();
-	public int getScore();
-	public void updateMoney();
-	public void updateScore();
-	public Level loadLevel(int level);
+	int getMoney();
+	int getScore();
+	void updateMoney();
+	void updateScore();
+	Level loadLevel(int level);
 }
