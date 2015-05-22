@@ -1,0 +1,131 @@
+.text-area {
+	-fx-font: 13px "Courier";
+	-fx-text-fill: deepskyblue;
+	-fx-border-color: deepskyblue;
+	-fx-border-width: 1 4 4 4;
+	-fx-border-insets: 0 0 0 0;
+	-fx-background-color: black;
+}
+
+.text-area.commandbox {
+	-fx-font: 13px "Courier";
+	-fx-text-fill: deepskyblue;
+	-fx-background-color: dimgrey;
+	-fx-border-width: 0;
+	-fx-border-insets: 0;
+}
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+.hyperlink {
+	-fx-font: 13px "Courier";
+	-fx-text-fill: deepskyblue;
+	-fx-focus-color: transparent;	
+}
+
+.hyperlink:hover{
+	-fx-background-color: purple;
+	-fx-underline: false;
+}
+
+.hyperlink:focused{
+	-fx-underline: true;
+}
+
+.hyperlink:visited {
+	-fx-underline: false;
+}
+
+.gameinfo .this {
+	-fx-background-color: black;
+}
+
+.midlabel {
+	-fx-font: 12px "Courier";
+    -fx-font-weight: bold;
+    -fx-text-fill: deepskyblue;
+    -fx-background-color: navy;
+	-fx-alignment: center; 
+	-fx-border-color: deepskyblue;
+	-fx-border-width: 0 4 0 4;
+	-fx-border-insets: 0 0 0 0;
+}
+
+.toplabel {
+	-fx-font: 13px "Courier";
+	-fx-font-weight: bold;
+	-fx-text-fill: deepskyblue;
+	-fx-background-color: navy;
+	-fx-alignment: center; 
+	-fx-border-color: deepskyblue;
+	-fx-border-width: 4 4 0 4;
+	-fx-border-insets: 0 0 0 0;
+}
+
+.menu-bar {
+	 -fx-background-color: black;
+}
+
+
+.context-menu {
+    -fx-background-color: black;
+    -fx-border-color: white;
+	-fx-border-width: 1;
+}
+
+.menu-button .label{
+	-fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: purple;
+}
+
+.statuslabel{
+	-fx-font: 13px "Courier";
+	-fx-font-weight: bold;
+	-fx-text-fill: deepskyblue;
+	-fx-background-color: navy;
+	-fx-alignment: center; 
+	-fx-border-color: deepskyblue;
+	-fx-border-width: 4 0 1 0;
+	-fx-border-insets: 0 0 0 0;
+}
+
+.varlabel {
+	-fx-font: 13px "Courier";
+	-fx-font-weight: bold;
+	-fx-text-fill: deepskyblue;
+	-fx-background-color: red;
+	-fx-alignment: center; 
+	-fx-border-color: deepskyblue;
+	-fx-border-width: 0;
+}
+
+.varfield {
+	-fx-font: 13px "Courier";
+	-fx-font-weight: bold;
+	-fx-text-fill: deepskyblue;
+	-fx-background-color: red;
+	-fx-alignment: center; 
+	-fx-border-color: deepskyblue;
+	-fx-border-width: 2;	
+}
+
+.button {
+	-fx-font: 13px "Courier";
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-background-color: black;
+	-fx-border-color: blue;
+	-fx-border-width: 2;
+	-fx-border-insets: 0;
+	
+}
