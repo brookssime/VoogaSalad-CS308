@@ -2,115 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d92d5e8-d3e4-4350-82b3-abfd97908c2d" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/MedievalTower.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/WizardTower.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/addImage.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/advanced projectile.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/advanced tower.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/advanced_enemy.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/advanced_projectile.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/advanced_tower.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/background.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/basic enemy.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/basic projectile.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/basic tower.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/basic.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/basic_enemy.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/basic_projectile.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/basic_tower.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/empty_tile.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/greenPath.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/home.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/medium enemy.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/medium projectile.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/medium tower.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/medium_enemy.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/medium_tower.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/newImage.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/path.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/player/presentation.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/port.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/projectile.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/tower.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/images/wall.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/newImage.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/playerStyle.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/GameTest/FullGame.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/GameTest/Game2.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/GameTest/Medieval.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/GameTest/Wizard.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/GameTest/sampleGame.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/configs/BaseEditor.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/configs/DialogueSceneEditor.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/configs/Display.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/configs/Editor.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/configs/EditorPane.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/configs/GameEditor.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/configs/InventoryPane.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/configs/MenuPane.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/configs/ResourcePane.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/configs/TitleScreenEditor.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/FullGame.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/One_Level_Game.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/One_Level_Game.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/Test.game.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/Wizard Tower.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/emptygame.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/example _game.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/game.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/game1.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/game2.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/game3.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/myfirstgame" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/mygame.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/name.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/newGame.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/new_game.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/prelim.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/projectile 1" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/projectile.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/sample_gae.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/game_data/something.game" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/resources/tower-defense-games.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/VoogaSalad-CS308/squareTile.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/interfaces/Collidable.java" afterPath="$PROJECT_DIR$/src/interfaces/Collidable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/manager/DialogueManager.java" afterPath="$PROJECT_DIR$/src/player/manager/DialogueManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gae/view/Display.java" afterPath="$PROJECT_DIR$/src/gae/view/Display.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gae/view/editorpane/EditorAdder.java" afterPath="$PROJECT_DIR$/src/gae/view/editorpane/EditorAdder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gae/view/editorpane/EditorPane.java" afterPath="$PROJECT_DIR$/src/gae/view/editorpane/EditorPane.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/code_interfaces/GameAuthoringEnvironment/GameAuthor.java" afterPath="$PROJECT_DIR$/design/code_interfaces/GameAuthoringEnvironment/GameAuthor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/code_interfaces/GamePlayer/GameChooser.java" afterPath="$PROJECT_DIR$/design/code_interfaces/GamePlayer/GameChooser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/GameChooser.java" afterPath="$PROJECT_DIR$/src/player/GameChooser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/code_interfaces/GamePlayer/GameMenu.java" afterPath="$PROJECT_DIR$/design/code_interfaces/GamePlayer/GameMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/GameMenu.java" afterPath="$PROJECT_DIR$/src/player/GameMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gae/view/gameEditor/GameNode.java" afterPath="$PROJECT_DIR$/src/gae/view/gameEditor/GameNode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/code_interfaces/GamePlayer/GamePlay.java" afterPath="$PROJECT_DIR$/design/code_interfaces/GamePlayer/GamePlay.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/code_interfaces/GamePlayer/GameStore.java" afterPath="$PROJECT_DIR$/design/code_interfaces/GamePlayer/GameStore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/GameStore.java" afterPath="$PROJECT_DIR$/src/player/GameStore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/code_interfaces/GamePlayer/GraphicSprites.java" afterPath="$PROJECT_DIR$/design/code_interfaces/GamePlayer/GraphicSprites.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/level/GraphicSprites.java" afterPath="$PROJECT_DIR$/src/player/level/GraphicSprites.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gae/view/gridEditor/GridEditor.java" afterPath="$PROJECT_DIR$/src/gae/view/gridEditor/GridEditor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gae/view/titleScreenEditor/IButton.java" afterPath="$PROJECT_DIR$/src/gae/view/titleScreenEditor/IButton.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/level/LevelInfo.java" afterPath="$PROJECT_DIR$/src/player/level/LevelInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/manager/LevelManager.java" afterPath="$PROJECT_DIR$/src/player/manager/LevelManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/code_interfaces/GamePlayer/LevelPlay.java" afterPath="$PROJECT_DIR$/design/code_interfaces/GamePlayer/LevelPlay.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/level/LevelPlay.java" afterPath="$PROJECT_DIR$/src/player/level/LevelPlay.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gae/view/menupane/MenuAdder.java" afterPath="$PROJECT_DIR$/src/gae/view/menupane/MenuAdder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gae/view/menupane/Menuable.java" afterPath="$PROJECT_DIR$/src/gae/view/menupane/Menuable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/interfaces/MethodAnnotation.java" afterPath="$PROJECT_DIR$/src/interfaces/MethodAnnotation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/manager/NodeManager.java" afterPath="$PROJECT_DIR$/src/player/manager/NodeManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/interfaces/ParameterAnnotation.java" afterPath="$PROJECT_DIR$/src/interfaces/ParameterAnnotation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gae/model/Receiver.java" afterPath="$PROJECT_DIR$/src/gae/model/Receiver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/reflection/Reflection.java" afterPath="$PROJECT_DIR$/src/reflection/Reflection.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gae/view/editorpane/editorComponents/SingleSelectionEditor.java" afterPath="$PROJECT_DIR$/src/gae/view/editorpane/editorComponents/SingleSelectionEditor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/interfaces/SpecialEditorAnnotation.java" afterPath="$PROJECT_DIR$/src/interfaces/SpecialEditorAnnotation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/code_interfaces/game_engine/Sprite.java" afterPath="$PROJECT_DIR$/design/code_interfaces/game_engine/Sprite.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/code_interfaces/GamePlayer/TowerOption.java" afterPath="$PROJECT_DIR$/design/code_interfaces/GamePlayer/TowerOption.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/interfaces/TypeAnnotation.java" afterPath="$PROJECT_DIR$/src/interfaces/TypeAnnotation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/manager/UpdateView.java" afterPath="$PROJECT_DIR$/src/player/manager/UpdateView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gae/view/View.java" afterPath="$PROJECT_DIR$/src/gae/view/View.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/engine/gameLogic/Wave.java" afterPath="$PROJECT_DIR$/src/engine/gameLogic/Wave.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="VoogaSalad-CS308.iws" />
@@ -141,6 +33,13 @@
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
       <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/.gitignore" />
+      </list>
     </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" />
@@ -178,6 +77,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -200,7 +100,6 @@
       </pane>
       <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -505,12 +404,13 @@
       <option name="number" value="Default" />
       <updated>1432274628688</updated>
       <workItem from="1432274632072" duration="1100000" />
-      <workItem from="1432279260103" duration="410000" />
+      <workItem from="1432279260103" duration="826000" />
+      <workItem from="1432287222093" duration="235000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1510000" />
+    <option name="totallyTimeSpent" value="2161000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="724" extended-state="6" />
@@ -520,7 +420,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32911393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -533,13 +433,13 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.50807756" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32911393" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -562,13 +462,11 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/out/production/VoogaSalad-CS308/engine/Controller.class">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#770#0" expanded="true" />
-          </folding>
+          <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -586,13 +484,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/out/production/VoogaSalad-CS308/engine/Controller.class">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44194108">
-          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#770#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.6818182">
+          <caret line="18" column="14" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
