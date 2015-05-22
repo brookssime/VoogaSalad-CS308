@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/xstream-1.4.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/groovy-all-2.4.1-indy.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/groovy-src.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/xstream-src.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/groovy-doc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/xstream-doc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
